@@ -5,7 +5,7 @@ import { Save, Key, Bot, Palette, Globe } from "lucide-react";
 
 export default function ConfigPage() {
   const [apiKey, setApiKey] = useState("");
-  const [model, setModel] = useState("claude-sonnet-4-5");
+  const [model, setModel] = useState("claude-sonnet-4-6");
   const [maxTokens, setMaxTokens] = useState("2000");
   const [persona, setPersona] = useState(
     "Tu es un expert Google Ads senior pour Uplyo. Réponses précises, chiffrées et actionnables en français."
@@ -29,7 +29,7 @@ export default function ConfigPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* IA & API */}
         <div className="card-os">
           <div className="card-os-header">
@@ -68,8 +68,8 @@ export default function ConfigPage() {
                 className="w-full font-mono text-[12px] py-2 px-3 rounded outline-none"
                 style={{ background: "var(--bg3)", border: "1px solid var(--line2)", color: "var(--t)", appearance: "none" }}
               >
-                <option value="claude-sonnet-4-5">Claude Sonnet 4.5 (recommandé)</option>
-                <option value="claude-opus-4-6">Claude Opus 4.6</option>
+                <option value="claude-sonnet-4-6">Claude Sonnet 4.6 (recommandé)</option>
+                <option value="claude-opus-4-6">Claude Opus 4.6 (premium)</option>
                 <option value="claude-haiku-4-5">Claude Haiku 4.5 (rapide)</option>
               </select>
             </div>

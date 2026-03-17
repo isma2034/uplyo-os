@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Play, X, Sparkles, BarChart3, Users, Code2, FileText, Shield, Zap, CheckCircle } from "lucide-react";
 
@@ -16,9 +16,9 @@ const PLANS = [
     features: [
       { ico: "⚡", text: "22+ scripts Google Ads en 1 clic" },
       { ico: "📊", text: "Rapports PDF marque blanche en 2 min" },
-      { ico: "🤖", text: "5 wizards IA avec contexte client (100 req/mois)" },
+      { ico: "🤖", text: "6 wizards IA avec contexte client (10 analyses/mois)" },
       { ico: "🗂️", text: "CRM 10 clients + pipeline + facturation" },
-      { ico: "✅", text: "Audit 30 pts exportable PDF" },
+      { ico: "✅", text: "Analyste Pro — audit + plan 90j depuis CSV GA" },
       { ico: "🔔", text: "Alertes monitoring budgets & CPA" },
       { ico: "⭐", text: "Favoris scripts + historique 50 analyses IA" },
     ],
@@ -37,7 +37,7 @@ const PLANS = [
       { ico: "🔌", text: "API Google Ads — déploiement scripts auto" },
       { ico: "📈", text: "Dashboard multi-comptes centralisé" },
       { ico: "🔔", text: "Alertes anomalies push (Slack / email)" },
-      { ico: "🤖", text: "IA illimitée + contexte client enrichi" },
+      { ico: "🤖", text: "Analyste Pro illimité + IA contexte client enrichi" },
       { ico: "📊", text: "Rapports marque blanche illimités" },
       { ico: "⚙️", text: "API publique + webhooks + Zapier" },
     ],
@@ -64,8 +64,19 @@ const GUIDE_STEPS = [
 ];
 
 export default function OSWelcome() {
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(false);
   const [activeTab, setActiveTab] = useState<"plans" | "guide" | "modules">("plans");
+
+  // Only show on first visit
+  React.useEffect(() => {
+    const dismissed = localStorage.getItem("uplyo-os-welcome-dismissed");
+    if (!dismissed) setShowWelcome(true);
+  }, []);
+
+  const handleDismiss = () => {
+    setShowWelcome(false);
+    localStorage.setItem("uplyo-os-welcome-dismissed", "1");
+  };
 
   if (!showWelcome) return null;
 
@@ -88,7 +99,7 @@ export default function OSWelcome() {
               </p>
             </div>
           </div>
-          <button onClick={() => setShowWelcome(false)} className="p-2 rounded-lg transition-colors hover:bg-[var(--bg4)]" style={{ color: "var(--t3)", border: "none", background: "none", cursor: "pointer" }}>
+          <button onClick={() => handleDismiss()} className="p-2 rounded-lg transition-colors hover:bg-[var(--bg4)]" style={{ color: "var(--t3)", border: "none", background: "none", cursor: "pointer" }}>
             <X size={18} />
           </button>
         </div>
@@ -194,7 +205,7 @@ export default function OSWelcome() {
                   style={{ background: "var(--bg3)", border: "1px solid var(--line2)", color: "var(--t2)" }}>
                   <FileText size={14} /> Demander un devis
                 </button>
-                <button onClick={() => setShowWelcome(false)} className="flex items-center gap-2 px-4 py-3 rounded-lg text-[12px] font-medium transition-all cursor-pointer"
+                <button onClick={() => handleDismiss()} className="flex items-center gap-2 px-4 py-3 rounded-lg text-[12px] font-medium transition-all cursor-pointer"
                   style={{ background: "var(--bg3)", border: "1px solid var(--line2)", color: "var(--t2)" }}>
                   <ArrowRight size={14} /> Explorer le prototype
                 </button>
@@ -206,7 +217,7 @@ export default function OSWelcome() {
           {activeTab === "modules" && (
             <div>
               <p className="text-[13px] mb-6 leading-relaxed" style={{ color: "var(--t2)" }}>
-                13 modules intégrés. Voici les principaux, tous accessibles depuis la sidebar.
+                14 modules intégrés. Voici les principaux, tous accessibles depuis la sidebar.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {MODULES.map((mod) => {
@@ -230,7 +241,7 @@ export default function OSWelcome() {
                   );
                 })}
               </div>
-              <button onClick={() => setShowWelcome(false)} className="w-full mt-5 text-center text-[13px] font-semibold py-2.5 rounded-lg transition-all cursor-pointer"
+              <button onClick={() => handleDismiss()} className="w-full mt-5 text-center text-[13px] font-semibold py-2.5 rounded-lg transition-all cursor-pointer"
                 style={{ background: "var(--eclat)", color: "#0e0f11", border: "none" }}>
                 Explorer tous les modules →
               </button>
@@ -248,7 +259,7 @@ export default function OSWelcome() {
                   <Link
                     key={step.n}
                     href={step.link}
-                    onClick={() => setShowWelcome(false)}
+                    onClick={() => handleDismiss()}
                     className="flex items-start gap-4 px-4 py-3.5 rounded-lg transition-all no-underline group hover:bg-[var(--bg4)]"
                     style={{ background: "var(--bg3)", border: "1px solid var(--line)" }}
                   >
@@ -270,7 +281,7 @@ export default function OSWelcome() {
                   </Link>
                 ))}
               </div>
-              <button onClick={() => setShowWelcome(false)} className="w-full mt-5 text-center text-[13px] font-semibold py-2.5 rounded-lg transition-all cursor-pointer"
+              <button onClick={() => handleDismiss()} className="w-full mt-5 text-center text-[13px] font-semibold py-2.5 rounded-lg transition-all cursor-pointer"
                 style={{ background: "var(--eclat)", color: "#0e0f11", border: "none" }}>
                 C&apos;est parti ! →
               </button>

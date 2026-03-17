@@ -18,8 +18,11 @@ const METRICS = [
 export default function AnalyticsPage() {
   const [period, setPeriod] = useState("30j");
 
-  // Fake chart bars
-  const bars = Array.from({ length: 30 }, (_, i) => 20 + Math.random() * 80);
+  // Deterministic chart bars (seeded)
+  const bars = Array.from({ length: 30 }, (_, i) => {
+    const seed = (i * 7 + 13) % 100;
+    return 20 + ((seed * 3 + i * 5) % 60) + (i > 20 ? 15 : 0);
+  });
 
   return (
     <div>
@@ -53,7 +56,7 @@ export default function AnalyticsPage() {
 
       {/* KPI Grid */}
       <div
-        className="grid grid-cols-4 gap-px rounded-[7px] overflow-hidden mb-6"
+        className="grid grid-cols-2 md:grid-cols-4 gap-px rounded-[7px] overflow-hidden mb-6"
         style={{ background: "var(--line)", border: "1px solid var(--line)" }}
       >
         {METRICS.map((m, i) => (
@@ -68,7 +71,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Chart */}
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div className="card-os">
           <div className="card-os-header">
             <span className="font-mono text-[11px] font-medium" style={{ color: "var(--t)" }}>

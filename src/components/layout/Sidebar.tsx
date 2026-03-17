@@ -10,6 +10,8 @@ import {
   Code2,
   Receipt,
   Settings,
+  Bell,
+  FileText,
   type LucideIcon,
 } from "lucide-react";
 import { OS_NAV } from "@/lib/data";
@@ -23,6 +25,8 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Code2,
   Receipt,
   Settings,
+  Bell,
+  FileText,
 };
 
 export default function Sidebar() {
@@ -30,7 +34,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className="fixed left-0 top-0 bottom-0 w-[252px] flex flex-col z-[100] overflow-y-auto"
+      className="fixed left-0 top-0 bottom-0 w-[252px] flex flex-col z-[100] overflow-y-auto hidden md:flex"
       style={{
         background: "var(--bg2)",
         borderRight: "1px solid var(--line)",
@@ -105,7 +109,7 @@ export default function Sidebar() {
           color: "var(--t3)",
         }}
       >
-        <span style={{ color: "var(--eclat)" }}>Uplyo OS</span> v0.1.0-prototype
+        <span style={{ color: "var(--eclat)" }}>Uplyo OS</span> v2.0-beta
         <br />
         Built with Next.js + Tailwind
       </div>

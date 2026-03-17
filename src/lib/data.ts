@@ -166,6 +166,16 @@ export const WIZARDS: WizardConfig[] = [
     placeholder: "Coller les métriques : impressions, clics, CPA, conversions, budget dépensé…",
     runLabel: "Rédiger le rapport",
   },
+  {
+    id: "landing",
+    icon: "🌐",
+    title: "Analyseur Landing Page",
+    description: "Évalue la pertinence de votre landing page vs vos annonces et mots-clés.",
+    badge: "LP",
+    inputLabel: "URL de la landing page + mots-clés ciblés",
+    placeholder: "Ex: https://monsite.fr/offre — mots-clés : plombier paris, dépannage urgent…",
+    runLabel: "Analyser la LP",
+  },
 ];
 
 // ═══════════════════════════════════════════
@@ -177,7 +187,7 @@ export const OS_NAV: NavSection[] = [
     title: "Principal",
     items: [
       { id: "dashboard", label: "Dashboard", icon: "LayoutDashboard", href: "/os" },
-      { id: "clients", label: "CRM Clients", icon: "Users", href: "/os/clients", badge: 5 },
+      { id: "clients", label: "CRM Clients", icon: "Users", href: "/os/clients" },
       { id: "analytics", label: "Analytics", icon: "BarChart3", href: "/os/analytics" },
     ],
   },
@@ -185,12 +195,15 @@ export const OS_NAV: NavSection[] = [
     title: "Outils IA",
     items: [
       { id: "ai-wizards", label: "AI Wizards", icon: "Sparkles", href: "/os/ai-wizards", badge: "IA" },
+      { id: "analyste", label: "Analyste Pro", icon: "Sparkles", href: "/os/analyste-pro", badge: "PRO" },
       { id: "scripts", label: "Scripts Library", icon: "Code2", href: "/os/scripts" },
+      { id: "reports", label: "Rapports WL", icon: "FileText", href: "/os/reports" },
     ],
   },
   {
     title: "Gestion",
     items: [
+      { id: "alerts", label: "Alertes", icon: "Bell", href: "/os/alerts" },
       { id: "invoices", label: "Facturation", icon: "Receipt", href: "/os/invoices" },
       { id: "config", label: "Configuration", icon: "Settings", href: "/os/config" },
     ],

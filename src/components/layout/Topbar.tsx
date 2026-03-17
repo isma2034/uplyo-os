@@ -8,14 +8,17 @@ const TITLES: Record<string, string> = {
   "/os/clients": "CRM Clients",
   "/os/analytics": "Analytics",
   "/os/ai-wizards": "AI Wizards",
+  "/os/analyste-pro": "Analyste Pro",
   "/os/scripts": "Scripts Library",
+  "/os/reports": "Rapports WL",
+  "/os/alerts": "Alertes & Monitoring",
   "/os/invoices": "Facturation",
   "/os/config": "Configuration",
 };
 
 export default function Topbar() {
   const pathname = usePathname();
-  const title = TITLES[pathname] || "Dashboard";
+  const title = TITLES[pathname] || Object.entries(TITLES).find(([k]) => k !== "/os" && pathname.startsWith(k))?.[1] || "Dashboard";
 
   return (
     <header

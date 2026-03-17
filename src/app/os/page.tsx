@@ -34,7 +34,7 @@ export default function OSDashboard() {
 
       {/* KPI Grid */}
       <div
-        className="grid grid-cols-4 gap-px rounded-[7px] overflow-hidden mb-6"
+        className="grid grid-cols-2 md:grid-cols-4 gap-px rounded-[7px] overflow-hidden mb-6"
         style={{ background: "var(--line)", border: "1px solid var(--line)" }}
       >
         {DASHBOARD_KPIS.map((kpi, i) => (
@@ -51,7 +51,7 @@ export default function OSDashboard() {
       </div>
 
       {/* Two columns */}
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Client List */}
         <div className="col-span-2 card-os">
           <div className="card-os-header">
@@ -104,10 +104,12 @@ export default function OSDashboard() {
             </div>
             <div className="card-os-body space-y-2">
               {[
+                { label: "🔬 Analyste Pro", href: "/os/analyste-pro", desc: "Audit IA + plan 90j" },
                 { label: "🤖 AI Wizards", href: "/os/ai-wizards", desc: "Audit, copy, ROAS…" },
+                { label: "📋 Rapports WL", href: "/os/reports", desc: "PDF marque blanche" },
+                { label: "🔔 Alertes", href: "/os/alerts", desc: "Monitoring comptes" },
+                { label: "⚡ Scripts Library", href: "/os/scripts", desc: "16 automatisations" },
                 { label: "📊 Analytics", href: "/os/analytics", desc: "Performances cross-compte" },
-                { label: "📋 Nouveau rapport", href: "/os/ai-wizards", desc: "Générer via IA" },
-                { label: "⚡ Scripts Library", href: "/os/scripts", desc: "Automatisations" },
               ].map((s) => (
                 <Link
                   key={s.href + s.label}

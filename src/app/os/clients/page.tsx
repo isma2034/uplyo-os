@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { CLIENTS, STATUT_LABELS, STATUT_COLORS } from "@/lib/data";
 import { Search, Filter, Plus } from "lucide-react";
 
@@ -41,7 +42,7 @@ export default function ClientsPage() {
 
       {/* KPI strip */}
       <div
-        className="grid grid-cols-4 gap-px rounded-[7px] overflow-hidden mb-6"
+        className="grid grid-cols-2 md:grid-cols-4 gap-px rounded-[7px] overflow-hidden mb-6"
         style={{ background: "var(--line)", border: "1px solid var(--line)" }}
       >
         {[
@@ -98,10 +99,11 @@ export default function ClientsPage() {
       {/* Client list */}
       <div className="card-os">
         {filtered.map((client, idx) => (
-          <div
+          <Link
             key={client.id}
-            className="flex items-start gap-4 px-5 py-4 transition-colors hover:bg-[var(--bg3)] cursor-pointer"
-            style={{ borderBottom: idx < filtered.length - 1 ? "1px solid var(--line)" : "none" }}
+            href={`/os/clients/${client.id}`}
+            className="flex items-start gap-4 px-5 py-4 transition-colors hover:bg-[var(--bg3)] cursor-pointer no-underline"
+            style={{ borderBottom: idx < filtered.length - 1 ? "1px solid var(--line)" : "none", display: "flex" }}
           >
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
@@ -158,15 +160,14 @@ export default function ClientsPage() {
               </div>
             </div>
 
-            <div className="flex gap-1.5 shrink-0 flex-wrap justify-end">
-              <button className="btn-os text-[10px]" style={{ background: "rgba(108,92,231,0.1)", color: "var(--eclat)" }}>
+            <div className="flex gap-1.5 shrink-0 flex-wrap justify-end" onClick={(e) => e.preventDefault()}>
+              <span className="btn-os text-[10px]" style={{ background: "rgba(108,92,231,0.1)", color: "var(--eclat)" }}>
                 🤖 IA
-              </button>
-              <button className="btn-os text-[10px]">📊 Rapport</button>
-              <button className="btn-os text-[10px]">🔔 Alertes</button>
-              <button className="btn-os text-[10px]">✏️</button>
+              </span>
+              <span className="btn-os text-[10px]">📊 Rapport</span>
+              <span className="btn-os text-[10px]">🔔 Alertes</span>
             </div>
-          </div>
+          </Link>
         ))}
 
         {filtered.length === 0 && (

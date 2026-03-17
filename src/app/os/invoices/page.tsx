@@ -4,12 +4,12 @@ import { useState } from "react";
 import { Plus, Eye, Download } from "lucide-react";
 
 const INVOICES = [
-  { id: "INV-2025-001", client: "BioMarket", date: "01/03/2025", echeance: "31/03/2025", montant: 2500, statut: "payee" },
-  { id: "INV-2025-002", client: "TechFlow SaaS", date: "01/03/2025", echeance: "31/03/2025", montant: 1200, statut: "envoyee" },
-  { id: "INV-2025-003", client: "FitZone", date: "01/03/2025", echeance: "31/03/2025", montant: 600, statut: "envoyee" },
-  { id: "INV-2025-004", client: "BioMarket", date: "01/02/2025", echeance: "28/02/2025", montant: 2500, statut: "payee" },
-  { id: "INV-2025-005", client: "TechFlow SaaS", date: "01/02/2025", echeance: "28/02/2025", montant: 1200, statut: "payee" },
-  { id: "INV-2025-006", client: "Immo Premium", date: "20/01/2025", echeance: "20/02/2025", montant: 800, statut: "retard" },
+  { id: "INV-2026-001", client: "BioMarket", date: "01/03/2026", echeance: "31/03/2026", montant: 2500, statut: "payee" },
+  { id: "INV-2026-002", client: "TechFlow SaaS", date: "01/03/2026", echeance: "31/03/2026", montant: 1200, statut: "envoyee" },
+  { id: "INV-2026-003", client: "FitZone", date: "01/03/2026", echeance: "31/03/2026", montant: 600, statut: "envoyee" },
+  { id: "INV-2026-004", client: "BioMarket", date: "01/02/2026", echeance: "28/02/2026", montant: 2500, statut: "payee" },
+  { id: "INV-2026-005", client: "TechFlow SaaS", date: "01/02/2026", echeance: "28/02/2026", montant: 1200, statut: "payee" },
+  { id: "INV-2026-006", client: "Immo Premium", date: "20/01/2026", echeance: "20/02/2026", montant: 800, statut: "retard" },
 ];
 
 const STATUT_STYLE: Record<string, string> = {
@@ -50,7 +50,7 @@ export default function InvoicesPage() {
 
       {/* KPI */}
       <div
-        className="grid grid-cols-4 gap-px rounded-[7px] overflow-hidden mb-6"
+        className="grid grid-cols-2 md:grid-cols-4 gap-px rounded-[7px] overflow-hidden mb-6"
         style={{ background: "var(--line)", border: "1px solid var(--line)" }}
       >
         {[
