@@ -197,6 +197,7 @@ export const OS_NAV: NavSection[] = [
       { id: "ai-wizards", label: "AI Wizards", icon: "Sparkles", href: "/os/ai-wizards", badge: "IA" },
       { id: "analyste", label: "Analyste Pro", icon: "Sparkles", href: "/os/analyste-pro", badge: "PRO" },
       { id: "scripts", label: "Scripts Library", icon: "Code2", href: "/os/scripts" },
+      { id: "structures", label: "Structures GA", icon: "Code2", href: "/os/structures" },
       { id: "reports", label: "Rapports WL", icon: "FileText", href: "/os/reports" },
     ],
   },

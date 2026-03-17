@@ -1,38 +1,69 @@
-# Uplyo OS — v2.0-beta
+# Uplyo OS — v5.0
 
-> L'OS des experts Google Ads — Agence + SaaS B2B
+> **L'OS des experts Google Ads** — Agence + SaaS B2B  
+> Stack: Next.js 14 · Tailwind CSS 3.4 · Lucide · API Anthropic Claude
 
-## Stack
-- **Framework** : Next.js 14 (App Router)
-- **Styles** : Tailwind CSS 3.4 + CSS Design Tokens
-- **Typo** : DM Sans / DM Mono
-- **Icons** : Lucide React
-- **IA** : API Anthropic Claude (Analyste Pro + AI Wizards)
+---
+
+## Installation rapide (5 minutes)
+
+### Prérequis
+
+- **Node.js** >= 18.17 (recommandé: v20 LTS ou v24)
+- **npm** >= 9 (inclus avec Node.js)
+- Un éditeur: VS Code recommandé (extensions incluses dans `.vscode/`)
+
+### 1. Décompresser et installer
+
+```bash
+unzip uplyo-os-v5.zip -d uplyo-os
+cd uplyo-os
+npm install
+```
+
+### 2. Configurer
+
+```bash
+cp .env.example .env.local
+# Edite .env.local avec ta clé API Anthropic
+```
+
+### 3. Lancer
+
+```bash
+npm run dev
+# -> http://localhost:3000     (landing agency)
+# -> http://localhost:3000/os  (Uplyo OS)
+```
+
+### 4. Builder pour la production
+
+```bash
+npm run build
+npm run start
+```
+
+---
 
 ## Pages (12 routes)
 
-### Agency (landing)
-- `/` — Landing page agence (hero, offres, méthode, témoignages, FAQ, contact)
+| Route | Page | État |
+|-------|------|------|
+| `/` | Landing Agency | Complet |
+| `/os` | Dashboard | Complet |
+| `/os/clients` | CRM Clients | Complet |
+| `/os/clients/[id]` | Fiche Client | Nouveau v5 |
+| `/os/analyste-pro` | Analyste Pro IA | Nouveau v5 |
+| `/os/ai-wizards` | AI Wizards (7) | Complet |
+| `/os/scripts` | Scripts Library (16) | Enrichi v5 |
+| `/os/reports` | Rapports WL | Nouveau v5 |
+| `/os/alerts` | Alertes & Monitoring | Nouveau v5 |
+| `/os/analytics` | Analytics | Fixé v5 |
+| `/os/invoices` | Facturation | Fixé v5 |
+| `/os/config` | Configuration | Fixé v5 |
 
-### Uplyo OS (SaaS)
-- `/os` — Dashboard (KPIs, derniers clients, raccourcis)
-- `/os/clients` — CRM Clients (recherche, filtres, liste)
-- `/os/clients/[id]` — Fiche client détaillée (overview, performance 30j, historique)
-- `/os/analytics` — Analytics cross-compte
-- `/os/analyste-pro` — Analyste Pro (audit IA, plan 90j, workload, scripts)
-- `/os/ai-wizards` — AI Wizards (7 assistants IA)
-- `/os/scripts` — Scripts Library (16 scripts, clipboard copy)
-- `/os/reports` — Rapports Marque Blanche (5 templates)
-- `/os/alerts` — Alertes et Monitoring (fil + règles)
-- `/os/invoices` — Facturation
-- `/os/config` — Configuration
-
-## Installation
-
-```bash
-npm install
-npm run dev
-```
+---
 
 ## Licence
-Propriétaire — Uplyo · Tous droits réservés
+
+Propriétaire — Uplyo — Tous droits réservés — 2026

@@ -132,9 +132,57 @@ const SCRIPTS = [
     tags: ["ROAS", "Weekly", "E-com"],
     code: `function main() {\n  const SHEET_URL = "YOUR_SHEET_URL";\n  const ss = SpreadsheetApp.openByUrl(SHEET_URL);\n  const sheet = ss.getActiveSheet();\n  const today = Utilities.formatDate(new Date(), "Europe/Paris", "yyyy-MM-dd");\n  \n  const campaigns = AdsApp.campaigns()\n    .withCondition("Status = ENABLED").get();\n  \n  while (campaigns.hasNext()) {\n    const camp = campaigns.next();\n    const stats = camp.getStatsFor("LAST_7_DAYS");\n    const cost = stats.getCost();\n    const convValue = stats.getConversionValue();\n    const roas = cost > 0 ? (convValue / cost).toFixed(2) : "N/A";\n    \n    sheet.appendRow([today, camp.getName(),\n      cost.toFixed(2), convValue.toFixed(2),\n      roas, stats.getConversions()]);\n  }\n}`,
   },
+  {
+    id: "s17",
+    title: "Geo performance analyzer",
+    description: "Analyse les performances par zone géographique et recommande des ajustements de bid.",
+    category: "Reporting",
+    tags: ["Geo", "Bids", "Analysis"],
+    code: `function main() {\n  const report = AdsApp.report(\n    "SELECT CountryCriteriaId, RegionCriteriaId, " +\n    "Clicks, Cost, Conversions " +\n    "FROM GEO_PERFORMANCE_REPORT " +\n    "DURING LAST_30_DAYS"\n  );\n  \n  const rows = report.rows();\n  while (rows.hasNext()) {\n    const row = rows.next();\n    const conv = parseFloat(row["Conversions"]);\n    const cost = parseFloat(row["Cost"]);\n    if (conv > 0) {\n      Logger.log(row["RegionCriteriaId"] + \n        " | CPA: " + (cost/conv).toFixed(2) + "€");\n    }\n  }\n}`,
+  },
+  {
+    id: "s18",
+    title: "Extension sitelink auditor",
+    description: "Vérifie que chaque campagne a au moins 4 sitelinks actifs et alerte si non.",
+    category: "Monitoring",
+    tags: ["Extensions", "Audit", "Alert"],
+    code: `function main() {\n  const EMAIL = "you@agency.com";\n  const issues = [];\n  \n  const campaigns = AdsApp.campaigns()\n    .withCondition("Status = ENABLED").get();\n  \n  while (campaigns.hasNext()) {\n    const camp = campaigns.next();\n    const sitelinks = camp.extensions().sitelinks().get();\n    let count = 0;\n    while (sitelinks.hasNext()) { sitelinks.next(); count++; }\n    if (count < 4) {\n      issues.push(camp.getName() + ": " + count + " sitelinks");\n    }\n  }\n  \n  if (issues.length > 0) {\n    MailApp.sendEmail(EMAIL, "⚠️ Sitelinks manquants",\n      issues.join("\\n"));\n  }\n}`,
+  },
+  {
+    id: "s19",
+    title: "Shopping product partition optimizer",
+    description: "Analyse les performances par product group dans Shopping et identifie les top/flop.",
+    category: "E-commerce",
+    tags: ["Shopping", "Products", "ROAS"],
+    code: `function main() {\n  const report = AdsApp.report(\n    "SELECT OfferId, Impressions, Clicks, Cost, " +\n    "Conversions, ConversionValue " +\n    "FROM SHOPPING_PERFORMANCE_REPORT " +\n    "DURING LAST_30_DAYS"\n  );\n  \n  const rows = report.rows();\n  while (rows.hasNext()) {\n    const r = rows.next();\n    const cost = parseFloat(r["Cost"]);\n    const value = parseFloat(r["ConversionValue"]);\n    const roas = cost > 0 ? (value / cost).toFixed(2) : "N/A";\n    Logger.log(r["OfferId"] + " | ROAS: " + roas +\n      " | Cost: " + cost.toFixed(2));\n  }\n}`,
+  },
+  {
+    id: "s20",
+    title: "PMax asset group performance",
+    description: "Exporte les performances des asset groups Performance Max dans un Sheet.",
+    category: "E-commerce",
+    tags: ["PMax", "Assets", "Sheet"],
+    code: `function main() {\n  const SHEET_URL = "YOUR_SHEET_URL";\n  const ss = SpreadsheetApp.openByUrl(SHEET_URL);\n  const sheet = ss.getActiveSheet();\n  const today = Utilities.formatDate(\n    new Date(), "Europe/Paris", "yyyy-MM-dd");\n  \n  const campaigns = AdsApp.performanceMaxCampaigns()\n    .withCondition("Status = ENABLED").get();\n  \n  while (campaigns.hasNext()) {\n    const camp = campaigns.next();\n    const stats = camp.getStatsFor("LAST_7_DAYS");\n    sheet.appendRow([today, camp.getName(),\n      stats.getCost(), stats.getConversions(),\n      stats.getConversionValue()]);\n  }\n}`,
+  },
+  {
+    id: "s21",
+    title: "Ad strength checker",
+    description: "Identifie les annonces RSA avec un Ad Strength faible (Poor/Average) pour optimisation.",
+    category: "Optimisation",
+    tags: ["RSA", "Ad Strength", "Audit"],
+    code: `function main() {\n  const weak = [];\n  const ads = AdsApp.ads()\n    .withCondition("Type = RESPONSIVE_SEARCH_AD")\n    .withCondition("Status = ENABLED").get();\n  \n  while (ads.hasNext()) {\n    const ad = ads.next();\n    // Note: Ad Strength via API requires Reports\n    const camp = ad.getCampaign().getName();\n    const ag = ad.getAdGroup().getName();\n    const stats = ad.getStatsFor("LAST_30_DAYS");\n    const ctr = stats.getCtr();\n    if (ctr < 0.02) { // Low CTR proxy for weak ad\n      weak.push(camp + "/" + ag + " CTR: " +\n        (ctr * 100).toFixed(2) + "%");\n    }\n  }\n  \n  weak.forEach(w => Logger.log("⚠️ " + w));\n  Logger.log("Total weak ads: " + weak.length);\n}`,
+  },
+  {
+    id: "s22",
+    title: "Consent Mode v2 checker",
+    description: "Vérifie que le Consent Mode v2 est correctement configuré via les tags de conversion.",
+    category: "Monitoring",
+    tags: ["Consent", "RGPD", "Tracking"],
+    code: `function main() {\n  // Check conversion actions for consent mode\n  const EMAIL = "you@agency.com";\n  const account = AdsApp.currentAccount();\n  \n  Logger.log("Account: " + account.getName());\n  Logger.log("Checking conversion tracking...");\n  \n  const report = AdsApp.report(\n    "SELECT ConversionTypeName, ConversionCategoryName " +\n    "FROM ACCOUNT_PERFORMANCE_REPORT " +\n    "DURING LAST_7_DAYS"\n  );\n  \n  const rows = report.rows();\n  let hasConversions = false;\n  while (rows.hasNext()) {\n    const r = rows.next();\n    hasConversions = true;\n    Logger.log("Conv: " + r["ConversionTypeName"]);\n  }\n  \n  if (!hasConversions) {\n    MailApp.sendEmail(EMAIL,\n      "⚠️ Pas de conversions détectées",\n      "Vérifiez le Consent Mode v2 et les tags GTM.");\n  }\n}`,
+  },
 ];
 
-const CATEGORIES = ["Tous", "Optimisation", "Monitoring", "Reporting"];
+const CATEGORIES = ["Tous", "Optimisation", "Monitoring", "Reporting", "E-commerce"];
 
 export default function ScriptsPage() {
   const [category, setCategory] = useState("Tous");

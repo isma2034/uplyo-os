@@ -19,9 +19,9 @@ const PAINS = [
 ];
 
 const SERVICES = [
-  { tag: "LANCEMENT", title: "Pack Lancement", desc: "Audit complet, structure from scratch, tracking GA4 + Consent Mode v2, dashboard Looker Studio. En ligne en 5 jours.", items: ["Audit marché & concurrence", "Structure campagnes optimale", "Tracking GA4 + conversions", "Dashboard Looker Studio", "Briefing stratégique"], from: "À PARTIR DE", price: "990€", note: "one-shot · go-live J5", featured: false },
-  { tag: "PILOTAGE", title: "Retainer Mensuel", desc: "Optimisation continue, enchères, A/B tests, scripts d'automation, rapports hebdo. Votre expert dédié.", items: ["Optimisation enchères & budgets", "A/B tests annonces continu", "Scripts d'automation déployés", "Rapports hebdo + mensuel", "Account manager dédié", "Appel stratégique mensuel"], from: "À PARTIR DE", price: "690€", note: "/mois · engagement 6 mois", featured: true },
-  { tag: "E-COMMERCE", title: "Pack E-commerce", desc: "Shopping, Performance Max, feed optimization, ROAS tracking avancé. Pour les boutiques qui veulent scaler.", items: ["Google Shopping optimisé", "Performance Max structuré", "Feed produit optimisé", "ROAS tracking avancé", "Segmentation audiences"], from: "À PARTIR DE", price: "1 290€", note: "/mois · adapté au volume", featured: false },
+  { tag: "LANCEMENT", title: "Pack Lancement", desc: "Audit complet, structure from scratch, tracking GA4 + Consent Mode v2, dashboard Looker Studio. En ligne en 5 jours.", items: ["Audit marché & concurrence", "Structure campagnes optimale", "Tracking GA4 + conversions", "Dashboard Looker Studio", "Briefing stratégique"], from: "À PARTIR DE", price: "2 000€", note: "one-shot · go-live J5", featured: false, href: "/offres/pack-lancement" },
+  { tag: "PILOTAGE", title: "Retainer Mensuel", desc: "Optimisation continue, enchères, A/B tests, scripts d'automation, rapports hebdo. Votre expert dédié.", items: ["Optimisation enchères & budgets", "A/B tests annonces continu", "Scripts d'automation déployés", "Rapports hebdo + mensuel", "Account manager dédié", "Appel stratégique mensuel"], from: "À PARTIR DE", price: "500€", note: "/mois · engagement 6 mois", featured: true, href: "/offres/retainer" },
+  { tag: "E-COMMERCE", title: "Pack E-commerce", desc: "Shopping, Performance Max, feed optimization, ROAS tracking avancé. Pour les boutiques qui veulent scaler.", items: ["Google Shopping optimisé", "Performance Max structuré", "Feed produit optimisé", "ROAS tracking avancé", "Segmentation audiences"], from: "À PARTIR DE", price: "2 000€", note: "/mois · adapté au volume", featured: false, href: "/offres/ecommerce" },
 ];
 
 const STEPS = [
@@ -71,7 +71,7 @@ export default function AgencyPage() {
             </h1>
             <p className="text-[15px] md:text-[17px] text-ink-2 leading-relaxed mb-9 max-w-[480px] font-light">Nous gérons vos campagnes Google Ads avec une approche <strong className="text-ink font-medium">data-driven</strong>. Résultats mesurables, reporting transparent, croissance durable.</p>
             <div className="flex gap-3 flex-wrap mb-8">
-              <button className="btn-primary text-sm md:text-base">Réserver un appel découverte →</button>
+              <Link href="/contact" className="btn-primary text-sm md:text-base no-underline">Réserver un appel découverte →</Link>
               <Link href="#services" className="btn-outline no-underline text-sm md:text-base">Voir les offres</Link>
             </div>
             <div className="flex items-center gap-3 md:gap-5 flex-wrap">
@@ -164,7 +164,7 @@ export default function AgencyPage() {
                     <div className={`text-[1.7rem] md:text-[1.9rem] font-semibold tracking-tight ${svc.featured ? "text-white" : "text-ink"}`}>{svc.price}</div>
                     <div className={`text-xs mt-0.5 font-light ${svc.featured ? "text-white/30" : "text-ink-3"}`}>{svc.note}</div>
                   </div>
-                  <button className="w-full text-center bg-eclat text-white text-sm font-semibold py-3 rounded-lg transition-colors hover:bg-eclat-hover border-none cursor-pointer">{svc.featured ? "Démarrer maintenant →" : "En savoir plus →"}</button>
+                  <Link href={svc.href} className="w-full text-center bg-eclat text-white text-sm font-semibold py-3 rounded-lg transition-colors hover:bg-eclat-hover border-none cursor-pointer block no-underline">{svc.featured ? "Démarrer maintenant →" : "En savoir plus →"}</Link>
                 </div>
               </Reveal>
             ))}
@@ -228,7 +228,7 @@ export default function AgencyPage() {
             <h2 className="text-[clamp(1.8rem,4.5vw,4rem)] font-semibold text-white leading-[1.02] tracking-[-1.5px] mb-5">Réservez votre audit<br />gratuit en 60 secondes.</h2>
             <p className="text-[15px] md:text-[17px] text-white/65 max-w-[480px] mx-auto mb-8 md:mb-10 leading-relaxed font-light">30 minutes avec notre expert. Analyse de votre compte ou de votre marché. Sans engagement.</p>
             <div className="flex gap-3 md:gap-4 justify-center flex-wrap mb-8">
-              <button className="inline-flex items-center gap-2 bg-white text-eclat text-[14px] md:text-[15px] font-semibold px-6 md:px-8 py-[13px] md:py-[15px] rounded-lg border-none cursor-pointer transition-all hover:bg-lune hover:-translate-y-0.5">📅 Choisir mon créneau →</button>
+              <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-eclat text-[14px] md:text-[15px] font-semibold px-6 md:px-8 py-[13px] md:py-[15px] rounded-lg border-none cursor-pointer transition-all hover:bg-lune hover:-translate-y-0.5 no-underline">📅 Choisir mon créneau →</Link>
               <a href="mailto:contact@uplyo.fr" className="inline-flex items-center gap-2 bg-white/10 text-white text-[14px] md:text-[15px] px-6 md:px-8 py-[13px] md:py-[15px] rounded-lg no-underline border border-white/20 transition-all hover:bg-white/[0.18]">contact@uplyo.fr</a>
             </div>
             <div className="flex gap-4 md:gap-8 justify-center flex-wrap">
@@ -294,13 +294,13 @@ export default function AgencyPage() {
               <p className="text-[13px] text-white/25 leading-relaxed max-w-[240px] mb-5 font-light">Agence Google Ads performance & Uplyo OS, le SaaS pour agences et freelances.</p>
               <div className="font-mono text-[10px] text-white/[0.18] flex items-center gap-1.5"><span className="text-eclat">◆</span>Google Ads Certified · GA4 · Looker Studio</div>
             </div>
-            <div><div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Agence</div><div className="flex flex-col gap-1.5">{["Pack Lancement", "Pilotage mensuel", "Pack E-commerce", "Méthode 5 jours"].map((l) => (<span key={l} className="text-[13px] text-white/35 font-light cursor-pointer hover:text-aura transition-colors">{l}</span>))}</div></div>
+            <div><div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Agence</div><div className="flex flex-col gap-1.5"><Link href="/offres/pack-lancement" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Pack Lancement</Link><Link href="/offres/retainer" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Pilotage mensuel</Link><Link href="/offres/ecommerce" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Pack E-commerce</Link><Link href="/contact" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Contact</Link></div></div>
             <div><div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Uplyo OS</div><div className="flex flex-col gap-1.5">{["Fonctionnalités", "Tarifs", "Accès beta"].map((l) => (<Link key={l} href="/os" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">{l}</Link>))}</div></div>
             <div><div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Contact</div><div className="flex flex-col gap-1.5"><a href="mailto:contact@uplyo.fr" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">contact@uplyo.fr</a><span className="text-[13px] text-white/35 font-light cursor-pointer hover:text-aura transition-colors">Réserver un audit</span><a href="https://linkedin.com/company/uplyo" target="_blank" rel="noopener" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">LinkedIn</a></div></div>
           </div>
           <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="font-mono text-[11px] text-white/[0.18]">© 2025 <span className="text-eclat">Uplyo</span> · Tous droits réservés</div>
-            <div className="flex gap-4 md:gap-6">{["Mentions légales", "Confidentialité", "CGV"].map((l) => (<span key={l} className="text-[11px] text-white/[0.18] cursor-pointer hover:text-white/45 transition-colors">{l}</span>))}</div>
+            <div className="font-mono text-[11px] text-white/[0.18]">© 2026 <span className="text-eclat">Uplyo</span> · Tous droits réservés</div>
+            <div className="flex gap-4 md:gap-6"><Link href="/mentions-legales" className="text-[11px] text-white/[0.18] no-underline hover:text-white/45 transition-colors">Mentions légales</Link><Link href="/confidentialite" className="text-[11px] text-white/[0.18] no-underline hover:text-white/45 transition-colors">Confidentialité</Link><Link href="/cgv" className="text-[11px] text-white/[0.18] no-underline hover:text-white/45 transition-colors">CGV</Link></div>
           </div>
         </div>
       </footer>

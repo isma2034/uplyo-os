@@ -43,9 +43,9 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <button className="hidden md:block bg-eclat text-white text-[13px] font-semibold px-[22px] py-[10px] rounded-lg border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px">
+        <Link href="/contact" className="hidden md:block bg-eclat text-white text-[13px] font-semibold px-[22px] py-[10px] rounded-lg border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px no-underline">
           Réserver un audit →
-        </button>
+        </Link>
 
         {/* Mobile hamburger */}
         <button
@@ -61,38 +61,20 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="fixed inset-0 top-[68px] bg-white z-[190] p-8 flex flex-col gap-4 border-t border-[var(--bd)] md:hidden">
+        <div className="fixed inset-0 top-[68px] bg-white z-[190] p-8 flex flex-col gap-4 border-t border-[var(--bd)] md:hidden overflow-y-auto">
+          <Link href="/" onClick={() => setMobileOpen(false)} className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]">Agence</Link>
+          <Link href="/offres/pack-lancement" onClick={() => setMobileOpen(false)} className="text-[15px] text-ink-2 no-underline py-1.5 pl-4">Pack Lancement</Link>
+          <Link href="/offres/retainer" onClick={() => setMobileOpen(false)} className="text-[15px] text-ink-2 no-underline py-1.5 pl-4">Pilotage mensuel</Link>
+          <Link href="/offres/ecommerce" onClick={() => setMobileOpen(false)} className="text-[15px] text-ink-2 no-underline py-1.5 pl-4 border-b border-[var(--bd)] pb-3">Pack E-commerce</Link>
+          <Link href="/os" onClick={() => setMobileOpen(false)} className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]">Uplyo OS</Link>
+          <Link href="/contact" onClick={() => setMobileOpen(false)} className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]">Contact</Link>
           <Link
-            href="/"
+            href="/contact"
             onClick={() => setMobileOpen(false)}
-            className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]"
+            className="bg-eclat text-white text-[15px] font-semibold py-3 px-6 rounded-lg border-none cursor-pointer mt-4 w-full no-underline text-center block"
           >
-            Agence
-          </Link>
-          <Link
-            href="/os"
-            onClick={() => setMobileOpen(false)}
-            className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]"
-          >
-            Uplyo OS
-          </Link>
-          <a
-            href="#services"
-            onClick={() => setMobileOpen(false)}
-            className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]"
-          >
-            Nos offres
-          </a>
-          <a
-            href="#contact"
-            onClick={() => setMobileOpen(false)}
-            className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]"
-          >
-            Contact
-          </a>
-          <button className="bg-eclat text-white text-[15px] font-semibold py-3 px-6 rounded-lg border-none cursor-pointer mt-4 w-full">
             Réserver un audit →
-          </button>
+          </Link>
         </div>
       )}
     </>
