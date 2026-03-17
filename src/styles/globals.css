@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   UPLYO — Global Design Tokens & Base Styles
+   ═══════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    /* Brand */
+    --eclat: #6C5CE7;
+    --eclat-h: #5A4BD1;
+    --aura: #A29BFE;
+    --spark: #FDCB6E;
+    --nuit: #1A1040;
+    --ombre: #2D2B55;
+    --lune: #F5F3FF;
+    --lune2: #EBE8FF;
+
+    /* Surfaces (light/agency) */
+    --w: #FEFEFF;
+    --w2: #F8F7FF;
+    --ink: #0D0B1A;
+    --ink2: #3D3B5C;
+    --ink3: #7C7A9A;
+    --bd: rgba(108, 92, 231, 0.12);
+    --bd2: rgba(108, 92, 231, 0.22);
+
+    /* Semantic */
+    --green: #22C55E;
+    --red: #EF4444;
+    --amber: #F59E0B;
+    --blue: #3B82F6;
+    --purple: #A78BFA;
+    --cyan: #06B6D4;
+  }
+
+  /* OS Dark Theme tokens */
+  .theme-os {
+    --bg: #0e0f11;
+    --bg2: #14161a;
+    --bg3: #1c1f25;
+    --bg4: #242830;
+    --bg5: #2e333d;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.12);
+    --line3: rgba(255, 255, 255, 0.18);
+    --t: #e8eaed;
+    --t2: #868e9a;
+    --t3: #4a5060;
+    --t4: #2e3340;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* ── Badge system ── */
+  .badge {
+    @apply inline-flex items-center gap-1 text-[9px] font-medium px-1.5 py-0.5 rounded font-mono tracking-wide whitespace-nowrap;
+  }
+  .badge-green { @apply bg-green-500/10 text-green-500; }
+  .badge-red { @apply bg-red-500/10 text-red-500; }
+  .badge-blue { @apply bg-blue-500/10 text-blue-500; }
+  .badge-amber { @apply bg-amber-500/10 text-amber-500; }
+  .badge-purple { @apply bg-purple-400/10 text-purple-400; }
+  .badge-cyan { @apply bg-cyan-500/10 text-cyan-500; }
+
+  /* ── KPI cell ── */
+  .kpi-cell {
+    @apply p-4;
+  }
+  .kpi-label {
+    @apply font-mono text-[9px] uppercase tracking-wider mb-1;
+  }
+  .kpi-value {
+    @apply font-mono text-xl font-semibold leading-none;
+  }
+
+  /* ── Card ── */
+  .card-os {
+    @apply rounded-[7px] overflow-hidden;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+  }
+  .card-os-header {
+    @apply px-4 py-3 flex items-center justify-between;
+    border-bottom: 1px solid var(--line);
+  }
+  .card-os-body {
+    @apply p-4;
+  }
+
+  /* ── Button system ── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-eclat text-white text-sm font-semibold px-6 py-3 rounded-lg transition-all duration-150 hover:bg-eclat-hover hover:-translate-y-0.5;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 bg-transparent text-ink text-sm font-medium px-6 py-3 rounded-lg transition-all duration-150;
+    border: 1.5px solid var(--bd2);
+  }
+  .btn-outline:hover {
+    border-color: var(--eclat);
+    color: var(--eclat);
+  }
+  .btn-os {
+    @apply inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded font-medium transition-all duration-150;
+    background: var(--bg3);
+    border: 1px solid var(--line2);
+    color: var(--t2);
+  }
+  .btn-os:hover {
+    border-color: var(--eclat);
+    color: var(--eclat);
+  }
+  .btn-os-primary {
+    @apply btn-os font-semibold;
+    background: var(--eclat);
+    color: #0e0f11;
+    border-color: var(--eclat);
+  }
+
+  /* ── Table ── */
+  .table-os {
+    @apply w-full text-xs;
+    border-collapse: collapse;
+  }
+  .table-os th {
+    @apply font-mono text-[9px] font-medium uppercase tracking-wider text-left px-3 py-2;
+    color: var(--t3);
+    border-bottom: 1px solid var(--line2);
+  }
+  .table-os td {
+    @apply px-3 py-2;
+    color: var(--t2);
+    border-bottom: 1px solid var(--line);
+  }
+  .table-os tr:hover td {
+    background: var(--bg3);
+  }
+
+  /* ── Sidebar nav item ── */
+  .sb-link {
+    @apply flex items-center gap-2 px-5 py-1.5 text-xs transition-all duration-100 cursor-pointer;
+    color: var(--t2);
+    border-left: 2px solid transparent;
+  }
+  .sb-link:hover {
+    color: var(--t);
+    background: var(--bg3);
+  }
+  .sb-link.active {
+    color: var(--eclat);
+    border-left-color: var(--eclat);
+    background: rgba(108, 92, 231, 0.06);
+  }
+}
+
+/* ── Scrollbar (OS) ── */
+.theme-os ::-webkit-scrollbar { width: 3px; }
+.theme-os ::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
+
+/* ── Reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
