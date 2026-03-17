@@ -1,5 +1,6 @@
 import { CLIENTS, STATUT_LABELS, STATUT_COLORS } from "@/lib/data";
 import Link from "next/link";
+import OSWelcome from "@/components/os/OSWelcome";
 
 const DASHBOARD_KPIS = [
   { label: "MRR TOTAL", value: "4 300€", color: "text-green-500", delta: "+12.3%", up: true },
@@ -19,6 +20,8 @@ const BADGE_MAP: Record<string, string> = {
 export default function OSDashboard() {
   return (
     <div>
+      <OSWelcome />
+
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="font-mono text-2xl font-semibold tracking-tight" style={{ color: "var(--t)" }}>
