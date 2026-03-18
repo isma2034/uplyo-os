@@ -33,8 +33,9 @@ export default function ContactForm() {
       });
 
       if (res.ok) {
-        setStatus("sent");
         form.reset();
+        // Redirect to thank you page for conversion tracking
+        window.location.href = "/merci?source=contact";
       } else {
         setStatus("error");
       }

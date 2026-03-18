@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import ContactForm from "@/components/agency/ContactForm";
 import Reveal from "@/components/agency/Reveal";
+import { SITE_CONFIG } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Contact — Uplyo · Agence Google Ads",
@@ -38,7 +39,7 @@ export default function ContactPage() {
                   Choisissez un créneau de 30 min directement dans notre agenda.
                 </p>
                 <a
-                  href="https://calendly.com/uplyo/audit"
+                  href={SITE_CONFIG.calendlyUrl}
                   target="_blank"
                   rel="noopener"
                   className="inline-flex items-center gap-2 bg-white text-eclat text-[14px] font-semibold px-6 py-3 rounded-lg no-underline transition-all hover:bg-lune hover:-translate-y-0.5"

@@ -31,20 +31,13 @@ export default function Navbar() {
           <span className="text-xl font-semibold text-ink tracking-tight">uplyo</span>
         </Link>
 
-        <div className="hidden md:flex bg-lune border border-[var(--bd)] rounded-full p-[3px] gap-[2px]">
-          <span className="text-[13px] font-semibold bg-eclat text-white px-[18px] py-[7px] rounded-full cursor-pointer">
-            Agence
-          </span>
-          <Link
-            href="/os"
-            className="text-[13px] font-medium text-ink-3 px-[18px] py-[7px] rounded-full hover:text-ink transition-colors no-underline"
-          >
-            Uplyo OS
-          </Link>
+        <div className="hidden md:flex items-center gap-6">
+          <Link href="/#services" className="text-[13px] font-medium text-ink-3 hover:text-ink transition-colors no-underline">Nos offres</Link>
+          <Link href="/contact" className="text-[13px] font-medium text-ink-3 hover:text-ink transition-colors no-underline">Contact</Link>
         </div>
 
-        <Link href="/contact" className="hidden md:block bg-eclat text-white text-[13px] font-semibold px-[22px] py-[10px] rounded-lg border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px no-underline">
-          Réserver un audit →
+        <Link href="/audit" className="hidden md:block bg-eclat text-white text-[13px] font-semibold px-[22px] py-[10px] rounded-lg border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px no-underline">
+          Audit gratuit →
         </Link>
 
         {/* Mobile hamburger */}
@@ -62,18 +55,17 @@ export default function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="fixed inset-0 top-[68px] bg-white z-[190] p-8 flex flex-col gap-4 border-t border-[var(--bd)] md:hidden overflow-y-auto">
-          <Link href="/" onClick={() => setMobileOpen(false)} className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]">Agence</Link>
+          <Link href="/" onClick={() => setMobileOpen(false)} className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]">Accueil</Link>
           <Link href="/offres/pack-lancement" onClick={() => setMobileOpen(false)} className="text-[15px] text-ink-2 no-underline py-1.5 pl-4">Pack Lancement</Link>
           <Link href="/offres/retainer" onClick={() => setMobileOpen(false)} className="text-[15px] text-ink-2 no-underline py-1.5 pl-4">Pilotage mensuel</Link>
           <Link href="/offres/ecommerce" onClick={() => setMobileOpen(false)} className="text-[15px] text-ink-2 no-underline py-1.5 pl-4 border-b border-[var(--bd)] pb-3">Pack E-commerce</Link>
-          <Link href="/os" onClick={() => setMobileOpen(false)} className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]">Uplyo OS</Link>
           <Link href="/contact" onClick={() => setMobileOpen(false)} className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]">Contact</Link>
           <Link
-            href="/contact"
+            href="/audit"
             onClick={() => setMobileOpen(false)}
             className="bg-eclat text-white text-[15px] font-semibold py-3 px-6 rounded-lg border-none cursor-pointer mt-4 w-full no-underline text-center block"
           >
-            Réserver un audit →
+            Audit gratuit →
           </Link>
         </div>
       )}

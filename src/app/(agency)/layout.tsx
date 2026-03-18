@@ -16,7 +16,7 @@ export default function AgencyLayout({ children }: { children: React.ReactNode }
                 <svg width="26" height="26" viewBox="0 0 36 36" fill="none"><polygon points="18,4 28,20 18,36 8,20" fill="#6C5CE7"/><polygon points="29,2 34,10 29,18 24,10" fill="#A29BFE" opacity="0.88"/><polygon points="7,18 12,26 7,34 2,26" fill="#A29BFE" opacity="0.6"/></svg>
                 <span className="text-lg font-semibold text-white tracking-tight">uplyo</span>
               </div>
-              <p className="text-[13px] text-white/25 leading-relaxed max-w-[240px] mb-5 font-light">Agence Google Ads performance & Uplyo OS, le SaaS pour agences et freelances.</p>
+              <p className="text-[13px] text-white/25 leading-relaxed max-w-[240px] mb-5 font-light">Agence Google Ads performance pour PME et e-commerce. Résultats mesurables, transparence totale.</p>
               <div className="font-mono text-[10px] text-white/[0.18] flex items-center gap-1.5"><span className="text-eclat">◆</span>Google Ads Certified · GA4 · Looker Studio</div>
             </div>
             <div>
@@ -29,11 +29,11 @@ export default function AgencyLayout({ children }: { children: React.ReactNode }
               </div>
             </div>
             <div>
-              <div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Uplyo OS</div>
+              <div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Ressources</div>
               <div className="flex flex-col gap-1.5">
-                <Link href="/os" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Fonctionnalités</Link>
-                <Link href="/os" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Tarifs</Link>
-                <Link href="/os" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Accès beta</Link>
+                <Link href="/audit" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Audit gratuit</Link>
+                <Link href="/cgv" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">CGV</Link>
+                <Link href="/mentions-legales" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Mentions légales</Link>
               </div>
             </div>
             <div>

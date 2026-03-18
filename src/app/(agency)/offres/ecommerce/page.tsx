@@ -42,11 +42,10 @@ export default function EcommercePage() {
             </p>
             <div className="flex items-center gap-6 flex-wrap mb-8">
               <div>
-                <div className="font-mono text-[10px] text-ink-3 uppercase tracking-wider mb-1">À PARTIR DE</div>
-                <div className="text-3xl font-semibold text-ink">2 000€<span className="text-lg font-light text-ink-3">/mois</span></div>
+                <div className="text-2xl font-semibold text-eclat">Sur devis</div>
                 <div className="text-[12px] text-ink-3 font-light">setup inclus · adapté au volume</div>
               </div>
-              <Link href="/contact" className="btn-primary no-underline text-sm md:text-base">Demander un devis →</Link>
+              <Link href="/audit" className="btn-primary no-underline text-sm md:text-base">Demander un audit e-commerce →</Link>
             </div>
           </Reveal>
         </div>

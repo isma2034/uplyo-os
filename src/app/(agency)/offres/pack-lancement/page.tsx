@@ -4,7 +4,7 @@ import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
   title: "Pack Lancement — Uplyo · Setup Google Ads en 5 jours",
-  description: "Audit complet, structure campagnes, tracking GA4, dashboard Looker Studio. En ligne en 5 jours. À partir de 2 000€.",
+  description: "Audit complet, structure campagnes, tracking GA4, dashboard Looker Studio. En ligne en 5 jours.",
 };
 
 const INCLUDES = [
@@ -43,11 +43,10 @@ export default function PackLancementPage() {
             </p>
             <div className="flex items-center gap-6 flex-wrap mb-8">
               <div>
-                <div className="font-mono text-[10px] text-ink-3 uppercase tracking-wider mb-1">À PARTIR DE</div>
-                <div className="text-3xl font-semibold text-ink">2 000€</div>
+                <div className="text-2xl font-semibold text-eclat">Sur devis</div>
                 <div className="text-[12px] text-ink-3 font-light">one-shot · go-live J5</div>
               </div>
-              <Link href="/contact" className="btn-primary no-underline text-sm md:text-base">Réserver un appel →</Link>
+              <Link href="/audit" className="btn-primary no-underline text-sm md:text-base">Demander un audit gratuit →</Link>
             </div>
           </Reveal>
         </div>

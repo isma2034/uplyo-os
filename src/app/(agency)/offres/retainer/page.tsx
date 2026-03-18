@@ -4,7 +4,7 @@ import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
   title: "Pilotage Mensuel — Uplyo · Gestion Google Ads continue",
-  description: "Optimisation continue de vos campagnes Google Ads. Expert dédié, rapports hebdo, scripts d'automation. À partir de 500€/mois.",
+  description: "Optimisation continue de vos campagnes Google Ads. Expert dédié, rapports hebdo, scripts d'automation.",
 };
 
 const INCLUDES = [
@@ -44,11 +44,10 @@ export default function RetainerPage() {
             </p>
             <div className="flex items-center gap-6 flex-wrap mb-8">
               <div>
-                <div className="font-mono text-[10px] text-ink-3 uppercase tracking-wider mb-1">À PARTIR DE</div>
-                <div className="text-3xl font-semibold text-ink">500€<span className="text-lg font-light text-ink-3">/mois</span></div>
+                <div className="text-2xl font-semibold text-eclat">Sur devis</div>
                 <div className="text-[12px] text-ink-3 font-light">engagement 6 mois · résiliable à 30j ensuite</div>
               </div>
-              <Link href="/contact" className="btn-primary no-underline text-sm md:text-base">Démarrer maintenant →</Link>
+              <Link href="/audit" className="btn-primary no-underline text-sm md:text-base">Demander un audit gratuit →</Link>
             </div>
           </Reveal>
         </div>
