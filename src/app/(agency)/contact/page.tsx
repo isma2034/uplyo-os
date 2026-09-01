@@ -30,7 +30,7 @@ export default function ContactPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-12">
-              <p className="label-mono text-eclat-ink mb-4">Contact</p>
+              <p className="label text-eclat-ink mb-4">Contact</p>
               <h1 className="text-display font-semibold text-ink mb-5">
                 Dites-moi ce que vous vendez et à qui.
               </h1>
@@ -50,7 +50,7 @@ export default function ContactPage() {
               <div>
                 {/* Créneau direct */}
                 <div className="border border-line rounded-card p-6 mb-6 bg-white">
-                  <div className="label-mono text-ink-3 mb-2">Vous préférez parler</div>
+                  <div className="label text-ink-3 mb-2">Vous préférez parler</div>
                   <h2 className="text-title font-semibold text-ink mb-2">
                     Un créneau de 30 minutes
                   </h2>
@@ -74,7 +74,7 @@ export default function ContactPage() {
                     <div key={k} className="flex items-start gap-3.5 py-4 border-b border-line">
                       <Ico size={18} className="text-eclat-ink shrink-0 mt-0.5" aria-hidden="true" />
                       <div>
-                        <dt className="label-mono text-ink-3 mb-1">{k}</dt>
+                        <dt className="label text-ink-3 mb-1">{k}</dt>
                         <dd className="text-body text-ink">
                           {href ? (
                             <a

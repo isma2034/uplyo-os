@@ -27,8 +27,8 @@ export default function HeroAuditForm() {
   return (
     <div className="bg-white border border-line rounded-panel overflow-hidden shadow-panel">
       <div className="bg-nuit px-5 py-3.5 flex items-center justify-between gap-3">
-        <span className="label-mono text-white">Audit gratuit</span>
-        <span className="label-mono text-spark">48 h</span>
+        <span className="label text-white">Audit gratuit</span>
+        <span className="label text-spark">48 h</span>
       </div>
 
       <form onSubmit={handleSubmit} className="p-5 md:p-6">

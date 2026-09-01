@@ -95,7 +95,7 @@ export default function OffresPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text">
-              <p className="label-mono text-eclat-ink mb-4">Les prestations</p>
+              <p className="label text-eclat-ink mb-4">Les prestations</p>
               <h1 className="text-display font-semibold text-ink mb-5">
                 Deux prestations, dans l&apos;ordre. Pas trois formules qui se ressemblent.
               </h1>
@@ -115,7 +115,7 @@ export default function OffresPage() {
             {SEQUENCE.map((s, i) => (
               <Reveal key={s.n} delay={i * 90}>
                 <li className="bg-white border border-line rounded-card p-6 h-full flex flex-col shadow-card">
-                  <div className="label-mono text-ink-3 mb-3">Étape {s.n}</div>
+                  <div className="label text-ink-3 mb-3">Étape {s.n}</div>
                   <h2 className="text-title font-semibold text-ink mb-2">{s.t}</h2>
                   <p className="text-body text-ink-2 font-light flex-1 mb-5">{s.d}</p>
                   <Link
@@ -137,7 +137,7 @@ export default function OffresPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-8 md:mb-10">
-              <p className="label-mono text-eclat-ink mb-4">Comparatif</p>
+              <p className="label text-eclat-ink mb-4">Comparatif</p>
               <h2 className="text-section font-semibold text-ink mb-3">Setup ou pilotage</h2>
               <p className="text-body-lg text-ink-2 font-light">
                 Deux lignes de coût à ne pas confondre : le budget publicitaire, que vous réglez à
@@ -155,18 +155,18 @@ export default function OffresPage() {
                 </caption>
                 <thead>
                   <tr className="border-b border-line-strong">
-                    <th scope="col" className="label-mono text-ink-3 font-normal p-4 w-[26%]">
+                    <th scope="col" className="label text-ink-3 p-4 w-[26%]">
                       <span className="sr-only">Critère</span>
                     </th>
                     <th scope="col" className="p-4 text-title font-semibold text-ink align-bottom">
                       {OFFER_ROUTES.setup.label}
-                      <span className="block label-mono text-ink-3 font-normal mt-1">
+                      <span className="block label text-ink-3 mt-1">
                         {OFFER_ROUTES.setup.short}
                       </span>
                     </th>
                     <th scope="col" className="p-4 text-title font-semibold text-ink align-bottom">
                       {OFFER_ROUTES.pilotage.label}
-                      <span className="block label-mono text-ink-3 font-normal mt-1">
+                      <span className="block label text-ink-3 mt-1">
                         {OFFER_ROUTES.pilotage.short}
                       </span>
                     </th>
@@ -224,7 +224,7 @@ export default function OffresPage() {
           <Reveal>
             <div className="mt-5 bg-white border border-line rounded-card p-5 md:p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
               <div>
-                <div className="label-mono text-ink-3 mb-2">En complément</div>
+                <div className="label text-ink-3 mb-2">En complément</div>
                 <div className="text-body-lg font-semibold text-ink mb-1">
                   {OFFER_ROUTES.ecommerce.label}
                 </div>
@@ -249,7 +249,7 @@ export default function OffresPage() {
       {/* Ce qui est vrai des deux */}
       <section className="section-tight bg-nuit">
         <div className="container-wide">
-          <h2 className="label-mono text-spark mb-6">Valable dans les deux cas</h2>
+          <h2 className="label text-spark mb-6">Valable dans les deux cas</h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
             {[
               "Le compte Google Ads est ouvert à votre nom et vous en restez propriétaire.",
@@ -270,7 +270,7 @@ export default function OffresPage() {
       <section className="section">
         <div className="container-text">
           <Reveal>
-            <p className="label-mono text-eclat-ink mb-4">Questions</p>
+            <p className="label text-eclat-ink mb-4">Questions</p>
             <h2 className="text-section font-semibold text-ink mb-8">
               Avant de demander un devis
             </h2>

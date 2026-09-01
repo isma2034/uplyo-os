@@ -220,7 +220,7 @@ export default function HomePage() {
       <section className="pt-[104px] md:pt-[128px] pb-14 md:pb-20">
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
           <Reveal>
-            <p className="label-mono text-eclat-ink mb-5">Google Ads · PME de services</p>
+            <p className="label text-eclat-ink mb-5">Google Ads · PME de services</p>
             <h1 className="text-hero font-semibold text-ink mb-6">
               Des demandes de devis qui rentrent — et un coût par demande que vous voyez.
             </h1>
@@ -261,7 +261,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-7">
             {ENGAGEMENTS.map((e) => (
               <div key={e.k} className="border-l-2 border-spark pl-4">
-                <div className="label-mono text-spark mb-1.5">{e.k}</div>
+                <div className="label text-spark mb-1.5">{e.k}</div>
                 <div className="text-body-lg font-semibold text-white leading-snug">{e.v}</div>
                 <div className="text-caption text-white/80 mt-1 font-light">{e.d}</div>
               </div>
@@ -275,7 +275,7 @@ export default function HomePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10 md:mb-14">
-              <p className="label-mono text-eclat-ink mb-4">Le plan de travail</p>
+              <p className="label text-eclat-ink mb-4">Le plan de travail</p>
               <h2 className="text-display font-semibold text-ink mb-4">
                 Cinq jours, cinq livrables. Vous savez à l&apos;avance ce qui sort chaque jour.
               </h2>
@@ -296,7 +296,7 @@ export default function HomePage() {
                     <p className="text-body text-ink-2 font-light max-w-[62ch]">{s.d}</p>
                   </div>
                   <div className="md:text-right">
-                    <div className="label-mono text-ink-3 mb-1">Livrable</div>
+                    <div className="label text-ink-3 mb-1">Livrable</div>
                     <div className="text-body text-ink font-medium">{s.out}</div>
                   </div>
                 </li>
@@ -311,7 +311,7 @@ export default function HomePage() {
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16">
           <Reveal>
             <div className="lg:sticky lg:top-24 self-start">
-              <p className="label-mono text-eclat-ink mb-4">Preuve de travail</p>
+              <p className="label text-eclat-ink mb-4">Preuve de travail</p>
               <h2 className="text-section font-semibold text-ink mb-4">
                 Un seul client à ce jour. Voici ce que j&apos;ai fait pour lui.
               </h2>
@@ -333,7 +333,7 @@ export default function HomePage() {
               </ul>
 
               <div className="mt-5 bg-nuit rounded-card p-6">
-                <div className="label-mono text-spark mb-2.5">Ce que vous ne trouverez pas ici</div>
+                <div className="label text-spark mb-2.5">Ce que vous ne trouverez pas ici</div>
                 <p className="text-body text-white/80 font-light mb-3">
                   Aucun témoignage, aucune note, aucune moyenne de résultats. Un seul client
                   accompagné à ce jour, et ses chiffres lui appartiennent : ils seront publiés ici
@@ -354,7 +354,7 @@ export default function HomePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10 md:mb-14">
-              <p className="label-mono text-eclat-ink mb-4">Les prestations</p>
+              <p className="label text-eclat-ink mb-4">Les prestations</p>
               <h2 className="text-display font-semibold text-ink mb-4">
                 On construit, puis on pilote. Deux étapes, pas trois formules concurrentes.
               </h2>
@@ -369,7 +369,7 @@ export default function HomePage() {
           <Reveal>
             <div className="bg-surface-2 border border-line-strong rounded-card p-5 md:p-6 mb-8 grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-5 sm:gap-8 items-center">
               <div>
-                <div className="label-mono text-ink-3 mb-1.5">Budget publicitaire minimum</div>
+                <div className="label text-ink-3 mb-1.5">Budget publicitaire minimum</div>
                 <p className="text-body text-ink-2 font-light max-w-[52ch]">
                   Réglé directement par vous à Google. Ce n&apos;est pas mon honoraire, et je ne
                   prends aucune commission dessus.
@@ -390,7 +390,7 @@ export default function HomePage() {
             {OFFERS.map((o, i) => (
               <Reveal key={o.title} delay={i * 100}>
                 <div className="bg-white border border-line rounded-card p-6 md:p-8 h-full flex flex-col shadow-card">
-                  <div className="label-mono text-ink-3 mb-3">{o.tag}</div>
+                  <div className="label text-ink-3 mb-3">{o.tag}</div>
                   <h3 className="text-title font-semibold text-ink mb-2">{o.title}</h3>
                   <p className="text-body text-ink-2 font-light mb-5">{o.desc}</p>
                   <ul className="flex flex-col gap-2 mb-6 flex-1">
@@ -446,7 +446,7 @@ export default function HomePage() {
           <Reveal>
             <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="bg-white border border-line rounded-card p-6">
-                <div className="label-mono text-eclat-ink mb-4">C&apos;est fait pour vous si</div>
+                <div className="label text-eclat-ink mb-4">C&apos;est fait pour vous si</div>
                 <ul className="flex flex-col gap-2.5">
                   {FIT.yes.map((t) => (
                     <li key={t} className="flex gap-2.5 text-body text-ink-2 font-light">
@@ -457,7 +457,7 @@ export default function HomePage() {
                 </ul>
               </div>
               <div className="bg-surface-2 border border-line rounded-card p-6">
-                <div className="label-mono text-ink-3 mb-4">Ne me contactez pas si</div>
+                <div className="label text-ink-3 mb-4">Ne me contactez pas si</div>
                 <ul className="flex flex-col gap-2.5">
                   {FIT.no.map((t) => (
                     <li key={t} className="flex gap-2.5 text-body text-ink-2 font-light">
@@ -489,14 +489,14 @@ export default function HomePage() {
             >
               <div className="text-center px-6">
                 <UserRound size={30} className="text-white/35 mx-auto mb-3" />
-                <div className="label-mono text-white/70">Photo à venir</div>
+                <div className="label text-white/70">Photo à venir</div>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={100}>
             <div>
-              <p className="label-mono text-spark mb-4">Qui gère votre compte</p>
+              <p className="label text-spark mb-4">Qui gère votre compte</p>
               <h2 className="text-section font-semibold text-white mb-5">
                 Ismael. C&apos;est moi qui vous réponds, et c&apos;est moi qui fais le travail.
               </h2>
@@ -530,7 +530,7 @@ export default function HomePage() {
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-16">
           <Reveal>
             <div className="lg:sticky lg:top-24 self-start">
-              <p className="label-mono text-eclat-ink mb-4">Objections</p>
+              <p className="label text-eclat-ink mb-4">Objections</p>
               <h2 className="text-section font-semibold text-ink mb-4">
                 Les questions qu&apos;on me pose avant de signer
               </h2>
@@ -571,7 +571,7 @@ export default function HomePage() {
         <div className="container-wide py-16 md:py-24 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-start">
           <Reveal>
             <div>
-              <p className="label-mono text-white mb-4">Pour démarrer</p>
+              <p className="label text-white mb-4">Pour démarrer</p>
               <h2 className="text-display font-semibold text-white mb-5">
                 Dites-moi ce que vous vendez. Je vous dis si Google Ads en vaut la peine.
               </h2>

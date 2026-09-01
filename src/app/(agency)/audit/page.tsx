@@ -133,7 +133,7 @@ export default function AuditPage() {
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
           <Reveal>
             <div>
-              <p className="label-mono text-eclat-ink mb-4">Audit gratuit · 48 h</p>
+              <p className="label text-eclat-ink mb-4">Audit gratuit · 48 h</p>
               <h1 className="text-display font-semibold text-ink mb-5">
                 Je regarde votre compte, et je vous écris ce que j&apos;y vois.
               </h1>
@@ -152,7 +152,7 @@ export default function AuditPage() {
                   { k: "Suite", v: "Aucune obligation" },
                 ].map((s) => (
                   <div key={s.k} className="py-4 pr-4 border-b border-line">
-                    <dt className="label-mono text-ink-3 mb-1">{s.k}</dt>
+                    <dt className="label text-ink-3 mb-1">{s.k}</dt>
                     <dd className="text-body-lg font-semibold text-ink">{s.v}</dd>
                   </div>
                 ))}
@@ -165,7 +165,7 @@ export default function AuditPage() {
                     key={item.t}
                     className="grid grid-cols-[40px_1fr] gap-3 py-4 border-b border-line"
                   >
-                    <span className="font-mono text-body text-eclat-ink">
+                    <span className="font-mono text-body font-medium text-eclat-ink">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span>
@@ -196,7 +196,7 @@ export default function AuditPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="a-firstname" className="label-mono text-ink-2">
+                  <label htmlFor="a-firstname" className="label text-ink-2">
                     Prénom *
                   </label>
                   <input
@@ -210,7 +210,7 @@ export default function AuditPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="a-lastname" className="label-mono text-ink-2">
+                  <label htmlFor="a-lastname" className="label text-ink-2">
                     Nom *
                   </label>
                   <input
@@ -226,7 +226,7 @@ export default function AuditPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="a-email" className="label-mono text-ink-2">
+                <label htmlFor="a-email" className="label text-ink-2">
                   Email professionnel *
                 </label>
                 <input
@@ -241,7 +241,7 @@ export default function AuditPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="a-website" className="label-mono text-ink-2">
+                <label htmlFor="a-website" className="label text-ink-2">
                   Site web *
                 </label>
                 <input
@@ -259,7 +259,7 @@ export default function AuditPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="a-ads" className="label-mono text-ink-2">
+                <label htmlFor="a-ads" className="label text-ink-2">
                   Identifiant Google Ads (facultatif)
                 </label>
                 <input
@@ -273,7 +273,7 @@ export default function AuditPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="a-budget" className="label-mono text-ink-2">
+                  <label htmlFor="a-budget" className="label text-ink-2">
                     Budget mensuel
                   </label>
                   <select id="a-budget" name="budget" defaultValue="" className="field appearance-none">
@@ -289,7 +289,7 @@ export default function AuditPage() {
                   </select>
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="a-sector" className="label-mono text-ink-2">
+                  <label htmlFor="a-sector" className="label text-ink-2">
                     Secteur
                   </label>
                   <select id="a-sector" name="sector" defaultValue="" className="field appearance-none">
@@ -308,7 +308,7 @@ export default function AuditPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="a-objective" className="label-mono text-ink-2">
+                <label htmlFor="a-objective" className="label text-ink-2">
                   Votre objectif principal
                 </label>
                 <select id="a-objective" name="objective" defaultValue="" className="field appearance-none">
@@ -378,7 +378,7 @@ export default function AuditPage() {
                 <UserRound size={26} className="text-ink-3" />
               </div>
               <div>
-                <div className="label-mono text-ink-3 mb-2">Qui fait cet audit</div>
+                <div className="label text-ink-3 mb-2">Qui fait cet audit</div>
                 <h2 className="text-title font-semibold text-ink mb-2">Ismael</h2>
                 <p className="text-body text-ink-2 font-light mb-3 max-w-[62ch]">
                   Je gère les campagnes Google Ads de PME de services, seul. C&apos;est moi qui
@@ -403,7 +403,7 @@ export default function AuditPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-7">
-              <p className="label-mono text-spark mb-4">Les limites</p>
+              <p className="label text-spark mb-4">Les limites</p>
               <h2 className="text-section font-semibold text-white">Ce que cet audit ne fera pas</h2>
             </div>
           </Reveal>

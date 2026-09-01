@@ -61,7 +61,7 @@ export default function EcommercePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text">
-              <p className="label-mono text-eclat-ink mb-4">
+              <p className="label text-eclat-ink mb-4">
                 Prestations · {OFFER_ROUTES.ecommerce.label}
               </p>
               <h1 className="text-display font-semibold text-ink mb-5">
@@ -89,7 +89,7 @@ export default function EcommercePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10">
-              <p className="label-mono text-eclat-ink mb-4">Ce qui s&apos;ajoute</p>
+              <p className="label text-eclat-ink mb-4">Ce qui s&apos;ajoute</p>
               <h2 className="text-section font-semibold text-ink">
                 Cinq chantiers propres à la vente en ligne
               </h2>
@@ -119,7 +119,7 @@ export default function EcommercePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-8">
-              <p className="label-mono text-spark mb-4">À savoir avant de demander</p>
+              <p className="label text-spark mb-4">À savoir avant de demander</p>
               <h2 className="text-section font-semibold text-white">
                 Quatre choses que je préfère dire tout de suite
               </h2>
@@ -141,7 +141,7 @@ export default function EcommercePage() {
         <div className="container-wide grid grid-cols-1 md:grid-cols-2 gap-5">
           <Reveal>
             <div className="bg-white border border-line rounded-card p-6 h-full">
-              <div className="label-mono text-eclat-ink mb-4">C&apos;est cohérent si</div>
+              <div className="label text-eclat-ink mb-4">C&apos;est cohérent si</div>
               <ul className="flex flex-col gap-2.5">
                 {[
                   "Vous avez une boutique en ligne qui vend déjà, même modestement",
@@ -159,7 +159,7 @@ export default function EcommercePage() {
           </Reveal>
           <Reveal delay={90}>
             <div className="bg-surface-2 border border-line rounded-card p-6 h-full">
-              <div className="label-mono text-ink-3 mb-4">Ça ne l&apos;est pas si</div>
+              <div className="label text-ink-3 mb-4">Ça ne l&apos;est pas si</div>
               <ul className="flex flex-col gap-2.5">
                 {[
                   "Vous lancez la boutique et n'avez encore aucune vente : le travail utile est ailleurs",

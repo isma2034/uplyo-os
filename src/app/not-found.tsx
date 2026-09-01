@@ -29,7 +29,7 @@ export default function NotFound() {
           </Link>
         </div>
 
-        <p className="label-mono text-eclat-ink mb-4">Erreur 404</p>
+        <p className="label text-eclat-ink mb-4">Erreur 404</p>
 
         <h1 className="text-display font-semibold text-ink mb-4">Page introuvable</h1>
         <p className="text-lead text-ink-2 font-light mb-8">

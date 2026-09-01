@@ -111,9 +111,18 @@
     @apply inline-flex items-center gap-2 bg-white text-eclat-ink text-body-lg font-semibold px-7 py-3.5 rounded-uplyo no-underline transition-all duration-150 hover:bg-lune hover:-translate-y-0.5;
   }
 
-  /* ── Libellé mono (esthétique « plan de travail ») ── */
-  .label-mono {
-    @apply font-mono text-label uppercase tracking-[0.14em];
+  /* ── Libellé de section / eyebrow ──
+     Était `.label-mono` : DM Mono en petites capitales, appliqué à ~85
+     endroits (« PRESTATIONS · », intitulés de champs, en-têtes de tableau).
+     Cet usage massif du monospace donnait au site une allure de sortie de
+     terminal plutôt que d'agence — retour client explicite. Le monospace est
+     désormais réservé aux seuls jetons numériques (marqueurs J0-J5, numéros
+     d'étape). Ici : DM Sans 600, capitales, tracking large — même rôle
+     visuel, ton plus chaleureux. Aucune couleur ne change : les ratios de
+     contraste validés précédemment restent valables (le poids de police
+     n'entre pas dans le calcul WCAG 1.4.3). */
+  .label {
+    @apply font-sans text-label font-semibold uppercase tracking-[0.12em];
   }
 
   /* ── Champ de formulaire ── */

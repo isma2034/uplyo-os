@@ -10,11 +10,15 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500", "600"],
 });
 
+// DM Mono n'habille plus que les jetons numériques (marqueurs de jour J0-J5
+// des plannings, numéros d'étape de l'audit). Tous les libellés / eyebrows
+// sont repassés en DM Sans via `.label` — voir globals.css. Un seul poids
+// suffit désormais : cela retire une requête de police au chargement.
 const dmMono = DM_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "500"],
+  weight: ["500"],
 });
 
 export const metadata: Metadata = {

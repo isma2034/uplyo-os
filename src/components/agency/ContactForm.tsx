@@ -85,7 +85,7 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         <div className="flex flex-col gap-1.5">
-          <label htmlFor={`${uid}-firstname`} className="label-mono text-ink-2">
+          <label htmlFor={`${uid}-firstname`} className="label text-ink-2">
             Prénom
           </label>
           <input
@@ -99,7 +99,7 @@ export default function ContactForm() {
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <label htmlFor={`${uid}-lastname`} className="label-mono text-ink-2">
+          <label htmlFor={`${uid}-lastname`} className="label text-ink-2">
             Nom
           </label>
           <input
@@ -115,7 +115,7 @@ export default function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor={`${uid}-email`} className="label-mono text-ink-2">
+        <label htmlFor={`${uid}-email`} className="label text-ink-2">
           Email professionnel
         </label>
         <input
@@ -130,7 +130,7 @@ export default function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor={`${uid}-website`} className="label-mono text-ink-2">
+        <label htmlFor={`${uid}-website`} className="label text-ink-2">
           Site web
         </label>
         <input
@@ -145,7 +145,7 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         <div className="flex flex-col gap-1.5">
-          <label htmlFor={`${uid}-budget`} className="label-mono text-ink-2">
+          <label htmlFor={`${uid}-budget`} className="label text-ink-2">
             Budget publicitaire mensuel
           </label>
           <select id={`${uid}-budget`} name="budget" required defaultValue="" className="field appearance-none">
@@ -165,7 +165,7 @@ export default function ContactForm() {
           </p>
         </div>
         <div className="flex flex-col gap-1.5">
-          <label htmlFor={`${uid}-sector`} className="label-mono text-ink-2">
+          <label htmlFor={`${uid}-sector`} className="label text-ink-2">
             Secteur
           </label>
           <select id={`${uid}-sector`} name="sector" defaultValue="" className="field appearance-none">
@@ -184,7 +184,7 @@ export default function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor={`${uid}-message`} className="label-mono text-ink-2">
+        <label htmlFor={`${uid}-message`} className="label text-ink-2">
           Votre situation
         </label>
         <textarea

@@ -63,7 +63,7 @@ function MerciContent() {
             </p>
 
             <div className="bg-surface-2 rounded-card p-5 mb-8 text-left">
-              <div className="label-mono text-ink-3 mb-4">Ce qui se passe maintenant</div>
+              <div className="label text-ink-3 mb-4">Ce qui se passe maintenant</div>
               <ol className="flex flex-col gap-3">
                 {steps.map((step, i) => (
                   <li key={step} className="flex items-start gap-3">

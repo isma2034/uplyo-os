@@ -62,7 +62,7 @@ export default function SetupPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text">
-              <p className="label-mono text-eclat-ink mb-4">
+              <p className="label text-eclat-ink mb-4">
                 Prestations · {OFFER_ROUTES.setup.label}
               </p>
               <h1 className="text-display font-semibold text-ink mb-5">
@@ -88,7 +88,7 @@ export default function SetupPage() {
                 },
               ].map((s) => (
                 <div key={s.k} className="py-5 pr-6 border-b border-line">
-                  <dt className="label-mono text-ink-3 mb-1.5">{s.k}</dt>
+                  <dt className="label text-ink-3 mb-1.5">{s.k}</dt>
                   <dd>
                     <span className="block text-title font-semibold text-ink">{s.v}</span>
                     <span className="block text-caption text-ink-3 mt-1 font-light">{s.d}</span>
@@ -105,7 +105,7 @@ export default function SetupPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10">
-              <p className="label-mono text-eclat-ink mb-4">Le plan de travail</p>
+              <p className="label text-eclat-ink mb-4">Le plan de travail</p>
               <h2 className="text-section font-semibold text-ink">Jour par jour, livrable par livrable</h2>
             </div>
           </Reveal>
@@ -120,7 +120,7 @@ export default function SetupPage() {
                     <p className="text-body text-ink-2 font-light max-w-[62ch]">{s.d}</p>
                   </div>
                   <div>
-                    <div className="label-mono text-ink-3 mb-2">Livrables</div>
+                    <div className="label text-ink-3 mb-2">Livrables</div>
                     <ul className="flex flex-col gap-1.5">
                       {s.out.map((o) => (
                         <li key={o} className="flex gap-2 text-body text-ink font-medium">
@@ -140,7 +140,7 @@ export default function SetupPage() {
       {/* Ce qui n'est pas compris */}
       <section className="section-tight bg-nuit">
         <div className="container-wide">
-          <h2 className="label-mono text-spark mb-6">Ce qui n&apos;est pas compris</h2>
+          <h2 className="label text-spark mb-6">Ce qui n&apos;est pas compris</h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
             {NOT_INCLUDED.map((t) => (
               <li key={t} className="flex gap-3 text-body-lg text-white/80 font-light">
@@ -159,7 +159,7 @@ export default function SetupPage() {
         <div className="container-wide grid grid-cols-1 md:grid-cols-2 gap-5">
           <Reveal>
             <div className="border border-line rounded-card p-6 bg-white h-full">
-              <div className="label-mono text-ink-3 mb-3">Et après ?</div>
+              <div className="label text-ink-3 mb-3">Et après ?</div>
               <h2 className="text-title font-semibold text-ink mb-2">{OFFER_ROUTES.pilotage.label}</h2>
               <p className="text-body text-ink-2 font-light mb-5">
                 Un compte lancé se dégrade s&apos;il n&apos;est pas suivi : les requêtes évoluent, les
@@ -177,7 +177,7 @@ export default function SetupPage() {
           </Reveal>
           <Reveal delay={90}>
             <div className="border border-line rounded-card p-6 bg-white h-full">
-              <div className="label-mono text-ink-3 mb-3">Comparer</div>
+              <div className="label text-ink-3 mb-3">Comparer</div>
               <h2 className="text-title font-semibold text-ink mb-2">Setup ou pilotage</h2>
               <p className="text-body text-ink-2 font-light mb-5">
                 Le tableau comparatif, avec les durées, les engagements et le budget publicitaire

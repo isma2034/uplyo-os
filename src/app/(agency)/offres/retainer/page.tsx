@@ -73,7 +73,7 @@ export default function PilotagePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text">
-              <p className="label-mono text-eclat-ink mb-4">
+              <p className="label text-eclat-ink mb-4">
                 Prestations · {OFFER_ROUTES.pilotage.label}
               </p>
               <h1 className="text-display font-semibold text-ink mb-5">
@@ -101,7 +101,7 @@ export default function PilotagePage() {
                 },
               ].map((s) => (
                 <div key={s.k} className="py-5 pr-6 border-b border-line">
-                  <dt className="label-mono text-ink-3 mb-1.5">{s.k}</dt>
+                  <dt className="label text-ink-3 mb-1.5">{s.k}</dt>
                   <dd>
                     <span className="block text-title font-semibold text-ink">{s.v}</span>
                     <span className="block text-caption text-ink-3 mt-1 font-light">{s.d}</span>
@@ -118,7 +118,7 @@ export default function PilotagePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10">
-              <p className="label-mono text-eclat-ink mb-4">Un mois type</p>
+              <p className="label text-eclat-ink mb-4">Un mois type</p>
               <h2 className="text-section font-semibold text-ink mb-3">
                 Ce que je fais réellement, et quand
               </h2>
@@ -139,7 +139,7 @@ export default function PilotagePage() {
                     <p className="text-body text-ink-2 font-light max-w-[62ch]">{s.d}</p>
                   </div>
                   <div>
-                    <div className="label-mono text-ink-3 mb-1.5">Ce qui vous arrive</div>
+                    <div className="label text-ink-3 mb-1.5">Ce qui vous arrive</div>
                     <div className="flex gap-2 text-body text-ink font-medium">
                       <Check size={14} className="text-eclat-ink shrink-0 mt-1" aria-hidden="true" />
                       {s.out}
@@ -157,7 +157,7 @@ export default function PilotagePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-8">
-              <p className="label-mono text-spark mb-4">Ce sur quoi je m&apos;engage</p>
+              <p className="label text-spark mb-4">Ce sur quoi je m&apos;engage</p>
               <h2 className="text-section font-semibold text-white">
                 Des engagements de méthode, pas de résultat
               </h2>
@@ -167,7 +167,7 @@ export default function PilotagePage() {
           <dl className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-7 mb-10">
             {COMMITMENTS.map((c) => (
               <div key={c.k} className="border-l-2 border-spark pl-4">
-                <dt className="label-mono text-spark mb-1.5">{c.k}</dt>
+                <dt className="label text-spark mb-1.5">{c.k}</dt>
                 <dd>
                   <span className="block text-body-lg font-semibold text-white leading-snug">
                     {c.v}
@@ -223,7 +223,7 @@ export default function PilotagePage() {
       <section className="section">
         <div className="container-text">
           <Reveal>
-            <p className="label-mono text-eclat-ink mb-4">Transparence</p>
+            <p className="label text-eclat-ink mb-4">Transparence</p>
             <h2 className="text-section font-semibold text-ink mb-4">Un seul client à ce jour</h2>
             <p className="text-body-lg text-ink-2 font-light mb-4">
               Une entreprise de débarras et déménagement de la région nantaise, accompagnée depuis

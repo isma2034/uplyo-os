@@ -56,12 +56,12 @@ export default function Footer() {
               Gestion de campagnes Google Ads pour PME de services. Activité indépendante — un seul
               interlocuteur, celui qui exécute.
             </p>
-            <div className="label-mono text-white/70">Google Ads · GA4 · Looker Studio</div>
+            <div className="label text-white/70">Google Ads · GA4 · Looker Studio</div>
           </div>
 
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <div className="label-mono text-spark mb-3">{col.title}</div>
+              <div className="label text-spark mb-3">{col.title}</div>
               <div className="flex flex-col gap-2">
                 {col.links.map((link) =>
                   link.external ? (
@@ -85,7 +85,7 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center justify-between flex-wrap gap-4">
-          <div className="label-mono text-white/70">© 2026 Uplyo · Tous droits réservés</div>
+          <div className="label text-white/70">© 2026 Uplyo · Tous droits réservés</div>
           <div className="flex gap-5 flex-wrap">
             {[
               { label: "Mentions légales", href: "/mentions-legales" },

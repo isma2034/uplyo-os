@@ -87,14 +87,14 @@ export default function AProposPage() {
             >
               <div className="text-center px-6">
                 <UserRound size={30} className="text-ink-3 mx-auto mb-3" />
-                <div className="label-mono text-ink-3">Photo à venir</div>
+                <div className="label text-ink-3">Photo à venir</div>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={80}>
             <div>
-              <p className="label-mono text-eclat-ink mb-4">À propos</p>
+              <p className="label text-eclat-ink mb-4">À propos</p>
               <h1 className="text-display font-semibold text-ink mb-5">
                 Ismael. C&apos;est moi qui vous réponds, et c&apos;est moi qui travaille dans votre
                 compte.
@@ -121,7 +121,7 @@ export default function AProposPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-8">
-              <p className="label-mono text-eclat-ink mb-4">Mon expérience, en clair</p>
+              <p className="label text-eclat-ink mb-4">Mon expérience, en clair</p>
               <h2 className="text-section font-semibold text-ink">
                 Un client, une activité de services, depuis 2026
               </h2>
@@ -130,7 +130,7 @@ export default function AProposPage() {
 
           <Reveal delay={80}>
             <div className="bg-white border border-line rounded-card p-6 md:p-8 max-w-[860px]">
-              <div className="label-mono text-ink-3 mb-4">
+              <div className="label text-ink-3 mb-4">
                 Débarras et déménagement · région nantaise
               </div>
               <div className="flex flex-col gap-4">
@@ -169,7 +169,7 @@ export default function AProposPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10">
-              <p className="label-mono text-eclat-ink mb-4">Comment je travaille</p>
+              <p className="label text-eclat-ink mb-4">Comment je travaille</p>
               <h2 className="text-section font-semibold text-ink">Quatre règles que je m&apos;applique</h2>
             </div>
           </Reveal>
@@ -191,7 +191,7 @@ export default function AProposPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10">
-              <p className="label-mono text-spark mb-4">Les limites</p>
+              <p className="label text-spark mb-4">Les limites</p>
               <h2 className="text-section font-semibold text-white mb-4">
                 Ce que je ne sais pas faire, et pourquoi vous devriez le savoir avant
               </h2>
@@ -218,7 +218,7 @@ export default function AProposPage() {
       <section className="section-tight">
         <div className="container-wide">
           <div className="border-t border-line pt-6 flex flex-col md:flex-row md:items-baseline gap-3 md:gap-10">
-            <div className="label-mono text-ink-3 md:w-[160px] shrink-0">Les outils</div>
+            <div className="label text-ink-3 md:w-[160px] shrink-0">Les outils</div>
             <p className="text-body text-ink-2 font-light max-w-[64ch]">
               Google Ads, Google Analytics 4 avec Consent Mode v2, Google Tag Manager, Looker
               Studio, scripts Google Ads, Google Merchant Center pour le module e-commerce. Côté

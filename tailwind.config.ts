@@ -49,9 +49,22 @@ const config: Config = {
         hero: ["clamp(2.125rem, 3.9vw, 3.375rem)", { lineHeight: "1.03", letterSpacing: "-0.03em" }],
       },
 
+      // ── Familles ──
+      // Ces piles DOIVENT pointer sur les variables CSS produites par
+      // next/font, pas sur le nom public de la police. next/font n'expose
+      // jamais une @font-face nommée "DM Sans" : elle génère une famille
+      // privée (__DM_Sans_xxxxx) accessible uniquement via --font-sans /
+      // --font-mono, posées sur <html>. Avec `'"DM Sans"'` en tête de pile,
+      // aucune @font-face ne correspondait : les deux .woff2 étaient bien
+      // préchargés et téléchargés à chaque page, puis jamais appliqués, et
+      // tout le site retombait sur system-ui / ui-monospace (la police
+      // monospace de l'OS = l'aspect « terminal » remonté par le client).
+      // Constaté sur le rendu réel (capture headless), pas à la lecture.
+      // Le nom public reste en second : utile si la police est installée
+      // localement et que next/font est retiré un jour.
       fontFamily: {
-        sans: ['"DM Sans"', "system-ui", "sans-serif"],
-        mono: ['"DM Mono"', "ui-monospace", "monospace"],
+        sans: ["var(--font-sans)", '"DM Sans"', "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", '"DM Mono"', "ui-monospace", "monospace"],
       },
 
       borderRadius: {
