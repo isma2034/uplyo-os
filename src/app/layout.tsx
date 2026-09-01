@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s — Uplyo",
   },
   description:
-    "Agence Google Ads performance pour PME et e-commerce. Audit gratuit, ROAS ×4 garanti, transparence totale.",
+    "Agence Google Ads pour PME et e-commerce. Audit gratuit, gestion transparente, accès direct à l'expert qui gère vos campagnes.",
   metadataBase: new URL("https://uplyo.fr"),
   alternates: {
     canonical: "/",
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     siteName: "Uplyo",
     title: "Uplyo — Agence Google Ads performance",
     description:
-      "Agence Google Ads performance pour PME et e-commerce. Audit gratuit, ROAS ×4 garanti, transparence totale.",
+      "Agence Google Ads pour PME et e-commerce. Audit gratuit, gestion transparente, accès direct à l'expert qui gère vos campagnes.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Uplyo — Agence Google Ads performance",
     description:
-      "Agence Google Ads performance pour PME et e-commerce. Audit gratuit, ROAS ×4 garanti.",
+      "Agence Google Ads pour PME et e-commerce. Audit gratuit, gestion transparente, accès direct à l'expert.",
   },
   robots: {
     index: true,

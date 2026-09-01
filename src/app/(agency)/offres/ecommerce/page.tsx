@@ -17,11 +17,13 @@ const INCLUDES = [
   { ico: "📈", title: "Reporting e-commerce", desc: "Dashboard Looker dédié e-com : ROAS par campagne, top/flop produits, tendances, alertes stock." },
 ];
 
-const METRICS = [
-  { label: "ROAS moyen", value: "4.2x", desc: "Retour sur dépense pub" },
-  { label: "CPA réduit", value: "-34%", desc: "vs moyenne avant Uplyo" },
-  { label: "Top produits", value: "+52%", desc: "Visibilité produits stars" },
-  { label: "Feed santé", value: "98%", desc: "Score qualité feed" },
+// Livrables du pack (vérifiables), pas de métriques de performance :
+// aucun chiffre client n'est publiable à ce jour.
+const DELIVERABLES = [
+  { label: "Feed produit", value: "Optimisé", desc: "Titres, GTIN, catégories, règles" },
+  { label: "Shopping + PMax", value: "Structuré", desc: "Asset groups segmentés" },
+  { label: "Tracking", value: "GA4", desc: "Conversion values dynamiques" },
+  { label: "Dashboard", value: "Looker", desc: "ROAS par campagne et produit" },
 ];
 
 export default function EcommercePage() {
@@ -52,18 +54,28 @@ export default function EcommercePage() {
         </div>
       </section>
 
-      {/* KPIs */}
+      {/* Livrables */}
       <section className="py-14 px-6 md:px-10 bg-nuit">
-        <div className="max-w-[900px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-          {METRICS.map((m, i) => (
-            <Reveal key={m.label} delay={i * 80}>
-              <div className="text-center p-5">
-                <div className="font-mono text-[10px] text-white/30 uppercase tracking-wider mb-2">{m.label}</div>
-                <div className="text-2xl font-semibold text-eclat font-mono">{m.value}</div>
-                <div className="text-[11px] text-white/30 mt-1">{m.desc}</div>
-              </div>
-            </Reveal>
-          ))}
+        <div className="max-w-[900px] mx-auto">
+          <Reveal>
+            <h2 className="text-xl font-semibold text-white mb-8 text-center">Ce qui est livré</h2>
+          </Reveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {DELIVERABLES.map((d, i) => (
+              <Reveal key={d.label} delay={i * 80}>
+                <div className="text-center p-5 h-full">
+                  <div className="font-mono text-[10px] text-white/55 uppercase tracking-wider mb-2">{d.label}</div>
+                  <div className="text-xl font-semibold text-aura">{d.value}</div>
+                  <div className="text-[11px] text-white/55 mt-1">{d.desc}</div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={340}>
+            <p className="text-[13px] text-white/55 font-light text-center max-w-[560px] mx-auto mt-6 leading-relaxed">
+              Uplyo accompagne son premier client depuis 2026. Aucun ROAS moyen n&apos;est affiché ici tant qu&apos;il ne repose pas sur des résultats réels publiables avec l&apos;accord du client.
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -94,7 +106,7 @@ export default function EcommercePage() {
             <h2 className="text-2xl font-semibold tracking-tight text-ink mb-8">Pour qui ?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { title: "Boutiques Shopify / WooCommerce", desc: "Vous vendez en ligne et voulez un ROAS >3x sur votre budget Google Ads." },
+                { title: "Boutiques Shopify / WooCommerce", desc: "Vous vendez en ligne et voulez savoir précisément ce que rapporte chaque euro investi." },
                 { title: "E-commerçants 1K€–50K€/mois", desc: "Votre budget pub est entre 1 000€ et 50 000€/mois et vous voulez le rentabiliser." },
                 { title: "Marques en scaling", desc: "Vous avez un product-market fit et vous voulez accélérer via Google Shopping + PMax." },
                 { title: "Migration d'agence", desc: "Votre agence actuelle ne délivre pas. On reprend tout et on optimise en 5 jours." },

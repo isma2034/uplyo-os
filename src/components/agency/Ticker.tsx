@@ -1,14 +1,16 @@
 "use client";
 
+// Faits de service vérifiables uniquement — aucune statistique de résultat
+// tant qu'aucun chiffre client n'est publiable (accord client requis).
 const ITEMS = [
-  { text: "CPA réduit de −65%", dot: true },
-  { text: "ROAS moyen 4.2x", dot: true },
+  { text: "Audit gratuit sous 48h", dot: true },
   { text: "Go-live en 5 jours", dot: true },
-  { text: "Google Ads Certified", dot: true },
-  { text: "+50 comptes gérés", dot: true },
+  { text: "Accès direct à l'expert", dot: true },
+  { text: "Vous restez propriétaire du compte", dot: true },
   { text: "Dashboard Looker Studio", dot: true },
   { text: "Tracking GA4 + Consent Mode", dot: true },
-  { text: "Scripts d'automation 24/7", dot: true },
+  { text: "Scripts d'automation", dot: true },
+  { text: "Rapports hebdo + mensuel", dot: true },
 ];
 
 export default function Ticker() {

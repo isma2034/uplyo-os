@@ -59,7 +59,7 @@ export default function ContactPage() {
                 {[
                   { ico: "✉️", label: "EMAIL", value: "contact@uplyo.fr", href: "mailto:contact@uplyo.fr" },
                   { ico: "🌍", label: "ZONE", value: "France · España · Belgique · Suisse", href: undefined },
-                  { ico: "🏆", label: "CERTIFICATIONS", value: "Google Ads · GA4 · Looker Studio", href: undefined },
+                  { ico: "🛠️", label: "OUTILS", value: "Google Ads · GA4 · Looker Studio", href: undefined },
                   { ico: "⏱️", label: "DÉLAI DE RÉPONSE", value: "Sous 24h ouvrées", href: undefined },
                 ].map((c) => (
                   <div key={c.label} className="flex items-start gap-3">

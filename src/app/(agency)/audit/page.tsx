@@ -7,7 +7,7 @@ import { SITE_CONFIG } from "@/lib/config";
 import { trackFormStart, trackFormSubmit, trackCalendlyClick } from "@/lib/analytics";
 
 const AUDIT_INCLUDES = [
-  { ico: "🔬", title: "Score de performance /100", desc: "Analyse automatisée de votre compte : structure, enchères, mots-clés, annonces, tracking." },
+  { ico: "🔬", title: "Score de performance /100", desc: "Analyse de votre compte : structure, enchères, mots-clés, annonces, tracking." },
   { ico: "💸", title: "Budget gaspillé identifié", desc: "On vous montre exactement où votre argent part en fumée et combien vous pouvez économiser." },
   { ico: "📊", title: "Benchmark vs votre secteur", desc: "Comparaison de votre CPA, CTR et ROAS avec les moyennes de votre industrie." },
   { ico: "🎯", title: "3 actions immédiates", desc: "Recommandations concrètes et priorisées que vous pouvez appliquer dès demain." },
@@ -15,11 +15,13 @@ const AUDIT_INCLUDES = [
   { ico: "📞", title: "Appel de restitution 30 min", desc: "On parcourt le rapport ensemble et on répond à toutes vos questions." },
 ];
 
+// Faits de service vérifiables uniquement — pas de statistiques de résultats
+// ni de mention de certification tant qu'elle n'est pas vérifiée.
 const TRUST_SIGNALS = [
-  "CPA réduit de −65% en moyenne",
-  "ROAS 4.2x pour nos clients e-com",
-  "+50 comptes audités",
-  "Google Ads Certified",
+  "Rapport détaillé sous 48h",
+  "Gratuit et sans engagement",
+  "Appel de restitution de 30 min",
+  "Google Ads · GA4 · Looker Studio",
 ];
 
 export default function AuditPage() {
@@ -86,7 +88,7 @@ export default function AuditPage() {
                 <span className="italic font-light text-ink-3">sur Google Ads.</span>
               </h1>
               <p className="text-[15px] md:text-[17px] text-ink-2 max-w-[520px] leading-relaxed font-light mb-8">
-                En moyenne, les PME gaspillent <strong className="text-ink font-semibold">30 à 50%</strong> de leur budget Google Ads. Notre audit IA identifie les fuites en 48h — gratuitement, sans engagement.
+                Requêtes non pertinentes, tracking cassé, structure de campagne inadaptée : la plupart des comptes laissent filer du budget sans le voir. L&apos;audit identifie ces fuites et vous les chiffre en 48h — gratuitement, sans engagement.
               </p>
 
               {/* Trust signals */}
@@ -244,24 +246,17 @@ export default function AuditPage() {
         </div>
       </section>
 
-      {/* Social proof */}
+      {/* Transparence — remplace les témoignages (aucun avis client publiable à ce jour) */}
       <Reveal>
         <section className="py-14 px-6 md:px-10 bg-nuit">
-          <div className="max-w-[900px] mx-auto text-center">
-            <h2 className="text-xl font-semibold text-white mb-6">Ce que nos clients disent après l&apos;audit</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {[
-                { text: "J'ai découvert que 40% de mon budget partait sur des mots-clés non pertinents.", name: "Sophie M.", role: "Cabinet RH" },
-                { text: "Le rapport m'a montré exactement quoi changer. En 2 semaines, mon CPA a baissé de 30%.", name: "Julien L.", role: "E-commerce mode" },
-                { text: "Clair, pro, actionnable. Bien au-dessus de ce que mon ancienne agence me donnait.", name: "Antoine C.", role: "BTP" },
-              ].map((t) => (
-                <div key={t.name} className="bg-white/[0.05] border border-white/[0.08] rounded-lg p-5 text-left">
-                  <div className="text-spark text-sm mb-2">★★★★★</div>
-                  <p className="text-[13px] text-white/50 leading-relaxed font-light mb-3">« {t.text} »</p>
-                  <div className="text-[12px] text-white/30"><strong className="text-white/60">{t.name}</strong> · {t.role}</div>
-                </div>
-              ))}
-            </div>
+          <div className="max-w-[640px] mx-auto text-center">
+            <h2 className="text-xl font-semibold text-white mb-4">Pas de témoignages ici — pour l&apos;instant</h2>
+            <p className="text-[14px] text-white/70 leading-relaxed font-light mb-3">
+              Uplyo accompagne son premier client depuis 2026. Tant que son accord de publication n&apos;est pas obtenu, vous ne trouverez sur ce site ni avis, ni note, ni moyenne de résultats.
+            </p>
+            <p className="text-[14px] text-white/70 leading-relaxed font-light">
+              L&apos;audit est justement fait pour ça : il vous montre le travail réel sur votre compte, avant tout engagement.
+            </p>
           </div>
         </section>
       </Reveal>

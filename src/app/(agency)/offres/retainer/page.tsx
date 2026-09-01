@@ -19,11 +19,13 @@ const INCLUDES = [
   { ico: "🎯", title: "Expansion mots-clés", desc: "Recherche continue de nouvelles opportunités : nouveaux mots-clés, audiences, zones géographiques." },
 ];
 
-const RESULTS = [
-  { metric: "CPA moyen", before: "65€", after: "38€", change: "-42%" },
-  { metric: "ROAS", before: "1.8x", after: "4.2x", change: "+133%" },
-  { metric: "Conversions/mois", before: "45", after: "189", change: "+320%" },
-  { metric: "Budget gaspillé", before: "~40%", after: "<8%", change: "-80%" },
+// Engagements de service (vérifiables contractuellement), pas de résultats
+// chiffrés : aucun chiffre client n'est publiable à ce jour.
+const COMMITMENTS = [
+  { label: "Rapport", value: "Hebdo", desc: "+ bilan mensuel détaillé" },
+  { label: "Appel stratégique", value: "Mensuel", desc: "30 min, chaque mois" },
+  { label: "Accès au compte", value: "Total", desc: "Vous en restez propriétaire" },
+  { label: "Préavis", value: "30 jours", desc: "après les 6 mois d'engagement" },
 ];
 
 export default function RetainerPage() {
@@ -54,27 +56,28 @@ export default function RetainerPage() {
         </div>
       </section>
 
-      {/* Results */}
+      {/* Engagements */}
       <section className="py-14 px-6 md:px-10 bg-nuit">
         <div className="max-w-[900px] mx-auto">
           <Reveal>
-            <h2 className="text-xl font-semibold text-white mb-8 text-center">Résultats moyens après 90 jours</h2>
+            <h2 className="text-xl font-semibold text-white mb-8 text-center">Ce sur quoi nous nous engageons</h2>
           </Reveal>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {RESULTS.map((r, i) => (
-              <Reveal key={r.metric} delay={i * 80}>
-                <div className="bg-white/[0.05] border border-white/[0.08] rounded-lg p-5 text-center">
-                  <div className="font-mono text-[10px] text-white/30 uppercase tracking-wider mb-2">{r.metric}</div>
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <span className="text-sm text-white/30 line-through font-mono">{r.before}</span>
-                    <span className="text-white/30">→</span>
-                    <span className="text-lg font-semibold text-white font-mono">{r.after}</span>
-                  </div>
-                  <div className="text-eclat font-mono text-sm font-semibold">{r.change}</div>
+            {COMMITMENTS.map((c, i) => (
+              <Reveal key={c.label} delay={i * 80}>
+                <div className="bg-white/[0.05] border border-white/[0.08] rounded-lg p-5 text-center h-full">
+                  <div className="font-mono text-[10px] text-white/55 uppercase tracking-wider mb-2">{c.label}</div>
+                  <div className="text-lg font-semibold text-white mb-1">{c.value}</div>
+                  <div className="text-[11px] text-white/55">{c.desc}</div>
                 </div>
               </Reveal>
             ))}
           </div>
+          <Reveal delay={340}>
+            <p className="text-[13px] text-white/55 font-light text-center max-w-[560px] mx-auto mt-8 leading-relaxed">
+              Uplyo accompagne son premier client depuis 2026. Les résultats chiffrés seront publiés ici dès que son accord sera obtenu — pas de moyennes inventées en attendant.
+            </p>
+          </Reveal>
         </div>
       </section>
 

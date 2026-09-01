@@ -19,7 +19,7 @@ export default function AgencyLayout({ children }: { children: React.ReactNode }
                 <span className="text-lg font-semibold text-white tracking-tight">uplyo</span>
               </div>
               <p className="text-[13px] text-white/25 leading-relaxed max-w-[240px] mb-5 font-light">Agence Google Ads performance pour PME et e-commerce. Résultats mesurables, transparence totale.</p>
-              <div className="font-mono text-[10px] text-white/[0.18] flex items-center gap-1.5"><span className="text-eclat">◆</span>Google Ads Certified · GA4 · Looker Studio</div>
+              <div className="font-mono text-[10px] text-white/[0.18] flex items-center gap-1.5"><span className="text-eclat">◆</span>Google Ads · GA4 · Looker Studio</div>
             </div>
             <div>
               <div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Agence</div>
