@@ -23,10 +23,12 @@ export default function Ticker() {
         {doubled.map((item, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 px-8 py-3 border-r border-white/15 whitespace-nowrap text-[13px] font-medium text-white/85"
+            className="flex items-center gap-3 px-8 py-3 border-r border-white/15 whitespace-nowrap text-[13px] font-medium text-white"
           >
+            {/* sur --eclat, white/85 = 3.99:1 (< AA) ; blanc pur = 4.86:1.
+                Le losange est purement décoratif → masqué aux lecteurs d'écran. */}
             {item.dot && (
-              <span className="text-white/40 text-[8px]">◆</span>
+              <span aria-hidden="true" className="text-white/40 text-[8px]">◆</span>
             )}
             {item.text}
           </div>

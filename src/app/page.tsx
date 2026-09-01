@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import Reveal from "@/components/agency/Reveal";
 import Ticker from "@/components/agency/Ticker";
 import Navbar from "@/components/agency/Navbar";
+import Footer from "@/components/agency/Footer";
+import Analytics from "@/components/agency/Analytics";
 import ContactForm from "@/components/agency/ContactForm";
 import TrackedLink from "@/components/agency/TrackedLink";
 
@@ -95,6 +97,7 @@ export default function AgencyPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
       />
+      <Analytics />
       <Navbar />
 
       {/* HERO */}
@@ -115,14 +118,14 @@ export default function AgencyPage() {
             </div>
             <div className="flex items-center gap-3 md:gap-5 flex-wrap">
               {["Accès direct à l'expert", "Sans engagement", "Transparence totale sur le compte"].map((t, i) => (
-                <span key={i} className="flex items-center gap-1.5 text-[12px] md:text-[13px] text-ink-3"><span className="text-eclat font-bold text-xs">✓</span> {t}{i < 2 && <span className="ml-2 md:ml-3 w-px h-3.5 bg-[var(--bd2)] hidden md:block" />}</span>
+                <span key={i} className="flex items-center gap-1.5 text-[12px] md:text-[13px] text-ink-3"><span className="text-eclat font-semibold text-xs">✓</span> {t}{i < 2 && <span className="ml-2 md:ml-3 w-px h-3.5 bg-[var(--bd2)] hidden md:block" />}</span>
               ))}
             </div>
           </Reveal>
           <Reveal delay={200}>
             <div className="bg-white border border-[var(--bd)] rounded-uplyo-lg overflow-hidden shadow-[0_24px_60px_rgba(108,92,231,0.1)] hidden lg:block">
               <div className="bg-nuit px-5 py-4 flex items-center justify-between">
-                <span className="font-mono text-[10px] text-white/40 tracking-wider">UPLYO — CE QUE VOUS OBTENEZ</span>
+                <span className="font-mono text-[10px] text-white/60 tracking-wider">UPLYO — CE QUE VOUS OBTENEZ</span>
               </div>
               <div className="grid grid-cols-2">
                 {KPIS.map((kpi, i) => (
@@ -193,13 +196,13 @@ export default function AgencyPage() {
                 <div className={`border-[1.5px] rounded-uplyo-lg p-7 md:p-9 flex flex-col transition-all hover:-translate-y-1 h-full ${svc.featured ? "bg-nuit border-eclat" : "bg-white border-[var(--bd)] hover:border-eclat hover:shadow-[0_12px_40px_rgba(108,92,231,0.1)]"}`}>
                   <span className={`font-mono text-[10px] px-2 py-[3px] rounded tracking-wider uppercase inline-block mb-4 w-fit ${svc.featured ? "text-aura bg-aura/10 border border-aura/25" : "text-eclat bg-lune border border-[var(--bd)]"}`}>{svc.tag}</span>
                   <h3 className={`text-[1.15rem] md:text-[1.2rem] font-semibold tracking-tight mb-2 ${svc.featured ? "text-white" : "text-ink"}`}>{svc.title}</h3>
-                  <p className={`text-[13px] leading-relaxed mb-5 flex-1 font-light ${svc.featured ? "text-white/40" : "text-ink-2"}`}>{svc.desc}</p>
+                  <p className={`text-[13px] leading-relaxed mb-5 flex-1 font-light ${svc.featured ? "text-white/60" : "text-ink-2"}`}>{svc.desc}</p>
                   <div className="flex flex-col gap-1.5 mb-7">
-                    {svc.items.map((item) => (<div key={item} className={`flex items-start gap-2 text-[13px] font-light ${svc.featured ? "text-white/40" : "text-ink-2"}`}><span className="text-eclat font-bold text-xs mt-[2px] shrink-0">✓</span>{item}</div>))}
+                    {svc.items.map((item) => (<div key={item} className={`flex items-start gap-2 text-[13px] font-light ${svc.featured ? "text-white/60" : "text-ink-2"}`}><span className="text-eclat font-semibold text-xs mt-[2px] shrink-0">✓</span>{item}</div>))}
                   </div>
                   <div className={`pt-6 mb-4 ${svc.featured ? "border-t border-white/[0.08]" : "border-t border-[var(--bd)]"}`}>
                     <div className={`text-[1.4rem] md:text-[1.6rem] font-semibold tracking-tight ${svc.featured ? "text-white" : "text-eclat"}`}>{svc.price}</div>
-                    <div className={`text-xs mt-0.5 font-light ${svc.featured ? "text-white/30" : "text-ink-3"}`}>{svc.note}</div>
+                    <div className={`text-xs mt-0.5 font-light ${svc.featured ? "text-white/55" : "text-ink-3"}`}>{svc.note}</div>
                   </div>
                   <Link href="/audit" className="w-full text-center bg-eclat text-white text-sm font-semibold py-3 rounded-lg transition-colors hover:bg-eclat-hover border-none cursor-pointer block no-underline">Demander un audit gratuit →</Link>
                 </div>
@@ -309,25 +312,7 @@ export default function AgencyPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-nuit px-6 md:px-10 pt-12 md:pt-16 pb-8 border-t-2 border-eclat">
-        <div className="max-w-[1160px] mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-12 pb-10 md:pb-12 border-b border-white/[0.06] mb-8">
-            <div className="col-span-2 md:col-span-1">
-              <div className="flex items-center gap-2 mb-3"><svg width="26" height="26" viewBox="0 0 36 36" fill="none"><polygon points="18,4 28,20 18,36 8,20" fill="#6C5CE7"/><polygon points="29,2 34,10 29,18 24,10" fill="#A29BFE" opacity="0.88"/><polygon points="7,18 12,26 7,34 2,26" fill="#A29BFE" opacity="0.6"/></svg><span className="text-lg font-semibold text-white tracking-tight">uplyo</span></div>
-              <p className="text-[13px] text-white/25 leading-relaxed max-w-[240px] mb-5 font-light">Agence Google Ads performance pour PME et e-commerce. Résultats mesurables, transparence totale.</p>
-              <div className="font-mono text-[10px] text-white/50 flex items-center gap-1.5"><span className="text-eclat">◆</span>Google Ads · GA4 · Looker Studio</div>
-            </div>
-            <div><div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Agence</div><div className="flex flex-col gap-1.5"><Link href="/offres/pack-lancement" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Pack Lancement</Link><Link href="/offres/retainer" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Pilotage mensuel</Link><Link href="/offres/ecommerce" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Pack E-commerce</Link><Link href="/contact" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Contact</Link></div></div>
-            <div><div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Ressources</div><div className="flex flex-col gap-1.5"><Link href="/audit" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Audit gratuit</Link><Link href="/cgv" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">CGV</Link><Link href="/mentions-legales" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Mentions légales</Link></div></div>
-            <div><div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/25 mb-3">Contact</div><div className="flex flex-col gap-1.5"><a href="mailto:contact@uplyo.fr" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">contact@uplyo.fr</a><Link href="/audit" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">Réserver un audit</Link><a href="https://linkedin.com/company/uplyo" target="_blank" rel="noopener" className="text-[13px] text-white/35 font-light no-underline hover:text-aura transition-colors">LinkedIn</a></div></div>
-          </div>
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="font-mono text-[11px] text-white/[0.18]">© 2026 <span className="text-eclat">Uplyo</span> · Tous droits réservés</div>
-            <div className="flex gap-4 md:gap-6"><Link href="/mentions-legales" className="text-[11px] text-white/[0.18] no-underline hover:text-white/45 transition-colors">Mentions légales</Link><Link href="/confidentialite" className="text-[11px] text-white/[0.18] no-underline hover:text-white/45 transition-colors">Confidentialité</Link><Link href="/cgv" className="text-[11px] text-white/[0.18] no-underline hover:text-white/45 transition-colors">CGV</Link></div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

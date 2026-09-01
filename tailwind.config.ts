@@ -15,27 +15,9 @@ const config: Config = {
         lune: { DEFAULT: "#F5F3FF", deep: "#EBE8FF" },
 
         // Semantic
-        ink: { DEFAULT: "#0D0B1A", 2: "#3D3B5C", 3: "#7C7A9A" },
-
-        // OS Dark theme
-        os: {
-          bg: "#0e0f11",
-          bg2: "#14161a",
-          bg3: "#1c1f25",
-          bg4: "#242830",
-          bg5: "#2e333d",
-        },
-        "os-line": {
-          DEFAULT: "rgba(255,255,255,0.07)",
-          2: "rgba(255,255,255,0.12)",
-          3: "rgba(255,255,255,0.18)",
-        },
-        "os-t": {
-          DEFAULT: "#e8eaed",
-          2: "#868e9a",
-          3: "#4a5060",
-          4: "#2e3340",
-        },
+        // ink-3 : #7C7A9A donnait 4.11:1 sur blanc (< AA 4.5:1).
+        // #6F6D8A donne 4.96:1 sur #FFFFFF, 4.67:1 sur --w2, 4.53:1 sur --lune.
+        ink: { DEFAULT: "#0D0B1A", 2: "#3D3B5C", 3: "#6F6D8A" },
       },
       fontFamily: {
         sans: ['"DM Sans"', "system-ui", "sans-serif"],

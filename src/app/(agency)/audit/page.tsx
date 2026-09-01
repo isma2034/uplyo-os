@@ -95,7 +95,7 @@ export default function AuditPage() {
               <div className="flex flex-wrap gap-2.5 mb-8">
                 {TRUST_SIGNALS.map((t) => (
                   <span key={t} className="flex items-center gap-1.5 text-[12px] text-ink-3 bg-[var(--w2)] border border-[var(--bd)] rounded-full px-3 py-1.5">
-                    <span className="text-eclat font-bold text-xs">✓</span> {t}
+                    <span className="text-eclat font-semibold text-xs">✓</span> {t}
                   </span>
                 ))}
               </div>

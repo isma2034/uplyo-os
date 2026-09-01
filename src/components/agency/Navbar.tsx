@@ -62,18 +62,29 @@ export default function Navbar() {
           Audit gratuit →
         </Link>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden flex flex-col gap-[5px] bg-transparent border-none cursor-pointer p-1"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-menu"
-        >
-          <span aria-hidden="true" className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-          <span aria-hidden="true" className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
-          <span aria-hidden="true" className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
-        </button>
+        {/* Mobile : CTA compact toujours visible + hamburger.
+            Avant, le seul CTA mobile était enterré dans le menu hamburger. */}
+        <div className="flex items-center gap-3 md:hidden">
+          <Link
+            href="/audit"
+            onClick={() => setMobileOpen(false)}
+            className="bg-eclat text-white text-[12px] font-semibold px-3.5 py-2 rounded-lg cursor-pointer transition-colors hover:bg-eclat-hover no-underline whitespace-nowrap"
+          >
+            Audit gratuit →
+          </Link>
+
+          <button
+            className="flex flex-col gap-[5px] bg-transparent border-none cursor-pointer p-1"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+          >
+            <span aria-hidden="true" className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span aria-hidden="true" className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
+            <span aria-hidden="true" className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}

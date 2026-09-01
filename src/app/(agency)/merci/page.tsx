@@ -71,7 +71,7 @@ function MerciContent() {
                   ]
               ).map((step, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <div className="w-[22px] h-[22px] rounded-full bg-eclat text-white text-[11px] font-bold grid place-items-center shrink-0 mt-0.5">
+                  <div className="w-[22px] h-[22px] rounded-full bg-eclat text-white text-[11px] font-semibold grid place-items-center shrink-0 mt-0.5">
                     {i + 1}
                   </div>
                   <span className="text-[14px] text-ink-2 leading-relaxed">{step}</span>

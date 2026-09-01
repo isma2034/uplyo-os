@@ -48,8 +48,10 @@ export default function ContactPage() {
                   Choisir mon créneau →
                 </a>
                 <div className="flex gap-3 justify-center mt-4 flex-wrap">
+                  {/* sur --eclat, seul le blanc pur atteint AA (4.86:1) ;
+                      white/40 tombait à 2.02:1 */}
                   {["Gratuit", "30 min", "Sans engagement"].map((t) => (
-                    <span key={t} className="text-[11px] text-white/40 font-mono">{t}</span>
+                    <span key={t} className="text-[11px] text-white font-mono">{t}</span>
                   ))}
                 </div>
               </div>
