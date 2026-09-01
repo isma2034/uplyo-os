@@ -61,15 +61,15 @@ export async function POST(request: Request) {
         </div>
         <div style="background:#f9f8ff;padding:24px;border:1px solid #e8e5f5;border-radius:0 0 8px 8px;">
           <table style="width:100%;font-size:14px;border-collapse:collapse;">
-            <tr><td style="padding:8px 0;color:#7C7A9A;width:120px;">Prénom</td><td style="padding:8px 0;font-weight:600;">${safe.firstname}</td></tr>
-            <tr><td style="padding:8px 0;color:#7C7A9A;">Nom</td><td style="padding:8px 0;font-weight:600;">${safe.lastname}</td></tr>
-            <tr><td style="padding:8px 0;color:#7C7A9A;">Email</td><td style="padding:8px 0;"><a href="mailto:${safe.email}" style="color:#6C5CE7;">${safe.email}</a></td></tr>
-            ${safe.website ? `<tr><td style="padding:8px 0;color:#7C7A9A;">Site web</td><td style="padding:8px 0;"><a href="${safe.website}" style="color:#6C5CE7;">${safe.website}</a></td></tr>` : ""}
-            ${safe.budget ? `<tr><td style="padding:8px 0;color:#7C7A9A;">Budget</td><td style="padding:8px 0;font-weight:600;color:#6C5CE7;">${safe.budget}</td></tr>` : ""}
-            ${safe.sector ? `<tr><td style="padding:8px 0;color:#7C7A9A;">Secteur</td><td style="padding:8px 0;">${safe.sector}</td></tr>` : ""}
+            <tr><td style="padding:8px 0;color:#6F6D8A;width:120px;">Prénom</td><td style="padding:8px 0;font-weight:600;">${safe.firstname}</td></tr>
+            <tr><td style="padding:8px 0;color:#6F6D8A;">Nom</td><td style="padding:8px 0;font-weight:600;">${safe.lastname}</td></tr>
+            <tr><td style="padding:8px 0;color:#6F6D8A;">Email</td><td style="padding:8px 0;"><a href="mailto:${safe.email}" style="color:#6C5CE7;">${safe.email}</a></td></tr>
+            ${safe.website ? `<tr><td style="padding:8px 0;color:#6F6D8A;">Site web</td><td style="padding:8px 0;"><a href="${safe.website}" style="color:#6C5CE7;">${safe.website}</a></td></tr>` : ""}
+            ${safe.budget ? `<tr><td style="padding:8px 0;color:#6F6D8A;">Budget</td><td style="padding:8px 0;font-weight:600;color:#6C5CE7;">${safe.budget}</td></tr>` : ""}
+            ${safe.sector ? `<tr><td style="padding:8px 0;color:#6F6D8A;">Secteur</td><td style="padding:8px 0;">${safe.sector}</td></tr>` : ""}
           </table>
           ${safe.message ? `<div style="margin-top:16px;padding:16px;background:#fff;border:1px solid #e8e5f5;border-radius:6px;font-size:14px;color:#3D3B5C;line-height:1.6;"><strong style="color:#0D0B1A;">Message :</strong><br/>${safe.message}</div>` : ""}
-          <div style="margin-top:20px;padding-top:16px;border-top:1px solid #e8e5f5;font-size:12px;color:#7C7A9A;">
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid #e8e5f5;font-size:12px;color:#6F6D8A;">
             Envoyé depuis le formulaire uplyo.fr
           </div>
         </div>

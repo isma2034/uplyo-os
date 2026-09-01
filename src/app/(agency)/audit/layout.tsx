@@ -8,7 +8,8 @@ import { Metadata } from "next";
 // against the built site, not by reading the code.
 export const metadata: Metadata = {
   title: "Audit Google Ads gratuit",
-  description: "Découvrez combien votre compte Google Ads vous fait perdre. Audit gratuit et sans engagement, rapport sous 48h.",
+  description:
+    "Je regarde votre compte Google Ads et je vous écris ce que j'y vois : où part le budget, ce que vaut votre suivi de conversions, quoi corriger en premier. Rapport écrit sous 48h, gratuit.",
   alternates: { canonical: "/audit" },
 };
 

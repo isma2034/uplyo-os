@@ -32,7 +32,7 @@ export default function MentionsLegalesPage() {
             </div>
             <div>
               <h2 className="text-lg font-semibold text-ink mb-2">Données personnelles</h2>
-              <p>Conformément au RGPD, vous disposez d&apos;un droit d&apos;accès, de rectification et de suppression de vos données personnelles. Pour exercer ces droits, contactez-nous à contact@uplyo.fr. Voir notre <a href="/confidentialite" className="text-eclat">politique de confidentialité</a>.</p>
+              <p>Conformément au RGPD, vous disposez d&apos;un droit d&apos;accès, de rectification et de suppression de vos données personnelles. Pour exercer ces droits, contactez-nous à contact@uplyo.fr. Voir notre <a href="/confidentialite" className="text-eclat-ink underline underline-offset-4">politique de confidentialité</a>.</p>
             </div>
             <div>
               <h2 className="text-lg font-semibold text-ink mb-2">Cookies</h2>

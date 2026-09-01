@@ -1,32 +1,85 @@
 "use client";
 
-import { useState, useRef, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import Link from "next/link";
+import { ArrowRight, Check, UserRound } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
-import { SITE_CONFIG } from "@/lib/config";
-import { trackFormStart, trackFormSubmit, trackCalendlyClick } from "@/lib/analytics";
+import { MEDIA_FLOOR } from "@/lib/offers";
+import { trackFormStart, trackFormSubmit } from "@/lib/analytics";
 
 const AUDIT_INCLUDES = [
-  { ico: "🔬", title: "Score de performance /100", desc: "Analyse de votre compte : structure, enchères, mots-clés, annonces, tracking." },
-  { ico: "💸", title: "Budget gaspillé identifié", desc: "On vous montre exactement où votre argent part en fumée et combien vous pouvez économiser." },
-  { ico: "📊", title: "Benchmark vs votre secteur", desc: "Comparaison de votre CPA, CTR et ROAS avec les moyennes de votre industrie." },
-  { ico: "🎯", title: "3 actions immédiates", desc: "Recommandations concrètes et priorisées que vous pouvez appliquer dès demain." },
-  { ico: "📋", title: "Rapport PDF détaillé", desc: "Un document de 5-10 pages avec toutes les données, envoyé sous 48h." },
-  { ico: "📞", title: "Appel de restitution 30 min", desc: "On parcourt le rapport ensemble et on répond à toutes vos questions." },
+  {
+    t: "L'état de la mesure",
+    d: "Je teste vos conversions pour de vrai : j'appelle le numéro, j'envoie le formulaire, et je vous montre ce qui remonte, ce qui est compté deux fois et ce qui manque.",
+  },
+  {
+    t: "Où part le budget",
+    d: "Lecture du rapport de termes de recherche : les requêtes réellement payées, celles qui n'ont rien à voir avec votre activité, et ce qu'elles vous coûtent.",
+  },
+  {
+    t: "La structure du compte",
+    d: "Campagnes, groupes, enchères, exclusions, annonces. Ce qui est en place, ce qui manque, et ce qui est à refaire plutôt qu'à corriger.",
+  },
+  {
+    t: "Le marché et les concurrents",
+    d: "Les requêtes tapées par vos clients, leur volume, leur coût au clic, et les annonceurs déjà présents dessus.",
+  },
+  {
+    t: "Trois actions à faire en premier",
+    d: "Classées par effet attendu, avec le détail pour les appliquer vous-même si vous le souhaitez.",
+  },
+  {
+    t: "Un rapport écrit, sous 48 h",
+    d: "Avec les captures du compte à l'appui. Il est à vous, que l'on travaille ensemble ensuite ou non.",
+  },
 ];
 
-// Faits de service vérifiables uniquement — pas de statistiques de résultats
-// ni de mention de certification tant qu'elle n'est pas vérifiée.
-const TRUST_SIGNALS = [
-  "Rapport détaillé sous 48h",
-  "Gratuit et sans engagement",
-  "Appel de restitution de 30 min",
-  "Google Ads · GA4 · Looker Studio",
+// Limite assumée : ce que l'audit ne fera pas. Sans ce bloc, « audit gratuit »
+// laisse entendre une prestation illimitée et déçoit à la livraison.
+const AUDIT_WONT = [
+  "Prédire votre coût par demande ou votre chiffre d'affaires : cela dépend de la concurrence, de la saison et de votre taux de transformation, que personne ne connaît à l'avance.",
+  "Corriger votre compte. L'audit constate et priorise ; les modifications sont du travail facturé, ou à faire vous-même avec le rapport.",
+  "Refaire votre site. Je signale ce qui freine la conversion, sans intervenir dessus.",
+  "Analyser Meta, TikTok, Amazon ou votre référencement naturel : je ne fais que Google Ads.",
+  `Vous être utile si votre budget publicitaire est très inférieur à ${MEDIA_FLOOR.local} : il n'y aurait pas assez de données pour conclure quoi que ce soit.`,
+];
+
+const FAQ = [
+  {
+    q: "C'est vraiment gratuit ? Où est le piège ?",
+    a: "Il n'y en a pas, mais il y a un intérêt : c'est ma façon de vous montrer comment je travaille avant que vous ne payiez quoi que ce soit. Si le rapport vous suffit et que vous appliquez les corrections vous-même, tant mieux — vous ne me devez rien.",
+  },
+  {
+    q: "Faut-il me donner accès au compte ?",
+    a: "C'est mieux, en lecture seule, parce que l'essentiel se voit dans le rapport de termes de recherche et dans la configuration des conversions. Sans accès, je peux tout de même faire une analyse de marché et de concurrence à partir de votre site.",
+  },
+  {
+    q: "Et si je n'ai pas encore de campagnes ?",
+    a: "L'audit devient une étude d'opportunité : les requêtes tapées dans votre secteur et votre zone, leur volume, leur coût au clic, et l'ordre de grandeur de budget nécessaire. Il arrive que la conclusion soit « n'y allez pas » — je vous le dirai.",
+  },
+  {
+    q: "Combien de temps ça prend, de mon côté ?",
+    a: "Le formulaire ci-contre, puis rien. Vous recevez le rapport sous 48 h. L'appel de restitution de 30 minutes est proposé, pas imposé.",
+  },
+  {
+    q: "Allez-vous me relancer ?",
+    a: "Non. Vous recevez le rapport, et un appel seulement si vous le demandez. Si vous ne répondez pas, je n'insiste pas.",
+  },
 ];
 
 export default function AuditPage() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [site, setSite] = useState("");
   const formStarted = useRef(false);
+
+  // Pré-remplissage depuis la carte d'audit du hero (/audit?site=…).
+  // Lu via window.location plutôt que useSearchParams() : ce dernier
+  // désoptimise la page en rendu statique et impose une frontière Suspense
+  // (l'erreur de build rencontrée sur /merci).
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get("site");
+    if (param) setSite(param);
+  }, []);
 
   const handleFormFocus = () => {
     if (!formStarted.current) {
@@ -41,7 +94,6 @@ export default function AuditPage() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-
     if (formData.get("_honey")) return;
 
     const data = {
@@ -51,7 +103,9 @@ export default function AuditPage() {
       website: formData.get("website") as string,
       budget: formData.get("budget") as string,
       sector: formData.get("sector") as string,
-      message: `[AUDIT GRATUIT] ${formData.get("google_ads_url") || "URL non fournie"}\n\nObjectif: ${formData.get("objective") || "Non précisé"}`,
+      message: `[AUDIT GRATUIT] ${formData.get("google_ads_url") || "URL Google Ads non fournie"}\n\nObjectif : ${
+        formData.get("objective") || "non précisé"
+      }`,
     };
 
     try {
@@ -74,212 +128,336 @@ export default function AuditPage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
-        <div className="max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-start">
-          {/* Left — pitch */}
+      {/* Hero + formulaire */}
+      <section className="section">
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
           <Reveal>
             <div>
-              <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-eclat mb-4">
-                <span className="w-4 h-[2px] bg-eclat rounded-full" />Audit gratuit
-              </div>
-              <h1 className="text-[clamp(2rem,4.5vw,3.8rem)] font-semibold leading-[1.02] tracking-[-1.5px] text-ink mb-5">
-                Découvrez combien vous <span className="text-eclat">perdez</span><br />
-                <span className="italic font-light text-ink-3">sur Google Ads.</span>
+              <p className="label-mono text-eclat-ink mb-4">Audit gratuit · 48 h</p>
+              <h1 className="text-display font-semibold text-ink mb-5">
+                Je regarde votre compte, et je vous écris ce que j&apos;y vois.
               </h1>
-              <p className="text-[15px] md:text-[17px] text-ink-2 max-w-[520px] leading-relaxed font-light mb-8">
-                Requêtes non pertinentes, tracking cassé, structure de campagne inadaptée : la plupart des comptes laissent filer du budget sans le voir. L&apos;audit identifie ces fuites et vous les chiffre en 48h — gratuitement, sans engagement.
+              <p className="text-lead text-ink-2 max-w-[58ch] font-light mb-8">
+                Requêtes hors sujet payées chaque jour, conversions qui ne remontent pas, structure
+                qui empêche d&apos;arbitrer : la plupart des comptes perdent du budget sans que
+                personne ne le voie. L&apos;audit chiffre ces fuites et vous les montre, captures à
+                l&apos;appui.
               </p>
 
-              {/* Trust signals */}
-              <div className="flex flex-wrap gap-2.5 mb-8">
-                {TRUST_SIGNALS.map((t) => (
-                  <span key={t} className="flex items-center gap-1.5 text-[12px] text-ink-3 bg-[var(--w2)] border border-[var(--bd)] rounded-full px-3 py-1.5">
-                    <span className="text-eclat font-semibold text-xs">✓</span> {t}
-                  </span>
-                ))}
-              </div>
-
-              {/* What's included */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {AUDIT_INCLUDES.map((item) => (
-                  <div key={item.title} className="flex gap-3 items-start">
-                    <span className="text-lg shrink-0">{item.ico}</span>
-                    <div>
-                      <div className="text-[13px] font-semibold text-ink mb-0.5">{item.title}</div>
-                      <div className="text-[12px] text-ink-2 leading-relaxed font-light">{item.desc}</div>
-                    </div>
+              <dl className="grid grid-cols-2 sm:grid-cols-4 border-t border-line mb-10">
+                {[
+                  { k: "Prix", v: "Gratuit" },
+                  { k: "Délai", v: "48 h" },
+                  { k: "Format", v: "Rapport écrit" },
+                  { k: "Suite", v: "Aucune obligation" },
+                ].map((s) => (
+                  <div key={s.k} className="py-4 pr-4 border-b border-line">
+                    <dt className="label-mono text-ink-3 mb-1">{s.k}</dt>
+                    <dd className="text-body-lg font-semibold text-ink">{s.v}</dd>
                   </div>
                 ))}
-              </div>
+              </dl>
+
+              <h2 className="text-title font-semibold text-ink mb-5">Ce que contient le rapport</h2>
+              <ol className="border-t border-line">
+                {AUDIT_INCLUDES.map((item, i) => (
+                  <li
+                    key={item.t}
+                    className="grid grid-cols-[40px_1fr] gap-3 py-4 border-b border-line"
+                  >
+                    <span className="font-mono text-body text-eclat-ink">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span>
+                      <span className="block text-body font-semibold text-ink mb-1">{item.t}</span>
+                      <span className="block text-body text-ink-2 font-light">{item.d}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </Reveal>
 
-          {/* Right — form */}
-          <Reveal delay={150}>
-            {status === "sent" ? (
-              <div className="flex flex-col items-center justify-center bg-white border-[1.5px] border-eclat/30 rounded-uplyo-lg p-10 text-center min-h-[400px]">
-                <div className="text-4xl mb-4">🎉</div>
-                <div className="text-xl font-semibold text-ink mb-2">Demande d&apos;audit reçue !</div>
-                <p className="text-sm text-ink-2 font-light max-w-sm mb-6">
-                  Nous analysons votre compte et vous envoyons le rapport sous 48h.
-                  En attendant, vous pouvez réserver votre créneau de restitution.
-                </p>
-                <a
-                  href={SITE_CONFIG.calendlyUrl}
-                  target="_blank"
-                  rel="noopener"
-                  onClick={() => trackCalendlyClick("audit_success")}
-                  className="btn-primary no-underline text-sm"
-                >
-                  📅 Réserver mon créneau →
-                </a>
+          {/* Formulaire */}
+          <Reveal delay={120}>
+            <form
+              onSubmit={handleSubmit}
+              onFocus={handleFormFocus}
+              className="flex flex-col gap-3.5 bg-white border border-line rounded-card p-6 md:p-8 lg:sticky lg:top-[88px] shadow-card"
+            >
+              <div className="mb-1">
+                <div className="text-title font-semibold text-ink mb-1">Demander mon audit</div>
+                <div className="text-caption text-ink-3 font-light">
+                  Rapport écrit sous 48 h · gratuit · sans contrepartie
+                </div>
               </div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                onFocus={handleFormFocus}
-                className="flex flex-col gap-3.5 bg-white border-[1.5px] border-[var(--bd)] rounded-uplyo-lg p-6 md:p-8 sticky top-[84px]"
-              >
-                <div className="text-center mb-2">
-                  <div className="text-[15px] font-semibold text-ink mb-1">Demandez votre audit gratuit</div>
-                  <div className="text-[12px] text-ink-3 font-light">Rapport sous 48h · 100% gratuit · Sans engagement</div>
+
+              <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="a-firstname" className="label-mono text-ink-2">
+                    Prénom *
+                  </label>
+                  <input
+                    id="a-firstname"
+                    name="firstname"
+                    type="text"
+                    required
+                    autoComplete="given-name"
+                    placeholder="Sophie"
+                    className="field"
+                  />
                 </div>
-
-                <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex flex-col gap-1">
-                    <label className="text-[10px] font-medium text-ink-2 uppercase tracking-wider font-mono">Prénom *</label>
-                    <input name="firstname" type="text" required placeholder="Sophie"
-                      className="bg-[var(--w2)] border-[1.5px] border-[var(--bd)] rounded-md px-3 py-2.5 text-sm text-ink outline-none focus:border-eclat transition-colors" />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label className="text-[10px] font-medium text-ink-2 uppercase tracking-wider font-mono">Nom *</label>
-                    <input name="lastname" type="text" required placeholder="Martin"
-                      className="bg-[var(--w2)] border-[1.5px] border-[var(--bd)] rounded-md px-3 py-2.5 text-sm text-ink outline-none focus:border-eclat transition-colors" />
-                  </div>
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="a-lastname" className="label-mono text-ink-2">
+                    Nom *
+                  </label>
+                  <input
+                    id="a-lastname"
+                    name="lastname"
+                    type="text"
+                    required
+                    autoComplete="family-name"
+                    placeholder="Martin"
+                    className="field"
+                  />
                 </div>
+              </div>
 
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-medium text-ink-2 uppercase tracking-wider font-mono">Email professionnel *</label>
-                  <input name="email" type="email" required placeholder="sophie@entreprise.fr"
-                    className="bg-[var(--w2)] border-[1.5px] border-[var(--bd)] rounded-md px-3 py-2.5 text-sm text-ink outline-none focus:border-eclat transition-colors" />
-                </div>
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="a-email" className="label-mono text-ink-2">
+                  Email professionnel *
+                </label>
+                <input
+                  id="a-email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="sophie@entreprise.fr"
+                  className="field"
+                />
+              </div>
 
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-medium text-ink-2 uppercase tracking-wider font-mono">Site web *</label>
-                  <input name="website" type="url" required placeholder="https://monsite.fr"
-                    className="bg-[var(--w2)] border-[1.5px] border-[var(--bd)] rounded-md px-3 py-2.5 text-sm text-ink outline-none focus:border-eclat transition-colors" />
-                </div>
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="a-website" className="label-mono text-ink-2">
+                  Site web *
+                </label>
+                <input
+                  id="a-website"
+                  name="website"
+                  type="text"
+                  required
+                  inputMode="url"
+                  autoComplete="url"
+                  value={site}
+                  onChange={(e) => setSite(e.target.value)}
+                  placeholder="monentreprise.fr"
+                  className="field"
+                />
+              </div>
 
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-medium text-ink-2 uppercase tracking-wider font-mono">URL Google Ads (optionnel)</label>
-                  <input name="google_ads_url" type="text" placeholder="ads.google.com/aw/overview?ocid=123-456-7890"
-                    className="bg-[var(--w2)] border-[1.5px] border-[var(--bd)] rounded-md px-3 py-2.5 text-sm text-ink outline-none focus:border-eclat transition-colors" />
-                </div>
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="a-ads" className="label-mono text-ink-2">
+                  Identifiant Google Ads (facultatif)
+                </label>
+                <input
+                  id="a-ads"
+                  name="google_ads_url"
+                  type="text"
+                  placeholder="123-456-7890"
+                  className="field"
+                />
+              </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex flex-col gap-1">
-                    <label className="text-[10px] font-medium text-ink-2 uppercase tracking-wider font-mono">Budget mensuel</label>
-                    <select name="budget" defaultValue=""
-                      className="bg-[var(--w2)] border-[1.5px] border-[var(--bd)] rounded-md px-3 py-2.5 text-sm text-ink outline-none focus:border-eclat appearance-none transition-colors">
-                      <option value="" disabled>—</option>
-                      <option value="500-1000">500€ – 1 000€</option>
-                      <option value="1000-3000">1 000€ – 3 000€</option>
-                      <option value="3000-10000">3 000€ – 10 000€</option>
-                      <option value="10000+">10 000€+</option>
-                      <option value="pas-encore">Pas encore de campagnes</option>
-                    </select>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label className="text-[10px] font-medium text-ink-2 uppercase tracking-wider font-mono">Secteur</label>
-                    <select name="sector" defaultValue=""
-                      className="bg-[var(--w2)] border-[1.5px] border-[var(--bd)] rounded-md px-3 py-2.5 text-sm text-ink outline-none focus:border-eclat appearance-none transition-colors">
-                      <option value="" disabled>—</option>
-                      <option value="ecommerce">E-commerce</option>
-                      <option value="btob">Services B2B</option>
-                      <option value="btoc">Services B2C / Local</option>
-                      <option value="artisan">Artisan / BTP</option>
-                      <option value="sante">Santé / Bien-être</option>
-                      <option value="immo">Immobilier</option>
-                      <option value="saas">SaaS</option>
-                      <option value="autre">Autre</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-medium text-ink-2 uppercase tracking-wider font-mono">Votre objectif principal</label>
-                  <select name="objective" defaultValue=""
-                    className="bg-[var(--w2)] border-[1.5px] border-[var(--bd)] rounded-md px-3 py-2.5 text-sm text-ink outline-none focus:border-eclat appearance-none transition-colors">
-                    <option value="" disabled>—</option>
-                    <option value="reduire-cpa">Réduire mon CPA</option>
-                    <option value="augmenter-roas">Augmenter mon ROAS</option>
-                    <option value="plus-conversions">Plus de conversions</option>
-                    <option value="lancer-campagnes">Lancer mes premières campagnes</option>
-                    <option value="changer-agence">Changer d&apos;agence</option>
-                    <option value="audit-general">Audit général de mon compte</option>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="a-budget" className="label-mono text-ink-2">
+                    Budget mensuel
+                  </label>
+                  <select id="a-budget" name="budget" defaultValue="" className="field appearance-none">
+                    <option value="" disabled>
+                      —
+                    </option>
+                    <option value="moins-500">Moins de 500 €</option>
+                    <option value="500-1000">500 € – 1 000 €</option>
+                    <option value="1000-3000">1 000 € – 3 000 €</option>
+                    <option value="3000-10000">3 000 € – 10 000 €</option>
+                    <option value="10000+">10 000 €+</option>
+                    <option value="pas-encore">Pas encore de campagnes</option>
                   </select>
                 </div>
-
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="bg-eclat text-white text-[15px] font-semibold py-3.5 rounded-lg border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px flex items-center justify-center gap-2 disabled:opacity-60 mt-2"
-                >
-                  {status === "sending" ? (
-                    <><span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> Envoi en cours…</>
-                  ) : status === "error" ? (
-                    "Réessayer →"
-                  ) : (
-                    "🔬 Recevoir mon audit gratuit →"
-                  )}
-                </button>
-
-                <div className="text-[10px] text-ink-3 text-center font-mono">
-                  Données confidentielles · Aucun démarchage · Rapport sous 48h
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="a-sector" className="label-mono text-ink-2">
+                    Secteur
+                  </label>
+                  <select id="a-sector" name="sector" defaultValue="" className="field appearance-none">
+                    <option value="" disabled>
+                      —
+                    </option>
+                    <option value="artisan">Artisan / BTP</option>
+                    <option value="services-locaux">Services aux particuliers</option>
+                    <option value="btob">Services B2B</option>
+                    <option value="sante">Santé / Bien-être</option>
+                    <option value="immo">Immobilier</option>
+                    <option value="ecommerce">E-commerce</option>
+                    <option value="autre">Autre</option>
+                  </select>
                 </div>
-              </form>
-            )}
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="a-objective" className="label-mono text-ink-2">
+                  Votre objectif principal
+                </label>
+                <select id="a-objective" name="objective" defaultValue="" className="field appearance-none">
+                  <option value="" disabled>
+                    —
+                  </option>
+                  <option value="baisser-cout-lead">Faire baisser mon coût par demande</option>
+                  <option value="plus-de-demandes">Recevoir plus de demandes</option>
+                  <option value="comprendre-ou-part-budget">Comprendre où part mon budget</option>
+                  <option value="lancer">Lancer mes premières campagnes</option>
+                  <option value="changer-prestataire">Changer de prestataire</option>
+                  <option value="verifier-tracking">Vérifier mon suivi de conversions</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="bg-eclat text-white text-body-lg font-semibold py-3.5 rounded-uplyo border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px flex items-center justify-center gap-2 disabled:opacity-60 mt-2"
+              >
+                {status === "sending" ? (
+                  <>
+                    <span
+                      aria-hidden="true"
+                      className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                    />
+                    Envoi en cours…
+                  </>
+                ) : status === "error" ? (
+                  "Réessayer"
+                ) : (
+                  <>
+                    Recevoir mon audit
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </>
+                )}
+              </button>
+
+              {status === "error" && (
+                <p role="alert" className="text-caption text-[#B3261E] text-center">
+                  L&apos;envoi a échoué. Réessayez, ou écrivez à contact@uplyo.fr.
+                </p>
+              )}
+
+              {/* « Aucun démarchage » ne vaut que pour les personnes qui
+                  remplissent elles-mêmes ce formulaire : de la prospection
+                  email sortante existe par ailleurs. */}
+              <p className="text-caption text-ink-3 text-center font-light">
+                Vos données restent confidentielles. Je ne vous relance pas si vous ne me le
+                demandez pas.
+              </p>
+            </form>
           </Reveal>
         </div>
       </section>
 
-      {/* Transparence — remplace les témoignages (aucun avis client publiable à ce jour) */}
-      <Reveal>
-        <section className="py-14 px-6 md:px-10 bg-nuit">
-          <div className="max-w-[640px] mx-auto text-center">
-            <h2 className="text-xl font-semibold text-white mb-4">Pas de témoignages ici — pour l&apos;instant</h2>
-            <p className="text-[14px] text-white/70 leading-relaxed font-light mb-3">
-              Uplyo accompagne son premier client depuis 2026. Tant que son accord de publication n&apos;est pas obtenu, vous ne trouverez sur ce site ni avis, ni note, ni moyenne de résultats.
-            </p>
-            <p className="text-[14px] text-white/70 leading-relaxed font-light">
-              L&apos;audit est justement fait pour ça : il vous montre le travail réel sur votre compte, avant tout engagement.
-            </p>
-          </div>
-        </section>
-      </Reveal>
-
-      {/* FAQ audit */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
-        <div className="max-w-[700px] mx-auto">
+      {/* Qui fait cet audit */}
+      <section className="section-tight bg-surface-2">
+        <div className="container-wide">
           <Reveal>
-            <h2 className="text-2xl font-semibold tracking-tight text-ink mb-8 text-center">Questions fréquentes sur l&apos;audit</h2>
-            <div className="flex flex-col gap-1">
-              {[
-                { q: "Est-ce vraiment gratuit ?", a: "Oui, 100%. L'audit est notre façon de vous montrer notre expertise. Si vous êtes satisfait, on peut discuter d'un accompagnement — mais aucune obligation." },
-                { q: "Combien de temps prend l'audit ?", a: "Nous envoyons le rapport sous 48h. L'appel de restitution dure 30 minutes." },
-                { q: "J'ai besoin de donner accès à mon compte ?", a: "Idéalement oui (accès lecture seule). Mais on peut déjà faire une analyse pertinente avec votre URL et votre secteur." },
-                { q: "Et si je n'ai pas encore de campagnes ?", a: "On fait un audit d'opportunité : analyse de votre marché, estimation de budget, structure recommandée. Tout aussi utile." },
-                { q: "Allez-vous me harceler de relances ?", a: "Non. Un email avec le rapport + un appel si vous le souhaitez. C'est tout. Zéro spam." },
-              ].map((faq) => (
-                <details key={faq.q} className="bg-[var(--w2)] rounded-lg group">
-                  <summary className="px-5 py-4 flex items-center justify-between gap-4 cursor-pointer text-[14px] font-medium text-ink list-none transition-colors hover:bg-lune">
-                    {faq.q}
-                    <span className="text-eclat text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+            <div className="bg-white border border-line rounded-card p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-start max-w-[860px]">
+              {/* Emplacement photo — aucun portrait réel disponible à ce jour. */}
+              <div
+                className="w-[84px] h-[84px] shrink-0 rounded-full border border-dashed border-line-strong bg-surface-2 grid place-items-center"
+                aria-hidden="true"
+              >
+                <UserRound size={26} className="text-ink-3" />
+              </div>
+              <div>
+                <div className="label-mono text-ink-3 mb-2">Qui fait cet audit</div>
+                <h2 className="text-title font-semibold text-ink mb-2">Ismael</h2>
+                <p className="text-body text-ink-2 font-light mb-3 max-w-[62ch]">
+                  Je gère les campagnes Google Ads de PME de services, seul. C&apos;est moi qui
+                  ouvrirai votre compte, moi qui rédigerai ce rapport, et moi qui vous répondrai si
+                  vous avez une question dessus — il n&apos;y a personne d&apos;autre.
+                </p>
+                <Link
+                  href="/a-propos"
+                  className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                >
+                  Mon parcours et mes limites
+                  <ArrowRight size={15} aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Ce que cet audit ne fera pas */}
+      <section className="section-tight bg-nuit">
+        <div className="container-wide">
+          <Reveal>
+            <div className="max-w-text mb-7">
+              <p className="label-mono text-spark mb-4">Les limites</p>
+              <h2 className="text-section font-semibold text-white">Ce que cet audit ne fera pas</h2>
+            </div>
+          </Reveal>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3.5">
+            {AUDIT_WONT.map((t) => (
+              <li key={t} className="flex gap-3 text-body text-white/80 font-light">
+                <span aria-hidden="true" className="text-spark shrink-0 leading-6">
+                  —
+                </span>
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Transparence */}
+      <section className="section-tight">
+        <div className="container-text text-center">
+          <Reveal>
+            <h2 className="text-title font-semibold text-ink mb-4">
+              Pas de témoignages ici — pas encore
+            </h2>
+            <p className="text-body-lg text-ink-2 font-light mb-3">
+              J&apos;accompagne un seul client à ce jour, depuis 2026. Tant que son accord de
+              publication n&apos;est pas obtenu, vous ne trouverez sur ce site ni avis, ni note, ni
+              moyenne de résultats.
+            </p>
+            <p className="text-body-lg text-ink-2 font-light">
+              L&apos;audit est justement fait pour ça : il porte sur votre compte à vous, et il vous
+              montre comment je travaille avant tout engagement.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section">
+        <div className="container-text">
+          <Reveal>
+            <h2 className="text-section font-semibold text-ink mb-8">Questions sur l&apos;audit</h2>
+            <div className="border-t border-line">
+              {FAQ.map((f) => (
+                <details key={f.q} className="group border-b border-line">
+                  <summary className="py-4 flex items-start justify-between gap-6 cursor-pointer text-body-lg font-medium text-ink list-none">
+                    {f.q}
+                    <span
+                      aria-hidden="true"
+                      className="text-eclat-ink text-xl leading-6 shrink-0 transition-transform group-open:rotate-45"
+                    >
+                      +
+                    </span>
                   </summary>
-                  <div className="px-5 pb-4 text-[13px] text-ink-2 leading-relaxed border-t border-[var(--bd)] font-light">{faq.a}</div>
+                  <p className="pb-5 pr-8 text-body text-ink-2 leading-relaxed font-light">{f.a}</p>
                 </details>
               ))}
             </div>
@@ -287,22 +465,26 @@ export default function AuditPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <Reveal>
-        <div className="bg-eclat py-14 px-6 md:px-10 text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">Préférez-vous un appel direct ?</h2>
-          <p className="text-[15px] text-white/60 mb-8 font-light">30 minutes avec notre expert — on regarde votre compte ensemble en temps réel.</p>
-          <a
-            href={SITE_CONFIG.calendlyUrl}
-            target="_blank"
-            rel="noopener"
-            onClick={() => trackCalendlyClick("audit_cta_bottom")}
-            className="inline-flex items-center gap-2 bg-white text-eclat text-[15px] font-semibold px-8 py-4 rounded-lg no-underline transition-all hover:bg-lune hover:-translate-y-0.5"
-          >
-            📅 Réserver mon créneau Calendly →
+      {/* Rappel final — seul bloc bg-eclat de la page */}
+      <section className="bg-eclat">
+        <div className="container-text py-14 md:py-20 text-center">
+          <h2 className="text-section font-semibold text-white mb-5">
+            Il n&apos;y a rien à perdre à essayer
+          </h2>
+          <ul className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center mb-8">
+            {["Gratuit", "Rapport écrit sous 48 h", "Aucune relance"].map((t) => (
+              <li key={t} className="flex items-center justify-center gap-2 text-body-lg text-white">
+                <Check size={16} className="shrink-0" aria-hidden="true" />
+                {t}
+              </li>
+            ))}
+          </ul>
+          <a href="#a-firstname" className="btn-invert">
+            Remplir le formulaire
+            <ArrowRight size={16} aria-hidden="true" />
           </a>
         </div>
-      </Reveal>
+      </section>
     </>
   );
 }
