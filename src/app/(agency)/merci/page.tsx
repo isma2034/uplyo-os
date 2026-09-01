@@ -1,12 +1,12 @@
 "use client";
 
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, CircleCheck } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
 import { SITE_CONFIG } from "@/lib/config";
-import { trackFormSubmit, trackCalendlyClick } from "@/lib/analytics";
+import { trackCalendlyClick } from "@/lib/analytics";
 
 // useSearchParams() désoptimise la page en rendu statique si elle n'est pas
 // enveloppée dans un <Suspense> — le build échoue sinon. Détecté en lançant
@@ -19,22 +19,33 @@ export default function MerciPage() {
   );
 }
 
+type Source = "contact" | "audit" | "rappel";
+
 function MerciContent() {
   const searchParams = useSearchParams();
-  const source = (searchParams.get("source") ?? "contact") as "contact" | "audit";
-  const tracked = useRef(false);
+  const raw = searchParams.get("source") ?? "contact";
+  const source: Source = raw === "audit" || raw === "rappel" ? raw : "contact";
 
-  useEffect(() => {
-    if (tracked.current) return;
-    tracked.current = true;
-    trackFormSubmit(source);
-    // Conversion Google Ads — à activer après validation de la balise :
-    // trackGoogleAdsConversion("AW-XXXXXXXXX/XXXXXXXXXXXXXXXX");
-  }, [source]);
+  // `generate_lead` etait emis DEUX fois par soumission : une fois par le
+  // formulaire (qui connait le budget, donc la valeur de conversion) et une
+  // seconde ici, au chargement de la page. Toutes les conversions du site
+  // etaient donc comptees double dans GA4, avec une valeur faussee. Cette
+  // page ne declenche plus rien : les deux formulaires emettent deja
+  // l'evenement, et /merci n'est atteignable que depuis eux (verifie : aucun
+  // autre lien vers /merci dans src/, et la page est en disallow robots).
+  // Conversion Google Ads — a activer apres validation de la balise, cote
+  // formulaire : trackGoogleAdsConversion("AW-XXXXXXXXX/XXXXXXXXXXXXXXXX").
 
   const isAudit = source === "audit";
+  const isRappel = source === "rappel";
 
-  const steps = isAudit
+  const steps = isRappel
+    ? [
+        "Je note votre demande et votre créneau",
+        "Je vous appelle sur le créneau choisi, sous 48 h ouvrées",
+        "Si vous n'êtes pas disponible, je laisse un message et je n'insiste pas",
+      ]
+    : isAudit
     ? [
         "Je regarde votre compte et votre marché",
         "Vous recevez le rapport écrit sous 48 h ouvrées",
@@ -54,10 +65,16 @@ function MerciContent() {
             <CircleCheck size={44} className="text-eclat-ink mx-auto mb-5" aria-hidden="true" />
 
             <h1 className="text-section font-semibold text-ink mb-3">
-              {isAudit ? "Demande d'audit reçue" : "Message reçu"}
+              {isRappel
+                ? "Demande de rappel reçue"
+                : isAudit
+                ? "Demande d'audit reçue"
+                : "Message reçu"}
             </h1>
             <p className="text-body-lg text-ink-2 mb-8 font-light">
-              {isAudit
+              {isRappel
+                ? "Je vous appelle sur le créneau que vous avez choisi, sous 48 h ouvrées."
+                : isAudit
                 ? "Je vous envoie le rapport écrit sous 48 h ouvrées."
                 : "Je vous réponds sous 24 h ouvrées."}
             </p>

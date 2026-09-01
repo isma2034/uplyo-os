@@ -11,19 +11,40 @@ function gtag(...args: unknown[]) {
 
 // ─── Formulaires ──────────────────────────────────────────────────
 
+/** `audit_rappel` = la variante « je préfère être rappelé » du formulaire /audit. */
+export type FormName = "contact" | "audit" | "audit_rappel";
+
 /** Premier focus dans un formulaire lead (micro-conversion) */
-export function trackFormStart(formName: "contact" | "audit") {
+export function trackFormStart(formName: FormName) {
   gtag("event", "form_start", {
     form_name: formName,
     event_category: "Lead",
   });
 }
 
+/**
+ * Étape atteinte dans un formulaire multi-étapes.
+ *
+ * C'est l'événement qui permet de répondre à « quelle étape bloque ? » : dans
+ * GA4, comparer le nombre de `form_step` par `step_number` donne directement
+ * le taux de passage d'une étape à l'autre. L'étape 1 est comptée elle aussi
+ * (à la première interaction), sans quoi il manquerait le dénominateur.
+ *
+ * Rapport GA4 à créer : exploration en entonnoir sur `form_step`, dimension
+ * personnalisée `step_number` (à déclarer dans Admin > Définitions
+ * personnalisées, sinon le paramètre reste invisible dans les rapports).
+ */
+export function trackFormStep(step: number, formName: FormName, stepName?: string) {
+  gtag("event", "form_step", {
+    form_name: formName,
+    step_number: step,
+    step_name: stepName ?? `step_${step}`,
+    event_category: "Lead",
+  });
+}
+
 /** Soumission réussie d'un formulaire — valeur dynamique selon budget */
-export function trackFormSubmit(
-  formName: "contact" | "audit",
-  budget?: string
-) {
+export function trackFormSubmit(formName: FormName, budget?: string) {
   const value = budget?.startsWith("3000") || budget?.startsWith("10000")
     ? 500
     : budget?.startsWith("1000")

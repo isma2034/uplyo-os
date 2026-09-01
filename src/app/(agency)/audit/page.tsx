@@ -1,11 +1,8 @@
-"use client";
-
-import { useState, useRef, useEffect, FormEvent } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, UserRound } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
+import AuditForm from "@/components/agency/AuditForm";
 import { MEDIA_FLOOR } from "@/lib/offers";
-import { trackFormStart, trackFormSubmit } from "@/lib/analytics";
 
 const AUDIT_INCLUDES = [
   {
@@ -67,65 +64,10 @@ const FAQ = [
   },
 ];
 
+// Cette page n'est plus un Client Component : tout l'interactif vit dans
+// <AuditForm />. Le layout voisin peut donc continuer d'exporter `metadata`,
+// et le contenu editorial (long) est rendu cote serveur.
 export default function AuditPage() {
-  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
-  const [site, setSite] = useState("");
-  const formStarted = useRef(false);
-
-  // Pré-remplissage depuis la carte d'audit du hero (/audit?site=…).
-  // Lu via window.location plutôt que useSearchParams() : ce dernier
-  // désoptimise la page en rendu statique et impose une frontière Suspense
-  // (l'erreur de build rencontrée sur /merci).
-  useEffect(() => {
-    const param = new URLSearchParams(window.location.search).get("site");
-    if (param) setSite(param);
-  }, []);
-
-  const handleFormFocus = () => {
-    if (!formStarted.current) {
-      formStarted.current = true;
-      trackFormStart("audit");
-    }
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus("sending");
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    if (formData.get("_honey")) return;
-
-    const data = {
-      firstname: formData.get("firstname") as string,
-      lastname: formData.get("lastname") as string,
-      email: formData.get("email") as string,
-      website: formData.get("website") as string,
-      budget: formData.get("budget") as string,
-      sector: formData.get("sector") as string,
-      message: `[AUDIT GRATUIT] ${formData.get("google_ads_url") || "URL Google Ads non fournie"}\n\nObjectif : ${
-        formData.get("objective") || "non précisé"
-      }`,
-    };
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) {
-        form.reset();
-        trackFormSubmit("audit", data.budget);
-        window.location.href = "/merci?source=audit";
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
-  };
-
   return (
     <>
       {/* Hero + formulaire */}
@@ -178,189 +120,9 @@ export default function AuditPage() {
             </div>
           </Reveal>
 
-          {/* Formulaire */}
+          {/* Formulaire multi-etapes (composant client isole) */}
           <Reveal delay={120}>
-            <form
-              onSubmit={handleSubmit}
-              onFocus={handleFormFocus}
-              className="flex flex-col gap-3.5 bg-white border border-line rounded-card p-6 md:p-8 lg:sticky lg:top-[88px] shadow-card"
-            >
-              <div className="mb-1">
-                <div className="text-title font-semibold text-ink mb-1">Demander mon audit</div>
-                <div className="text-caption text-ink-3 font-light">
-                  Rapport écrit sous 48 h · gratuit · sans contrepartie
-                </div>
-              </div>
-
-              <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
-
-              <div className="grid grid-cols-2 gap-3">
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="a-firstname" className="label text-ink-2">
-                    Prénom *
-                  </label>
-                  <input
-                    id="a-firstname"
-                    name="firstname"
-                    type="text"
-                    required
-                    autoComplete="given-name"
-                    placeholder="Sophie"
-                    className="field"
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="a-lastname" className="label text-ink-2">
-                    Nom *
-                  </label>
-                  <input
-                    id="a-lastname"
-                    name="lastname"
-                    type="text"
-                    required
-                    autoComplete="family-name"
-                    placeholder="Martin"
-                    className="field"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="a-email" className="label text-ink-2">
-                  Email professionnel *
-                </label>
-                <input
-                  id="a-email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  placeholder="sophie@entreprise.fr"
-                  className="field"
-                />
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="a-website" className="label text-ink-2">
-                  Site web *
-                </label>
-                <input
-                  id="a-website"
-                  name="website"
-                  type="text"
-                  required
-                  inputMode="url"
-                  autoComplete="url"
-                  value={site}
-                  onChange={(e) => setSite(e.target.value)}
-                  placeholder="monentreprise.fr"
-                  className="field"
-                />
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="a-ads" className="label text-ink-2">
-                  Identifiant Google Ads (facultatif)
-                </label>
-                <input
-                  id="a-ads"
-                  name="google_ads_url"
-                  type="text"
-                  placeholder="123-456-7890"
-                  className="field"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="a-budget" className="label text-ink-2">
-                    Budget mensuel
-                  </label>
-                  <select id="a-budget" name="budget" defaultValue="" className="field appearance-none">
-                    <option value="" disabled>
-                      —
-                    </option>
-                    <option value="moins-500">Moins de 500 €</option>
-                    <option value="500-1000">500 € – 1 000 €</option>
-                    <option value="1000-3000">1 000 € – 3 000 €</option>
-                    <option value="3000-10000">3 000 € – 10 000 €</option>
-                    <option value="10000+">10 000 €+</option>
-                    <option value="pas-encore">Pas encore de campagnes</option>
-                  </select>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="a-sector" className="label text-ink-2">
-                    Secteur
-                  </label>
-                  <select id="a-sector" name="sector" defaultValue="" className="field appearance-none">
-                    <option value="" disabled>
-                      —
-                    </option>
-                    <option value="artisan">Artisan / BTP</option>
-                    <option value="services-locaux">Services aux particuliers</option>
-                    <option value="btob">Services B2B</option>
-                    <option value="sante">Santé / Bien-être</option>
-                    <option value="immo">Immobilier</option>
-                    <option value="ecommerce">E-commerce</option>
-                    <option value="autre">Autre</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="a-objective" className="label text-ink-2">
-                  Votre objectif principal
-                </label>
-                <select id="a-objective" name="objective" defaultValue="" className="field appearance-none">
-                  <option value="" disabled>
-                    —
-                  </option>
-                  <option value="baisser-cout-lead">Faire baisser mon coût par demande</option>
-                  <option value="plus-de-demandes">Recevoir plus de demandes</option>
-                  <option value="comprendre-ou-part-budget">Comprendre où part mon budget</option>
-                  <option value="lancer">Lancer mes premières campagnes</option>
-                  <option value="changer-prestataire">Changer de prestataire</option>
-                  <option value="verifier-tracking">Vérifier mon suivi de conversions</option>
-                </select>
-              </div>
-
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="bg-eclat text-white text-body-lg font-semibold py-3.5 rounded-uplyo border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px flex items-center justify-center gap-2 disabled:opacity-60 mt-2"
-              >
-                {status === "sending" ? (
-                  <>
-                    <span
-                      aria-hidden="true"
-                      className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
-                    />
-                    Envoi en cours…
-                  </>
-                ) : status === "error" ? (
-                  "Réessayer"
-                ) : (
-                  <>
-                    Recevoir mon audit
-                    <ArrowRight size={16} aria-hidden="true" />
-                  </>
-                )}
-              </button>
-
-              {status === "error" && (
-                <p role="alert" className="text-caption text-[#B3261E] text-center">
-                  L&apos;envoi a échoué. Réessayez, ou écrivez à contact@uplyo.fr.
-                </p>
-              )}
-
-              {/* « Aucun démarchage » ne vaut que pour les personnes qui
-                  remplissent elles-mêmes ce formulaire : de la prospection
-                  email sortante existe par ailleurs. */}
-              <p className="text-caption text-ink-3 text-center font-light">
-                Vos données restent confidentielles. Je ne vous relance pas si vous ne me le
-                demandez pas.
-              </p>
-            </form>
+            <AuditForm />
           </Reveal>
         </div>
       </section>
@@ -479,7 +241,7 @@ export default function AuditPage() {
               </li>
             ))}
           </ul>
-          <a href="#a-firstname" className="btn-invert">
+          <a href="#a-website" className="btn-invert">
             Remplir le formulaire
             <ArrowRight size={16} aria-hidden="true" />
           </a>
