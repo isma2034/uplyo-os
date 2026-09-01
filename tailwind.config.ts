@@ -42,9 +42,11 @@ const config: Config = {
         "body-lg": ["1rem", { lineHeight: "1.65" }],
         lead: ["1.0625rem", { lineHeight: "1.6" }],
         title: ["1.25rem", { lineHeight: "1.3", letterSpacing: "-0.01em" }],
-        section: ["clamp(1.5rem, 3vw, 2.125rem)", { lineHeight: "1.12", letterSpacing: "-0.02em" }],
-        display: ["clamp(2rem, 4.4vw, 3.25rem)", { lineHeight: "1.04", letterSpacing: "-0.03em" }],
-        hero: ["clamp(2.375rem, 5vw, 4.25rem)", { lineHeight: "0.99", letterSpacing: "-0.035em" }],
+        section: ["clamp(1.5rem, 2.6vw, 2rem)", { lineHeight: "1.15", letterSpacing: "-0.02em" }],
+        display: ["clamp(1.875rem, 3.4vw, 2.75rem)", { lineHeight: "1.08", letterSpacing: "-0.025em" }],
+        // Le hero vit dans une colonne d'environ 560px : au-delà de ~3.5rem il
+        // déborde sur 6 lignes et mange tout le premier écran.
+        hero: ["clamp(2.125rem, 3.9vw, 3.375rem)", { lineHeight: "1.03", letterSpacing: "-0.03em" }],
       },
 
       fontFamily: {

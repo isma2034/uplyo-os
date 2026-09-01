@@ -1,20 +1,23 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { ArrowRight, Check, UserRound } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
-import Ticker from "@/components/agency/Ticker";
 import Navbar from "@/components/agency/Navbar";
 import Footer from "@/components/agency/Footer";
 import Analytics from "@/components/agency/Analytics";
 import ContactForm from "@/components/agency/ContactForm";
-import TrackedLink from "@/components/agency/TrackedLink";
+import HeroAuditForm from "@/components/agency/HeroAuditForm";
+import { MEDIA_FLOOR } from "@/lib/offers";
 
 export const metadata: Metadata = {
-  title: "Uplyo — Agence Google Ads Performance pour PME & E-commerce",
-  description: "Agence Google Ads spécialisée PME et e-commerce. Audit gratuit, gestion transparente, accès direct à l'expert qui gère vos campagnes.",
+  title: "Uplyo — Google Ads pour PME de services",
+  description:
+    "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48h, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
   alternates: { canonical: "https://uplyo.fr" },
   openGraph: {
-    title: "Uplyo — Agence Google Ads Performance pour PME & E-commerce",
-    description: "Agence Google Ads spécialisée PME et e-commerce. Audit gratuit, gestion transparente, accès direct à l'expert qui gère vos campagnes.",
+    title: "Uplyo — Google Ads pour PME de services",
+    description:
+      "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48h, aucun engagement de durée.",
     url: "https://uplyo.fr",
     siteName: "Uplyo",
     locale: "fr_FR",
@@ -31,18 +34,32 @@ const JSON_LD = {
       name: "Uplyo",
       url: "https://uplyo.fr",
       email: "contact@uplyo.fr",
-      description: "Agence Google Ads performance pour PME et e-commerce. Audit gratuit, gestion transparente.",
+      description:
+        "Gestion de campagnes Google Ads pour PME de services. Audit gratuit, aucun engagement de durée, un seul interlocuteur.",
+      // areaServed : France uniquement — c'est la zone réellement couverte
+      // aujourd'hui. Le site affichait ailleurs « France · Espagne · Belgique ·
+      // Suisse », qui ne correspondait à aucune activité constatée.
       areaServed: { "@type": "Country", name: "France" },
-      knowsAbout: ["Google Ads", "Google Analytics 4", "Looker Studio", "E-commerce", "Performance Marketing"],
+      knowsAbout: ["Google Ads", "Google Analytics 4", "Looker Studio", "Performance Marketing"],
+      founder: { "@id": "https://uplyo.fr/a-propos#ismael" },
       hasOfferCatalog: {
         "@type": "OfferCatalog",
-        name: "Services Google Ads",
+        name: "Prestations Google Ads",
+        url: "https://uplyo.fr/offres",
         itemListElement: [
-          { "@type": "Offer", name: "Pack Lancement", url: "https://uplyo.fr/offres/pack-lancement" },
-          { "@type": "Offer", name: "Retainer Mensuel", url: "https://uplyo.fr/offres/retainer" },
-          { "@type": "Offer", name: "Pack E-commerce", url: "https://uplyo.fr/offres/ecommerce" },
+          { "@type": "Offer", name: "Le setup", url: "https://uplyo.fr/offres/pack-lancement" },
+          { "@type": "Offer", name: "Le pilotage", url: "https://uplyo.fr/offres/retainer" },
+          { "@type": "Offer", name: "Module e-commerce", url: "https://uplyo.fr/offres/ecommerce" },
         ],
       },
+    },
+    {
+      "@type": "Person",
+      "@id": "https://uplyo.fr/a-propos#ismael",
+      name: "Ismael",
+      jobTitle: "Consultant Google Ads",
+      url: "https://uplyo.fr/a-propos",
+      worksFor: { "@id": "https://uplyo.fr/#organization" },
     },
     {
       "@type": "WebSite",
@@ -54,234 +71,492 @@ const JSON_LD = {
   ],
 };
 
-const PAINS = [
-  { n: "01", title: "Vous payez des clics sans résultats", desc: "Votre budget fond chaque jour sans que vous sachiez quels mots-clés ou annonces performent vraiment.", cost: "~40% du budget gaspillé" },
-  { n: "02", title: "Votre agence actuelle est une boîte noire", desc: "Rapports flous, pas d'accès au compte, impossible de savoir où part votre argent.", cost: "Zéro visibilité" },
-  { n: "03", title: "Le tracking est cassé ou inexistant", desc: "GA4 mal configuré, conversions dupliquées ou manquantes. Les décisions sont prises à l'aveugle.", cost: "Données faussées" },
-  { n: "04", title: "Vous n'avez pas le temps de gérer ça", desc: "Enchères, audiences, annonces, extensions, scripts. Google Ads est un métier à plein temps.", cost: "+15h/semaine perdues" },
+// ── 2. Bandeau engagements (statique — remplace l'ancien ticker animé) ──
+const ENGAGEMENTS = [
+  { k: "Engagement", v: "Aucune durée", d: "Résiliable à tout moment, 30 jours de préavis" },
+  { k: "Votre compte", v: "Le vôtre", d: "Ouvert à votre nom, vous en gardez la propriété" },
+  { k: "Audit", v: "Gratuit · 48 h", d: "Rapport écrit, sans contrepartie" },
+  { k: "Interlocuteur", v: "Un seul", d: "Celui qui vous répond est celui qui exécute" },
 ];
 
-const SERVICES = [
-  { tag: "LANCEMENT", title: "Pack Lancement", desc: "Audit complet, structure from scratch, tracking GA4 + Consent Mode v2, dashboard Looker Studio. En ligne en 5 jours.", items: ["Audit marché & concurrence", "Structure campagnes optimale", "Tracking GA4 + conversions", "Dashboard Looker Studio", "Briefing stratégique"], price: "Sur devis", note: "one-shot · go-live J5", featured: false, href: "/offres/pack-lancement" },
-  { tag: "PILOTAGE", title: "Retainer Mensuel", desc: "Optimisation continue, enchères, A/B tests, scripts d'automation, rapports hebdo. Accès direct à l'expert qui gère vos campagnes.", items: ["Optimisation enchères & budgets", "A/B tests annonces continu", "Scripts d'automation déployés", "Rapports hebdo + mensuel", "Accès direct, sans intermédiaire", "Appel stratégique mensuel"], price: "Sur devis", note: "/mois · engagement 6 mois", featured: true, href: "/offres/retainer" },
-  { tag: "E-COMMERCE", title: "Pack E-commerce", desc: "Shopping, Performance Max, feed optimization, ROAS tracking avancé. Pour les boutiques qui veulent scaler.", items: ["Google Shopping optimisé", "Performance Max structuré", "Feed produit optimisé", "ROAS tracking avancé", "Segmentation audiences"], price: "Sur devis", note: "/mois · adapté au volume", featured: false, href: "/offres/ecommerce" },
+// ── 3. La méthode, J0 → J5 ──
+const PLAN = [
+  {
+    day: "J0",
+    t: "Appel de cadrage",
+    d: "30 minutes : ce que vous vendez, à qui, dans quelle zone, avec quel budget. Je vous dis à ce moment-là si Google Ads est pertinent pour vous — et si ce n'est pas le cas, je vous le dis aussi.",
+    out: "Compte-rendu écrit",
+  },
+  {
+    day: "J1",
+    t: "Audit et plan de campagne",
+    d: "Recherche des requêtes réellement tapées par vos clients, relevé des concurrents présents sur ces requêtes, structure retenue et budget conseillé.",
+    out: "Le plan de campagne",
+  },
+  {
+    day: "J2–J3",
+    t: "Construction du compte",
+    d: "Campagnes, groupes d'annonces, mots-clés, exclusions, rédaction des annonces, extensions. Tout est construit dans votre compte, à votre nom.",
+    out: "Le compte, prêt à lancer",
+  },
+  {
+    day: "J4",
+    t: "Mesure",
+    d: "GA4 et Consent Mode v2, conversions, puis vérification une par une que vos appels et vos formulaires remontent bien. C'est l'étape que l'on saute le plus souvent — et celle qui fausse tout le reste.",
+    out: "Tracking testé, pas seulement posé",
+  },
+  {
+    day: "J5",
+    t: "Mise en ligne",
+    d: "Lancement, tableau de bord Looker Studio branché sur le compte, passation des accès et du fonctionnement.",
+    out: "Vos accès + le tableau de bord",
+  },
 ];
 
-const STEPS = [
-  { ico: "📞", t: "Appel découverte", d: "30 min — objectifs, marché, budget", day: "J0" },
-  { ico: "🔬", t: "Audit & stratégie", d: "Analyse compte ou marché", day: "J1" },
-  { ico: "🏗️", t: "Structure & annonces", d: "Campagnes, groupes, copy, extensions", day: "J2-3" },
-  { ico: "📊", t: "Tracking & dashboard", d: "GA4, conversions, Looker", day: "J4" },
-  { ico: "🚀", t: "Go-live & suivi", d: "Lancement, monitoring, optim", day: "J5" },
+// ── 4. Preuve de travail (cas client anonymisé, sans chiffres) ──
+const WORK = [
+  "Gestion mensuelle du compte Google Ads : campagnes de recherche sur la zone Loire-Atlantique.",
+  "Étude de volume et de coût du clic avant toute extension géographique, plutôt qu'un élargissement de zone au hasard.",
+  "Reprise du site WordPress côté conversion : bouton d'appel fixe sur mobile, capture de contact, accès direct au formulaire de devis, correction des images.",
+  "Maintenance mensuelle du site : mises à jour, sauvegardes, sécurité.",
 ];
 
-const KPIS = [
-  { label: "Audit", value: "Gratuit", desc: "Sans engagement, sous 24h" },
-  { label: "Accès compte", value: "Total", desc: "Vous restez propriétaire" },
-  { label: "Go-live", value: "5J", desc: "De la signature au lancement" },
-  { label: "Engagement", value: "Flexible", desc: "Résiliable, pas de piège" },
+// ── 5. Offres ──
+const OFFERS = [
+  {
+    tag: "Étape 1",
+    title: "Le setup",
+    linkLabel: "Le détail du setup",
+    href: "/offres/pack-lancement",
+    desc: "La construction du compte, de l'audit à la mise en ligne. Une fois, en 5 jours ouvrés.",
+    items: [
+      "Audit du marché et des concurrents",
+      "Structure de campagnes, mots-clés, exclusions",
+      "Rédaction des annonces et des extensions",
+      "GA4 + Consent Mode v2, conversions vérifiées",
+      "Tableau de bord Looker Studio",
+    ],
+    fee: "Honoraires sur devis",
+    feeNote: "Prestation unique · mise en ligne à J5",
+  },
+  {
+    tag: "Étape 2",
+    title: "Le pilotage",
+    linkLabel: "Le détail du pilotage",
+    href: "/offres/retainer",
+    desc: "La conduite du compte au mois : enchères, tests d'annonces, exclusions, rapports. Sans engagement de durée.",
+    items: [
+      "Enchères, budgets et exclusions ajustés",
+      "Tests d'annonces en continu",
+      "Alertes automatiques sur budget et anomalies",
+      "Rapport hebdomadaire + bilan mensuel",
+      "Un point stratégique de 30 min chaque mois",
+    ],
+    fee: "Honoraires sur devis",
+    feeNote: "Mensuel · aucun engagement de durée",
+  },
 ];
 
+// ── 6. Pour qui / pour qui ce n'est pas ──
+const FIT = {
+  yes: [
+    "PME et artisans de services qui vendent sur devis ou sur rendez-vous",
+    "Activités locales ou régionales avec une zone d'intervention claire",
+    "Un budget publicitaire d'au moins 500 €/mois, réglé directement à Google",
+    "Quelqu'un chez vous qui répond aux demandes rapidement",
+  ],
+  no: [
+    "Budget publicitaire inférieur à 500 €/mois : il n'y a pas assez de données pour optimiser quoi que ce soit",
+    "Recherche d'un prestataire qui garantit un nombre de ventes — personne ne peut le garantir sur Google Ads",
+    "Besoin d'une équipe joignable en permanence : je travaille seul, avec des délais de réponse annoncés",
+    "SEO, réseaux sociaux, création de site complet : ce n'est pas mon métier",
+  ],
+};
+
+// ── 7. Objections (absorbe l'ancienne section « problème ») ──
 const FAQS = [
-  { q: "Comment sont calculés vos tarifs ?", a: "Chaque mission est devisée sur mesure selon votre marché, la concurrence et vos objectifs. Les tarifs affichés sont les points d'entrée — le devis final vous est envoyé sous 24h." },
-  { q: "En combien de temps mes campagnes sont-elles en ligne ?", a: "Exactement 5 jours ouvrés. J1 : audit. J2-3 : structure + annonces. J4 : tracking GA4 + Consent Mode v2. J5 : lancement + Looker Studio." },
-  { q: "Gérez-vous notre budget Google Ads ?", a: "Non — et c'est intentionnel. Le budget publicitaire est réglé directement par vous auprès de Google. Nous facturons uniquement nos prestations." },
-  { q: "Quel budget Google Ads minimum ?", a: "500€/mois minimum pour les PME locales, 1 000€/mois pour l'e-commerce." },
-  { q: "Comment fonctionne l'engagement ?", a: "Retainer mensuel engageant sur 6 mois minimum après le setup, puis résiliable avec 30 jours de préavis." },
+  {
+    q: "Je paie déjà des clics et je ne vois rien venir.",
+    a: "C'est le point de départ de l'audit. Dans la majorité des comptes que je regarde, le budget part sur des requêtes hors sujet faute d'exclusions, ou les conversions ne remontent pas correctement — donc les décisions sont prises sur des données fausses. L'audit vous dit lequel des deux vous concerne, avec les captures du compte à l'appui.",
+  },
+  {
+    q: "Mon agence actuelle ne me montre rien.",
+    a: "Chez moi, le compte Google Ads est ouvert à votre nom et vous en êtes propriétaire. Vous y avez accès en permanence, y compris si l'on arrête de travailler ensemble : vous repartez avec le compte et l'historique.",
+  },
+  {
+    q: "Je ne sais pas si mon suivi de conversions est juste.",
+    a: "C'est vérifiable en une heure. Je teste chaque conversion réellement (appel, formulaire, demande de devis) et je vous montre ce qui remonte, ce qui est compté deux fois et ce qui manque. Cette vérification fait partie de l'audit gratuit.",
+  },
+  {
+    q: "Je n'ai pas le temps de m'en occuper.",
+    a: "C'est précisément l'objet du pilotage. Votre part se limite à l'appel de cadrage au départ, puis à un point de 30 minutes par mois. Le reste se passe dans le compte.",
+  },
+  {
+    q: "Combien ça coûte ?",
+    a: `Il y a deux lignes à distinguer. Le budget publicitaire, que vous réglez directement à Google : ${MEDIA_FLOOR.local} minimum pour une PME locale, ${MEDIA_FLOOR.ecommerce} minimum pour un e-commerce. Et mes honoraires, établis sur devis après l'appel de cadrage, parce qu'ils dépendent du nombre de campagnes et de la zone à couvrir. Le devis vous est envoyé sous 24 h et vous engage à rien.`,
+  },
+  {
+    q: "Est-ce que je m'engage sur une durée ?",
+    a: "Non. Aucun engagement minimum, ni sur le setup ni sur le pilotage. Le pilotage est mensuel et s'arrête quand vous le décidez, avec 30 jours de préavis pour me laisser le temps de vous rendre le compte proprement.",
+  },
+  {
+    q: "Qui paie le budget Google Ads ?",
+    a: "Vous, directement à Google, avec votre propre moyen de paiement sur votre propre compte. Je ne facture jamais votre budget publicitaire et je ne prends pas de commission dessus — je n'ai donc aucun intérêt à ce que vous dépensiez plus.",
+  },
+  {
+    q: "En combien de temps mes campagnes sont-elles en ligne ?",
+    a: "Cinq jours ouvrés après l'appel de cadrage, selon le plan J0 → J5 détaillé plus haut. Le seul délai qui m'échappe est celui de la validation des annonces par Google, généralement moins de 24 h.",
+  },
 ];
 
-export default function AgencyPage() {
+export default function HomePage() {
   return (
-    <div className="bg-[var(--w)] text-ink overflow-x-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
-      />
+    <div className="bg-surface-1 text-ink overflow-x-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <Analytics />
       <Navbar />
 
-      {/* HERO */}
-      <section className="min-h-screen flex items-center px-6 md:px-10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[42%] h-full z-0 hidden lg:block" style={{ background: "linear-gradient(150deg, var(--lune) 0%, var(--lune2) 100%)", clipPath: "polygon(10% 0, 100% 0, 100% 100%, 0% 100%)" }} />
-        <div className="relative z-10 w-full max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-20 items-center pt-[88px] lg:pt-[68px] pb-12">
+      {/* ═══ 1. HERO ═══ */}
+      <section className="pt-[104px] md:pt-[128px] pb-14 md:pb-20">
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
           <Reveal>
-            <div className="inline-flex items-center gap-2 bg-lune border border-[var(--bd2)] text-eclat text-xs font-semibold px-3.5 py-1 rounded-full mb-7 tracking-wide">
-              <span className="w-[5px] h-[5px] rounded-full bg-eclat animate-pulse-dot" />GOOGLE ADS AGENCY
-            </div>
-            <h1 className="text-[clamp(2.5rem,5.2vw,5.2rem)] font-semibold leading-[0.98] tracking-[-2px] text-ink mb-6">
-              Performance <span className="text-eclat">Google Ads</span><br />pour PME & <span className="relative inline-block">e-commerce<span className="absolute bottom-[-4px] left-0 right-0 h-[3px] bg-spark rounded-full" /></span>
+            <p className="label-mono text-eclat-ink mb-5">Google Ads · PME de services</p>
+            <h1 className="text-hero font-semibold text-ink mb-6">
+              Des demandes de devis qui rentrent — et un coût par demande que vous voyez.
             </h1>
-            <p className="text-[15px] md:text-[17px] text-ink-2 leading-relaxed mb-9 max-w-[480px] font-light">Nous gérons vos campagnes Google Ads avec une approche <strong className="text-ink font-medium">data-driven</strong>. Résultats mesurables, reporting transparent, croissance durable.</p>
-            <div className="flex gap-3 flex-wrap mb-8">
-              <TrackedLink href="/contact" className="btn-primary text-sm md:text-base no-underline" eventName="cta_click" eventParams={{ location: "hero", label: "Réserver un appel découverte" }}>Réserver un appel découverte →</TrackedLink>
-              <Link href="#services" className="btn-outline no-underline text-sm md:text-base">Voir les offres</Link>
-            </div>
-            <div className="flex items-center gap-3 md:gap-5 flex-wrap">
-              {["Accès direct à l'expert", "Sans engagement", "Transparence totale sur le compte"].map((t, i) => (
-                <span key={i} className="flex items-center gap-1.5 text-[12px] md:text-[13px] text-ink-3"><span className="text-eclat font-semibold text-xs">✓</span> {t}{i < 2 && <span className="ml-2 md:ml-3 w-px h-3.5 bg-[var(--bd2)] hidden md:block" />}</span>
-              ))}
-            </div>
+            <p className="text-lead text-ink-2 max-w-[54ch] mb-7 font-light">
+              Je m&apos;appelle Ismael. Je construis et je pilote les campagnes Google Ads de PME de
+              services : artisans, prestataires, entreprises locales. Je fais le travail, et je vous
+              montre le compte pendant que je le fais.
+            </p>
+            <p className="text-body text-ink-3 max-w-[54ch] mb-8 font-light">
+              Pas de chargé de compte, pas d&apos;intermédiaire : la personne qui vous répond est
+              celle qui ouvre votre compte.{" "}
+              <Link href="/a-propos" className="text-eclat-ink font-medium underline underline-offset-4">
+                Qui je suis
+              </Link>
+              .
+            </p>
+            <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              {["Aucun engagement de durée", "Vous restez propriétaire du compte", "Audit gratuit sous 48 h"].map(
+                (t) => (
+                  <li key={t} className="flex items-center gap-1.5 text-caption text-ink-2">
+                    <Check size={13} className="text-eclat-ink shrink-0" aria-hidden="true" />
+                    {t}
+                  </li>
+                )
+              )}
+            </ul>
           </Reveal>
-          <Reveal delay={200}>
-            <div className="bg-white border border-[var(--bd)] rounded-uplyo-lg overflow-hidden shadow-[0_24px_60px_rgba(108,92,231,0.1)] hidden lg:block">
-              <div className="bg-nuit px-5 py-4 flex items-center justify-between">
-                <span className="font-mono text-[10px] text-white/60 tracking-wider">UPLYO — CE QUE VOUS OBTENEZ</span>
+
+          <Reveal delay={120}>
+            <HeroAuditForm />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══ 2. BANDEAU ENGAGEMENTS (statique) ═══ */}
+      <section className="bg-nuit">
+        <div className="container-wide py-9 md:py-11">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-7">
+            {ENGAGEMENTS.map((e) => (
+              <div key={e.k} className="border-l-2 border-spark pl-4">
+                <div className="label-mono text-spark mb-1.5">{e.k}</div>
+                <div className="text-body-lg font-semibold text-white leading-snug">{e.v}</div>
+                <div className="text-caption text-white/80 mt-1 font-light">{e.d}</div>
               </div>
-              <div className="grid grid-cols-2">
-                {KPIS.map((kpi, i) => (
-                  <div key={i} className="p-5 border-b border-r border-[var(--bd)] last:border-r-0">
-                    <div className="font-mono text-[10px] text-ink-3 uppercase tracking-wider mb-1">{kpi.label}</div>
-                    <div className="text-2xl font-semibold leading-none tracking-tight text-eclat">{kpi.value}</div>
-                    <div className="text-[11px] text-ink-3 mt-0.5">{kpi.desc}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* TICKER */}
-      <Ticker />
-
-      {/* PROBLEMS */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
-        <div className="max-w-[1160px] mx-auto">
-          <Reveal>
-            <div className="mb-10 md:mb-14"><div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-eclat mb-4"><span className="w-4 h-[2px] bg-eclat rounded-full" />Le problème</div>
-              <h2 className="text-[clamp(1.8rem,3.8vw,3.6rem)] font-semibold leading-[1.02] tracking-[-1.5px] text-ink">Google Ads sans <span className="italic font-light text-ink-3">stratégie</span>,<br />c&apos;est du budget <span className="text-eclat">brûlé</span>.</h2>
-            </div>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            {PAINS.map((p, i) => (
-              <Reveal key={p.n} delay={i * 100}>
-                <div className="bg-white border-[1.5px] border-[var(--bd)] rounded-uplyo-lg p-6 md:p-7 transition-all hover:border-eclat hover:-translate-y-[3px] h-full">
-                  <div className="font-mono text-[10px] text-ink-3 tracking-[0.1em] mb-2">{p.n}</div>
-                  <div className="text-[1rem] md:text-[1.05rem] font-semibold text-ink mb-1.5">{p.title}</div>
-                  <div className="text-[13px] text-ink-2 leading-relaxed font-light">{p.desc}</div>
-                  <div className="inline-flex items-center gap-1.5 mt-3 text-[11px] font-semibold text-[#C0392B] bg-[#FDECEA] border border-[rgba(192,57,43,0.15)] px-2.5 py-[3px] rounded-full font-mono">{p.cost}</div>
-                </div>
-              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* BRIDGE */}
-      <Reveal>
-        <div className="bg-eclat py-12 md:py-14 px-6 md:px-10 text-center">
-          <div className="max-w-[700px] mx-auto">
-            <h2 className="text-[clamp(1.5rem,3.5vw,3rem)] font-semibold text-white leading-[1.08] tracking-tight mb-4">Et si vos Google Ads généraient enfin des résultats ?</h2>
-            <p className="text-[15px] md:text-[16px] text-white/65 mb-8 font-light">On prend le contrôle de vos campagnes et on transforme chaque euro en leads qualifiés ou en ventes.</p>
-            <div className="flex gap-2.5 md:gap-3 justify-center flex-wrap">
-              {["Audit gratuit en 24h", "Go-live en 5 jours", "Dashboard temps réel", "Expert dédié"].map((pill) => (
-                <span key={pill} className="inline-flex items-center gap-1.5 bg-white/[0.12] border border-white/[0.22] text-white text-[12px] md:text-[13px] font-medium px-3 md:px-3.5 py-[6px] md:py-[7px] rounded-full">{pill}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* SERVICES */}
-      <section id="services" className="py-16 md:py-24 px-6 md:px-10">
-        <div className="max-w-[1160px] mx-auto">
+      {/* ═══ 3. LA MÉTHODE J0 → J5 ═══ */}
+      <section className="section">
+        <div className="container-wide">
           <Reveal>
-            <div className="mb-10 md:mb-14"><div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-eclat mb-4"><span className="w-4 h-[2px] bg-eclat rounded-full" />Nos offres</div>
-              <h2 className="text-[clamp(1.8rem,3.8vw,3.6rem)] font-semibold leading-[1.02] tracking-[-1.5px] text-ink">Une offre <span className="text-eclat">claire</span>,<br /><span className="italic font-light text-ink-3">adaptée à votre stade.</span></h2>
+            <div className="max-w-text mb-10 md:mb-14">
+              <p className="label-mono text-eclat-ink mb-4">Le plan de travail</p>
+              <h2 className="text-display font-semibold text-ink mb-4">
+                Cinq jours, cinq livrables. Vous savez à l&apos;avance ce qui sort chaque jour.
+              </h2>
+              <p className="text-body-lg text-ink-2 font-light">
+                C&apos;est la partie du travail que les agences décrivent le moins et que vous payez
+                pourtant en premier. La voici en entier.
+              </p>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {SERVICES.map((svc, i) => (
-              <Reveal key={svc.tag} delay={i * 120}>
-                <div className={`border-[1.5px] rounded-uplyo-lg p-7 md:p-9 flex flex-col transition-all hover:-translate-y-1 h-full ${svc.featured ? "bg-nuit border-eclat" : "bg-white border-[var(--bd)] hover:border-eclat hover:shadow-[0_12px_40px_rgba(108,92,231,0.1)]"}`}>
-                  <span className={`font-mono text-[10px] px-2 py-[3px] rounded tracking-wider uppercase inline-block mb-4 w-fit ${svc.featured ? "text-aura bg-aura/10 border border-aura/25" : "text-eclat bg-lune border border-[var(--bd)]"}`}>{svc.tag}</span>
-                  <h3 className={`text-[1.15rem] md:text-[1.2rem] font-semibold tracking-tight mb-2 ${svc.featured ? "text-white" : "text-ink"}`}>{svc.title}</h3>
-                  <p className={`text-[13px] leading-relaxed mb-5 flex-1 font-light ${svc.featured ? "text-white/60" : "text-ink-2"}`}>{svc.desc}</p>
-                  <div className="flex flex-col gap-1.5 mb-7">
-                    {svc.items.map((item) => (<div key={item} className={`flex items-start gap-2 text-[13px] font-light ${svc.featured ? "text-white/60" : "text-ink-2"}`}><span className="text-eclat font-semibold text-xs mt-[2px] shrink-0">✓</span>{item}</div>))}
+
+          <ol className="border-t border-line">
+            {PLAN.map((s, i) => (
+              <Reveal key={s.day} delay={i * 70}>
+                <li className="grid grid-cols-1 md:grid-cols-[92px_1fr_260px] gap-3 md:gap-8 py-6 md:py-7 border-b border-line">
+                  <div className="font-mono text-body font-medium text-eclat-ink">{s.day}</div>
+                  <div>
+                    <h3 className="text-title font-semibold text-ink mb-1.5">{s.t}</h3>
+                    <p className="text-body text-ink-2 font-light max-w-[62ch]">{s.d}</p>
                   </div>
-                  <div className={`pt-6 mb-4 ${svc.featured ? "border-t border-white/[0.08]" : "border-t border-[var(--bd)]"}`}>
-                    <div className={`text-[1.4rem] md:text-[1.6rem] font-semibold tracking-tight ${svc.featured ? "text-white" : "text-eclat"}`}>{svc.price}</div>
-                    <div className={`text-xs mt-0.5 font-light ${svc.featured ? "text-white/55" : "text-ink-3"}`}>{svc.note}</div>
+                  <div className="md:text-right">
+                    <div className="label-mono text-ink-3 mb-1">Livrable</div>
+                    <div className="text-body text-ink font-medium">{s.out}</div>
                   </div>
-                  <Link href="/audit" className="w-full text-center bg-eclat text-white text-sm font-semibold py-3 rounded-lg transition-colors hover:bg-eclat-hover border-none cursor-pointer block no-underline">Demander un audit gratuit →</Link>
-                </div>
+                </li>
               </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* PROCESS */}
-      <section className="py-16 md:py-24 px-6 md:px-10 bg-[var(--w2)]">
-        <div className="max-w-[1160px] mx-auto text-center">
-          <Reveal>
-            <div className="mb-10 md:mb-14"><div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-eclat mb-4 justify-center"><span className="w-4 h-[2px] bg-eclat rounded-full" />Notre méthode</div>
-              <h2 className="text-[clamp(1.8rem,3.8vw,3.6rem)] font-semibold leading-[1.02] tracking-[-1.5px] text-ink">De l&apos;appel au <span className="text-eclat">go-live</span><br /><span className="italic font-light text-ink-3">en 5 jours.</span></h2>
-            </div>
-          </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-0 relative mt-10 md:mt-16">
-            <div className="absolute top-[27px] left-[10%] right-[10%] h-[1.5px] opacity-30 hidden md:block" style={{ background: "repeating-linear-gradient(90deg, var(--eclat) 0, var(--eclat) 8px, transparent 8px, transparent 16px)" }} />
-            {STEPS.map((step, i) => (
-              <Reveal key={step.day} delay={i * 100}>
-                <div className="text-center px-2 md:px-3 relative z-10">
-                  <div className="w-[48px] md:w-[54px] h-[48px] md:h-[54px] rounded-full bg-white border-[1.5px] border-[var(--bd2)] grid place-items-center mx-auto mb-4 md:mb-5 text-lg md:text-xl transition-all hover:border-eclat shadow-[0_0_0_6px_var(--w2)]">{step.ico}</div>
-                  <div className="text-[0.85rem] md:text-[0.95rem] font-semibold text-ink mb-1">{step.t}</div>
-                  <div className="text-[11px] md:text-xs text-ink-2 leading-snug font-light">{step.d}</div>
-                  <div className="font-mono text-[10px] text-eclat font-medium mt-1.5">{step.day}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* HONNÊTETÉ / PREUVE EN CONSTRUCTION */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
-        <div className="max-w-[700px] mx-auto text-center">
-          <Reveal>
-            <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-eclat mb-4 justify-center"><span className="w-4 h-[2px] bg-eclat rounded-full" />Transparence</div>
-            <h2 className="text-[clamp(1.6rem,3.2vw,2.4rem)] font-semibold leading-[1.1] tracking-[-1px] text-ink mb-5">Uplyo accompagne son premier client depuis 2026.</h2>
-            <p className="text-[14px] md:text-[15px] text-ink-2 leading-relaxed font-light mb-2">Les résultats détaillés seront publiés ici dès que l&apos;accord du client sera obtenu. Pas de faux témoignages, pas de chiffres inventés — si vous voulez voir où on en est réellement, demandez directement lors de l&apos;audit.</p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <Reveal>
-        <div className="bg-eclat py-16 md:py-20 px-6 md:px-10 text-center relative overflow-hidden">
-          <div className="max-w-[700px] mx-auto relative z-10">
-            <div className="font-mono text-[11px] tracking-[0.12em] text-white/55 mb-4">PRÊT À DÉMARRER ?</div>
-            <h2 className="text-[clamp(1.8rem,4.5vw,4rem)] font-semibold text-white leading-[1.02] tracking-[-1.5px] mb-5">Réservez votre audit<br />gratuit en 60 secondes.</h2>
-            <p className="text-[15px] md:text-[17px] text-white/65 max-w-[480px] mx-auto mb-8 md:mb-10 leading-relaxed font-light">30 minutes avec notre expert. Analyse de votre compte ou de votre marché. Sans engagement.</p>
-            <div className="flex gap-3 md:gap-4 justify-center flex-wrap mb-8">
-              <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-eclat text-[14px] md:text-[15px] font-semibold px-6 md:px-8 py-[13px] md:py-[15px] rounded-lg border-none cursor-pointer transition-all hover:bg-lune hover:-translate-y-0.5 no-underline">📅 Choisir mon créneau →</Link>
-              <a href="mailto:contact@uplyo.fr" className="inline-flex items-center gap-2 bg-white/10 text-white text-[14px] md:text-[15px] px-6 md:px-8 py-[13px] md:py-[15px] rounded-lg no-underline border border-white/20 transition-all hover:bg-white/[0.18]">contact@uplyo.fr</a>
-            </div>
-            <div className="flex gap-4 md:gap-8 justify-center flex-wrap">
-              {["Gratuit & sans engagement", "Réponse dans la journée", "Expert dédié"].map((g) => (<span key={g} className="flex items-center gap-1.5 text-[12px] md:text-[13px] text-white/55 font-light"><span className="text-white font-semibold">✓</span> {g}</span>))}
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* FAQ */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
-        <div className="max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-10 lg:gap-20">
+      {/* ═══ 4. PREUVE DE TRAVAIL ═══ */}
+      <section className="section bg-surface-2">
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16">
           <Reveal>
             <div className="lg:sticky lg:top-24 self-start">
-              <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-eclat mb-4"><span className="w-4 h-[2px] bg-eclat rounded-full" />FAQ</div>
-              <div className="text-2xl font-semibold tracking-tight text-ink leading-tight mb-3">Questions fréquentes</div>
-              <p className="text-sm text-ink-2 leading-relaxed mb-8 font-light">Tout ce que vous devez savoir avant de démarrer.</p>
-              <button className="bg-eclat text-white text-[13px] font-semibold px-[22px] py-[10px] rounded-md border-none cursor-pointer transition-colors hover:bg-eclat-hover">Poser ma question →</button>
+              <p className="label-mono text-eclat-ink mb-4">Preuve de travail</p>
+              <h2 className="text-section font-semibold text-ink mb-4">
+                Un seul client à ce jour. Voici ce que j&apos;ai fait pour lui.
+              </h2>
+              <p className="text-body text-ink-2 font-light">
+                Entreprise de débarras et déménagement, région nantaise. Accompagnée depuis 2026.
+              </p>
             </div>
           </Reveal>
+
           <Reveal delay={100}>
-            <div className="flex flex-col gap-1">
+            <div>
+              <ul className="bg-white border border-line rounded-card divide-y divide-line">
+                {WORK.map((w) => (
+                  <li key={w} className="flex gap-3 p-5">
+                    <Check size={16} className="text-eclat-ink shrink-0 mt-0.5" aria-hidden="true" />
+                    <span className="text-body text-ink-2 font-light">{w}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-5 bg-nuit rounded-card p-6">
+                <div className="label-mono text-spark mb-2.5">Ce que vous ne trouverez pas ici</div>
+                <p className="text-body text-white/80 font-light mb-3">
+                  Aucun témoignage, aucune note, aucune moyenne de résultats. Un seul client
+                  accompagné à ce jour, et ses chiffres lui appartiennent : ils seront publiés ici
+                  quand il m&apos;aura donné son accord, pas avant.
+                </p>
+                <p className="text-body text-white/80 font-light">
+                  En attendant, l&apos;audit est là pour ça : il porte sur votre compte à vous, et il
+                  vous montre la façon dont je travaille avant que vous ne payiez quoi que ce soit.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══ 5. LES OFFRES ═══ */}
+      <section className="section" id="offres">
+        <div className="container-wide">
+          <Reveal>
+            <div className="max-w-text mb-10 md:mb-14">
+              <p className="label-mono text-eclat-ink mb-4">Les prestations</p>
+              <h2 className="text-display font-semibold text-ink mb-4">
+                On construit, puis on pilote. Deux étapes, pas trois formules concurrentes.
+              </h2>
+              <p className="text-body-lg text-ink-2 font-light">
+                Le setup peut se prendre seul. Le pilotage suppose que le compte ait été construit —
+                par moi ou par quelqu&apos;un d&apos;autre.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Budget plancher — visible sans clic (il était enterré dans la FAQ) */}
+          <Reveal>
+            <div className="bg-surface-2 border border-line-strong rounded-card p-5 md:p-6 mb-8 grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-5 sm:gap-8 items-center">
+              <div>
+                <div className="label-mono text-ink-3 mb-1.5">Budget publicitaire minimum</div>
+                <p className="text-body text-ink-2 font-light max-w-[52ch]">
+                  Réglé directement par vous à Google. Ce n&apos;est pas mon honoraire, et je ne
+                  prends aucune commission dessus.
+                </p>
+              </div>
+              <div className="sm:border-l sm:border-line-strong sm:pl-8">
+                <div className="text-title font-semibold text-ink">{MEDIA_FLOOR.local}</div>
+                <div className="text-caption text-ink-3">PME locale / services</div>
+              </div>
+              <div className="sm:border-l sm:border-line-strong sm:pl-8">
+                <div className="text-title font-semibold text-ink">{MEDIA_FLOOR.ecommerce}</div>
+                <div className="text-caption text-ink-3">E-commerce</div>
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {OFFERS.map((o, i) => (
+              <Reveal key={o.title} delay={i * 100}>
+                <div className="bg-white border border-line rounded-card p-6 md:p-8 h-full flex flex-col shadow-card">
+                  <div className="label-mono text-ink-3 mb-3">{o.tag}</div>
+                  <h3 className="text-title font-semibold text-ink mb-2">{o.title}</h3>
+                  <p className="text-body text-ink-2 font-light mb-5">{o.desc}</p>
+                  <ul className="flex flex-col gap-2 mb-6 flex-1">
+                    {o.items.map((it) => (
+                      <li key={it} className="flex gap-2.5 text-body text-ink-2 font-light">
+                        <Check size={15} className="text-eclat-ink shrink-0 mt-1" aria-hidden="true" />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="border-t border-line pt-5">
+                    <div className="text-body-lg font-semibold text-ink">{o.fee}</div>
+                    <div className="text-caption text-ink-3 mb-4">{o.feeNote}</div>
+                    {/* svc.href était défini mais jamais utilisé : toutes les
+                        cartes pointaient en dur vers /audit, et les pages
+                        offres ne recevaient aucun trafic interne. */}
+                    <Link
+                      href={o.href}
+                      className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                    >
+                      {o.linkLabel}
+                      <ArrowRight size={15} aria-hidden="true" />
+                    </Link>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal>
+            <div className="mt-5 border border-line rounded-card p-5 md:p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+              <div>
+                <div className="text-body font-semibold text-ink mb-1">
+                  Vous vendez en ligne ? Module e-commerce en complément
+                </div>
+                <p className="text-body text-ink-2 font-light max-w-[62ch]">
+                  Google Shopping, Performance Max et flux produit s&apos;ajoutent au pilotage. Ce
+                  n&apos;est pas une offre séparée, et le budget publicitaire minimum y passe à{" "}
+                  {MEDIA_FLOOR.ecommerce}.
+                </p>
+              </div>
+              <Link
+                href="/offres/ecommerce"
+                className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4 whitespace-nowrap"
+              >
+                Voir le module
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </div>
+          </Reveal>
+
+          {/* Pour qui / pour qui ce n'est pas */}
+          <Reveal>
+            <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="bg-white border border-line rounded-card p-6">
+                <div className="label-mono text-eclat-ink mb-4">C&apos;est fait pour vous si</div>
+                <ul className="flex flex-col gap-2.5">
+                  {FIT.yes.map((t) => (
+                    <li key={t} className="flex gap-2.5 text-body text-ink-2 font-light">
+                      <Check size={15} className="text-eclat-ink shrink-0 mt-1" aria-hidden="true" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="bg-surface-2 border border-line rounded-card p-6">
+                <div className="label-mono text-ink-3 mb-4">Ne me contactez pas si</div>
+                <ul className="flex flex-col gap-2.5">
+                  {FIT.no.map((t) => (
+                    <li key={t} className="flex gap-2.5 text-body text-ink-2 font-light">
+                      <span aria-hidden="true" className="text-ink-3 font-semibold shrink-0 leading-6">
+                        —
+                      </span>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══ 6. QUI GÈRE VOTRE COMPTE ═══ */}
+      <section className="section bg-nuit">
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-14 items-start">
+          <Reveal>
+            {/* Emplacement photo — volontairement vide.
+                Aucune photo d'Ismael n'est disponible à ce jour ; poser une
+                image d'illustration générique irait contre la règle « aucune
+                preuve fabriquée » du projet. Remplacer ce bloc par un
+                <Image /> dès qu'un portrait réel existe. */}
+            <div
+              className="aspect-[4/5] w-full max-w-[280px] rounded-card border border-dashed border-white/25 bg-white/[0.04] grid place-items-center"
+              aria-hidden="true"
+            >
+              <div className="text-center px-6">
+                <UserRound size={30} className="text-white/35 mx-auto mb-3" />
+                <div className="label-mono text-white/70">Photo à venir</div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <div>
+              <p className="label-mono text-spark mb-4">Qui gère votre compte</p>
+              <h2 className="text-section font-semibold text-white mb-5">
+                Ismael. C&apos;est moi qui vous réponds, et c&apos;est moi qui fais le travail.
+              </h2>
+              <div className="flex flex-col gap-4 max-w-[62ch]">
+                <p className="text-body-lg text-white/80 font-light">
+                  Uplyo n&apos;est pas une agence avec des équipes : c&apos;est une activité
+                  indépendante, la mienne. Cela a une conséquence que vous devez connaître avant de
+                  travailler avec moi — il n&apos;y a personne pour reprendre le compte si je suis
+                  absent, et je limite donc volontairement le nombre de comptes que je pilote.
+                </p>
+                <p className="text-body-lg text-white/80 font-light">
+                  En contrepartie, il n&apos;y a aucun écart entre ce qui vous est vendu et ce qui
+                  est exécuté, et vous n&apos;attendez jamais qu&apos;une information redescende
+                  d&apos;un service à un autre.
+                </p>
+              </div>
+              <Link
+                href="/a-propos"
+                className="inline-flex items-center gap-1.5 mt-6 text-body font-semibold text-spark no-underline hover:underline underline-offset-4"
+              >
+                Mon parcours, et ce que je ne sais pas faire
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══ 7. OBJECTIONS / FAQ ═══ */}
+      <section className="section">
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-16">
+          <Reveal>
+            <div className="lg:sticky lg:top-24 self-start">
+              <p className="label-mono text-eclat-ink mb-4">Objections</p>
+              <h2 className="text-section font-semibold text-ink mb-4">
+                Les questions qu&apos;on me pose avant de signer
+              </h2>
+              <p className="text-body text-ink-2 font-light">
+                Y compris celles qui n&apos;arrangent pas. S&apos;il en manque une, posez-la dans le
+                formulaire en bas de page.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <div className="border-t border-line">
               {FAQS.map((faq) => (
-                <details key={faq.q} className="bg-[var(--w2)] rounded-lg group">
-                  <summary className="px-5 md:px-6 py-4 flex items-center justify-between gap-4 cursor-pointer text-[14px] md:text-[15px] font-medium text-ink list-none transition-colors hover:bg-lune">{faq.q}<span className="text-eclat text-xl shrink-0 transition-transform group-open:rotate-45">+</span></summary>
-                  <div className="px-5 md:px-6 pb-4 text-[13px] md:text-sm text-ink-2 leading-relaxed border-t border-[var(--bd)] font-light">{faq.a}</div>
+                <details key={faq.q} className="group border-b border-line">
+                  <summary className="py-4 flex items-start justify-between gap-6 cursor-pointer text-body-lg font-medium text-ink list-none">
+                    {faq.q}
+                    <span
+                      aria-hidden="true"
+                      className="text-eclat-ink text-xl leading-6 shrink-0 transition-transform group-open:rotate-45"
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <p className="pb-5 pr-8 text-body text-ink-2 leading-relaxed font-light max-w-[68ch]">
+                    {faq.a}
+                  </p>
                 </details>
               ))}
             </div>
@@ -289,24 +564,43 @@ export default function AgencyPage() {
         </div>
       </section>
 
-      {/* CONTACT */}
-      <section className="py-16 md:py-24 px-6 md:px-10 bg-[var(--w2)]" id="contact">
-        <div className="max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-20 items-start">
+      {/* ═══ 8. CTA FINAL + FORMULAIRE ═══
+          Seul bloc bg-eclat de la page. Sur ce fond, seul le blanc pur atteint
+          AA (4.86:1) : aucune opacité de texte ici. */}
+      <section className="bg-eclat" id="contact">
+        <div className="container-wide py-16 md:py-24 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-start">
           <Reveal>
             <div>
-              <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-eclat mb-4"><span className="w-4 h-[2px] bg-eclat rounded-full" />Contact</div>
-              <div className="text-[1.5rem] md:text-[1.75rem] font-semibold tracking-tight text-ink mb-3">Parlons de votre projet</div>
-              <p className="text-sm text-ink-2 leading-relaxed mb-8 font-light">Préférez-vous un échange direct ? <strong className="font-semibold text-ink">Réservez un créneau Calendly</strong> — 30 min avec notre expert.</p>
-              <button className="btn-primary mb-6 text-sm md:text-base">📅 Réserver un créneau →</button>
-              <div className="flex flex-col gap-3.5 mb-7">
-                {[{ ico: "✉️", label: "EMAIL", value: "contact@uplyo.fr" }, { ico: "🌍", label: "ZONE", value: "France · Espagne · Belgique · Suisse" }, { ico: "🛠️", label: "OUTILS", value: "Google Ads · GA4 · Looker Studio" }].map((c) => (
-                  <div key={c.label} className="flex items-start gap-3"><div className="w-9 h-9 bg-white border-[1.5px] border-[var(--bd)] rounded-lg grid place-items-center text-sm shrink-0">{c.ico}</div><div><div className="font-mono text-[10px] text-ink-3 uppercase tracking-wider mb-0.5">{c.label}</div><div className="text-sm text-ink">{c.value}</div></div></div>
+              <p className="label-mono text-white mb-4">Pour démarrer</p>
+              <h2 className="text-display font-semibold text-white mb-5">
+                Dites-moi ce que vous vendez. Je vous dis si Google Ads en vaut la peine.
+              </h2>
+              <p className="text-lead text-white mb-8 font-light max-w-[52ch]">
+                Vous recevez un audit écrit sous 48 h. S&apos;il en ressort que votre marché ne
+                justifie pas de budget publicitaire, je vous le dirai — c&apos;est déjà arrivé.
+              </p>
+              <ul className="flex flex-col gap-2.5">
+                {[
+                  "Gratuit, et sans contrepartie",
+                  "Réponse sous 24 h ouvrées",
+                  "Aucun rappel commercial si vous ne le demandez pas",
+                ].map((t) => (
+                  <li key={t} className="flex items-center gap-2 text-body text-white">
+                    <Check size={15} className="shrink-0" aria-hidden="true" />
+                    {t}
+                  </li>
                 ))}
-              </div>
-              <div className="flex items-center gap-2.5 bg-white border-[1.5px] border-[var(--bd2)] rounded-lg px-4 py-3"><span className="w-2 h-2 rounded-full bg-eclat animate-pulse-dot shrink-0" /><span className="text-[12px] md:text-[13px] text-ink-2 font-light">Disponible — Réponse sous <strong className="text-eclat font-semibold">24h ouvrées</strong></span></div>
+              </ul>
+              <a
+                href="mailto:contact@uplyo.fr"
+                className="inline-block mt-8 text-body font-semibold text-white underline underline-offset-4"
+              >
+                contact@uplyo.fr
+              </a>
             </div>
           </Reveal>
-          <Reveal delay={150}>
+
+          <Reveal delay={120}>
             <ContactForm />
           </Reveal>
         </div>

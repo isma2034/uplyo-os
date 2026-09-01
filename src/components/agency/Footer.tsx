@@ -1,50 +1,48 @@
 import Link from "next/link";
 import { SITE_CONFIG } from "@/lib/config";
+import { OFFER_ROUTES } from "@/lib/offers";
 
-// Footer unique du site. Il était dupliqué à l'identique dans
-// src/app/(agency)/layout.tsx et src/app/page.tsx (la home est hors du groupe
-// de routes (agency) et ne reçoit donc pas ce layout).
+// Footer unique du site (il était dupliqué à l'identique dans le layout
+// (agency) et dans page.tsx, la home étant hors du groupe de routes).
 //
-// Contrastes : sur --nuit (#1A1040), le blanc à faible opacité passait sous le
-// seuil WCAG AA (4.5:1) — white/0.18 = 1.71:1, white/0.25 = 2.21:1,
-// white/0.35 = 3.15:1. Valeurs relevées à white/50 (5.14:1) et white/55
-// (5.96:1), hover à white/70 (8.98:1).
+// Contrastes sur --nuit (#1A1040) : white/50 = 5.14:1, white/55 = 5.96:1,
+// white/70 = 8.96:1, white/80 = 11.44:1, --spark = 11.70:1, --aura = 7.26:1.
+// Toutes ces valeurs passent AA. Les anciennes (white/18, /25, /35) étaient
+// entre 1.71:1 et 3.15:1.
 const COLUMNS: { title: string; links: { label: string; href: string; external?: boolean }[] }[] = [
   {
-    title: "Agence",
+    title: "Prestations",
     links: [
-      { label: "Pack Lancement", href: "/offres/pack-lancement" },
-      { label: "Pilotage mensuel", href: "/offres/retainer" },
-      { label: "Pack E-commerce", href: "/offres/ecommerce" },
-      { label: "Contact", href: "/contact" },
+      { label: "Toutes les offres", href: "/offres" },
+      { label: OFFER_ROUTES.setup.label, href: OFFER_ROUTES.setup.href },
+      { label: OFFER_ROUTES.pilotage.label, href: OFFER_ROUTES.pilotage.href },
+      { label: OFFER_ROUTES.ecommerce.label, href: OFFER_ROUTES.ecommerce.href },
     ],
   },
   {
-    title: "Ressources",
+    title: "Uplyo",
     links: [
+      { label: "À propos", href: "/a-propos" },
       { label: "Audit gratuit", href: "/audit" },
-      { label: "CGV", href: "/cgv" },
-      { label: "Mentions légales", href: "/mentions-legales" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
     title: "Contact",
     links: [
       { label: SITE_CONFIG.contactEmail, href: `mailto:${SITE_CONFIG.contactEmail}`, external: true },
-      { label: "Réserver un audit", href: "/audit" },
       { label: "LinkedIn", href: SITE_CONFIG.linkedinUrl, external: true },
     ],
   },
 ];
 
-const LINK_CLASS =
-  "text-[13px] text-white/55 font-light no-underline hover:text-aura transition-colors";
+const LINK_CLASS = "text-body text-white/70 font-light no-underline hover:text-white transition-colors";
 
 export default function Footer() {
   return (
-    <footer className="bg-nuit px-6 md:px-10 pt-12 md:pt-16 pb-8 border-t-2 border-eclat">
-      <div className="max-w-[1160px] mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-12 pb-10 md:pb-12 border-b border-white/[0.06] mb-8">
+    <footer className="bg-nuit border-t-2 border-eclat">
+      <div className="container-wide pt-12 md:pt-16 pb-8">
+        <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-12 pb-10 md:pb-12 border-b border-white/[0.12] mb-8">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
               <svg width="26" height="26" viewBox="0 0 36 36" fill="none" aria-hidden="true">
@@ -52,20 +50,19 @@ export default function Footer() {
                 <polygon points="29,2 34,10 29,18 24,10" fill="#A29BFE" opacity="0.88" />
                 <polygon points="7,18 12,26 7,34 2,26" fill="#A29BFE" opacity="0.6" />
               </svg>
-              <span className="text-lg font-semibold text-white tracking-tight">uplyo</span>
+              <span className="text-title font-semibold text-white">uplyo</span>
             </div>
-            <p className="text-[13px] text-white/55 leading-relaxed max-w-[240px] mb-5 font-light">
-              Agence Google Ads performance pour PME et e-commerce. Résultats mesurables, transparence totale.
+            <p className="text-body text-white/70 max-w-[260px] mb-5 font-light">
+              Gestion de campagnes Google Ads pour PME de services. Activité indépendante — un seul
+              interlocuteur, celui qui exécute.
             </p>
-            <div className="font-mono text-[10px] text-white/50 flex items-center gap-1.5">
-              <span className="text-eclat" aria-hidden="true">◆</span>Google Ads · GA4 · Looker Studio
-            </div>
+            <div className="label-mono text-white/70">Google Ads · GA4 · Looker Studio</div>
           </div>
 
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <div className="font-mono text-[11px] tracking-[0.1em] uppercase text-white/55 mb-3">{col.title}</div>
-              <div className="flex flex-col gap-1.5">
+              <div className="label-mono text-spark mb-3">{col.title}</div>
+              <div className="flex flex-col gap-2">
                 {col.links.map((link) =>
                   link.external ? (
                     <a
@@ -88,10 +85,8 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center justify-between flex-wrap gap-4">
-          <div className="font-mono text-[11px] text-white/50">
-            © 2026 <span className="text-aura">Uplyo</span> · Tous droits réservés
-          </div>
-          <div className="flex gap-4 md:gap-6">
+          <div className="label-mono text-white/70">© 2026 Uplyo · Tous droits réservés</div>
+          <div className="flex gap-5 flex-wrap">
             {[
               { label: "Mentions légales", href: "/mentions-legales" },
               { label: "Confidentialité", href: "/confidentialite" },
@@ -100,7 +95,7 @@ export default function Footer() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-[11px] text-white/50 no-underline hover:text-white/70 transition-colors"
+                className="text-caption text-white/70 no-underline hover:text-white transition-colors"
               >
                 {l.label}
               </Link>
