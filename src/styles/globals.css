@@ -3,38 +3,48 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════
-   UPLYO — Global Design Tokens & Base Styles
+   UPLYO — Design tokens & base styles
    ═══════════════════════════════════════════ */
 
 @layer base {
   :root {
-    /* Brand */
-    --eclat: #6C5CE7;
-    --eclat-h: #5A4BD1;
-    --aura: #A29BFE;
-    --spark: #FDCB6E;
-    --nuit: #1A1040;
-    --ombre: #2D2B55;
-    --lune: #F5F3FF;
-    --lune2: #EBE8FF;
+    /* ── Brand ── */
+    --eclat: #6c5ce7; /* fond de bloc uniquement, texte blanc pur */
+    --eclat-h: #5a4bd1;
+    --eclat-ink: #5a4bd1; /* texte violet sur fond clair (6.25:1 sur blanc) */
+    --aura: #a29bfe;
+    --spark: #fdcb6e;
+    --nuit: #1a1040;
+    --ombre: #2d2b55;
+    --lune: #f5f3ff;
+    --lune2: #ebe8ff;
 
-    /* Surfaces (light/agency) */
-    --w: #FEFEFF;
-    --w2: #F8F7FF;
-    --ink: #0D0B1A;
-    --ink2: #3D3B5C;
-    /* 4.96:1 sur blanc — l'ancienne valeur #7C7A9A était à 4.11:1 (< AA) */
-    --ink3: #6F6D8A;
-    --bd: rgba(108, 92, 231, 0.12);
-    --bd2: rgba(108, 92, 231, 0.22);
+    /* ── Surfaces opaques ──
+       Les anciennes bordures en alpha (rgba(108,92,231,.12)) changeaient de
+       couleur perçue selon le fond. Valeurs figées ici. */
+    --surface-0: #ffffff;
+    --surface-1: #faf9ff;
+    --surface-2: #f6f4ff;
+    --line: #e6e2f7;
+    --line-strong: #cfc8f0;
+    --line-input: #8e86c6; /* 3.29:1 sur blanc — bordure de champ, WCAG 1.4.11 */
 
-    /* Semantic */
-    --green: #22C55E;
-    --red: #EF4444;
-    --amber: #F59E0B;
-    --blue: #3B82F6;
-    --purple: #A78BFA;
-    --cyan: #06B6D4;
+    /* Alias de compatibilité : --w/--w2/--bd/--bd2 restent utilisés dans le
+       code existant, ils pointent désormais vers les tokens opaques. */
+    --w: var(--surface-1);
+    --w2: var(--surface-2);
+    --bd: var(--line);
+    --bd2: var(--line-strong);
+
+    /* ── Texte ── */
+    --ink: #0d0b1a;
+    --ink2: #3d3b5c;
+    --ink3: #6f6d8a;
+
+    /* ── Sémantique ── */
+    --green: #22c55e;
+    --red: #ef4444;
+    --amber: #f59e0b;
   }
 
   html {
@@ -45,54 +55,122 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* ── Focus clavier ──
+     Tous les champs du site portaient `outline-none` sans aucun remplacement :
+     la navigation au clavier était invisible. Anneau global, avec une variante
+     claire sur les fonds sombres (--eclat-ink tombe à 2.82:1 sur nuit et
+     1.29:1 sur eclat ; --spark y remonte à 11.70:1 et 3.23:1). */
+  :focus-visible {
+    outline: 2px solid var(--eclat-ink);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .bg-nuit :focus-visible,
+  .bg-eclat :focus-visible,
+  footer :focus-visible {
+    outline-color: var(--spark);
+  }
 }
 
 @layer components {
-  /* ── Button system ── */
+  /* ── Conteneurs ──
+     Le site utilisait 9 largeurs max différentes (1160/900/800/760/700/640…),
+     ce qui décalait visiblement le bord gauche d'une section à l'autre.
+     Deux tokens seulement désormais. */
+  .container-wide {
+    @apply w-full max-w-wide mx-auto px-6 md:px-10;
+  }
+  .container-text {
+    @apply w-full max-w-text mx-auto px-6 md:px-10;
+  }
+
+  /* ── Rythme vertical ── */
+  .section {
+    @apply py-14 md:py-24;
+  }
+  .section-tight {
+    @apply py-10 md:py-16;
+  }
+
+  /* ── Boutons ──
+     Règle : jamais d'icône dans un libellé de bouton, seulement une flèche
+     finale (composant lucide ArrowRight). */
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-eclat text-white text-sm font-semibold px-6 py-3 rounded-lg transition-all duration-150 hover:bg-eclat-hover hover:-translate-y-0.5;
+    @apply inline-flex items-center gap-2 bg-eclat text-white text-body font-semibold px-6 py-3 rounded-uplyo transition-all duration-150 hover:bg-eclat-hover hover:-translate-y-0.5;
   }
   .btn-outline {
-    @apply inline-flex items-center gap-2 bg-transparent text-ink text-sm font-medium px-6 py-3 rounded-lg transition-all duration-150;
-    border: 1.5px solid var(--bd2);
+    @apply inline-flex items-center gap-2 bg-transparent text-ink text-body font-medium px-6 py-3 rounded-uplyo transition-all duration-150;
+    border: 1.5px solid var(--line-strong);
   }
   .btn-outline:hover {
     border-color: var(--eclat);
-    color: var(--eclat);
+    color: var(--eclat-ink);
+  }
+  .btn-invert {
+    @apply inline-flex items-center gap-2 bg-white text-eclat-ink text-body-lg font-semibold px-7 py-3.5 rounded-uplyo no-underline transition-all duration-150 hover:bg-lune hover:-translate-y-0.5;
+  }
+
+  /* ── Libellé mono (esthétique « plan de travail ») ── */
+  .label-mono {
+    @apply font-mono text-label uppercase tracking-[0.14em];
+  }
+
+  /* ── Champ de formulaire ── */
+  .field {
+    @apply bg-white border-[1.5px] border-line-input/70 rounded-uplyo px-3.5 py-2.5 text-body text-ink transition-colors;
+  }
+  .field:focus {
+    border-color: var(--eclat);
   }
 }
 
-/* ── Reveal animation ── */
+/* ── Reveal ──
+   Les blocs étaient rendus en `opacity-0` côté serveur : sans JS, la page
+   entière restait invisible. Le contenu part désormais visible et n'est
+   masqué que si JS a pris la main (classe `reveal-armed` posée par le
+   composant au montage), et jamais en reduced-motion. */
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+.reveal-armed {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-.reveal.visible,
 .reveal-visible {
-  opacity: 1 !important;
-  transform: none !important;
+  opacity: 1;
+  transform: none;
 }
 
-/* ── Ticker animation ── */
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-ticker {
-  animation: ticker 32s linear infinite;
-}
-.animate-ticker:hover {
-  animation-play-state: paused;
-}
-
-/* ── Mobile improvements ── */
-@media (max-width: 768px) {
-  section, .py-24 {
-    padding-top: 3.5rem !important;
-    padding-bottom: 3.5rem !important;
+/* ── Accessibilité : mouvement réduit ──
+   Aucun garde n'existait. Toute animation est neutralisée ici. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  h1, h2 {
-    word-break: break-word;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-armed {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Mobile ──
+   L'ancien bloc posait `padding: 3.5rem !important` sur TOUTES les <section>,
+   ce qui rendait impossible toute variation de densité. Le rythme mobile est
+   désormais porté par .section / .section-tight (py-14 / py-10). */
+@media (max-width: 768px) {
+  h1,
+  h2 {
+    overflow-wrap: break-word;
   }
 }

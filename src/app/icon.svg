@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Uplyo">
+  <rect width="64" height="64" rx="14" fill="#1A1040"/>
+  <polygon points="32,12 45,32 32,52 19,32" fill="#6C5CE7"/>
+  <polygon points="49,9 55,20 49,31 43,20" fill="#A29BFE" opacity="0.88"/>
+  <polygon points="15,33 21,44 15,55 9,44" fill="#A29BFE" opacity="0.6"/>
+</svg>

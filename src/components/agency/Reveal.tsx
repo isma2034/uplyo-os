@@ -9,6 +9,17 @@ interface RevealProps {
   delay?: number;
 }
 
+/**
+ * Apparition au scroll — dégradation propre.
+ *
+ * Avant : le composant rendait `opacity-0` dès le SSR et ne repassait à 1 que
+ * via IntersectionObserver. Sans JavaScript (ou si le bundle échoue), toutes
+ * les sections du site restaient invisibles.
+ *
+ * Maintenant : le HTML servi est visible (`.reveal`). C'est le composant, une
+ * fois monté côté client, qui « arme » l'animation (`.reveal-armed`) avant de
+ * la déclencher. `prefers-reduced-motion` neutralise l'armement en CSS.
+ */
 export default function Reveal({ children, className, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -16,12 +27,15 @@ export default function Reveal({ children, className, delay = 0 }: RevealProps) 
     const el = ref.current;
     if (!el) return;
 
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || typeof IntersectionObserver === "undefined") return;
+
+    el.classList.add("reveal-armed");
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            el.classList.add("reveal-visible");
-          }, delay);
+          window.setTimeout(() => el.classList.add("reveal-visible"), delay);
           observer.unobserve(el);
         }
       },
@@ -33,14 +47,7 @@ export default function Reveal({ children, className, delay = 0 }: RevealProps) 
   }, [delay]);
 
   return (
-    <div
-      ref={ref}
-      className={cn(
-        "opacity-0 translate-y-6 transition-all duration-700 ease-out",
-        className
-      )}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
+    <div ref={ref} className={cn("reveal", className)} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   );
