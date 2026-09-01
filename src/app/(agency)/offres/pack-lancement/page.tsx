@@ -3,8 +3,9 @@ import Link from "next/link";
 import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
-  title: "Pack Lancement — Uplyo · Setup Google Ads en 5 jours",
+  title: "Pack Lancement · Setup Google Ads en 5 jours",
   description: "Audit complet, structure campagnes, tracking GA4, dashboard Looker Studio. En ligne en 5 jours.",
+  alternates: { canonical: "/offres/pack-lancement" },
 };
 
 const INCLUDES = [

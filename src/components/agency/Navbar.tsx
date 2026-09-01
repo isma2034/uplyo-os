@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useCallback } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -13,6 +14,25 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close menu on Escape key
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape") setMobileOpen(false);
+  }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+      // Prevent body scroll while menu is open
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen, handleKeyDown]);
+
   return (
     <>
       <nav
@@ -21,9 +41,11 @@ export default function Navbar() {
             ? "bg-white/95 backdrop-blur-xl border-b border-[var(--bd)]"
             : "bg-transparent border-b border-transparent"
         }`}
+        role="navigation"
+        aria-label="Navigation principale"
       >
-        <Link href="/" className="flex items-center gap-2.5 no-underline">
-          <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+        <Link href="/" className="flex items-center gap-2.5 no-underline" aria-label="Uplyo — accueil">
+          <svg width="32" height="32" viewBox="0 0 36 36" fill="none" aria-hidden="true">
             <polygon points="18,4 28,20 18,36 8,20" fill="#6C5CE7" />
             <polygon points="29,2 34,10 29,18 24,10" fill="#A29BFE" opacity="0.88" />
             <polygon points="7,18 12,26 7,34 2,26" fill="#A29BFE" opacity="0.6" />
@@ -31,9 +53,9 @@ export default function Navbar() {
           <span className="text-xl font-semibold text-ink tracking-tight">uplyo</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
-          <Link href="/#services" className="text-[13px] font-medium text-ink-3 hover:text-ink transition-colors no-underline">Nos offres</Link>
-          <Link href="/contact" className="text-[13px] font-medium text-ink-3 hover:text-ink transition-colors no-underline">Contact</Link>
+        <div className="hidden md:flex items-center gap-6" role="list">
+          <Link href="/#services" className="text-[13px] font-medium text-ink-3 hover:text-ink transition-colors no-underline" role="listitem">Nos offres</Link>
+          <Link href="/contact" className="text-[13px] font-medium text-ink-3 hover:text-ink transition-colors no-underline" role="listitem">Contact</Link>
         </div>
 
         <Link href="/audit" className="hidden md:block bg-eclat text-white text-[13px] font-semibold px-[22px] py-[10px] rounded-lg border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px no-underline">
@@ -44,17 +66,25 @@ export default function Navbar() {
         <button
           className="md:hidden flex flex-col gap-[5px] bg-transparent border-none cursor-pointer p-1"
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Menu"
+          aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
         >
-          <span className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-          <span className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
-          <span className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+          <span aria-hidden="true" className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+          <span aria-hidden="true" className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
+          <span aria-hidden="true" className={`w-[22px] h-[2px] bg-ink block rounded-sm transition-all duration-200 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
         </button>
       </nav>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="fixed inset-0 top-[68px] bg-white z-[190] p-8 flex flex-col gap-4 border-t border-[var(--bd)] md:hidden overflow-y-auto">
+        <div
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu de navigation"
+          className="fixed inset-0 top-[68px] bg-white z-[190] p-8 flex flex-col gap-4 border-t border-[var(--bd)] md:hidden overflow-y-auto"
+        >
           <Link href="/" onClick={() => setMobileOpen(false)} className="text-[17px] font-medium text-ink no-underline py-2 border-b border-[var(--bd)]">Accueil</Link>
           <Link href="/offres/pack-lancement" onClick={() => setMobileOpen(false)} className="text-[15px] text-ink-2 no-underline py-1.5 pl-4">Pack Lancement</Link>
           <Link href="/offres/retainer" onClick={() => setMobileOpen(false)} className="text-[15px] text-ink-2 no-underline py-1.5 pl-4">Pilotage mensuel</Link>

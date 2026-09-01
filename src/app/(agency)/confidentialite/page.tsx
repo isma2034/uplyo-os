@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — Uplyo",
+  title: "Politique de confidentialité",
+  alternates: { canonical: "/confidentialite" },
 };
 
 export default function ConfidentialitePage() {
@@ -39,7 +40,7 @@ export default function ConfidentialitePage() {
             </div>
             <div>
               <h2 className="text-lg font-semibold text-ink mb-2">7. Sous-traitants</h2>
-              <p>Vercel (hébergement), Google (Analytics), Anthropic (IA pour Uplyo OS). Aucune donnée personnelle n&apos;est vendue à des tiers.</p>
+              <p>Vercel (hébergement), Google (Analytics). Aucune donnée personnelle n&apos;est vendue à des tiers.</p>
             </div>
             <div>
               <h2 className="text-lg font-semibold text-ink mb-2">8. Transferts internationaux</h2>

@@ -3,8 +3,9 @@ import Link from "next/link";
 import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
-  title: "Pack E-commerce — Uplyo · Google Shopping & Performance Max",
+  title: "Pack E-commerce · Google Shopping & Performance Max",
   description: "Shopping optimisé, Performance Max structuré, feed produit, ROAS tracking avancé. Pour les boutiques qui veulent scaler.",
+  alternates: { canonical: "/offres/ecommerce" },
 };
 
 const INCLUDES = [

@@ -4,11 +4,52 @@ import Reveal from "@/components/agency/Reveal";
 import Ticker from "@/components/agency/Ticker";
 import Navbar from "@/components/agency/Navbar";
 import ContactForm from "@/components/agency/ContactForm";
+import TrackedLink from "@/components/agency/TrackedLink";
 
 export const metadata: Metadata = {
   title: "Uplyo — Agence Google Ads Performance pour PME & E-commerce",
   description: "Agence Google Ads spécialisée PME et e-commerce. CPA réduit de 65%, ROAS moyen 4.2x, go-live en 5 jours. Audit gratuit.",
-  openGraph: { title: "Uplyo — Google Ads Agency", description: "Agence Google Ads performance pour PME et e-commerce.", url: "https://uplyo.fr", siteName: "Uplyo", locale: "fr_FR", type: "website" },
+  alternates: { canonical: "https://uplyo.fr" },
+  openGraph: {
+    title: "Uplyo — Agence Google Ads Performance pour PME & E-commerce",
+    description: "Agence Google Ads spécialisée PME et e-commerce. CPA réduit de 65%, ROAS moyen 4.2x, go-live en 5 jours. Audit gratuit.",
+    url: "https://uplyo.fr",
+    siteName: "Uplyo",
+    locale: "fr_FR",
+    type: "website",
+  },
+};
+
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://uplyo.fr/#organization",
+      name: "Uplyo",
+      url: "https://uplyo.fr",
+      email: "contact@uplyo.fr",
+      description: "Agence Google Ads performance pour PME et e-commerce. CPA réduit de 65%, ROAS moyen 4.2x.",
+      areaServed: { "@type": "Country", name: "France" },
+      knowsAbout: ["Google Ads", "Google Analytics 4", "Looker Studio", "E-commerce", "Performance Marketing"],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Services Google Ads",
+        itemListElement: [
+          { "@type": "Offer", name: "Pack Lancement", url: "https://uplyo.fr/offres/pack-lancement" },
+          { "@type": "Offer", name: "Retainer Mensuel", url: "https://uplyo.fr/offres/retainer" },
+          { "@type": "Offer", name: "Pack E-commerce", url: "https://uplyo.fr/offres/ecommerce" },
+        ],
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://uplyo.fr/#website",
+      url: "https://uplyo.fr",
+      name: "Uplyo",
+      publisher: { "@id": "https://uplyo.fr/#organization" },
+    },
+  ],
 };
 
 const PAINS = [
@@ -45,6 +86,42 @@ const TESTIMONIALS = [
   { text: "5 jours comme promis. Le dashboard Looker Studio m'a époustouflé — je vois tout en temps réel.", name: "Antoine C.", role: "Gérant · Entreprise BTP · Bordeaux", badge: "PME locale", initials: "AC" },
 ];
 
+const CASE_STUDIES = [
+  {
+    sector: "E-commerce · Mode",
+    icon: "👗",
+    location: "Lyon",
+    period: "6 mois",
+    before: [{ label: "ROAS", value: "1.8x" }, { label: "CPA", value: "€89" }],
+    after: [{ label: "ROAS", value: "4.6x" }, { label: "CPA", value: "€31" }],
+    highlight: "ROAS ×2.5",
+    quote: "Les rapports automatiques sont clairs — même mon comptable les comprend.",
+    author: "Julien L.",
+  },
+  {
+    sector: "Lead Gen · Conseil RH",
+    icon: "🤝",
+    location: "Paris",
+    period: "3 mois",
+    before: [{ label: "Leads/mois", value: "3-4" }, { label: "CPA", value: "€180" }],
+    after: [{ label: "Leads/mois", value: "20+" }, { label: "CPA", value: "€38" }],
+    highlight: "×5 leads",
+    quote: "Pour le même budget, 5× plus de leads qualifiés.",
+    author: "Sophie M.",
+  },
+  {
+    sector: "PME Locale · BTP",
+    icon: "🏗️",
+    location: "Bordeaux",
+    period: "5 jours",
+    before: [{ label: "Conv./mois", value: "8" }, { label: "Tracking", value: "Cassé" }],
+    after: [{ label: "Conv./mois", value: "+240%" }, { label: "Tracking", value: "GA4 ✓" }],
+    highlight: "+240% conv.",
+    quote: "5 jours comme promis. Le dashboard m'a époustouflé.",
+    author: "Antoine C.",
+  },
+];
+
 const FAQS = [
   { q: "Comment sont calculés vos tarifs ?", a: "Chaque mission est devisée sur mesure selon votre marché, la concurrence et vos objectifs. Les tarifs affichés sont les points d'entrée — le devis final vous est envoyé sous 24h." },
   { q: "En combien de temps mes campagnes sont-elles en ligne ?", a: "Exactement 5 jours ouvrés. J1 : audit. J2-3 : structure + annonces. J4 : tracking GA4 + Consent Mode v2. J5 : lancement + Looker Studio." },
@@ -56,6 +133,10 @@ const FAQS = [
 export default function AgencyPage() {
   return (
     <div className="bg-[var(--w)] text-ink overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+      />
       <Navbar />
 
       {/* HERO */}
@@ -71,7 +152,7 @@ export default function AgencyPage() {
             </h1>
             <p className="text-[15px] md:text-[17px] text-ink-2 leading-relaxed mb-9 max-w-[480px] font-light">Nous gérons vos campagnes Google Ads avec une approche <strong className="text-ink font-medium">data-driven</strong>. Résultats mesurables, reporting transparent, croissance durable.</p>
             <div className="flex gap-3 flex-wrap mb-8">
-              <Link href="/contact" className="btn-primary text-sm md:text-base no-underline">Réserver un appel découverte →</Link>
+              <TrackedLink href="/contact" className="btn-primary text-sm md:text-base no-underline" eventName="cta_click" eventParams={{ location: "hero", label: "Réserver un appel découverte" }}>Réserver un appel découverte →</TrackedLink>
               <Link href="#services" className="btn-outline no-underline text-sm md:text-base">Voir les offres</Link>
             </div>
             <div className="flex items-center gap-3 md:gap-5 flex-wrap">
@@ -188,6 +269,65 @@ export default function AgencyPage() {
                   <div className="text-[0.85rem] md:text-[0.95rem] font-semibold text-ink mb-1">{step.t}</div>
                   <div className="text-[11px] md:text-xs text-ink-2 leading-snug font-light">{step.d}</div>
                   <div className="font-mono text-[10px] text-eclat font-medium mt-1.5">{step.day}</div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CASE STUDIES */}
+      <section className="py-16 md:py-24 px-6 md:px-10">
+        <div className="max-w-[1160px] mx-auto">
+          <Reveal>
+            <div className="mb-10 md:mb-14">
+              <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-eclat mb-4"><span className="w-4 h-[2px] bg-eclat rounded-full" />Résultats clients</div>
+              <h2 className="text-[clamp(1.8rem,3.8vw,3.6rem)] font-semibold leading-[1.02] tracking-[-1.5px] text-ink">Chiffres <span className="text-eclat">réels</span>,<br /><span className="italic font-light text-ink-3">avant & après.</span></h2>
+            </div>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {CASE_STUDIES.map((cs, i) => (
+              <Reveal key={cs.sector} delay={i * 120}>
+                <div className="bg-white border-[1.5px] border-[var(--bd)] rounded-uplyo-lg overflow-hidden hover:border-eclat hover:-translate-y-[3px] transition-all h-full flex flex-col">
+                  {/* Header */}
+                  <div className="bg-[var(--w2)] px-5 py-4 flex items-center justify-between border-b border-[var(--bd)]">
+                    <div>
+                      <div className="text-[10px] font-mono text-ink-3 uppercase tracking-wider">{cs.sector}</div>
+                      <div className="text-[12px] text-ink-2 font-light mt-0.5">{cs.location} · {cs.period}</div>
+                    </div>
+                    <span className="text-xl">{cs.icon}</span>
+                  </div>
+                  {/* Before / After */}
+                  <div className="px-5 py-5 flex-1">
+                    <div className="grid grid-cols-[1fr_24px_1fr] gap-2 items-start mb-5">
+                      {/* Before */}
+                      <div>
+                        <div className="text-[9px] font-mono text-ink-3 uppercase tracking-wider mb-2">Avant</div>
+                        {cs.before.map((m) => (
+                          <div key={m.label} className="mb-1.5">
+                            <div className="text-[10px] text-ink-3 font-mono">{m.label}</div>
+                            <div className="text-[1.1rem] font-semibold text-ink-2 leading-none tracking-tight">{m.value}</div>
+                          </div>
+                        ))}
+                      </div>
+                      {/* Arrow */}
+                      <div className="text-eclat text-center mt-6 font-bold text-base">→</div>
+                      {/* After */}
+                      <div>
+                        <div className="text-[9px] font-mono text-green-600 uppercase tracking-wider mb-2">Après</div>
+                        {cs.after.map((m) => (
+                          <div key={m.label} className="mb-1.5">
+                            <div className="text-[10px] text-ink-3 font-mono">{m.label}</div>
+                            <div className="text-[1.1rem] font-semibold text-eclat leading-none tracking-tight">{m.value}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    {/* Highlight badge */}
+                    <div className="inline-flex items-center gap-1.5 bg-lune border border-[var(--bd2)] text-eclat text-[11px] font-semibold px-2.5 py-1 rounded-full font-mono mb-4">↗ {cs.highlight}</div>
+                    {/* Quote */}
+                    <p className="text-[12px] text-ink-3 leading-relaxed font-light border-t border-[var(--bd)] pt-4">« {cs.quote} » <span className="text-ink font-medium">— {cs.author}</span></p>
+                  </div>
                 </div>
               </Reveal>
             ))}

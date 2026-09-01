@@ -1,9 +1,18 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useRef, FormEvent } from "react";
+import { trackFormStart, trackFormSubmit } from "@/lib/analytics";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const formStarted = useRef(false);
+
+  const handleFormFocus = () => {
+    if (!formStarted.current) {
+      formStarted.current = true;
+      trackFormStart("contact");
+    }
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +43,7 @@ export default function ContactForm() {
 
       if (res.ok) {
         form.reset();
-        // Redirect to thank you page for conversion tracking
+        trackFormSubmit("contact", data.budget);
         window.location.href = "/merci?source=contact";
       } else {
         setStatus("error");
@@ -65,6 +74,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
+      onFocus={handleFormFocus}
       className="flex flex-col gap-3.5 bg-white border-[1.5px] border-[var(--bd)] rounded-uplyo-lg p-6 md:p-8"
     >
       <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />

@@ -4,8 +4,9 @@ import Reveal from "@/components/agency/Reveal";
 import { SITE_CONFIG } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Contact — Uplyo · Agence Google Ads",
+  title: "Contact · Agence Google Ads",
   description: "Réservez un audit Google Ads gratuit en 30 minutes. Réponse sous 24h.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

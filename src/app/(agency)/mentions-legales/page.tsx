@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — Uplyo",
+  title: "Mentions légales",
+  alternates: { canonical: "/mentions-legales" },
 };
 
 export default function MentionsLegalesPage() {

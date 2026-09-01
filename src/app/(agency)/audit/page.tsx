@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useRef, FormEvent } from "react";
 import Link from "next/link";
 import Reveal from "@/components/agency/Reveal";
 import { SITE_CONFIG } from "@/lib/config";
+import { trackFormStart, trackFormSubmit, trackCalendlyClick } from "@/lib/analytics";
 
 const AUDIT_INCLUDES = [
   { ico: "🔬", title: "Score de performance /100", desc: "Analyse automatisée de votre compte : structure, enchères, mots-clés, annonces, tracking." },
@@ -23,6 +24,14 @@ const TRUST_SIGNALS = [
 
 export default function AuditPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const formStarted = useRef(false);
+
+  const handleFormFocus = () => {
+    if (!formStarted.current) {
+      formStarted.current = true;
+      trackFormStart("audit");
+    }
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,6 +60,7 @@ export default function AuditPage() {
       });
       if (res.ok) {
         form.reset();
+        trackFormSubmit("audit", data.budget);
         window.location.href = "/merci?source=audit";
       } else {
         setStatus("error");
@@ -117,6 +127,7 @@ export default function AuditPage() {
                   href={SITE_CONFIG.calendlyUrl}
                   target="_blank"
                   rel="noopener"
+                  onClick={() => trackCalendlyClick("audit_success")}
                   className="btn-primary no-underline text-sm"
                 >
                   📅 Réserver mon créneau →
@@ -125,6 +136,7 @@ export default function AuditPage() {
             ) : (
               <form
                 onSubmit={handleSubmit}
+                onFocus={handleFormFocus}
                 className="flex flex-col gap-3.5 bg-white border-[1.5px] border-[var(--bd)] rounded-uplyo-lg p-6 md:p-8 sticky top-[84px]"
               >
                 <div className="text-center mb-2">
@@ -289,6 +301,7 @@ export default function AuditPage() {
             href={SITE_CONFIG.calendlyUrl}
             target="_blank"
             rel="noopener"
+            onClick={() => trackCalendlyClick("audit_cta_bottom")}
             className="inline-flex items-center gap-2 bg-white text-eclat text-[15px] font-semibold px-8 py-4 rounded-lg no-underline transition-all hover:bg-lune hover:-translate-y-0.5"
           >
             📅 Réserver mon créneau Calendly →

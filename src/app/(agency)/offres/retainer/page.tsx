@@ -3,8 +3,9 @@ import Link from "next/link";
 import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
-  title: "Pilotage Mensuel — Uplyo · Gestion Google Ads continue",
+  title: "Pilotage Mensuel · Gestion Google Ads continue",
   description: "Optimisation continue de vos campagnes Google Ads. Expert dédié, rapports hebdo, scripts d'automation.",
+  alternates: { canonical: "/offres/retainer" },
 };
 
 const INCLUDES = [
