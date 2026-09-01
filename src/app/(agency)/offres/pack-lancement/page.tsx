@@ -1,110 +1,216 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, Check } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
+import { MEDIA_FLOOR, OFFER_ROUTES, TERMS } from "@/lib/offers";
 
+// Route conservée (/offres/pack-lancement) : la renommer en /offres/setup
+// imposerait des redirections pour un gain nul, le site n'ayant pas encore
+// d'historique d'indexation. Seul le libellé public change (« Le setup »).
 export const metadata: Metadata = {
-  title: "Pack Lancement · Setup Google Ads en 5 jours",
-  description: "Audit complet, structure campagnes, tracking GA4, dashboard Looker Studio. En ligne en 5 jours.",
+  title: "Le setup · Construction du compte Google Ads en 5 jours",
+  description:
+    "Audit, structure de campagnes, annonces, GA4 et Consent Mode v2, tableau de bord Looker Studio. Cinq jours ouvrés, prestation unique, aucun engagement.",
   alternates: { canonical: "/offres/pack-lancement" },
 };
 
-const INCLUDES = [
-  { ico: "🔬", title: "Audit complet", desc: "Analyse de votre marché, concurrence, mots-clés, opportunités. Benchmark CPA/ROAS secteur." },
-  { ico: "🏗️", title: "Structure campagnes", desc: "Architecture Search optimale, groupes d'annonces, mots-clés, négatifs, extensions. Tout from scratch." },
-  { ico: "✍️", title: "Annonces RSA", desc: "Rédaction de toutes les annonces responsive search. 15 titres, 4 descriptions par ad group." },
-  { ico: "📊", title: "Tracking GA4", desc: "Configuration GA4 + Consent Mode v2. Events de conversion, tags GTM, vérification cross-device." },
-  { ico: "📈", title: "Dashboard Looker Studio", desc: "Dashboard temps réel connecté à votre compte. KPIs, tendances, alertes visuelles." },
-  { ico: "📋", title: "Briefing stratégique", desc: "Document de 10+ pages : stratégie, structure, KPIs cibles, planning d'optimisation." },
+const PLAN = [
+  {
+    day: "J0",
+    t: "Appel de cadrage",
+    d: "30 minutes. Ce que vous vendez, à qui, dans quelle zone, à quel prix, avec quel budget. Je vous dis dès cet appel si Google Ads est pertinent chez vous — et si la réponse est non, on s'arrête là.",
+    out: ["Compte-rendu écrit du cadrage", "Budget publicitaire conseillé"],
+  },
+  {
+    day: "J1",
+    t: "Audit et plan de campagne",
+    d: "Recherche des requêtes réellement tapées par vos clients, avec leurs volumes et leur coût au clic. Relevé des annonceurs déjà présents sur ces requêtes. Choix de la structure et de la répartition du budget.",
+    out: ["Liste de mots-clés chiffrée", "Le plan de campagne écrit"],
+  },
+  {
+    day: "J2–J3",
+    t: "Construction du compte",
+    d: "Campagnes, groupes d'annonces, mots-clés, exclusions, rédaction des annonces responsives, extensions (appel, liens, lieu). Tout est construit dans un compte ouvert à votre nom.",
+    out: ["Le compte construit", "Les annonces rédigées et soumises"],
+  },
+  {
+    day: "J4",
+    t: "Mesure",
+    d: "GA4 et Consent Mode v2, définition des conversions, puis test réel de chacune : j'appelle le numéro, j'envoie le formulaire, et je vérifie que cela remonte bien une fois et une seule. C'est l'étape la plus souvent bâclée, et celle qui fausse tout le reste.",
+    out: ["Tracking testé, pas seulement posé", "Capture de chaque conversion vérifiée"],
+  },
+  {
+    day: "J5",
+    t: "Mise en ligne et passation",
+    d: "Lancement, tableau de bord Looker Studio branché sur le compte, transmission des accès et explication de ce qui tourne. Vous savez lire vos propres chiffres en repartant.",
+    out: ["Campagnes en ligne", "Tableau de bord + accès administrateur"],
+  },
 ];
 
-const PROCESS = [
-  { day: "J0", title: "Appel découverte", desc: "30 min — on comprend votre business, objectifs, budget et marché." },
-  { day: "J1", title: "Audit & stratégie", desc: "Analyse concurrence, recherche mots-clés, définition structure et budget." },
-  { day: "J2-3", title: "Création campagnes", desc: "Structure, annonces, extensions, négatifs. Tout est construit dans votre compte." },
-  { day: "J4", title: "Tracking & dashboard", desc: "GA4, GTM, conversions, Consent Mode v2. Dashboard Looker connecté." },
-  { day: "J5", title: "Go-live & handoff", desc: "Lancement, vérification, briefing stratégique. Vous êtes opérationnel." },
+const NOT_INCLUDED = [
+  "Le budget publicitaire : vous le réglez directement à Google, je ne le facture pas et ne prends pas de commission dessus.",
+  "La refonte de votre site. Je vous signale ce qui bloque la conversion, mais le setup ne comprend pas de travaux sur le site.",
+  "Le SEO et les réseaux sociaux : ce n'est pas mon métier.",
+  "La conduite du compte après le lancement — c'est l'objet du pilotage, qui se prend séparément.",
 ];
 
-export default function PackLancementPage() {
+export default function SetupPage() {
   return (
     <>
       {/* Hero */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
-        <div className="max-w-[900px] mx-auto">
+      <section className="section">
+        <div className="container-wide">
           <Reveal>
-            <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-eclat mb-4">
-              <span className="w-4 h-[2px] bg-eclat rounded-full" />Pack Lancement
-            </div>
-            <h1 className="text-[clamp(2rem,4.5vw,3.8rem)] font-semibold leading-[1.02] tracking-[-1.5px] text-ink mb-4">
-              Vos Google Ads <span className="text-eclat">en ligne</span><br />
-              <span className="italic font-light text-ink-3">en 5 jours.</span>
-            </h1>
-            <p className="text-[15px] md:text-[17px] text-ink-2 max-w-[560px] leading-relaxed font-light mb-8">
-              De l&apos;audit à la mise en ligne — on crée tout de zéro. Structure, annonces, tracking, dashboard. Vous n&apos;avez rien à faire.
-            </p>
-            <div className="flex items-center gap-6 flex-wrap mb-8">
-              <div>
-                <div className="text-2xl font-semibold text-eclat">Sur devis</div>
-                <div className="text-[12px] text-ink-3 font-light">one-shot · go-live J5</div>
-              </div>
-              <Link href="/audit" className="btn-primary no-underline text-sm md:text-base">Demander un audit gratuit →</Link>
+            <div className="max-w-text">
+              <p className="label-mono text-eclat-ink mb-4">
+                Prestations · {OFFER_ROUTES.setup.label}
+              </p>
+              <h1 className="text-display font-semibold text-ink mb-5">
+                Le compte construit en cinq jours, et vous voyez ce qui sort chaque jour.
+              </h1>
+              <p className="text-lead text-ink-2 font-light mb-8">
+                De l&apos;audit à la mise en ligne. Prestation unique : à la fin, le compte est à
+                votre nom, il tourne, et vous êtes libre de le piloter vous-même.
+              </p>
             </div>
           </Reveal>
-        </div>
-      </section>
 
-      {/* What's included */}
-      <section className="py-16 md:py-24 px-6 md:px-10 bg-[var(--w2)]">
-        <div className="max-w-[1160px] mx-auto">
-          <Reveal>
-            <h2 className="text-2xl font-semibold tracking-tight text-ink mb-10">Ce qui est inclus</h2>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {INCLUDES.map((item, i) => (
-              <Reveal key={item.title} delay={i * 80}>
-                <div className="bg-white border-[1.5px] border-[var(--bd)] rounded-uplyo-lg p-6 h-full transition-all hover:border-eclat hover:-translate-y-1">
-                  <div className="text-2xl mb-3">{item.ico}</div>
-                  <h3 className="text-[15px] font-semibold text-ink mb-1.5">{item.title}</h3>
-                  <p className="text-[13px] text-ink-2 leading-relaxed font-light">{item.desc}</p>
+          <Reveal delay={80}>
+            <dl className="grid grid-cols-2 lg:grid-cols-4 border-t border-line">
+              {[
+                { k: "Honoraires", v: TERMS.fee, d: "Facturés une fois, devis sous 24 h" },
+                { k: "Durée", v: TERMS.goLive, d: "De l'appel de cadrage à la mise en ligne" },
+                { k: "Engagement", v: "Aucun", d: "Le pilotage se décide après, ou pas" },
+                {
+                  k: "Budget publicitaire",
+                  v: `${MEDIA_FLOOR.local} min.`,
+                  d: `Réglé à Google · ${MEDIA_FLOOR.ecommerce} en e-commerce`,
+                },
+              ].map((s) => (
+                <div key={s.k} className="py-5 pr-6 border-b border-line">
+                  <dt className="label-mono text-ink-3 mb-1.5">{s.k}</dt>
+                  <dd>
+                    <span className="block text-title font-semibold text-ink">{s.v}</span>
+                    <span className="block text-caption text-ink-3 mt-1 font-light">{s.d}</span>
+                  </dd>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              ))}
+            </dl>
+          </Reveal>
         </div>
       </section>
 
-      {/* Process */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
-        <div className="max-w-[800px] mx-auto">
+      {/* Timeline J0 → J5 */}
+      <section className="section bg-surface-2">
+        <div className="container-wide">
           <Reveal>
-            <h2 className="text-2xl font-semibold tracking-tight text-ink mb-10">Le process — 5 jours</h2>
+            <div className="max-w-text mb-10">
+              <p className="label-mono text-eclat-ink mb-4">Le plan de travail</p>
+              <h2 className="text-section font-semibold text-ink">Jour par jour, livrable par livrable</h2>
+            </div>
           </Reveal>
-          <div className="flex flex-col gap-4">
-            {PROCESS.map((step, i) => (
-              <Reveal key={step.day} delay={i * 80}>
-                <div className="flex gap-5 items-start bg-white border-[1.5px] border-[var(--bd)] rounded-uplyo-lg p-5 transition-all hover:border-eclat">
-                  <div className="font-mono text-[13px] font-semibold text-eclat bg-lune border border-[var(--bd)] rounded-lg px-3 py-1.5 shrink-0">{step.day}</div>
+
+          <ol className="border-t border-line-strong">
+            {PLAN.map((s, i) => (
+              <Reveal key={s.day} delay={i * 70}>
+                <li className="grid grid-cols-1 md:grid-cols-[92px_1fr_300px] gap-3 md:gap-8 py-7 border-b border-line-strong">
+                  <div className="font-mono text-body font-medium text-eclat-ink">{s.day}</div>
                   <div>
-                    <div className="text-[15px] font-semibold text-ink mb-1">{step.title}</div>
-                    <p className="text-[13px] text-ink-2 leading-relaxed font-light">{step.desc}</p>
+                    <h3 className="text-title font-semibold text-ink mb-2">{s.t}</h3>
+                    <p className="text-body text-ink-2 font-light max-w-[62ch]">{s.d}</p>
                   </div>
-                </div>
+                  <div>
+                    <div className="label-mono text-ink-3 mb-2">Livrables</div>
+                    <ul className="flex flex-col gap-1.5">
+                      {s.out.map((o) => (
+                        <li key={o} className="flex gap-2 text-body text-ink font-medium">
+                          <Check size={14} className="text-eclat-ink shrink-0 mt-1" aria-hidden="true" />
+                          {o}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
               </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* CTA */}
-      <Reveal>
-        <div className="bg-eclat py-14 px-6 md:px-10 text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">Prêt à lancer vos campagnes ?</h2>
-          <p className="text-[15px] text-white/60 mb-8 font-light">Audit gratuit de 30 min — on analyse votre marché et vous donne un plan d&apos;action.</p>
-          <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-eclat text-[15px] font-semibold px-8 py-4 rounded-lg no-underline transition-all hover:bg-lune hover:-translate-y-0.5">
-            📅 Réserver mon audit gratuit →
+      {/* Ce qui n'est pas compris */}
+      <section className="section-tight bg-nuit">
+        <div className="container-wide">
+          <h2 className="label-mono text-spark mb-6">Ce qui n&apos;est pas compris</h2>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
+            {NOT_INCLUDED.map((t) => (
+              <li key={t} className="flex gap-3 text-body-lg text-white/80 font-light">
+                <span aria-hidden="true" className="text-spark shrink-0 leading-7">
+                  —
+                </span>
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Suite */}
+      <section className="section">
+        <div className="container-wide grid grid-cols-1 md:grid-cols-2 gap-5">
+          <Reveal>
+            <div className="border border-line rounded-card p-6 bg-white h-full">
+              <div className="label-mono text-ink-3 mb-3">Et après ?</div>
+              <h2 className="text-title font-semibold text-ink mb-2">{OFFER_ROUTES.pilotage.label}</h2>
+              <p className="text-body text-ink-2 font-light mb-5">
+                Un compte lancé se dégrade s&apos;il n&apos;est pas suivi : les requêtes évoluent, les
+                concurrents changent d&apos;enchères. Le pilotage prend le relais au mois, sans
+                engagement de durée. Vous pouvez aussi vous en charger vous-même.
+              </p>
+              <Link
+                href={OFFER_ROUTES.pilotage.href}
+                className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+              >
+                Le détail du pilotage
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </div>
+          </Reveal>
+          <Reveal delay={90}>
+            <div className="border border-line rounded-card p-6 bg-white h-full">
+              <div className="label-mono text-ink-3 mb-3">Comparer</div>
+              <h2 className="text-title font-semibold text-ink mb-2">Setup ou pilotage</h2>
+              <p className="text-body text-ink-2 font-light mb-5">
+                Le tableau comparatif, avec les durées, les engagements et le budget publicitaire
+                minimum de chaque côté.
+              </p>
+              <Link
+                href="/offres"
+                className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+              >
+                Voir le comparatif
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* CTA final — seul bloc bg-eclat de la page */}
+      <section className="bg-eclat">
+        <div className="container-text py-14 md:py-20 text-center">
+          <h2 className="text-section font-semibold text-white mb-4">
+            Le setup commence par l&apos;audit
+          </h2>
+          <p className="text-lead text-white font-light mb-8">
+            Gratuit, écrit, sous 48 h. Il sert d&apos;abord à savoir si votre marché justifie un
+            budget publicitaire.
+          </p>
+          <Link href="/audit" className="btn-invert">
+            Demander mon audit
+            <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>
-      </Reveal>
+      </section>
     </>
   );
 }
