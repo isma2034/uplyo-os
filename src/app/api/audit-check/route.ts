@@ -48,14 +48,33 @@ const SLOTS: Record<string, string> = {
   soir: "Soir (18 h – 20 h)",
 };
 
+// Parcours d'origine de la demande (voir src/lib/audit-content.ts). Il change
+// le travail à préparer : lecture d'un compte existant, ou étude de marché
+// pour quelqu'un qui n'a jamais fait de publicité.
+const TRACKS: Record<string, string> = {
+  compte: "Compte Google Ads existant",
+  "sans-campagne": "Aucune campagne — étude d'opportunité",
+};
+
 function s(v: unknown, max: number): string {
   return esc(String(v ?? "").trim().slice(0, max));
 }
 
 export async function POST(request: Request) {
+  // Un corps non-JSON (bot, requête tronquée) faisait lever request.json() et
+  // retombait dans le catch générique : 500 « Erreur serveur » pour une faute
+  // du client. C'est un 400, et cela évite de polluer les logs d'erreur.
+  let body: Record<string, unknown>;
   try {
-    const body = await request.json();
+    const parsed = await request.json();
+    body = parsed && typeof parsed === "object" ? (parsed as Record<string, unknown>) : {};
+  } catch {
+    return NextResponse.json({ error: "Requête invalide" }, { status: 400 });
+  }
+
+  try {
     const type = body?.type === "callback" ? "callback" : "audit";
+    const track = body?.track === "sans-campagne" ? "sans-campagne" : "compte";
 
     // Pot de miel : on répond 200 pour ne pas renseigner le robot.
     if (body?._honey) return NextResponse.json({ success: true });
@@ -99,6 +118,7 @@ export async function POST(request: Request) {
       message: s(body?.message, 2000),
       phone: s(body?.phone, 30),
       slot: s(body?.slot, 30),
+      track: TRACKS[track],
     };
 
     let check: SiteCheck | null = null;
@@ -119,7 +139,9 @@ export async function POST(request: Request) {
     const subject =
       type === "callback"
         ? `📞 Demande de rappel — ${lead.phone} · ${SLOTS[lead.slot] ?? "créneau non précisé"}`
-        : `🔔 Demande d'audit — ${lead.website || lead.email}${lead.budget ? ` · ${lead.budget}` : ""}`;
+        : `${track === "sans-campagne" ? "🌱 Étude d'opportunité" : "🔔 Demande d'audit"} — ${
+            lead.website || lead.email
+          }${lead.budget ? ` · ${lead.budget}` : ""}`;
 
     const html = type === "callback" ? callbackEmail(lead) : auditEmail(lead, check);
 
@@ -171,7 +193,7 @@ const shell = (title: string, inner: string) => `
     <div style="background:#f9f8ff;padding:24px;border:1px solid #e8e5f5;border-radius:0 0 8px 8px;">
       ${inner}
       <div style="margin-top:20px;padding-top:16px;border-top:1px solid #e8e5f5;font-size:12px;color:#6F6D8A;">
-        Envoyé depuis le formulaire uplyo.fr/audit
+        Envoyé depuis le formulaire d'audit de uplyo.fr
       </div>
     </div>
   </div>`;
@@ -187,6 +209,7 @@ function callbackEmail(lead: Lead): string {
     `<table style="width:100%;font-size:14px;border-collapse:collapse;">
        ${row("Téléphone", `<a href="tel:${lead.phone}" style="color:#6C5CE7;">${lead.phone}</a>`)}
        ${row("Créneau souhaité", SLOTS[lead.slot] || lead.slot || "non précisé")}
+       ${row("Parcours", lead.track)}
        ${row("Site web", lead.website)}
        ${row("Email", lead.email)}
      </table>
@@ -198,6 +221,7 @@ function callbackEmail(lead: Lead): string {
 
 function auditEmail(lead: Lead, check: SiteCheck | null): string {
   const info = `<table style="width:100%;font-size:14px;border-collapse:collapse;">
+      ${row("Parcours", lead.track)}
       ${row("Site web", lead.website)}
       ${row("Email", `<a href="mailto:${lead.email}" style="color:#6C5CE7;">${lead.email}</a>`)}
       ${row("Prénom / Nom", [lead.firstname, lead.lastname].filter(Boolean).join(" "))}
@@ -211,7 +235,7 @@ function auditEmail(lead: Lead, check: SiteCheck | null): string {
         : ""
     }`;
 
-  return shell("Demande d'audit", info + checkBlock(check));
+  return shell(lead.track || "Demande d'audit", info + checkBlock(check));
 }
 
 function checkBlock(check: SiteCheck | null): string {

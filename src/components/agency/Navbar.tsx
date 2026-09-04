@@ -25,10 +25,12 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
-  // /audit est une page de conversion : la navigation complète y est réduite
-  // au strict minimum (logo + retour), pour ne pas offrir de porte de sortie
-  // à côté du formulaire.
-  const minimal = pathname === "/audit";
+  // Les pages d'audit sont les pages de conversion : la navigation complète y
+  // est réduite au strict minimum (logo + retour), pour ne pas offrir de porte
+  // de sortie à côté du formulaire. `startsWith` et non `===` : sans quoi
+  // /audit/sans-campagne récupérait la navigation complète et se comportait
+  // autrement que /audit.
+  const minimal = pathname === "/audit" || pathname.startsWith("/audit/");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);

@@ -3,9 +3,10 @@
 import { useState, useRef, useEffect, FormEvent } from "react";
 import { ArrowLeft, ArrowRight, Phone } from "lucide-react";
 import { trackFormStart, trackFormStep, trackFormSubmit, trackCTAClick } from "@/lib/analytics";
+import type { AuditTrack } from "@/lib/audit-content";
 
 /**
- * Formulaire de la page /audit.
+ * Formulaire des pages /audit et /audit/sans-campagne.
  *
  * Découpé en 2 étapes dans un seul composant (pas de navigation de page) :
  *   1. site web + email — le strict nécessaire pour ouvrir un dossier ;
@@ -21,6 +22,12 @@ import { trackFormStart, trackFormStep, trackFormSubmit, trackCTAClick } from "@
  *
  * Le champ « identifiant Google Ads » a été retiré : inutile à ce stade, et
  * c'était le champ le plus intimidant de l'ancien formulaire d'une traite.
+ *
+ * `track` distingue les deux parcours : il change les libellés et surtout les
+ * options de budget et d'objectif (demander « votre budget mensuel actuel » à
+ * quelqu'un qui n'a jamais fait de publicité n'a pas de sens), et il est
+ * transmis à l'API pour que l'email interne dise d'emblée quel travail
+ * préparer.
  */
 
 const TOTAL_STEPS = 2;
@@ -30,6 +37,59 @@ const SLOTS = [
   { v: "apres-midi", l: "Après-midi (14 h – 18 h)" },
   { v: "soir", l: "Soir (18 h – 20 h)" },
 ];
+
+/** Doit rester aligné sur la validation serveur de /api/audit-check. */
+const PHONE_RE = /^\+?\d{9,15}$/;
+const normalizePhone = (raw: string) => raw.replace(/[\s.\-()]/g, "");
+
+type FieldOption = { value: string; label: string };
+
+const BUDGET_OPTIONS: Record<AuditTrack, { label: string; options: FieldOption[] }> = {
+  compte: {
+    label: "Budget mensuel actuel",
+    options: [
+      { value: "moins-500", label: "Moins de 500 €" },
+      { value: "500-1000", label: "500 € – 1 000 €" },
+      { value: "1000-3000", label: "1 000 € – 3 000 €" },
+      { value: "3000-10000", label: "3 000 € – 10 000 €" },
+      { value: "10000+", label: "10 000 €+" },
+      { value: "pas-encore", label: "Pas encore de campagnes" },
+    ],
+  },
+  "sans-campagne": {
+    label: "Budget envisagé (si vous y allez)",
+    options: [
+      { value: "je-ne-sais-pas", label: "Je ne sais pas encore" },
+      { value: "moins-500", label: "Moins de 500 €/mois" },
+      { value: "500-1000", label: "500 € – 1 000 €/mois" },
+      { value: "1000-3000", label: "1 000 € – 3 000 €/mois" },
+      { value: "3000+", label: "Plus de 3 000 €/mois" },
+    ],
+  },
+};
+
+const OBJECTIVE_OPTIONS: Record<AuditTrack, { label: string; options: FieldOption[] }> = {
+  compte: {
+    label: "Votre objectif principal",
+    options: [
+      { value: "baisser-cout-lead", label: "Faire baisser mon coût par demande" },
+      { value: "plus-de-demandes", label: "Recevoir plus de demandes" },
+      { value: "comprendre-ou-part-budget", label: "Comprendre où part mon budget" },
+      { value: "changer-prestataire", label: "Changer de prestataire" },
+      { value: "verifier-tracking", label: "Vérifier mon suivi de conversions" },
+    ],
+  },
+  "sans-campagne": {
+    label: "Ce que vous cherchez à savoir",
+    options: [
+      { value: "est-ce-que-ca-vaut-le-coup", label: "Si Google Ads vaut le coup chez moi" },
+      { value: "budget-necessaire", label: "Quel budget il faudrait" },
+      { value: "concurrents", label: "Ce que font mes concurrents" },
+      { value: "plus-de-demandes", label: "Recevoir plus de demandes de devis" },
+      { value: "lancer", label: "Lancer mes premières campagnes" },
+    ],
+  },
+};
 
 type Values = {
   website: string;
@@ -57,7 +117,15 @@ const EMPTY: Values = {
   slot: "matin",
 };
 
-export default function AuditForm() {
+export default function AuditForm({
+  track = "compte",
+  title,
+  subtitle,
+}: {
+  track?: AuditTrack;
+  title?: string;
+  subtitle?: string;
+}) {
   const [mode, setMode] = useState<"audit" | "callback">("audit");
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
@@ -65,6 +133,16 @@ export default function AuditForm() {
   const [v, setV] = useState<Values>(EMPTY);
   const started = useRef(false);
   const stepsSeen = useRef<Set<number>>(new Set());
+  // Verrou de soumission : `status` ne repasse à "sending" qu'au prochain
+  // rendu. Deux clics très rapprochés (ou Entrée maintenue) partaient donc
+  // deux fois avant que le bouton ne soit désactivé — deux emails, deux
+  // `generate_lead`, et deux jetons consommés sur le rate limit.
+  const inFlight = useRef(false);
+
+  const budgetField = BUDGET_OPTIONS[track];
+  const objectiveField = OBJECTIVE_OPTIONS[track];
+  const isCampaignless = track === "sans-campagne";
+  const submitLabel = isCampaignless ? "Recevoir mon étude" : "Recevoir mon audit";
 
   // Pré-remplissage depuis la carte d'audit du hero (/audit?site=…).
   // Lu via window.location plutôt que useSearchParams() : ce dernier
@@ -119,18 +197,37 @@ export default function AuditForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Le pot de miel n'était jamais lu : il était rendu dans le DOM mais la
+    // charge utile était construite à la main sans lui, donc le contrôle
+    // serveur ne pouvait pas se déclencher.
+    const honey = String(new FormData(e.currentTarget).get("_honey") ?? "");
+
     if (mode === "callback") {
+      const phone = normalizePhone(v.phone);
+      if (!PHONE_RE.test(phone)) {
+        // Contrôle côté client : `type="tel"` n'impose aucun format, l'API
+        // renvoyait donc un 400 après un aller-retour réseau inutile.
+        setErrorMsg("Numéro invalide. Attendu : 10 chiffres, ou +33 suivi de 9 chiffres.");
+        setStatus("error");
+        return;
+      }
+      if (inFlight.current) return;
+      inFlight.current = true;
       const ok = await post({
         type: "callback",
-        phone: v.phone,
+        track,
+        phone,
         slot: v.slot,
         website: v.website,
         email: v.email,
+        _honey: honey,
       });
       if (ok) {
         trackFormSubmit("audit_rappel");
         window.location.href = "/merci?source=rappel";
+        return;
       }
+      inFlight.current = false;
       return;
     }
 
@@ -141,8 +238,11 @@ export default function AuditForm() {
       return;
     }
 
+    if (inFlight.current) return;
+    inFlight.current = true;
     const ok = await post({
       type: "audit",
+      track,
       website: v.website,
       email: v.email,
       firstname: v.firstname,
@@ -151,11 +251,14 @@ export default function AuditForm() {
       sector: v.sector,
       objective: v.objective,
       message: v.message,
+      _honey: honey,
     });
     if (ok) {
       trackFormSubmit("audit", v.budget);
       window.location.href = "/merci?source=audit";
+      return;
     }
+    inFlight.current = false;
   };
 
   const switchMode = (to: "audit" | "callback") => {
@@ -172,18 +275,22 @@ export default function AuditForm() {
 
   return (
     <form
+      id="formulaire"
       onSubmit={handleSubmit}
       onFocus={handleFocus}
-      className="flex flex-col gap-3.5 bg-white border border-line rounded-card p-6 md:p-8 lg:sticky lg:top-[88px] shadow-card"
+      className="flex flex-col gap-3.5 bg-white border border-line rounded-card p-6 md:p-8 lg:sticky lg:top-[88px] shadow-card scroll-mt-[88px]"
     >
       <div className="mb-1">
         <div className="text-title font-semibold text-ink mb-1">
-          {mode === "callback" ? "Être rappelé" : "Demander mon audit"}
+          {mode === "callback" ? "Être rappelé" : title ?? (isCampaignless ? "Demander mon étude" : "Demander mon audit")}
         </div>
         <div className="text-caption text-ink-3 font-light">
           {mode === "callback"
             ? "Deux champs, et je vous appelle sur le créneau que vous choisissez."
-            : "Rapport écrit sous 48 h · gratuit · sans contrepartie"}
+            : subtitle ??
+              (isCampaignless
+                ? "Étude écrite sous 48 h ouvrées · gratuite · aucun compte Google Ads requis"
+                : "Rapport écrit sous 48 h ouvrées · gratuit · sans contrepartie")}
         </div>
       </div>
 
@@ -228,6 +335,12 @@ export default function AuditForm() {
               placeholder="monentreprise.fr"
               className="field"
             />
+            {isCampaignless && (
+              <p className="text-caption text-ink-3 font-light">
+                Pas de site ? Mettez le nom de votre entreprise et votre ville : je pars de votre
+                fiche Google.
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1.5">
@@ -254,7 +367,9 @@ export default function AuditForm() {
 
       {mode === "audit" && step === 2 && (
         <>
-          <div className="grid grid-cols-2 gap-3">
+          {/* grid-cols-2 sans point de rupture écrasait ces deux champs à
+              ~110 px de large sur un écran de 320 px. */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="a-firstname" className="label text-ink-2">
                 Prénom *
@@ -289,10 +404,10 @@ export default function AuditForm() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="a-budget" className="label text-ink-2">
-                Budget mensuel
+                {budgetField.label}
               </label>
               <select
                 id="a-budget"
@@ -304,12 +419,11 @@ export default function AuditForm() {
                 <option value="" disabled>
                   —
                 </option>
-                <option value="moins-500">Moins de 500 €</option>
-                <option value="500-1000">500 € – 1 000 €</option>
-                <option value="1000-3000">1 000 € – 3 000 €</option>
-                <option value="3000-10000">3 000 € – 10 000 €</option>
-                <option value="10000+">10 000 €+</option>
-                <option value="pas-encore">Pas encore de campagnes</option>
+                {budgetField.options.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col gap-1.5">
@@ -339,7 +453,7 @@ export default function AuditForm() {
 
           <div className="flex flex-col gap-1.5">
             <label htmlFor="a-objective" className="label text-ink-2">
-              Votre objectif principal
+              {objectiveField.label}
             </label>
             <select
               id="a-objective"
@@ -351,12 +465,11 @@ export default function AuditForm() {
               <option value="" disabled>
                 —
               </option>
-              <option value="baisser-cout-lead">Faire baisser mon coût par demande</option>
-              <option value="plus-de-demandes">Recevoir plus de demandes</option>
-              <option value="comprendre-ou-part-budget">Comprendre où part mon budget</option>
-              <option value="lancer">Lancer mes premières campagnes</option>
-              <option value="changer-prestataire">Changer de prestataire</option>
-              <option value="verifier-tracking">Vérifier mon suivi de conversions</option>
+              {objectiveField.options.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -369,7 +482,11 @@ export default function AuditForm() {
               name="message"
               value={v.message}
               onChange={set("message")}
-              placeholder="Ex : des campagnes tournent depuis six mois, je reçois des appels mais je ne sais pas lesquels viennent de Google."
+              placeholder={
+                isCampaignless
+                  ? "Ex : plombier à Rezé, je travaille surtout au bouche-à-oreille et je me demande si ça vaut le coup de payer Google."
+                  : "Ex : des campagnes tournent depuis six mois, je reçois des appels mais je ne sais pas lesquels viennent de Google."
+              }
               className="field min-h-[84px] resize-y"
             />
           </div>
@@ -390,10 +507,21 @@ export default function AuditForm() {
               autoComplete="tel"
               inputMode="tel"
               value={v.phone}
-              onChange={set("phone")}
+              onChange={(e) => {
+                setV((prev) => ({ ...prev, phone: e.target.value }));
+                if (status === "error") {
+                  setStatus("idle");
+                  setErrorMsg(null);
+                }
+              }}
               placeholder="06 12 34 56 78"
+              aria-describedby="a-phone-help"
+              aria-invalid={status === "error" && !PHONE_RE.test(normalizePhone(v.phone))}
               className="field"
             />
+            <p id="a-phone-help" className="text-caption text-ink-3 font-light">
+              10 chiffres, ou +33 suivi de 9 chiffres. Les espaces et les points sont acceptés.
+            </p>
           </div>
 
           <fieldset className="flex flex-col gap-1.5 border-none p-0 m-0">
@@ -434,7 +562,7 @@ export default function AuditForm() {
         <button
           type="submit"
           disabled={sending}
-          className="flex-1 bg-eclat text-white text-body-lg font-semibold py-3.5 rounded-uplyo border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px flex items-center justify-center gap-2 disabled:opacity-60"
+          className="flex-1 bg-eclat text-white text-body-lg font-semibold py-3.5 rounded-uplyo border-none cursor-pointer transition-all hover:bg-eclat-hover hover:-translate-y-px flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {sending ? (
             <>
@@ -458,7 +586,7 @@ export default function AuditForm() {
             </>
           ) : (
             <>
-              Recevoir mon audit
+              {submitLabel}
               <ArrowRight size={16} aria-hidden="true" />
             </>
           )}

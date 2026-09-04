@@ -5,6 +5,7 @@ const BASE = "https://uplyo.fr";
 const ROUTES: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
   { path: "", priority: 1, freq: "monthly" },
   { path: "/audit", priority: 0.9, freq: "monthly" },
+  { path: "/audit/sans-campagne", priority: 0.9, freq: "monthly" },
   { path: "/offres", priority: 0.9, freq: "monthly" },
   { path: "/offres/pack-lancement", priority: 0.8, freq: "monthly" },
   { path: "/offres/retainer", priority: 0.8, freq: "monthly" },

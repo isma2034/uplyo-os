@@ -58,6 +58,26 @@ export default function HeroAuditForm() {
           </button>
         </div>
 
+        {/* Seconde entrée, explicite. La majorité des entreprises démarchées
+            n'a aucune campagne Google Ads : sans cette porte, elles lisent une
+            promesse (« votre compte ») qui ne les concerne pas et repartent. */}
+        <button
+          type="button"
+          onClick={() => {
+            const value = site.trim();
+            trackCTAClick("hero", "audit_sans_campagne");
+            router.push(
+              value
+                ? `/audit/sans-campagne?site=${encodeURIComponent(value)}`
+                : "/audit/sans-campagne"
+            );
+          }}
+          className="mt-3.5 inline-flex items-center gap-1.5 text-caption font-semibold text-eclat-ink bg-transparent border-none p-0 cursor-pointer hover:underline underline-offset-4"
+        >
+          Pas encore de campagne Google Ads ? C&apos;est par ici
+          <ArrowRight size={13} aria-hidden="true" />
+        </button>
+
         <ul className="mt-4 pt-4 border-t border-line flex flex-col gap-1.5">
           {[
             "Gratuit, et vous ne payez rien ensuite si vous en restez là",
