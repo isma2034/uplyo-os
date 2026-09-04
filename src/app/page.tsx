@@ -7,17 +7,17 @@ import Footer from "@/components/agency/Footer";
 import Analytics from "@/components/agency/Analytics";
 import ContactForm from "@/components/agency/ContactForm";
 import HeroAuditForm from "@/components/agency/HeroAuditForm";
-import { MEDIA_FLOOR } from "@/lib/offers";
+import { MEDIA_FLOOR, TERMS } from "@/lib/offers";
 
 export const metadata: Metadata = {
   title: "Uplyo — Google Ads pour PME de services",
   description:
-    "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48h, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
+    "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
   alternates: { canonical: "https://uplyo.fr" },
   openGraph: {
     title: "Uplyo — Google Ads pour PME de services",
     description:
-      "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48h, aucun engagement de durée.",
+      "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
     url: "https://uplyo.fr",
     siteName: "Uplyo",
     locale: "fr_FR",
@@ -75,7 +75,7 @@ const JSON_LD = {
 const ENGAGEMENTS = [
   { k: "Engagement", v: "Aucune durée", d: "Résiliable à tout moment, 30 jours de préavis" },
   { k: "Votre compte", v: "Le vôtre", d: "Ouvert à votre nom, vous en gardez la propriété" },
-  { k: "Audit", v: "Gratuit · 48 h", d: "Rapport écrit, sans contrepartie" },
+  { k: "Audit", v: `Gratuit · ${TERMS.auditDelayShort}`, d: `Rapport écrit sous ${TERMS.auditDelay}, sans contrepartie` },
   { k: "Interlocuteur", v: "Un seul", d: "Celui qui vous répond est celui qui exécute" },
 ];
 
@@ -238,7 +238,7 @@ export default function HomePage() {
               .
             </p>
             <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
-              {["Aucun engagement de durée", "Vous restez propriétaire du compte", "Audit gratuit sous 48 h"].map(
+              {["Aucun engagement de durée", "Vous restez propriétaire du compte", `Audit gratuit sous ${TERMS.auditDelay}`].map(
                 (t) => (
                   <li key={t} className="flex items-center gap-1.5 text-caption text-ink-2">
                     <Check size={13} className="text-eclat-ink shrink-0" aria-hidden="true" />
@@ -576,7 +576,7 @@ export default function HomePage() {
                 Dites-moi ce que vous vendez. Je vous dis si Google Ads en vaut la peine.
               </h2>
               <p className="text-lead text-white mb-8 font-light max-w-[52ch]">
-                Vous recevez un audit écrit sous 48 h. S&apos;il en ressort que votre marché ne
+                Vous recevez un audit écrit sous {TERMS.auditDelay}. S&apos;il en ressort que votre marché ne
                 justifie pas de budget publicitaire, je vous le dirai — c&apos;est déjà arrivé.
               </p>
               <ul className="flex flex-col gap-2.5">

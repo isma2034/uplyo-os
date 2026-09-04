@@ -187,7 +187,7 @@ export default function EcommercePage() {
             L&apos;audit regarde d&apos;abord votre flux
           </h2>
           <p className="text-lead text-white font-light mb-8">
-            Gratuit, écrit, sous 48 h : état du flux produit, structure Shopping et Performance Max,
+            Gratuit, écrit, sous 48 h ouvrées : état du flux produit, structure Shopping et Performance Max,
             fiabilité de la valeur de conversion.
           </p>
           <Link href="/audit" className="btn-invert">

@@ -247,7 +247,7 @@ export default function PilotagePage() {
           </h2>
           <p className="text-lead text-white font-light mb-8">
             L&apos;audit gratuit sert à savoir si votre compte est pilotable en l&apos;état ou
-            s&apos;il faut le refaire. C&apos;est écrit, et c&apos;est sous 48 h.
+            s&apos;il faut le refaire. C&apos;est écrit, et c&apos;est sous 48 h ouvrées.
           </p>
           <Link href="/audit" className="btn-invert">
             Demander mon audit

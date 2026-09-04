@@ -22,7 +22,7 @@
 // Les deux pages se renvoient l'une vers l'autre en haut de page : un visiteur
 // arrivé sur la mauvaise n'a jamais à revenir en arrière.
 
-import { MEDIA_FLOOR } from "@/lib/offers";
+import { MEDIA_FLOOR, TERMS } from "@/lib/offers";
 
 export type AuditTrack = "compte" | "sans-campagne";
 
@@ -45,7 +45,7 @@ export type AuditTrackContent = {
   closing: { title: string; bullets: string[] };
 };
 
-const AUDIT_DELAY = "48 h ouvrées";
+const AUDIT_DELAY = TERMS.auditDelay;
 
 // ── Parcours 1 : compte Google Ads existant ────────────────────────────────
 const COMPTE: AuditTrackContent = {

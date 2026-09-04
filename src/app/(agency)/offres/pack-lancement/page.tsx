@@ -202,7 +202,7 @@ export default function SetupPage() {
             Le setup commence par l&apos;audit
           </h2>
           <p className="text-lead text-white font-light mb-8">
-            Gratuit, écrit, sous 48 h. Il sert d&apos;abord à savoir si votre marché justifie un
+            Gratuit, écrit, sous 48 h ouvrées. Il sert d&apos;abord à savoir si votre marché justifie un
             budget publicitaire.
           </p>
           <Link href="/audit" className="btn-invert">

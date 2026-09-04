@@ -15,7 +15,7 @@ const SEQUENCE = [
   {
     n: "1",
     t: "L'audit",
-    d: "Gratuit, sous 48 h. Je regarde votre marché, les concurrents présents sur vos requêtes et, si le compte existe déjà, ce qu'il contient. Vous repartez avec le rapport, que l'on travaille ensemble ensuite ou non.",
+    d: "Gratuit, sous 48 h ouvrées. Je regarde votre marché, les concurrents présents sur vos requêtes et, si le compte existe déjà, ce qu'il contient. Vous repartez avec le rapport, que l'on travaille ensemble ensuite ou non.",
     href: "/audit",
     cta: "Demander l'audit",
   },
@@ -303,7 +303,7 @@ export default function OffresPage() {
             L&apos;audit dit laquelle des deux vous concerne
           </h2>
           <p className="text-lead text-white font-light mb-8">
-            Gratuit, écrit, sous 48 h. Il porte sur votre compte et votre marché, pas sur un exemple
+            Gratuit, écrit, sous 48 h ouvrées. Il porte sur votre compte et votre marché, pas sur un exemple
             générique.
           </p>
           <Link href="/audit" className="btn-invert">

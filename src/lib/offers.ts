@@ -19,11 +19,21 @@ export const MEDIA_FLOOR = {
   ecommerce: "1 000 €/mois",
 } as const;
 
+// auditDelay : « 48 h ouvrées », et pas « 48 h ».
+// Le site promettait « sous 48 h » sur la home, /audit et les trois pages
+// d'offres, puis affichait « sous 48 h ouvrées » sur /merci — c'est-à-dire
+// APRÈS que le visiteur a envoyé sa demande. Quelqu'un qui remplit le
+// formulaire un vendredi soir lisait donc une promesse au dépôt et une autre à
+// la confirmation. Un opérateur seul ne rend pas de rapport le dimanche : la
+// version honnête est « ouvrées », partout. `auditDelayShort` reste disponible
+// pour les jetons compacts (badge du hero, cartouche de l'image OG) où la
+// mention ne tient pas.
 export const TERMS = {
   commitment: "Aucun engagement de durée",
   notice: "Résiliable à tout moment, 30 jours de préavis",
   fee: "Honoraires sur devis",
-  auditDelay: "48 h",
+  auditDelay: "48 h ouvrées",
+  auditDelayShort: "48 h",
   replyDelay: "24 h ouvrées",
   goLive: "5 jours ouvrés",
 } as const;

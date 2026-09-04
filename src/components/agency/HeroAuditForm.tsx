@@ -4,6 +4,7 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { trackCTAClick } from "@/lib/analytics";
+import { TERMS } from "@/lib/offers";
 
 /**
  * Unique CTA plein de la page d'accueil : une carte à un seul champ (URL) qui
@@ -28,7 +29,7 @@ export default function HeroAuditForm() {
     <div className="bg-white border border-line rounded-panel overflow-hidden shadow-panel">
       <div className="bg-nuit px-5 py-3.5 flex items-center justify-between gap-3">
         <span className="label text-white">Audit gratuit</span>
-        <span className="label text-spark">48 h</span>
+        <span className="label text-spark">{TERMS.auditDelayShort}</span>
       </div>
 
       <form onSubmit={handleSubmit} className="p-5 md:p-6">
@@ -37,7 +38,7 @@ export default function HeroAuditForm() {
         </label>
         <p className="text-caption text-ink-3 mb-3.5">
           Je regarde votre marché, vos concurrents sur Google et — si vous avez déjà des campagnes —
-          votre compte. Vous recevez le rapport sous 48 h.
+          votre compte. Vous recevez le rapport sous {TERMS.auditDelay}.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-2.5">

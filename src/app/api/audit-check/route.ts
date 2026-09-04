@@ -6,7 +6,7 @@
  *   2. pour une demande d'audit, lance UNE vérification HTML de la seule page
  *      d'accueil du site soumis (voir src/lib/site-check.ts) ;
  *   3. envoie à Ismael un email interne contenant le lead + le relevé brut,
- *      pour qu'il prépare le vrai rapport sous 48 h.
+ *      pour qu'il prépare le vrai rapport sous 48 h ouvrées.
  *
  * Ce que cet endpoint ne fait PAS, volontairement :
  *   - il ne crawle jamais un site (une page, une requête, pas de sitemap) ;

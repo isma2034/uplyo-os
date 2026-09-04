@@ -75,7 +75,7 @@ export default function OpengraphImage() {
             paddingTop: 26,
           }}
         >
-          <span>Audit gratuit sous 48h</span>
+          <span>Audit gratuit sous 48 h ouvrées</span>
           <span style={{ color: "#A29BFE" }}>·</span>
           <span>Aucun engagement de durée</span>
           <span style={{ color: "#A29BFE" }}>·</span>
