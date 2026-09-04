@@ -21,13 +21,23 @@ const dmMono = DM_Mono({
   weight: ["500"],
 });
 
+// Ces valeurs par défaut servent à toute page qui ne déclare pas les siennes
+// (mentions légales, CGV, confidentialité) ET à tout partage de lien, puisque
+// aucune de ces pages ne redéclare openGraph/twitter.
+//
+// Elles annonçaient « Agence Google Ads performance » et « accès direct à
+// l'expert qui gère vos campagnes », alors que le reste du site dit
+// explicitement le contraire : « Uplyo n'est pas une agence avec des équipes,
+// c'est une activité indépendante ». Le titre partagé sur LinkedIn ou WhatsApp
+// contredisait donc le positionnement de la page d'accueil. Aligné sur la
+// formulation de la home.
 export const metadata: Metadata = {
   title: {
-    default: "Uplyo — Agence Google Ads performance",
+    default: "Uplyo — Google Ads pour PME de services",
     template: "%s — Uplyo",
   },
   description:
-    "Agence Google Ads pour PME et e-commerce. Audit gratuit, gestion transparente, accès direct à l'expert qui gère vos campagnes.",
+    "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
   metadataBase: new URL("https://uplyo.fr"),
   alternates: {
     canonical: "/",
@@ -37,15 +47,15 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://uplyo.fr",
     siteName: "Uplyo",
-    title: "Uplyo — Agence Google Ads performance",
+    title: "Uplyo — Google Ads pour PME de services",
     description:
-      "Agence Google Ads pour PME et e-commerce. Audit gratuit, gestion transparente, accès direct à l'expert qui gère vos campagnes.",
+      "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Uplyo — Agence Google Ads performance",
+    title: "Uplyo — Google Ads pour PME de services",
     description:
-      "Agence Google Ads pour PME et e-commerce. Audit gratuit, gestion transparente, accès direct à l'expert.",
+      "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
   },
   robots: {
     index: true,
