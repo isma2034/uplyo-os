@@ -9,10 +9,14 @@
  * donc PAS une protection anti-abus déterministe, seulement un garde-fou de
  * premier niveau contre le martèlement trivial (une personne, un onglet).
  *
- * Passer à un store partagé (Upstash Redis / Vercel KV) dès que le formulaire
- * reçoit du trafic réel. Aucun store de ce type n'est branché sur le projet à
- * ce jour — vérifié : pas de dépendance KV/Redis dans package.json, le seul
- * schéma Supabase présent (supabase/schema.sql) n'est pas connecté au site.
+ * Passer à un store partagé (Vercel Firewall, ou Upstash Redis via son API
+ * REST) dès que le formulaire reçoit du trafic réel. Aucun store de ce type
+ * n'est branché sur le projet à ce jour — vérifié : pas de dépendance KV/Redis
+ * dans package.json, le seul schéma Supabase présent (supabase/schema.sql)
+ * n'est pas connecté au site.
+ *
+ * Analyse complète, seuils par route, déclencheur de mise à niveau et
+ * pseudo-code prêt à brancher : docs/RATE_LIMIT.md.
  */
 
 type Hit = number[];

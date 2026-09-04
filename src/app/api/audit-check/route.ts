@@ -171,13 +171,21 @@ export async function POST(request: Request) {
 
     if (!res.ok) {
       console.error("[audit-check] Resend error:", await res.text());
-      return NextResponse.json({ error: "Erreur envoi email" }, { status: 500 });
+      // Ce texte est affiché tel quel dans le formulaire : « Erreur envoi
+      // email » n'apprenait rien au visiteur et ne lui donnait aucune sortie.
+      return NextResponse.json(
+        { error: "L'envoi a échoué de mon côté. Réessayez, ou écrivez à contact@uplyo.fr." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("[audit-check] API error:", error);
-    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Une erreur est survenue. Réessayez, ou écrivez à contact@uplyo.fr." },
+      { status: 500 }
+    );
   }
 }
 

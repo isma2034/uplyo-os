@@ -1,33 +1,92 @@
+/**
+ * POST /api/contact — réception d'un message du formulaire de contact
+ * (monté sur la home et sur /contact).
+ *
+ * Mêmes garde-fous que /api/audit-check, qui les avait tous et pas celui-ci :
+ * corps non-JSON traité comme une erreur du client (400) et non du serveur,
+ * pot de miel, limitation de débit par IP et plafond global. Sans limite, un
+ * script pouvait déclencher autant d'appels facturés à l'API Resend qu'il le
+ * voulait, et noyer la boîte contact@uplyo.fr — c'est la seule adresse par
+ * laquelle les demandes arrivent.
+ *
+ * Sur les limites réelles du compteur en mémoire, voir docs/RATE_LIMIT.md.
+ */
+
 import { NextResponse } from "next/server";
 import { escapeHtml as esc } from "@/lib/escape";
+import { rateLimit, clientIp } from "@/lib/rate-limit";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    const { firstname, lastname, email, website, budget, sector, message } = body;
+// Plus permissif que /api/audit-check (3/h) : un message de contact ne
+// déclenche aucun travail sortant, et une même personne peut légitimement
+// écrire deux fois. Reste très en dessous d'un usage abusif.
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60 * 60 * 1000;
+const GLOBAL_LIMIT = 60;
 
-    // Required field validation
+const TOO_MANY =
+  "Trop de messages envoyés depuis cette connexion. Réessayez plus tard, ou écrivez directement à contact@uplyo.fr.";
+
+/** N'affiche un lien que si l'URL est réellement http(s) — pas de javascript:. */
+function safeLink(url: string): string {
+  return /^https?:\/\//i.test(url) ? esc(url) : "";
+}
+
+export async function POST(request: Request) {
+  // Un corps non-JSON faisait lever request.json(), donc 500 « Erreur
+  // serveur » pour une faute du client, et une entrée dans les logs d'erreur
+  // à chaque bot qui tape l'endpoint. C'est un 400.
+  let body: Record<string, unknown>;
+  try {
+    const parsed = await request.json();
+    body = parsed && typeof parsed === "object" ? (parsed as Record<string, unknown>) : {};
+  } catch {
+    return NextResponse.json({ error: "Requête invalide" }, { status: 400 });
+  }
+
+  try {
+    // Pot de miel : on répond 200 pour ne pas renseigner le robot.
+    if (body._honey) return NextResponse.json({ success: true });
+
+    const str = (v: unknown) => String(v ?? "").trim();
+    const firstname = str(body.firstname);
+    const lastname = str(body.lastname);
+    const email = str(body.email);
+
+    // `!firstname` laissait passer "   " : le lead arrivait sans nom.
     if (!firstname || !lastname || !email) {
       return NextResponse.json({ error: "Champs requis manquants" }, { status: 400 });
     }
-
-    // Email format validation
-    if (!EMAIL_REGEX.test(String(email))) {
+    if (!EMAIL_REGEX.test(email) || email.length > 254) {
       return NextResponse.json({ error: "Email invalide" }, { status: 400 });
+    }
+
+    const ip = clientIp(request);
+    const perIp = rateLimit(`contact:${ip}`, RATE_LIMIT, RATE_WINDOW_MS);
+    const global = rateLimit("contact:global", GLOBAL_LIMIT, RATE_WINDOW_MS);
+    if (!perIp.allowed || !global.allowed) {
+      const retryAfter = Math.max(perIp.retryAfter, global.retryAfter);
+      return NextResponse.json(
+        { error: TOO_MANY },
+        { status: 429, headers: { "Retry-After": String(retryAfter) } }
+      );
     }
 
     // Sanitize all inputs before rendering into HTML
     const safe = {
-      firstname: esc(String(firstname).trim().slice(0, 100)),
-      lastname: esc(String(lastname).trim().slice(0, 100)),
-      email: esc(String(email).trim().slice(0, 254)),
-      website: website ? esc(String(website).trim().slice(0, 500)) : "",
-      budget: budget ? esc(String(budget).trim().slice(0, 50)) : "",
-      sector: sector ? esc(String(sector).trim().slice(0, 50)) : "",
-      message: message ? esc(String(message).trim().slice(0, 2000)) : "",
+      firstname: esc(firstname.slice(0, 100)),
+      lastname: esc(lastname.slice(0, 100)),
+      email: esc(email.slice(0, 254)),
+      website: esc(str(body.website).slice(0, 500)),
+      budget: esc(str(body.budget).slice(0, 50)),
+      sector: esc(str(body.sector).slice(0, 50)),
+      message: esc(str(body.message).slice(0, 2000)),
     };
+    const websiteHref = safeLink(str(body.website).slice(0, 500));
 
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
@@ -55,7 +114,15 @@ export async function POST(request: Request) {
             <tr><td style="padding:8px 0;color:#6F6D8A;width:120px;">Prénom</td><td style="padding:8px 0;font-weight:600;">${safe.firstname}</td></tr>
             <tr><td style="padding:8px 0;color:#6F6D8A;">Nom</td><td style="padding:8px 0;font-weight:600;">${safe.lastname}</td></tr>
             <tr><td style="padding:8px 0;color:#6F6D8A;">Email</td><td style="padding:8px 0;"><a href="mailto:${safe.email}" style="color:#6C5CE7;">${safe.email}</a></td></tr>
-            ${safe.website ? `<tr><td style="padding:8px 0;color:#6F6D8A;">Site web</td><td style="padding:8px 0;"><a href="${safe.website}" style="color:#6C5CE7;">${safe.website}</a></td></tr>` : ""}
+            ${
+              safe.website
+                ? `<tr><td style="padding:8px 0;color:#6F6D8A;">Site web</td><td style="padding:8px 0;">${
+                    websiteHref
+                      ? `<a href="${websiteHref}" style="color:#6C5CE7;">${safe.website}</a>`
+                      : safe.website
+                  }</td></tr>`
+                : ""
+            }
             ${safe.budget ? `<tr><td style="padding:8px 0;color:#6F6D8A;">Budget</td><td style="padding:8px 0;font-weight:600;color:#6C5CE7;">${safe.budget}</td></tr>` : ""}
             ${safe.sector ? `<tr><td style="padding:8px 0;color:#6F6D8A;">Secteur</td><td style="padding:8px 0;">${safe.sector}</td></tr>` : ""}
           </table>
@@ -85,12 +152,19 @@ export async function POST(request: Request) {
     if (!res.ok) {
       const err = await res.text();
       console.error("[contact] Resend error:", err);
-      return NextResponse.json({ error: "Erreur envoi email" }, { status: 500 });
+      // Ce texte est affiché tel quel dans le formulaire.
+      return NextResponse.json(
+        { error: "L'envoi a échoué de mon côté. Réessayez, ou écrivez à contact@uplyo.fr." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("[contact] API error:", error);
-    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Une erreur est survenue. Réessayez, ou écrivez à contact@uplyo.fr." },
+      { status: 500 }
+    );
   }
 }

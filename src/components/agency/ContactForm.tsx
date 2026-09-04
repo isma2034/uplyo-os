@@ -7,7 +7,12 @@ import { MEDIA_FLOOR } from "@/lib/offers";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const formStarted = useRef(false);
+  // Verrou de soumission : `status` ne repasse à "sending" qu'au rendu
+  // suivant, deux clics rapprochés partaient donc deux fois avant que le
+  // bouton ne soit désactivé (deux emails, deux `generate_lead`).
+  const inFlight = useRef(false);
   // Le formulaire est monté deux fois sur le site (home + /contact) : sans id
   // unique, les <label for> pointeraient vers le mauvais champ.
   const uid = useId();
@@ -21,12 +26,20 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus("sending");
 
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    // Pot de miel : contrôle AVANT de passer en "sending". Dans l'ordre
+    // précédent, un robot qui remplissait le champ laissait le formulaire
+    // bloqué sur « Envoi en cours… » indéfiniment — et un humain aussi, si
+    // un gestionnaire de mots de passe remplissait le champ caché.
     if (formData.get("_honey")) return;
+
+    if (inFlight.current) return;
+    inFlight.current = true;
+    setStatus("sending");
+    setErrorMsg(null);
 
     const data = {
       firstname: formData.get("firstname") as string,
@@ -48,13 +61,23 @@ export default function ContactForm() {
       if (res.ok) {
         form.reset();
         trackFormSubmit("contact", data.budget);
+        // L'état "sent" n'était jamais atteint (redirection immédiate) : son
+        // écran de confirmation était du code mort. Il sert désormais de
+        // filet si la navigation vers /merci ne se fait pas.
+        setStatus("sent");
         window.location.href = "/merci?source=contact";
-      } else {
-        setStatus("error");
+        return;
       }
+      // Message renvoyé par l'API (429 « trop de messages », 400 « email
+      // invalide »…) plutôt qu'un échec générique : sans lui, le visiteur
+      // réessaie en boucle sans comprendre.
+      const payload = await res.json().catch(() => null);
+      setErrorMsg(payload?.error ?? null);
+      setStatus("error");
     } catch {
       setStatus("error");
     }
+    inFlight.current = false;
   };
 
   if (status === "sent") {
@@ -66,7 +89,12 @@ export default function ContactForm() {
           Je vous réponds sous 24 h ouvrées.
         </p>
         <button
-          onClick={() => setStatus("idle")}
+          onClick={() => {
+            // Sans cette remise à zéro, le verrou anti-double-envoi resterait
+            // fermé et le second message ne partirait jamais.
+            inFlight.current = false;
+            setStatus("idle");
+          }}
           className="mt-6 text-body text-eclat-ink font-medium cursor-pointer bg-transparent border-none hover:underline underline-offset-4"
         >
           Envoyer un autre message
@@ -217,7 +245,7 @@ export default function ContactForm() {
 
       {status === "error" && (
         <p role="alert" className="text-caption text-[#B3261E] text-center">
-          L&apos;envoi a échoué. Réessayez, ou écrivez directement à contact@uplyo.fr.
+          {errorMsg ?? "L'envoi a échoué. Réessayez, ou écrivez directement à contact@uplyo.fr."}
         </p>
       )}
 
