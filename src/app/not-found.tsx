@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Page introuvable — Uplyo",
+  title: "Page introuvable",
   robots: { index: false, follow: false },
 };
 
