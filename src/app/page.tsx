@@ -211,7 +211,7 @@ const FAQS = [
 
 export default function HomePage() {
   return (
-    <div className="bg-surface-1 text-ink overflow-x-hidden">
+    <div className="bg-surface-1 text-ink overflow-x-clip">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <Analytics />
       <Navbar />
@@ -409,7 +409,7 @@ export default function HomePage() {
                         offres ne recevaient aucun trafic interne. */}
                     <Link
                       href={o.href}
-                      className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                      className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
                     >
                       {o.linkLabel}
                       <ArrowRight size={15} aria-hidden="true" />
@@ -434,7 +434,7 @@ export default function HomePage() {
               </div>
               <Link
                 href="/offres/ecommerce"
-                className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4 whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4 whitespace-nowrap"
               >
                 Voir le module
                 <ArrowRight size={15} aria-hidden="true" />
@@ -515,7 +515,7 @@ export default function HomePage() {
               </div>
               <Link
                 href="/a-propos"
-                className="inline-flex items-center gap-1.5 mt-6 text-body font-semibold text-spark no-underline hover:underline underline-offset-4"
+                className="inline-flex items-center gap-1.5 mt-6 py-1 text-body font-semibold text-spark no-underline hover:underline underline-offset-4"
               >
                 Mon parcours, et ce que je ne sais pas faire
                 <ArrowRight size={15} aria-hidden="true" />
@@ -593,7 +593,7 @@ export default function HomePage() {
               </ul>
               <a
                 href="mailto:contact@uplyo.fr"
-                className="inline-block mt-8 text-body font-semibold text-white underline underline-offset-4"
+                className="inline-flex items-center mt-8 py-1 text-body font-semibold text-white underline underline-offset-4"
               >
                 contact@uplyo.fr
               </a>

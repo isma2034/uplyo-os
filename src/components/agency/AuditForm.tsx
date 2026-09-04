@@ -606,7 +606,7 @@ export default function AuditForm({
           <button
             type="button"
             onClick={() => switchMode("callback")}
-            className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink bg-transparent border-none cursor-pointer hover:underline underline-offset-4"
+            className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink bg-transparent border-none cursor-pointer hover:underline underline-offset-4"
           >
             <Phone size={14} aria-hidden="true" />
             Préférez-vous qu&apos;on vous rappelle ?
@@ -616,7 +616,7 @@ export default function AuditForm({
           <button
             type="button"
             onClick={() => switchMode("audit")}
-            className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink bg-transparent border-none cursor-pointer hover:underline underline-offset-4"
+            className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink bg-transparent border-none cursor-pointer hover:underline underline-offset-4"
           >
             <ArrowLeft size={14} aria-hidden="true" />
             Revenir au formulaire d&apos;audit

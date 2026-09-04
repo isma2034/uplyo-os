@@ -120,7 +120,7 @@ export default function OffresPage() {
                   <p className="text-body text-ink-2 font-light flex-1 mb-5">{s.d}</p>
                   <Link
                     href={s.href}
-                    className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                    className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
                   >
                     {s.cta}
                     <ArrowRight size={15} aria-hidden="true" />
@@ -199,7 +199,7 @@ export default function OffresPage() {
                     <td className="p-4">
                       <Link
                         href={OFFER_ROUTES.setup.href}
-                        className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                        className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
                       >
                         Le détail du setup
                         <ArrowRight size={15} aria-hidden="true" />
@@ -208,7 +208,7 @@ export default function OffresPage() {
                     <td className="p-4">
                       <Link
                         href={OFFER_ROUTES.pilotage.href}
-                        className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                        className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
                       >
                         Le détail du pilotage
                         <ArrowRight size={15} aria-hidden="true" />
@@ -236,7 +236,7 @@ export default function OffresPage() {
               </div>
               <Link
                 href={OFFER_ROUTES.ecommerce.href}
-                className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4 whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4 whitespace-nowrap"
               >
                 Voir le module
                 <ArrowRight size={15} aria-hidden="true" />

@@ -73,7 +73,7 @@ export default function HeroAuditForm() {
                 : "/audit/sans-campagne"
             );
           }}
-          className="mt-3.5 inline-flex items-center gap-1.5 text-caption font-semibold text-eclat-ink bg-transparent border-none p-0 cursor-pointer hover:underline underline-offset-4"
+          className="mt-3 inline-flex items-center gap-1.5 py-1 text-caption font-semibold text-eclat-ink bg-transparent border-none cursor-pointer hover:underline underline-offset-4"
         >
           Pas encore de campagne Google Ads ? C&apos;est par ici
           <ArrowRight size={13} aria-hidden="true" />

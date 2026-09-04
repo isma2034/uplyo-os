@@ -78,7 +78,7 @@ export default function Navbar() {
           {logo}
           <Link
             href="/"
-            className="text-body font-medium text-ink-3 hover:text-ink transition-colors no-underline"
+            className="inline-flex items-center py-1.5 text-body font-medium text-ink-3 hover:text-ink transition-colors no-underline"
           >
             Retour au site
           </Link>
@@ -99,7 +99,7 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 aria-current={pathname === l.href ? "page" : undefined}
-                className={`text-body font-medium transition-colors no-underline ${
+                className={`inline-flex items-center py-1.5 text-body font-medium transition-colors no-underline ${
                   pathname === l.href ? "text-ink" : "text-ink-3 hover:text-ink"
                 }`}
               >

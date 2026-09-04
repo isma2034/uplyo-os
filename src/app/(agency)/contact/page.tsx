@@ -61,7 +61,7 @@ export default function ContactPage() {
                     href={SITE_CONFIG.calendlyUrl}
                     target="_blank"
                     rel="noopener"
-                    className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                    className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
                   >
                     Choisir un créneau
                     <ArrowRight size={15} aria-hidden="true" />

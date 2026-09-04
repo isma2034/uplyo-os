@@ -27,7 +27,7 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
           <span className="text-body text-ink-2 font-light">{c.switchTo.question}</span>
           <Link
             href={c.switchTo.href}
-            className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+            className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
           >
             {c.switchTo.cta}
             <ArrowRight size={15} aria-hidden="true" />
@@ -35,16 +35,26 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
         </div>
       </div>
 
-      {/* Hero + formulaire */}
+      {/* Hero + formulaire.
+
+          Placement explicite en grille plutôt qu'un simple « colonne gauche /
+          colonne droite » : sur mobile, la grille retombe sur une colonne et
+          suit l'ordre du DOM. Avec l'ancienne structure, le formulaire arrivait
+          APRÈS la liste complète de ce que contient le rapport, soit très bas
+          dans la page — sur la page de conversion principale. Ici, l'ordre
+          mobile est : titre, chapô, repères, FORMULAIRE, puis le détail.
+          Sur ≥ lg, le formulaire reprend sa colonne de droite sur deux rangées
+          (`self-stretch` donne enfin de la course à son `lg:sticky`, qui ne
+          servait à rien dans une cellule alignée en `items-start`). */}
       <section className="section">
-        <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
-          <Reveal>
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-x-16 lg:gap-y-10 items-start">
+          <Reveal className="lg:col-start-1 lg:row-start-1">
             <div>
               <p className="label text-eclat-ink mb-4">{c.eyebrow}</p>
               <h1 className="text-display font-semibold text-ink mb-5">{c.h1}</h1>
               <p className="text-lead text-ink-2 max-w-[58ch] font-light mb-8">{c.lede}</p>
 
-              <dl className="grid grid-cols-2 sm:grid-cols-4 border-t border-line mb-10">
+              <dl className="grid grid-cols-2 sm:grid-cols-4 border-t border-line">
                 {c.stats.map((s) => (
                   <div key={s.k} className="py-4 pr-4 border-b border-line">
                     <dt className="label text-ink-3 mb-1">{s.k}</dt>
@@ -52,7 +62,19 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
                   </div>
                 ))}
               </dl>
+            </div>
+          </Reveal>
 
+          {/* Formulaire multi-etapes (composant client isole) */}
+          <Reveal
+            delay={120}
+            className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-stretch"
+          >
+            <AuditForm track={track} title={c.form.title} subtitle={c.form.subtitle} />
+          </Reveal>
+
+          <Reveal className="lg:col-start-1 lg:row-start-2">
+            <div>
               <h2 className="text-title font-semibold text-ink mb-5">{c.includesTitle}</h2>
               <ol className="border-t border-line">
                 {c.includes.map((item, i) => (
@@ -71,11 +93,6 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
                 ))}
               </ol>
             </div>
-          </Reveal>
-
-          {/* Formulaire multi-etapes (composant client isole) */}
-          <Reveal delay={120}>
-            <AuditForm track={track} title={c.form.title} subtitle={c.form.subtitle} />
           </Reveal>
         </div>
       </section>
@@ -102,7 +119,7 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
                 </p>
                 <Link
                   href="/a-propos"
-                  className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                  className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
                 >
                   Mon parcours et mes limites
                   <ArrowRight size={15} aria-hidden="true" />

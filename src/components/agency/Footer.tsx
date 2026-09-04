@@ -36,7 +36,12 @@ const COLUMNS: { title: string; links: { label: string; href: string; external?:
   },
 ];
 
-const LINK_CLASS = "text-body text-white/70 font-light no-underline hover:text-white transition-colors";
+// `inline-flex` + `py-1` : les liens ne mesuraient que 23 px de haut, sous la
+// cible minimale de 24 x 24 px (WCAG 2.2 AA, 2.5.8). Ce sont des liens de
+// navigation isolés, ils ne bénéficient pas de l'exception « lien dans une
+// phrase ».
+const LINK_CLASS =
+  "inline-flex items-center py-1 text-body text-white/70 font-light no-underline hover:text-white transition-colors";
 
 export default function Footer() {
   return (
@@ -62,7 +67,7 @@ export default function Footer() {
           {COLUMNS.map((col) => (
             <div key={col.title}>
               <div className="label text-spark mb-3">{col.title}</div>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1 items-start">
                 {col.links.map((link) =>
                   link.external ? (
                     <a
@@ -95,7 +100,7 @@ export default function Footer() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-caption text-white/70 no-underline hover:text-white transition-colors"
+                className="inline-flex items-center py-1.5 text-caption text-white/70 no-underline hover:text-white transition-colors"
               >
                 {l.label}
               </Link>

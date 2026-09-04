@@ -74,7 +74,7 @@ export default function EcommercePage() {
               </p>
               <Link
                 href={OFFER_ROUTES.pilotage.href}
-                className="inline-flex items-center gap-1.5 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
               >
                 Voir d&apos;abord le pilotage
                 <ArrowRight size={15} aria-hidden="true" />
