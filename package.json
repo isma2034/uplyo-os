@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck:scripts": "tsc -p scripts/tsconfig.json --noEmit",
+    "audit": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file-if-exists=\"$HOME/.claude/skills/web-optimization/.env\" scripts/audit/cli.ts"
   },
   "dependencies": {
     "cheerio": "^1.2.0",

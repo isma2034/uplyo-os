@@ -1,0 +1,21 @@
+{
+  // Outils Node autonomes (moteur d'audit), exclus du tsconfig du site.
+  // Ils s'exécutent sous tsx/node, pas dans le bundle Next : la résolution de
+  // modules y est celle de Node ESM, où les imports relatifs portent bien
+  // l'extension `./fichier.ts`.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": ["**/*.ts"]
+}

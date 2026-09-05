@@ -16,5 +16,12 @@
     "paths": { "@/*": ["./src/*"] }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  // `scripts/` contient des outils Node autonomes (moteur d'audit) qui ne sont
+  // pas embarqués dans le bundle Next et tournent sous un autre runtime, avec
+  // une résolution de modules différente (imports en `./x.ts`). Le `include`
+  // ci-dessus les ratissait via `**/*.ts` : le build du SITE échouait alors sur
+  // des erreurs de typage appartenant à un outil séparé — un script en cours
+  // d'écriture pouvait bloquer un déploiement. Ils ont leur propre
+  // scripts/tsconfig.json.
+  "exclude": ["node_modules", "scripts"]
 }

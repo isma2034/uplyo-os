@@ -17,6 +17,12 @@
  *    et un flux public l'épuiserait. Aucune clé PageSpeed n'existe dans ce
  *    dépôt, et il ne faut pas en ajouter.
  *
+ * Ces règles restent valables. L'analyse approfondie (PageSpeed, plusieurs
+ * pages, robots/sitemap, conteneur GTM) existe : c'est le SECOND ÉTAGE,
+ * scripts/audit/, un outil en ligne de commande non déployé, qu'Ismael lance
+ * lui-même à réception du lead. Rien de ce module-ci n'a besoin de grossir —
+ * voir docs/AUDIT_INTERNE.md.
+ *
  * La logique des contrôles est reprise de
  * ~/.claude/skills/web-optimization/scripts/technical_audit.sh, éprouvée en
  * conditions réelles. Elle est ici réécrite avec cheerio plutôt qu'en regex :
