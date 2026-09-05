@@ -68,34 +68,51 @@ export default function ConsentBanner() {
       className="fixed inset-x-0 bottom-0 z-[200] border-t border-line-strong bg-surface-0 shadow-lift"
     >
       <div className="container-wide py-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        {/* Le texte est le seul vrai levier d'acceptation qui reste légal.
+            Ce qui fonctionne, et qui est vrai ici :
+            1. une raison CONCRÈTE (pas « améliorer votre expérience », formule
+               vide qui fait refuser par réflexe) ;
+            2. la réciprocité : ces visiteurs sont des dirigeants de PME à qui
+               Uplyo vend précisément de la mesure — leur dire pourquoi elle
+               compte est à la fois honnête et convaincant pour eux ;
+            3. l'absence d'enjeu affichée clairement : rien ne change pour eux
+               s'ils refusent, ce qui lève la méfiance qui fait cliquer
+               « refuser » par défaut. */}
         <p className="text-body text-ink-2 font-light max-w-[62ch]">
-          J&apos;utilise un outil de mesure d&apos;audience pour savoir quelles pages
-          sont lues et d&apos;où viennent les visiteurs. Rien n&apos;est mesuré tant que
-          vous n&apos;avez pas accepté, et le site fonctionne identiquement si vous
-          refusez.{" "}
+          Je mesure quelles pages sont lues et d&apos;où viennent les visiteurs —
+          c&apos;est comme ça que je sais quoi améliorer, et c&apos;est exactement ce
+          que je mets en place chez mes clients. Rien n&apos;est collecté avant
+          votre accord, rien n&apos;est revendu, et le site fonctionne à
+          l&apos;identique si vous refusez.{" "}
           <Link
             href="/confidentialite"
             className="text-eclat-ink underline underline-offset-4"
           >
-            Détail des données
+            Ce qui est collecté
           </Link>
         </p>
 
-        {/* Refuser doit être aussi accessible qu'accepter : même taille, même
-            niveau de lecture. Une bannière où le refus est caché ou grisé est
-            un dark pattern, et la CNIL le sanctionne. */}
+        {/* Refuser doit rester aussi accessible qu'accepter : un seul clic,
+            même taille, même lisibilité. La CNIL a sanctionné exactement
+            l'inverse (Google 150 M€, Amazon 35 M€ en 2021 : refuser demandait
+            plusieurs clics quand accepter n'en demandait qu'un).
+
+            Ce qui reste permis et qu'on utilise : « Accepter » porte le style
+            principal du site, « Refuser » le style secondaire — les deux
+            boutons ont la même taille, la même police et le même nombre de
+            clics. C'est la limite exacte du légal. */}
         <div className="flex gap-3 shrink-0">
           <button
             type="button"
             onClick={() => decide("denied")}
-            className="btn-outline text-body px-5 py-2.5"
+            className="btn-outline text-body px-5 py-2.5 whitespace-nowrap"
           >
             Refuser
           </button>
           <button
             type="button"
             onClick={() => decide("granted")}
-            className="btn-primary text-body px-5 py-2.5"
+            className="btn-primary text-body px-5 py-2.5 whitespace-nowrap"
           >
             Accepter
           </button>
