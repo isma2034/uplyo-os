@@ -32,6 +32,17 @@ const dmMono = DM_Mono({
 // c'est une activité indépendante ». Le titre partagé sur LinkedIn ou WhatsApp
 // contredisait donc le positionnement de la page d'accueil. Aligné sur la
 // formulation de la home.
+// Code de validation Search Console (methode « balise HTML »). Il est
+// public par nature — il apparait dans le HTML de chaque page — mais il
+// passe par une variable d'environnement pour qu'Ismael puisse le poser
+// depuis Vercel sans modification de code. Coller UNIQUEMENT la valeur du
+// `content`, pas la balise entiere.
+//
+// La propriete « Prefixe d'URL » validee ainsi ne couvre que https://uplyo.fr.
+// Pour englober aussi www et tous les protocoles, il faut une propriete
+// « Domaine », qui elle exige un enregistrement TXT chez OVH.
+const SEARCH_CONSOLE = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
+
 export const metadata: Metadata = {
   title: {
     default: "Uplyo — Consultant Google Ads indépendant",
@@ -69,6 +80,7 @@ export const metadata: Metadata = {
       { url: "/images/favicon-48.png", type: "image/png", sizes: "48x48" },
     ],
   },
+  ...(SEARCH_CONSOLE ? { verification: { google: SEARCH_CONSOLE } } : {}),
   robots: {
     index: true,
     follow: true,
