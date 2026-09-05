@@ -5,6 +5,11 @@ import Link from "next/link";
 
 export const CONSENT_KEY = "uplyo_consent_v1";
 
+/** Événement qui rouvre la bannière (émis par le lien « Gérer mes cookies »
+ *  du pied de page). Indispensable : sans lui, un choix fait une fois est
+ *  définitif et irrévocable, ce que le RGPD n'autorise pas. */
+export const CONSENT_EVENT = "uplyo:open-consent";
+
 type Choice = "granted" | "denied";
 
 // `Window.dataLayer` est déjà déclaré dans Analytics.tsx : le redéclarer ici
@@ -46,6 +51,11 @@ export default function ConsentBanner() {
       // choix ne sera simplement pas mémorisé d'une visite à l'autre.
       setVisible(true);
     }
+
+    // Réouverture à la demande depuis le pied de page.
+    const reopen = () => setVisible(true);
+    window.addEventListener(CONSENT_EVENT, reopen);
+    return () => window.removeEventListener(CONSENT_EVENT, reopen);
   }, []);
 
   function decide(choice: Choice) {

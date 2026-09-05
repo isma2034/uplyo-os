@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ConsentReopen from "./ConsentReopen";
 import { SITE_CONFIG } from "@/lib/config";
 import { OFFER_ROUTES } from "@/lib/offers";
 
@@ -58,7 +59,7 @@ export default function Footer() {
               <span className="text-title font-semibold text-white">uplyo</span>
             </div>
             <p className="text-body text-white/70 max-w-[260px] mb-5 font-light">
-              Gestion de campagnes Google Ads pour PME de services. Activité indépendante — un seul
+              Gestion de campagnes Google Ads, tous secteurs. Activité indépendante — un seul
               interlocuteur, celui qui exécute.
             </p>
             <div className="label text-white/70">Google Ads · GA4 · Looker Studio</div>
@@ -105,6 +106,7 @@ export default function Footer() {
                 {l.label}
               </Link>
             ))}
+            <ConsentReopen />
           </div>
         </div>
       </div>
