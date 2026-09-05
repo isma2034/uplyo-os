@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 const NAV_LINKS = [
   { label: "Offres", href: "/offres" },
   { label: "Secteurs", href: "/secteurs" },
+  { label: "Villes", href: "/villes" },
   { label: "À propos", href: "/a-propos" },
   { label: "Contact", href: "/contact" },
 ];
@@ -18,6 +19,7 @@ const MOBILE_LINKS = [
   { label: "Le pilotage", href: "/offres/retainer", strong: false },
   { label: "Module e-commerce", href: "/offres/ecommerce", strong: false },
   { label: "Secteurs", href: "/secteurs", strong: true },
+  { label: "Villes", href: "/villes", strong: true },
   { label: "À propos", href: "/a-propos", strong: true },
   { label: "Contact", href: "/contact", strong: true },
 ];

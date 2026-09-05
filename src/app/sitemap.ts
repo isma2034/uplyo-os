@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SECTORS } from "@/lib/sectors";
+import { CITIES } from "@/lib/cities";
 
 const BASE = "https://uplyo.fr";
 
@@ -17,6 +18,12 @@ const ROUTES: { path: string; priority: number; freq: MetadataRoute.Sitemap[numb
   ...SECTORS.map((s) => ({
     path: `/secteurs/${s.slug}`,
     priority: 0.8,
+    freq: "monthly" as const,
+  })),
+  { path: "/villes", priority: 0.8, freq: "monthly" },
+  ...CITIES.map((c) => ({
+    path: `/villes/${c.slug}`,
+    priority: 0.7,
     freq: "monthly" as const,
   })),
   { path: "/a-propos", priority: 0.7, freq: "monthly" },

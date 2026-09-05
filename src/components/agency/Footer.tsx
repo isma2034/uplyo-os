@@ -2,6 +2,7 @@ import Link from "next/link";
 import ConsentReopen from "./ConsentReopen";
 import { SITE_CONFIG } from "@/lib/config";
 import { SECTORS } from "@/lib/sectors";
+import { CITIES } from "@/lib/cities";
 import { OFFER_ROUTES } from "@/lib/offers";
 
 // Footer unique du site (il était dupliqué à l'identique dans le layout
@@ -31,6 +32,10 @@ const COLUMNS: { title: string; links: { label: string; href: string; external?:
     ],
   },
   {
+    title: "Villes",
+    links: CITIES.map((c) => ({ label: c.name, href: `/villes/${c.slug}` })),
+  },
+  {
     title: "Uplyo",
     links: [
       { label: "À propos", href: "/a-propos" },
@@ -58,11 +63,12 @@ export default function Footer() {
   return (
     <footer className="bg-nuit border-t-2 border-eclat">
       <div className="container-wide pt-12 md:pt-16 pb-8">
-        {/* 5 colonnes depuis l'ajout de « Secteurs » : la marque + 4 colonnes
-            de liens. Le gabarit precedent en comptait 4 et ecrasait la
-            derniere. */}
-        <div className="grid grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] gap-8 md:gap-10 pb-10 md:pb-12 border-b border-white/[0.12] mb-8">
-          <div className="col-span-2 md:col-span-1">
+        {/* Marque + 5 colonnes de liens = 6 elements. Les libelles sectoriels
+            sont longs (« Agences immobilieres ») : a six colonnes sur une
+            largeur md ils se briseraient mot par mot, d'ou le palier
+            intermediaire a trois colonnes avant de deplier en six. */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.4fr_repeat(5,1fr)] gap-8 md:gap-10 pb-10 md:pb-12 border-b border-white/[0.12] mb-8">
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <div className="flex items-center gap-2 mb-3">
               <svg width="26" height="26" viewBox="0 0 36 36" fill="none" aria-hidden="true">
                 <polygon points="18,4 28,20 18,36 8,20" fill="#6C5CE7" />
