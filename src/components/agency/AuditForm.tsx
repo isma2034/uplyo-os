@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useRef, useEffect, FormEvent } from "react";
-import { ArrowLeft, ArrowRight, Phone } from "lucide-react";
+import { ArrowLeft, ArrowRight, Phone, CalendarClock } from "lucide-react";
 import { trackFormStart, trackFormStep, trackFormSubmit, trackCTAClick } from "@/lib/analytics";
 import type { AuditTrack } from "@/lib/audit-content";
+import CalendlyLink from "./CalendlyLink";
 import PhoneField, {
   DEFAULT_COUNTRY,
   isValidPhone,
@@ -595,19 +596,32 @@ export default function AuditForm({
         </p>
       )}
 
-      {/* Voie de sortie pour qui n'écrit pas volontiers : le visiteur donne son
-          numéro, aucun numéro n'est publié de notre côté. */}
-      <div className="border-t border-line pt-3.5 text-center">
+      {/* Deux voies de sortie pour qui n'a pas envie de remplir un formulaire.
+          La réservation passe en premier et porte le style le plus visible :
+          c'est le mode de contact retenu pour le site — aucun numéro n'est
+          publié côté Uplyo, le visiteur choisit lui-même son créneau. Le
+          rappel reste offert en second, et c'est alors LUI qui laisse son
+          numéro. */}
+      <div className="border-t border-line pt-3.5 flex flex-col items-center gap-2.5">
         {mode === "audit" ? (
-          <button
-            type="button"
-            onClick={() => switchMode("callback")}
-            className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink bg-transparent border-none cursor-pointer hover:underline underline-offset-4"
-          >
-            <Phone size={14} aria-hidden="true" />
-            Préférez-vous qu&apos;on vous rappelle ?
-            <ArrowRight size={14} aria-hidden="true" />
-          </button>
+          <>
+            <CalendlyLink
+              location="audit_form"
+              className="inline-flex items-center gap-2 py-2 px-4 text-body font-semibold text-eclat-ink no-underline border border-line-strong rounded-full hover:border-eclat-ink transition-colors"
+            >
+              <CalendarClock size={15} aria-hidden="true" />
+              Réserver un créneau de 30 min
+              <ArrowRight size={14} aria-hidden="true" />
+            </CalendlyLink>
+            <button
+              type="button"
+              onClick={() => switchMode("callback")}
+              className="inline-flex items-center gap-1.5 py-1 text-body text-ink-2 font-light bg-transparent border-none cursor-pointer hover:text-eclat-ink transition-colors"
+            >
+              <Phone size={14} aria-hidden="true" />
+              ou laissez-moi votre numéro, je vous rappelle
+            </button>
+          </>
         ) : (
           <button
             type="button"
