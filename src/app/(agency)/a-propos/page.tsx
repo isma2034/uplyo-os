@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, UserRound } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
 import { MEDIA_FLOOR, OFFER_ROUTES } from "@/lib/offers";
 
@@ -76,19 +77,21 @@ export default function AProposPage() {
       <section className="section">
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-14 items-start">
           <Reveal>
-            {/* Emplacement photo — volontairement vide.
-                Aucun portrait réel n'est disponible ; une photo d'illustration
-                générique contredirait la règle « aucune preuve fabriquée » du
-                projet. Remplacer par <Image src="/ismael.jpg" … /> dès qu'un
-                portrait existe. */}
-            <div
-              className="aspect-[4/5] w-full max-w-[280px] rounded-card border border-dashed border-line-strong bg-surface-2 grid place-items-center"
-              aria-hidden="true"
-            >
-              <div className="text-center px-6">
-                <UserRound size={30} className="text-ink-3 mx-auto mb-3" />
-                <div className="label text-ink-3">Photo à venir</div>
-              </div>
+            {/* Portrait réel fourni par Ismael. Le PNG source (1,5 Mo) est
+                converti en WebP (132 Ko) : c'est la première image du site,
+                elle est au-dessus de la ligne de flottaison, et un site qui
+                vend de la performance ne peut pas se permettre de la charger
+                lentement. `priority` la sort du chargement différé.
+                Le fond du fichier est transparent, d'où le panneau teinté. */}
+            <div className="aspect-[4/5] w-full max-w-[280px] rounded-card bg-surface-2 overflow-hidden relative">
+              <Image
+                src="/images/ismael-portrait.webp"
+                alt="Portrait d'Ismael, consultant Google Ads et fondateur d'Uplyo"
+                fill
+                priority
+                sizes="280px"
+                className="object-cover object-top"
+              />
             </div>
           </Reveal>
 
