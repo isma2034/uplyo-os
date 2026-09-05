@@ -3,6 +3,8 @@ import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
+  description:
+    "Mentions légales d'Uplyo : éditeur du site, hébergeur, propriété intellectuelle et coordonnées de contact.",
   alternates: { canonical: "/mentions-legales" },
 };
 

@@ -3,6 +3,8 @@ import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
+  description:
+    "Politique de confidentialité d'Uplyo : quelles données sont collectées, pourquoi, combien de temps elles sont conservées, et comment exercer vos droits.",
   alternates: { canonical: "/confidentialite" },
 };
 

@@ -3,6 +3,8 @@ import Reveal from "@/components/agency/Reveal";
 
 export const metadata: Metadata = {
   title: "Conditions Générales de Vente",
+  description:
+    "Conditions générales de vente d'Uplyo : prestations, tarifs, durée, résiliation, obligations de chaque partie et règlement des litiges.",
   alternates: { canonical: "/cgv" },
 };
 
