@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
 import Script from "next/script";
+import ConsentBanner from "@/components/agency/ConsentBanner";
 import "@/styles/globals.css";
 
 const dmSans = DM_Sans({
@@ -75,6 +76,39 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${dmSans.variable} ${dmMono.variable}`}>
       <head>
+        {/* Consent Mode v2 — DOIT s'exécuter avant GTM et GA4, sinon des
+            balises partent avant que le refus par défaut soit connu.
+            `beforeInteractive` garantit cet ordre ; GTM/GA4 sont en
+            `afterInteractive`.
+
+            Le choix déjà donné est relu ici, de façon synchrone : sans ça,
+            un visiteur qui a accepté lors d'une visite précédente resterait
+            bloqué en « refusé » jusqu'à ce que la bannière React soit
+            montée, et on perdrait la mesure du début de sa session. */}
+        {(GTM_ID || GA4_ID) && (
+          <Script id="consent-default" strategy="beforeInteractive">{`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              analytics_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              functionality_storage: 'granted',
+              security_storage: 'granted',
+              wait_for_update: 500
+            });
+            try {
+              var c = localStorage.getItem('uplyo_consent_v1');
+              if (c === 'granted' || c === 'denied') {
+                gtag('consent', 'update', {
+                  ad_storage: c, analytics_storage: c,
+                  ad_user_data: c, ad_personalization: c
+                });
+              }
+            } catch (e) {}
+          `}</Script>
+        )}
         {GTM_ID && (
           <Script id="gtm-init" strategy="afterInteractive">{`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -111,6 +145,7 @@ export default function RootLayout({
           </noscript>
         )}
         {children}
+        {(GTM_ID || GA4_ID) && <ConsentBanner />}
       </body>
     </html>
   );
