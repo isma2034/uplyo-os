@@ -179,6 +179,150 @@ export const SECTORS: Sector[] = [
     caveat:
       "C'est le secteur où je suis le plus réservé. Si votre activité vient de la recommandation et de la commande publique, Google Ads a peu de chances d'être votre meilleur euro investi, et je vous le dirai plutôt que de vous vendre un dispositif.",
   },
+  {
+    slug: "debarras-demenagement",
+    plural: "entreprises de débarras et déménagement",
+    metaTitle: "Google Ads pour le débarras et le déménagement : filtrer le « gratuit »",
+    metaDescription:
+      "Le secteur où je pilote réellement un compte. Le piège du débarras gratuit, le devis qui ne peut pas se faire en ligne, et la saisonnalité qui ruine les budgets mal repartis.",
+    h1: "Google Ads pour une entreprise de débarras ou de déménagement",
+    intro:
+      "C'est le seul métier de cette liste où je pilote un compte réel, au mois, depuis 2026. Ce qui suit ne vient donc pas d'une lecture de documentation : c'est ce que j'ai vu passer dans un rapport de termes de recherche.",
+    intent: {
+      title: "« Débarras gratuit » est la requête la plus tapée, et la moins rentable",
+      body: "Une large part du volume vient de personnes qui cherchent à faire enlever leurs affaires sans payer, en échange de la valeur des biens. Elles cliquent, elles appellent, elles occupent le temps du standard, et elles ne signent jamais un devis payant. Ce sont pourtant les requêtes les plus tapées du secteur. À l'inverse, « débarras succession », « vide maison après décès », « débarras avant travaux » ou « encombrants appartement étage » signalent une contrainte réelle, un délai, et quelqu'un prêt à payer. La séparation entre ces deux mondes est le premier travail à faire, avant toute optimisation d'enchères.",
+    },
+    negatives: [
+      { term: "gratuit, gratuitement, contre récupération, don", why: "le cœur du gaspillage dans ce métier. Volume élevé, transformation nulle." },
+      { term: "emploi, recrutement, déménageur salaire, offre d'emploi", why: "secteur à fort turnover : le volume de recherche d'emploi est important et coûte cher." },
+      { term: "location camion, utilitaire, self stockage, box", why: "la personne compte déménager seule ; elle cherche un véhicule, pas un prestataire." },
+      { term: "déchetterie, encombrants mairie, ramassage gratuit commune", why: "recherche du service public gratuit — jamais un client." },
+      { term: "prix au m3, tarif, combien coûte", why: "à isoler plutôt qu'à exclure d'emblée : ce sont parfois de vrais prospects, mais ils méritent leur propre campagne et une page qui parle prix, sinon ils rebondissent." },
+    ],
+    tracking: {
+      title: "Le devis se fait sur place, pas sur le site",
+      body: "Personne ne signe un débarras en ligne : on appelle, on envoie des photos, on convient d'une visite. La conversion à suivre est donc l'appel et l'envoi de photos, pas un formulaire abouti. Sur le compte que je gère, c'est exactement ce qui bloquait au départ — les campagnes ramenaient des appels que rien ne comptait, et l'algorithme optimisait à l'aveugle. Vérifier ce point avant de toucher aux enchères change davantage le résultat que n'importe quel réglage.",
+    },
+    structure: {
+      title: "La saisonnalité déplace le budget, pas la moyenne annuelle",
+      body: "Les déménagements se concentrent sur juin-septembre, les débarras de succession n'ont aucune saison, et les débarras avant travaux suivent le rythme du bâtiment. Un budget mensuel constant sur-dépense en hiver et manque de plafond en été, exactement quand la demande est là. Séparer ces motifs en campagnes distinctes permet de déplacer l'argent au bon moment au lieu de subir la moyenne.",
+    },
+    angles: [
+      "Annoncer la contrainte que le client a réellement : un délai (« intervention sous 48 h »), pas une qualité générale (« sérieux et rapide »).",
+      "Nommer l'étage et l'absence d'ascenseur : c'est ce qui inquiète, et le dire écarte les appels qui n'auraient pas abouti.",
+      "Traiter la succession comme un parcours à part : le ton, l'urgence et la personne qui appelle n'ont rien à voir avec un déménagement classique.",
+    ],
+    caveat:
+      "Sur une zone rurale à faible volume de recherche, il n'y aura simplement pas assez de requêtes pour alimenter un compte — le levier local classique reste alors plus efficace. C'est vérifiable en une étude de volume avant de dépenser le premier euro.",
+  },
+  {
+    slug: "plomberie-depannage",
+    plural: "entreprises de plomberie et de dépannage",
+    metaTitle: "Google Ads pour plombier : l'urgence se gagne sur les horaires, pas sur l'enchère",
+    metaDescription:
+      "Diffuser 24h/24 sans décrocher la nuit, c'est payer pour rien. Programmation horaire, exclusion du bricolage, et suivi des appels — les trois leviers du dépannage.",
+    h1: "Google Ads pour un plombier ou une entreprise de dépannage",
+    intro:
+      "Dans le dépannage, le visiteur n'a ni le temps ni l'envie de comparer : il appelle le premier qui répond. Cela change complètement la hiérarchie des leviers — l'horaire de diffusion y pèse plus lourd que le montant de l'enchère.",
+    intent: {
+      title: "Le bricoleur et l'urgence tapent presque les mêmes mots",
+      body: "« Fuite chasse d'eau » peut venir de quelqu'un qui cherche un tutoriel comme de quelqu'un dont l'appartement prend l'eau. La différence se lit dans les formulations : tout ce qui commence par « comment », « réparer soi-même » ou « tuto » est du bricolage, tout ce qui contient « urgence », « en urgence », « dépannage », « 24h » ou un nom de ville est commercial. Le volume documentaire écrase le volume commercial dans ce métier : sans séparation nette, l'essentiel du budget part chez des gens qui n'appelleront jamais.",
+    },
+    negatives: [
+      { term: "comment, tuto, soi-même, réparer, astuce, vidéo", why: "intention documentaire. C'est le premier poste de dépense inutile du secteur." },
+      { term: "pièce, joint, robinet pas cher, leroy merlin, castorama", why: "recherche d'un produit en magasin, pas d'un artisan." },
+      { term: "emploi, apprenti, formation plombier, salaire", why: "candidats." },
+      { term: "devis gratuit en ligne, simulateur, estimation", why: "à surveiller : dans le dépannage d'urgence, un devis en ligne n'existe pas — ces clics aboutissent rarement." },
+      { term: "assurance, dégât des eaux prise en charge, expertise", why: "la personne cherche à se faire indemniser, pas à faire intervenir un artisan." },
+    ],
+    tracking: {
+      title: "Sans suivi des appels, ce métier est mesuré à zéro",
+      body: "La quasi-totalité des conversions sont des appels. Si seuls les formulaires sont comptés, le compte affichera des résultats catastrophiques alors que le téléphone sonne. Il faut compter le clic sur le numéro depuis mobile, et idéalement la durée d'appel : dans le dépannage, un appel de moins de trente secondes est presque toujours une erreur ou un démarchage, et le compter comme conversion apprend à l'algorithme à chercher les mauvaises personnes.",
+    },
+    structure: {
+      title: "La programmation horaire avant tout le reste",
+      body: "Annoncer « dépannage 24h/24 » et diffuser la nuit sans décrocher revient à payer plein tarif des clics qui iront chez le concurrent qui répond. Soit on répond réellement la nuit et on assume le coût par clic nocturne, souvent plus faible, soit on cale la diffusion sur les heures où quelqu'un décroche. C'est le réglage qui change le plus le coût par intervention dans ce métier, avant toute optimisation d'annonce.",
+    },
+    angles: [
+      "Afficher un délai d'intervention chiffré et tenable — c'est le seul critère de choix dans l'urgence.",
+      "Afficher un ordre de prix de déplacement : le secteur souffre d'une réputation d'abus tarifaire, et être le seul à annoncer un montant crée un avantage immédiat.",
+      "Séparer le dépannage urgent des travaux planifiés (salle de bain, chaudière) : cycles, budgets et pages d'arrivée n'ont rien en commun.",
+    ],
+    caveat:
+      "Si vous ne pouvez pas décrocher dans les minutes qui suivent, ce levier ne fonctionnera pas, quel que soit le budget. Un standard qui laisse sonner transforme chaque euro dépensé en clic offert au concurrent suivant.",
+  },
+  {
+    slug: "garages-automobiles",
+    plural: "garages automobiles",
+    metaTitle: "Google Ads pour un garage : le piège des recherches de pièces détachées",
+    metaDescription:
+      "La longue traîne « marque + modèle + prestation » est le vrai gisement d'un garage. Comment écarter les chercheurs de pièces et mesurer la prise de rendez-vous.",
+    h1: "Google Ads pour un garage automobile",
+    intro:
+      "C'est le secteur où j'ai relevé la proportion d'annonceurs la plus élevée de mon échantillon — sur un effectif trop réduit pour en publier un pourcentage, mais suffisant pour dire que le levier y est déjà utilisé. La concurrence y est donc réelle, et la précision compte plus que le budget.",
+    intent: {
+      title: "Le gisement est dans « marque + modèle + prestation »",
+      body: "« Garage Toulouse » est cher, vague, et disputé par toutes les enseignes nationales. « Changement courroie distribution Clio 4 prix », « révision 208 sans perdre la garantie », « diagnostic voyant moteur Golf 7 » sont peu volumiques, peu disputées, et tapées par quelqu'un qui a déjà identifié son problème. Ces requêtes existent par centaines de combinaisons : c'est un travail d'inventaire, pas d'enchère. C'est aussi ce qui permet à un garage indépendant de coexister avec des réseaux au budget bien supérieur.",
+    },
+    negatives: [
+      { term: "pièce détachée, oscaro, mister auto, occasion, casse", why: "la personne veut acheter une pièce, pas la faire monter. Volume massif sur les requêtes de modèles." },
+      { term: "voiture occasion, annonce, leboncoin, acheter", why: "recherche d'achat de véhicule — sauf si vous vendez aussi, auquel cas c'est une campagne distincte." },
+      { term: "tuto, comment changer, forum, notice", why: "bricolage automobile, très actif en ligne." },
+      { term: "emploi, mécanicien recrutement, apprentissage", why: "candidats." },
+      { term: "contrôle technique (si non proposé)", why: "activité réglementée distincte ; les clics sont nombreux et inexploitables si vous ne la proposez pas." },
+    ],
+    tracking: {
+      title: "Le rendez-vous se prend par téléphone",
+      body: "Comme dans la plupart des métiers d'atelier, la conversion est l'appel — parfois le formulaire de prise de rendez-vous, rarement une réservation aboutie en ligne. Il faut aussi distinguer la valeur : une vidange et un embrayage arrivent par le même canal et ne pèsent pas le même chiffre d'affaires. Sans valeur différenciée, l'algorithme optimise vers les petites interventions, celles qui remplissent l'atelier sans le rentabiliser.",
+    },
+    structure: {
+      title: "Une campagne par famille de prestation",
+      body: "Entretien courant, pneumatiques, distribution, climatisation, diagnostic électronique : ces familles n'ont ni le même panier, ni la même concurrence, ni la même urgence. Les mélanger laisse les requêtes à fort volume et faible marge — les pneus notamment, où les pure players cassent les prix — absorber le budget des prestations rentables.",
+    },
+    angles: [
+      "Afficher un tarif ou une fourchette : c'est le premier motif de contact, et l'immense majorité des garages ne l'affiche pas.",
+      "Lever l'objection de la garantie constructeur, qui retient beaucoup de propriétaires de véhicules récents chez le concessionnaire alors que la loi ne l'impose pas.",
+      "Décliner les annonces par marque quand l'atelier a une spécialité : « spécialiste Volkswagen » convertit mieux que « toutes marques ».",
+    ],
+    caveat:
+      "Avec des réseaux nationaux qui enchérissent sur les requêtes génériques d'entretien, un garage isolé qui vise large dépensera sans résultat. Ce levier ne tient que sur la longue traîne et sur une spécialité assumée.",
+  },
+  {
+    slug: "hebergement-touristique",
+    plural: "hébergements touristiques",
+    metaTitle: "Google Ads pour un gîte ou un hôtel : défendre son nom contre les plateformes",
+    metaDescription:
+      "Booking et Airbnb enchérissent sur le nom de votre établissement et vous revendent vos propres clients. La campagne de marque, la saisonnalité et la mesure de la réservation directe.",
+    h1: "Google Ads pour un gîte, une chambre d'hôtes ou un hôtel",
+    intro:
+      "Dans l'hébergement, la question n'est pas seulement d'attirer de nouveaux voyageurs : c'est d'éviter de payer une commission sur des clients qui vous cherchaient déjà par votre nom.",
+    intent: {
+      title: "Les plateformes enchérissent sur le nom de votre établissement",
+      body: "Quelqu'un tape le nom de votre gîte pour réserver en direct. En haut des résultats, il trouve une annonce Booking ou Expedia pointant vers votre fiche chez eux. Il réserve là, et vous versez 15 à 20 % de commission sur un client que vous aviez déjà gagné. Une campagne sur votre propre marque coûte quelques centimes le clic — la concurrence y est nulle puisque vous êtes le seul à porter ce nom — et récupère ces réservations en direct. C'est, dans ce métier, le calcul de rentabilité le plus simple à faire et le plus souvent ignoré.",
+    },
+    negatives: [
+      { term: "emploi, saisonnier, recrutement", why: "très fort volume en période de recrutement saisonnier." },
+      { term: "à vendre, reprise, investissement, rentabilité gîte", why: "porteurs de projet et investisseurs, pas des voyageurs." },
+      { term: "pas cher, gratuit, camping, auberge de jeunesse", why: "à ajuster selon votre positionnement, mais ces mots attirent un public qui ne réservera pas un hébergement de standing." },
+      { term: "booking, airbnb, abritel, comparateur", why: "la personne cherche la plateforme, pas vous — sauf dans votre campagne de marque, où l'association nom + plateforme est au contraire à conserver." },
+      { term: "avis, forum, tripadvisor", why: "phase de vérification, très rarement de réservation directe." },
+    ],
+    tracking: {
+      title: "La réservation part vers un moteur externe",
+      body: "La plupart des hébergements confient leur moteur de réservation à un prestataire tiers, sur un autre domaine. Sans configuration explicite, le suivi se casse au moment précis du passage — le compte enregistre zéro réservation alors que le planning se remplit. C'est le défaut le plus courant que je rencontre dans ce secteur, et il rend toute optimisation impossible tant qu'il n'est pas corrigé. La valeur de conversion doit en plus refléter le montant du séjour, pas un forfait : deux nuits et deux semaines n'ont rien à voir.",
+    },
+    structure: {
+      title: "Une saisonnalité brutale, et des dates dans les requêtes",
+      body: "La demande se concentre sur quelques semaines, et les recherches sont datées — « gîte Ardèche août », « hôtel Lyon week-end ». Un budget lissé sur l'année manque la haute saison et dépense hors période. Il faut aussi anticiper : les réservations d'été se décident au printemps, donc la diffusion doit précéder le pic de plusieurs mois, pas l'accompagner.",
+    },
+    angles: [
+      "Afficher l'avantage de la réservation directe — meilleur tarif garanti, annulation souple : c'est ce qui fait basculer un visiteur qui compare avec la plateforme.",
+      "Séparer la campagne de marque du reste, avec son propre budget : elle est peu chère, très rentable, et ne doit jamais entrer en concurrence budgétaire avec la prospection.",
+      "Cibler les périodes creuses avec des motifs différents — télétravail, hors-saison, longs séjours — plutôt que de surenchérir en pleine saison où tout est déjà complet.",
+    ],
+    caveat:
+      "Si votre taux d'occupation est déjà proche du maximum en saison et que vous ne cherchez pas à remplir l'hors-saison, ce levier n'a pas grand-chose à vous apporter au-delà de la campagne de marque — laquelle reste rentable presque partout.",
+  },
 ];
 
 export const SECTOR_BY_SLUG = new Map(SECTORS.map((s) => [s.slug, s]));
