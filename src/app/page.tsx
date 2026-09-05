@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Metadata } from "next";
 import { ArrowRight, Check, UserRound } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
@@ -239,14 +240,32 @@ export default function HomePage() {
               prestataires, commerces, e-commerce. Je fais le travail, et je vous montre le compte
               pendant que je le fais.
             </p>
-            <p className="text-body text-ink-3 max-w-[54ch] mb-8 font-light">
-              Pas de chargé de compte, pas d&apos;intermédiaire : la personne qui vous répond est
-              celle qui ouvre votre compte.{" "}
-              <Link href="/a-propos" className="text-eclat-ink font-medium underline underline-offset-4">
-                Qui je suis
-              </Link>
-              .
-            </p>
+            {/* Le hero dit « Je m'appelle Ismael » et « pas d'intermediaire » :
+                sans visage, c'est une affirmation comme une autre. Le portrait
+                est ici le seul element de preuve disponible tant que la page
+                ne peut citer qu'un client. Format compact — il appuie le texte,
+                il ne lui vole pas la place. */}
+            <div className="flex items-center gap-3.5 mb-8 max-w-[54ch]">
+              <Image
+                src="/images/ismael-portrait.webp"
+                alt="Ismael, consultant Google Ads indépendant et fondateur d'Uplyo"
+                width={56}
+                height={56}
+                priority
+                className="rounded-full bg-surface-2 object-cover object-top shrink-0"
+              />
+              <p className="text-body text-ink-3 font-light">
+                Pas de chargé de compte, pas d&apos;intermédiaire : la personne qui vous répond est
+                celle qui ouvre votre compte.{" "}
+                <Link
+                  href="/a-propos"
+                  className="text-eclat-ink font-medium underline underline-offset-4"
+                >
+                  Qui je suis
+                </Link>
+                .
+              </p>
+            </div>
             <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {["Aucun engagement de durée", "Vous restez propriétaire du compte", `Audit gratuit sous ${TERMS.auditDelay}`].map(
                 (t) => (

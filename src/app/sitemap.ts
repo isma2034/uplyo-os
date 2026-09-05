@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SECTORS } from "@/lib/sectors";
 import { CITIES } from "@/lib/cities";
+import { PROBLEMS } from "@/lib/problems";
 
 const BASE = "https://uplyo.fr";
 
@@ -17,6 +18,12 @@ const ROUTES: { path: string; priority: number; freq: MetadataRoute.Sitemap[numb
   // fichier de contenu suffit, le plan de site suit tout seul.
   ...SECTORS.map((s) => ({
     path: `/secteurs/${s.slug}`,
+    priority: 0.8,
+    freq: "monthly" as const,
+  })),
+  { path: "/questions", priority: 0.8, freq: "monthly" },
+  ...PROBLEMS.map((q) => ({
+    path: `/questions/${q.slug}`,
     priority: 0.8,
     freq: "monthly" as const,
   })),
