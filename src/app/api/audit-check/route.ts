@@ -150,8 +150,23 @@ export async function POST(request: Request) {
       if (process.env.NODE_ENV !== "production") {
         console.log("📧 [audit-check] (sans RESEND_API_KEY) —", subject);
         console.log(JSON.stringify({ type, lead: { ...lead, message: undefined }, check }, null, 2));
+        return NextResponse.json({ success: true, mode: "log" });
       }
-      return NextResponse.json({ success: true, mode: "log" });
+
+      // Même défaut que /api/contact, corrigé en même temps : répondre
+      // « succès » en production sans avoir rien envoyé fait disparaître le
+      // lead sans que personne ne s'en aperçoive — ni le visiteur, ni nous.
+      console.error(
+        "[audit-check] RESEND_API_KEY absente en production — lead NON transmis:",
+        { email: lead.email, site: lead.website, type }
+      );
+      return NextResponse.json(
+        {
+          error:
+            "L'envoi automatique est momentanément indisponible. Écrivez-moi directement à contact@uplyo.fr, je vous réponds sous 24 h ouvrées.",
+        },
+        { status: 503 }
+      );
     }
 
     const res = await fetch("https://api.resend.com/emails", {

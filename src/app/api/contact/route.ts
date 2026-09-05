@@ -91,7 +91,7 @@ export async function POST(request: Request) {
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
     if (!RESEND_API_KEY) {
-      // Dev mode: log submission without secrets
+      // En développement : on journalise et on laisse passer, c'est pratique.
       if (process.env.NODE_ENV !== "production") {
         console.log("📧 [contact] New submission (no RESEND_API_KEY):", {
           firstname: safe.firstname,
@@ -100,8 +100,26 @@ export async function POST(request: Request) {
           budget: safe.budget,
           sector: safe.sector,
         });
+        return NextResponse.json({ success: true, mode: "log" });
       }
-      return NextResponse.json({ success: true, mode: "log" });
+
+      // En PRODUCTION, ne JAMAIS répondre « succès » sans avoir envoyé quoi
+      // que ce soit. Ce code répondait success:true en mode "log" : le
+      // visiteur voyait « message envoyé » et le lead était perdu sans
+      // trace. Constaté en production le 05/09/2026 — la variable
+      // RESEND_API_KEY n'était pas configurée sur Vercel, et toutes les
+      // demandes reçues depuis la mise en ligne ont disparu ainsi.
+      console.error(
+        "[contact] RESEND_API_KEY absente en production — lead NON transmis:",
+        { email: safe.email, nom: `${safe.firstname} ${safe.lastname}` }
+      );
+      return NextResponse.json(
+        {
+          error:
+            "L'envoi automatique est momentanément indisponible. Écrivez-moi directement à contact@uplyo.fr, je vous réponds sous 24 h ouvrées.",
+        },
+        { status: 503 }
+      );
     }
 
     const html = `
