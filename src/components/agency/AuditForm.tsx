@@ -4,6 +4,13 @@ import { useState, useRef, useEffect, FormEvent } from "react";
 import { ArrowLeft, ArrowRight, Phone } from "lucide-react";
 import { trackFormStart, trackFormStep, trackFormSubmit, trackCTAClick } from "@/lib/analytics";
 import type { AuditTrack } from "@/lib/audit-content";
+import PhoneField, {
+  DEFAULT_COUNTRY,
+  isValidPhone,
+  phoneHint,
+  toE164,
+  type Country,
+} from "./PhoneField";
 
 /**
  * Formulaire des pages /audit et /audit/sans-campagne.
@@ -38,9 +45,9 @@ const SLOTS = [
   { v: "soir", l: "Soir (18 h – 20 h)" },
 ];
 
-/** Doit rester aligné sur la validation serveur de /api/audit-check. */
-const PHONE_RE = /^\+?\d{9,15}$/;
-const normalizePhone = (raw: string) => raw.replace(/[\s.\-()]/g, "");
+// La validation du téléphone vit désormais dans PhoneField : elle dépend du
+// pays choisi. Le garde-fou serveur de /api/audit-check (`/^\+?\d{9,15}$/`)
+// reste en place et accepte l'E.164 produit ici.
 
 type FieldOption = { value: string; label: string };
 
@@ -131,6 +138,7 @@ export default function AuditForm({
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [v, setV] = useState<Values>(EMPTY);
+  const [country, setCountry] = useState<Country>(DEFAULT_COUNTRY);
   const started = useRef(false);
   const stepsSeen = useRef<Set<number>>(new Set());
   // Verrou de soumission : `status` ne repasse à "sending" qu'au prochain
@@ -203,14 +211,16 @@ export default function AuditForm({
     const honey = String(new FormData(e.currentTarget).get("_honey") ?? "");
 
     if (mode === "callback") {
-      const phone = normalizePhone(v.phone);
-      if (!PHONE_RE.test(phone)) {
-        // Contrôle côté client : `type="tel"` n'impose aucun format, l'API
-        // renvoyait donc un 400 après un aller-retour réseau inutile.
-        setErrorMsg("Numéro invalide. Attendu : 10 chiffres, ou +33 suivi de 9 chiffres.");
+      // Contrôle côté client : `type="tel"` n'impose aucun format, l'API
+      // renvoyait donc un 400 après un aller-retour réseau inutile.
+      // La longueur attendue dépend du pays choisi (voir PhoneField).
+      if (!isValidPhone(country, v.phone)) {
+        setErrorMsg(`Numéro invalide pour ${country.name}. ${phoneHint(country)}`);
         setStatus("error");
         return;
       }
+      // Transmis en E.164 : non ambigu, et directement composable.
+      const phone = toE164(country, v.phone);
       if (inFlight.current) return;
       inFlight.current = true;
       const ok = await post({
@@ -495,34 +505,20 @@ export default function AuditForm({
 
       {mode === "callback" && (
         <>
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="a-phone" className="label text-ink-2">
-              Votre numéro *
-            </label>
-            <input
-              id="a-phone"
-              name="phone"
-              type="tel"
-              required
-              autoComplete="tel"
-              inputMode="tel"
-              value={v.phone}
-              onChange={(e) => {
-                setV((prev) => ({ ...prev, phone: e.target.value }));
-                if (status === "error") {
-                  setStatus("idle");
-                  setErrorMsg(null);
-                }
-              }}
-              placeholder="06 12 34 56 78"
-              aria-describedby="a-phone-help"
-              aria-invalid={status === "error" && !PHONE_RE.test(normalizePhone(v.phone))}
-              className="field"
-            />
-            <p id="a-phone-help" className="text-caption text-ink-3 font-light">
-              10 chiffres, ou +33 suivi de 9 chiffres. Les espaces et les points sont acceptés.
-            </p>
-          </div>
+          <PhoneField
+            id="a-phone"
+            country={country}
+            onCountryChange={setCountry}
+            value={v.phone}
+            onValueChange={(val) => {
+              setV((prev) => ({ ...prev, phone: val }));
+              if (status === "error") {
+                setStatus("idle");
+                setErrorMsg(null);
+              }
+            }}
+            invalid={status === "error" && !isValidPhone(country, v.phone)}
+          />
 
           <fieldset className="flex flex-col gap-1.5 border-none p-0 m-0">
             <legend className="label text-ink-2 mb-1.5">Quand vous appeler ?</legend>
