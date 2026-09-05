@@ -10,14 +10,14 @@ import HeroAuditForm from "@/components/agency/HeroAuditForm";
 import { MEDIA_FLOOR, TERMS } from "@/lib/offers";
 
 export const metadata: Metadata = {
-  title: "Uplyo — Google Ads pour PME de services",
+  title: "Uplyo — Consultant Google Ads indépendant",
   description:
-    "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
+    "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
   alternates: { canonical: "https://uplyo.fr" },
   openGraph: {
-    title: "Uplyo — Google Ads pour PME de services",
+    title: "Uplyo — Consultant Google Ads indépendant",
     description:
-      "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
+      "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
     url: "https://uplyo.fr",
     siteName: "Uplyo",
     locale: "fr_FR",
@@ -34,8 +34,18 @@ const JSON_LD = {
       name: "Uplyo",
       url: "https://uplyo.fr",
       email: "contact@uplyo.fr",
+      // Sans `logo`, Google n'a aucune image d'entité à associer au site : les
+      // résultats sortaient sans logo. La propriété doit pointer un raster
+      // (le SVG seul ne suffit pas ici) d'au moins 112 px de côté.
+      logo: {
+        "@type": "ImageObject",
+        url: "https://uplyo.fr/images/logo-uplyo-512.png",
+        width: 512,
+        height: 512,
+      },
+      image: "https://uplyo.fr/images/logo-uplyo-512.png",
       description:
-        "Gestion de campagnes Google Ads pour PME de services. Audit gratuit, aucun engagement de durée, un seul interlocuteur.",
+        "Gestion de campagnes Google Ads, tous secteurs. Audit gratuit, aucun engagement de durée, un seul interlocuteur.",
       // areaServed : France uniquement — c'est la zone réellement couverte
       // aujourd'hui. Le site affichait ailleurs « France · Espagne · Belgique ·
       // Suisse », qui ne correspondait à aucune activité constatée.
@@ -160,7 +170,7 @@ const OFFERS = [
 // ── 6. Pour qui / pour qui ce n'est pas ──
 const FIT = {
   yes: [
-    "PME et artisans de services qui vendent sur devis ou sur rendez-vous",
+    "Une activité qui vend sur devis, sur rendez-vous ou en ligne",
     "Activités locales ou régionales avec une zone d'intervention claire",
     "Un budget publicitaire d'au moins 500 €/mois, réglé directement à Google",
     "Quelqu'un chez vous qui répond aux demandes rapidement",
@@ -193,7 +203,7 @@ const FAQS = [
   },
   {
     q: "Combien ça coûte ?",
-    a: `Il y a deux lignes à distinguer. Le budget publicitaire, que vous réglez directement à Google : ${MEDIA_FLOOR.local} minimum pour une PME locale, ${MEDIA_FLOOR.ecommerce} minimum pour un e-commerce. Et mes honoraires, établis sur devis après l'appel de cadrage, parce qu'ils dépendent du nombre de campagnes et de la zone à couvrir. Le devis vous est envoyé sous 24 h et vous engage à rien.`,
+    a: `Il y a deux lignes à distinguer. Le budget publicitaire, que vous réglez directement à Google : ${MEDIA_FLOOR.local} minimum pour une activité locale, ${MEDIA_FLOOR.ecommerce} minimum pour un e-commerce. Et mes honoraires, établis sur devis après l'appel de cadrage, parce qu'ils dépendent du nombre de campagnes et de la zone à couvrir. Le devis vous est envoyé sous 24 h et vous engage à rien.`,
   },
   {
     q: "Est-ce que je m'engage sur une durée ?",
@@ -220,14 +230,14 @@ export default function HomePage() {
       <section className="pt-[104px] md:pt-[128px] pb-14 md:pb-20">
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
           <Reveal>
-            <p className="label text-eclat-ink mb-5">Google Ads · PME de services</p>
+            <p className="label text-eclat-ink mb-5">Google Ads · Consultant indépendant</p>
             <h1 className="text-hero font-semibold text-ink mb-6">
               Des demandes de devis qui rentrent — et un coût par demande que vous voyez.
             </h1>
             <p className="text-lead text-ink-2 max-w-[54ch] mb-7 font-light">
-              Je m&apos;appelle Ismael. Je construis et je pilote les campagnes Google Ads de PME de
-              services : artisans, prestataires, entreprises locales. Je fais le travail, et je vous
-              montre le compte pendant que je le fais.
+              Je m&apos;appelle Ismael. Je construis et je pilote des campagnes Google Ads : artisans,
+              prestataires, commerces, e-commerce. Je fais le travail, et je vous montre le compte
+              pendant que je le fais.
             </p>
             <p className="text-body text-ink-3 max-w-[54ch] mb-8 font-light">
               Pas de chargé de compte, pas d&apos;intermédiaire : la personne qui vous répond est
@@ -377,7 +387,7 @@ export default function HomePage() {
               </div>
               <div className="sm:border-l sm:border-line-strong sm:pl-8">
                 <div className="text-title font-semibold text-ink">{MEDIA_FLOOR.local}</div>
-                <div className="text-caption text-ink-3">PME locale / services</div>
+                <div className="text-caption text-ink-3">Activité locale / services</div>
               </div>
               <div className="sm:border-l sm:border-line-strong sm:pl-8">
                 <div className="text-title font-semibold text-ink">{MEDIA_FLOOR.ecommerce}</div>

@@ -34,11 +34,11 @@ const dmMono = DM_Mono({
 // formulation de la home.
 export const metadata: Metadata = {
   title: {
-    default: "Uplyo — Google Ads pour PME de services",
+    default: "Uplyo — Consultant Google Ads indépendant",
     template: "%s — Uplyo",
   },
   description:
-    "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
+    "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
   metadataBase: new URL("https://uplyo.fr"),
   alternates: {
     canonical: "/",
@@ -48,15 +48,26 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://uplyo.fr",
     siteName: "Uplyo",
-    title: "Uplyo — Google Ads pour PME de services",
+    title: "Uplyo — Consultant Google Ads indépendant",
     description:
-      "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
+      "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Uplyo — Google Ads pour PME de services",
+    title: "Uplyo — Consultant Google Ads indépendant",
     description:
-      "Je gère les campagnes Google Ads de PME de services. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
+      "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
+  },
+  // Deux icônes déclarées volontairement : le SVG pour les navigateurs (net à
+  // toute taille), et un PNG 48×48 parce que c'est le format que Google
+  // privilégie pour la favicon affichée dans ses résultats. La convention de
+  // fichier de Next (src/app/icon.*) n'en expose qu'UNE seule — un icon.png
+  // ajouté à côté du SVG le remplaçait au lieu de le compléter.
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml", sizes: "any" },
+      { url: "/images/favicon-48.png", type: "image/png", sizes: "48x48" },
+    ],
   },
   robots: {
     index: true,

@@ -69,8 +69,8 @@ export default function EcommercePage() {
               </h1>
               <p className="text-lead text-ink-2 font-light mb-8">
                 Si vous vendez en ligne, le travail sur le flux produit et sur la valeur de
-                conversion s&apos;ajoute au pilotage mensuel. Ce module n&apos;existe pas seul, et
-                mon activité reste centrée sur les PME de services.
+                conversion s&apos;ajoute au pilotage mensuel. Ce module n&apos;existe pas seul :
+                il vient compléter la gestion du compte, pas la remplacer.
               </p>
               <Link
                 href={OFFER_ROUTES.pilotage.href}

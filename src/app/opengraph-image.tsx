@@ -5,7 +5,7 @@ import { ImageResponse } from "next/og";
 // du lien affichait une carte vide. Image générée ici via next/og — pas de
 // binaire à maintenir, elle suit les tokens de la charte.
 export const runtime = "nodejs";
-export const alt = "Uplyo — Google Ads pour PME de services";
+export const alt = "Uplyo — Consultant Google Ads indépendant";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -47,7 +47,7 @@ export default function OpengraphImage() {
               marginBottom: 26,
             }}
           >
-            Google Ads · PME de services
+            Google Ads · Consultant indépendant
           </div>
           <div
             style={{

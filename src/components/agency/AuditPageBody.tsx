@@ -113,7 +113,7 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
                 <div className="label text-ink-3 mb-2">Qui fait cet audit</div>
                 <h2 className="text-title font-semibold text-ink mb-2">Ismael</h2>
                 <p className="text-body text-ink-2 font-light mb-3 max-w-[62ch]">
-                  Je gère les campagnes Google Ads de PME de services, seul. C&apos;est moi qui
+                  Je gère des campagnes Google Ads, seul. C&apos;est moi qui
                   regarderai votre situation, moi qui rédigerai ce rapport, et moi qui vous répondrai
                   si vous avez une question dessus — il n&apos;y a personne d&apos;autre.
                 </p>
