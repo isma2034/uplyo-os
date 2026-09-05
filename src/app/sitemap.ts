@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SECTORS } from "@/lib/sectors";
 
 const BASE = "https://uplyo.fr";
 
@@ -10,6 +11,14 @@ const ROUTES: { path: string; priority: number; freq: MetadataRoute.Sitemap[numb
   { path: "/offres/pack-lancement", priority: 0.8, freq: "monthly" },
   { path: "/offres/retainer", priority: 0.8, freq: "monthly" },
   { path: "/offres/ecommerce", priority: 0.7, freq: "monthly" },
+  { path: "/secteurs", priority: 0.8, freq: "monthly" },
+  // Les pages sectorielles sont derivees de SECTORS : en ajouter une au
+  // fichier de contenu suffit, le plan de site suit tout seul.
+  ...SECTORS.map((s) => ({
+    path: `/secteurs/${s.slug}`,
+    priority: 0.8,
+    freq: "monthly" as const,
+  })),
   { path: "/a-propos", priority: 0.7, freq: "monthly" },
   { path: "/contact", priority: 0.7, freq: "monthly" },
   { path: "/mentions-legales", priority: 0.1, freq: "yearly" },

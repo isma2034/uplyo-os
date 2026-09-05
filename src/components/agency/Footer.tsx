@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ConsentReopen from "./ConsentReopen";
 import { SITE_CONFIG } from "@/lib/config";
+import { SECTORS } from "@/lib/sectors";
 import { OFFER_ROUTES } from "@/lib/offers";
 
 // Footer unique du site (il était dupliqué à l'identique dans le layout
@@ -18,6 +19,15 @@ const COLUMNS: { title: string; links: { label: string; href: string; external?:
       { label: OFFER_ROUTES.setup.label, href: OFFER_ROUTES.setup.href },
       { label: OFFER_ROUTES.pilotage.label, href: OFFER_ROUTES.pilotage.href },
       { label: OFFER_ROUTES.ecommerce.label, href: OFFER_ROUTES.ecommerce.href },
+    ],
+  },
+  {
+    title: "Secteurs",
+    links: [
+      ...SECTORS.map((sec) => ({
+        label: sec.plural.charAt(0).toUpperCase() + sec.plural.slice(1),
+        href: `/secteurs/${sec.slug}`,
+      })),
     ],
   },
   {
@@ -48,7 +58,10 @@ export default function Footer() {
   return (
     <footer className="bg-nuit border-t-2 border-eclat">
       <div className="container-wide pt-12 md:pt-16 pb-8">
-        <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-12 pb-10 md:pb-12 border-b border-white/[0.12] mb-8">
+        {/* 5 colonnes depuis l'ajout de « Secteurs » : la marque + 4 colonnes
+            de liens. Le gabarit precedent en comptait 4 et ecrasait la
+            derniere. */}
+        <div className="grid grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] gap-8 md:gap-10 pb-10 md:pb-12 border-b border-white/[0.12] mb-8">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
               <svg width="26" height="26" viewBox="0 0 36 36" fill="none" aria-hidden="true">
