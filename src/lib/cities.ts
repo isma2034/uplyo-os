@@ -41,7 +41,7 @@ export const CITIES: City[] = [
     slug: "lyon",
     name: "Lyon",
     prep: "à Lyon",
-    metaTitle: "Google Ads à Lyon : ce que montre un relevé de 64 entreprises lyonnaises",
+    metaTitle: "Google Ads à Lyon : 64 entreprises analysées",
     metaDescription:
       "Sur 64 entreprises lyonnaises analysées, 7 diffusent des annonces Google Ads détectables. Composition du marché, secteurs concernés et lecture de ces chiffres.",
     intro:
@@ -58,7 +58,7 @@ export const CITIES: City[] = [
     slug: "paris",
     name: "Paris",
     prep: "à Paris",
-    metaTitle: "Google Ads à Paris : 43 entreprises analysées, 6 annonceurs détectés",
+    metaTitle: "Google Ads à Paris : 43 entreprises analysées",
     metaDescription:
       "Le taux d'annonceurs détectés est le plus élevé du relevé. Ce que cela change pour le coût au clic et la façon de construire un compte à Paris.",
     intro:
@@ -75,7 +75,7 @@ export const CITIES: City[] = [
     slug: "rennes",
     name: "Rennes",
     prep: "à Rennes",
-    metaTitle: "Google Ads à Rennes : relevé de 36 entreprises rennaises",
+    metaTitle: "Google Ads à Rennes : 36 entreprises analysées",
     metaDescription:
       "36 entreprises analysées à Rennes, 4 annonceurs Google Ads détectés. Répartition par secteur et lecture du marché local.",
     intro:
@@ -92,9 +92,9 @@ export const CITIES: City[] = [
     slug: "nantes",
     name: "Nantes",
     prep: "à Nantes",
-    metaTitle: "Google Ads à Nantes : relevé de 35 entreprises et retour de terrain",
+    metaTitle: "Google Ads à Nantes : 35 entreprises analysées",
     metaDescription:
-      "35 entreprises nantaises analysées, 2 annonceurs détectés — le taux le plus bas du relevé. C'est aussi le seul marché où j'accompagne réellement un client.",
+      "35 entreprises nantaises analysées, 2 annonceurs — le taux le plus bas du relevé. Le seul marché où j'accompagne un client.",
     intro:
       "Nantes est la seule ville de ce relevé où j'ai une expérience de terrain : le compte que je pilote au mois est celui d'une entreprise de débarras et de déménagement de Loire-Atlantique. C'est aussi la ville où j'ai détecté le moins d'annonceurs.",
     mix: [
@@ -109,7 +109,7 @@ export const CITIES: City[] = [
     slug: "toulouse",
     name: "Toulouse",
     prep: "à Toulouse",
-    metaTitle: "Google Ads à Toulouse : relevé de 34 entreprises toulousaines",
+    metaTitle: "Google Ads à Toulouse : 34 entreprises analysées",
     metaDescription:
       "34 entreprises analysées à Toulouse, 4 annonceurs Google Ads détectés. Un marché dominé par l'immobilier et l'architecture.",
     intro:

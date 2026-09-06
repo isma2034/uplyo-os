@@ -5,7 +5,7 @@ import Reveal from "@/components/agency/Reveal";
 import { MEDIA_FLOOR, OFFER_ROUTES } from "@/lib/offers";
 
 export const metadata: Metadata = {
-  title: "Module e-commerce · Google Shopping et Performance Max",
+  title: "Module e-commerce · Shopping et Perf. Max",
   description:
     "Shopping, Performance Max et flux produit, en complément du pilotage. Budget publicitaire minimum 1 000 €/mois.",
   alternates: { canonical: "/offres/ecommerce" },
@@ -191,7 +191,7 @@ export default function EcommercePage() {
             fiabilité de la valeur de conversion.
           </p>
           <Link href="/audit" className="btn-invert">
-            Demander mon audit
+            Recevoir mon audit gratuit
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>

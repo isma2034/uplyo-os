@@ -37,9 +37,9 @@ export const PROBLEMS: Problem[] = [
   {
     slug: "cout-par-clic-augmente",
     question: "Pourquoi mon coût par clic augmente-t-il sans que j'aie rien changé ?",
-    metaTitle: "Coût par clic Google Ads qui augmente : les 5 causes réelles, dans l'ordre",
+    metaTitle: "Coût par clic Google Ads qui augmente : 5 causes",
     metaDescription:
-      "Historique des modifications, requêtes nouvellement captées, niveau de qualité, stratégie d'enchères, concurrence. Comment identifier laquelle vous concerne, en quelques minutes.",
+      "Modifications récentes, nouvelles requêtes captées, niveau de qualité, enchères, concurrence : laquelle vous concerne ?",
     intro:
       "Un coût par clic qui monte n'est presque jamais dû au hasard ni à une décision opaque de Google. Dans la grande majorité des cas, l'une des cinq causes ci-dessous suffit à l'expliquer, et les deux premières se vérifient en moins de cinq minutes.",
     causes: [
@@ -85,9 +85,9 @@ export const PROBLEMS: Problem[] = [
   {
     slug: "verifier-suivi-conversions",
     question: "Comment savoir si mon suivi de conversions Google Ads fonctionne vraiment ?",
-    metaTitle: "Vérifier son suivi de conversions Google Ads : le test en conditions réelles",
+    metaTitle: "Vérifier son suivi de conversions Google Ads",
     metaDescription:
-      "Une conversion « active » dans l'interface ne prouve pas qu'elle enregistre vos vraies demandes. La méthode de vérification, et les cinq défauts les plus fréquents.",
+      "Une conversion « active » ne prouve pas qu'elle enregistre vos vraies demandes. La méthode de vérification en conditions réelles.",
     intro:
       "C'est la vérification la plus rentable qui existe sur un compte Google Ads, et la plus souvent négligée. Piloter sur une mesure fausse conduit à optimiser dans la mauvaise direction pendant des mois — sans que rien, dans l'interface, ne signale l'erreur.",
     causes: [
@@ -133,9 +133,9 @@ export const PROBLEMS: Problem[] = [
   {
     slug: "acces-compte-google-ads",
     question: "Mon agence refuse de me donner accès à mon compte Google Ads. Que faire ?",
-    metaTitle: "Accès à son compte Google Ads : ce que vous pouvez exiger de votre agence",
+    metaTitle: "Accès à son compte Google Ads : vos droits",
     metaDescription:
-      "Qui possède réellement le compte, comment vérifier, comment récupérer un accès administrateur, et pourquoi un compte ouvert au nom de l'agence pose un problème dès le départ.",
+      "Qui possède réellement le compte, comment récupérer un accès administrateur, et pourquoi un compte au nom de l'agence pose problème.",
     intro:
       "C'est une situation fréquente, et la réponse dépend entièrement d'un point rarement vérifié au démarrage : à quel nom le compte a-t-il été ouvert. Il faut le savoir avant d'engager la discussion.",
     causes: [
@@ -181,9 +181,9 @@ export const PROBLEMS: Problem[] = [
   {
     slug: "clics-mais-pas-de-demandes",
     question: "Je paie des clics mais je ne reçois aucune demande. Pourquoi ?",
-    metaTitle: "Des clics Google Ads mais aucune demande : où la chaîne se rompt",
+    metaTitle: "Des clics Google Ads mais aucune demande",
     metaDescription:
-      "Entre le clic et la demande, cinq maillons peuvent céder. Comment tester chacun dans l'ordre, en commençant par celui qui ne coûte rien à vérifier.",
+      "Entre le clic et la demande, cinq maillons peuvent céder. Comment tester chacun, en commençant par le moins coûteux.",
     intro:
       "Entre le clic payé et la demande reçue, il y a une chaîne de maillons. Un seul suffit à tout rompre, et la plupart se testent en quelques minutes depuis votre téléphone. Prenez-les dans cet ordre : le premier est celui qui explique le plus de cas.",
     causes: [
@@ -229,7 +229,7 @@ export const PROBLEMS: Problem[] = [
   {
     slug: "annonces-ne-s-affichent-pas",
     question: "Mes annonces Google Ads ne s'affichent pas. Comment savoir pourquoi ?",
-    metaTitle: "Annonces Google Ads qui ne s'affichent pas : le diagnostic dans l'ordre",
+    metaTitle: "Annonces Google Ads qui ne s'affichent pas",
     metaDescription:
       "Ne cherchez pas votre annonce sur Google — vous faussez vos propres statistiques. L'outil de diagnostic prévu pour ça, et les six causes classiques.",
     intro:

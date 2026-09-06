@@ -8,7 +8,7 @@ import { MEDIA_FLOOR, OFFER_ROUTES, TERMS } from "@/lib/offers";
 // imposerait des redirections pour un gain nul, le site n'ayant pas encore
 // d'historique d'indexation. Seul le libellé public change (« Le setup »).
 export const metadata: Metadata = {
-  title: "Le setup · Construction du compte Google Ads en 5 jours",
+  title: "Le setup · Le compte construit en 5 jours",
   description:
     "Audit, structure de campagnes, annonces, GA4 et Consent Mode v2, tableau de bord Looker Studio. Cinq jours ouvrés, prestation unique, aucun engagement.",
   alternates: { canonical: "/offres/pack-lancement" },
@@ -206,7 +206,7 @@ export default function SetupPage() {
             budget publicitaire.
           </p>
           <Link href="/audit" className="btn-invert">
-            Demander mon audit
+            Recevoir mon audit gratuit
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>

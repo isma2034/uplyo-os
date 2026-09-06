@@ -5,9 +5,9 @@ import Reveal from "@/components/agency/Reveal";
 import { PROBLEMS } from "@/lib/problems";
 
 export const metadata: Metadata = {
-  title: "Questions fréquentes sur un compte Google Ads qui ne va pas",
+  title: "Quand un compte Google Ads ne va pas",
   description:
-    "Coût par clic qui monte, conversions qui ne remontent pas, annonces invisibles, accès refusé par une agence : les vérifications à faire vous-même, dans l'ordre.",
+    "Coût par clic qui monte, conversions absentes, annonces invisibles : les vérifications à faire vous-même, dans l'ordre.",
   alternates: { canonical: "/questions" },
 };
 

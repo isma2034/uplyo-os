@@ -243,7 +243,7 @@ export default function AProposPage() {
             ce que j&apos;écris ici.
           </p>
           <Link href="/audit" className="btn-invert">
-            Demander mon audit
+            Recevoir mon audit gratuit
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
           <p className="text-body text-white font-light mt-6">

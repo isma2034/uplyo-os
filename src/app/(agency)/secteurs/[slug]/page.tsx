@@ -204,7 +204,7 @@ export default function SecteurPage({ params }: { params: { slug: string } }) {
               compte.
             </p>
             <Link href="/audit" className="btn-primary no-underline inline-flex items-center gap-2">
-              Demander l&apos;audit
+              Recevoir mon audit gratuit
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </Reveal>

@@ -13,7 +13,7 @@ import { MEDIA_FLOOR, TERMS } from "@/lib/offers";
 export const metadata: Metadata = {
   title: "Uplyo — Consultant Google Ads indépendant",
   description:
-    "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
+    "Je construis et je pilote vos campagnes Google Ads. Audit gratuit sous 48 h ouvrées, aucun engagement, un seul interlocuteur.",
   alternates: { canonical: "https://uplyo.fr" },
   openGraph: {
     title: "Uplyo — Consultant Google Ads indépendant",

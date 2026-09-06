@@ -6,9 +6,9 @@ import { SECTORS } from "@/lib/sectors";
 import { SECTOR_STATS, publishable, share, SCAN } from "@/lib/market-data";
 
 export const metadata: Metadata = {
-  title: "Google Ads par secteur : ce qui change d'un métier à l'autre",
+  title: "Google Ads par secteur : ce qui change",
   description:
-    "Exclusions, suivi de conversion et structure de compte diffèrent radicalement selon le métier. Une page par secteur, appuyée sur un relevé de 790 entreprises françaises.",
+    "Exclusions, suivi de conversion et structure de compte diffèrent selon le métier. Un relevé de 790 entreprises françaises.",
   alternates: { canonical: "/secteurs" },
 };
 
@@ -84,7 +84,7 @@ export default function SecteursPage() {
               lui, ne dépend d&apos;aucune liste : il part de votre compte et de votre site.
             </p>
             <Link href="/audit" className="btn-primary no-underline inline-flex items-center gap-2">
-              Demander l&apos;audit
+              Recevoir mon audit gratuit
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </Reveal>

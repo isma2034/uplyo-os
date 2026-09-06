@@ -59,7 +59,7 @@ const COMPTE: AuditTrackContent = {
   meta: {
     title: "Audit Google Ads gratuit",
     description:
-      "Vous avez déjà des campagnes : je regarde votre compte et je vous écris ce que j'y vois — où part le budget, ce que vaut votre suivi de conversions, quoi corriger en premier. Rapport écrit sous 48 h ouvrées, gratuit.",
+      "Je regarde votre compte et je vous écris ce que j'y vois : où part le budget, ce que vaut votre suivi, quoi corriger en premier. Sous 48 h ouvrées.",
   },
   eyebrow: "Audit gratuit · campagnes en cours",
   h1: "Je regarde votre compte, et je vous écris ce que j'y vois.",
@@ -152,9 +152,9 @@ const SANS_CAMPAGNE: AuditTrackContent = {
     cta: "L'audit de compte",
   },
   meta: {
-    title: "Google Ads sans campagne : l'étude avant de se lancer",
+    title: "Google Ads : l'étude avant de se lancer",
     description:
-      "Pas encore de publicité Google ? Je regarde votre site et votre marché : ce que vos clients tapent, le coût d'un clic dans votre zone, qui est déjà en face, et le budget qu'il faudrait. Étude écrite sous 48 h ouvrées, gratuite.",
+      "Pas encore de publicité ? J'étudie votre marché : ce que vos clients tapent, le coût d'un clic chez vous, et le budget qu'il faudrait.",
   },
   eyebrow: "Audit gratuit · aucune campagne à ce jour",
   h1: "Pas encore de campagne ? Je regarde votre site et votre marché.",

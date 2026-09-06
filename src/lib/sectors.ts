@@ -39,9 +39,9 @@ export const SECTORS: Sector[] = [
   {
     slug: "agences-immobilieres",
     plural: "agences immobilières",
-    metaTitle: "Google Ads pour agence immobilière : capter des mandats, pas des locataires",
+    metaTitle: "Google Ads agence immobilière : viser les mandats",
     metaDescription:
-      "Le piège du secteur : les requêtes qui rapportent des mandats de vente ne ressemblent pas à celles qui rapportent du trafic. Exclusions, suivi des appels, structure de compte.",
+      "Les requêtes qui rapportent des mandats ne ressemblent pas à celles qui rapportent du trafic. Exclusions et suivi des appels.",
     h1: "Google Ads pour une agence immobilière",
     intro:
       "Dans ce métier, la majorité du budget publicitaire part sur des recherches qui ne produiront jamais de mandat. Ce n'est pas un problème d'enchères ni d'annonces : c'est un problème d'intention. Voici ce qui distingue les deux.",
@@ -75,7 +75,7 @@ export const SECTORS: Sector[] = [
   {
     slug: "auto-ecoles",
     plural: "auto-écoles",
-    metaTitle: "Google Ads pour auto-école : viser l'inscription, pas le code gratuit",
+    metaTitle: "Google Ads auto-école : viser l'inscription",
     metaDescription:
       "Le code attire du volume sans valeur, les plateformes nationales tiennent les enchères. Exclusions, ciblage local serré et suivi de l'inscription réelle.",
     h1: "Google Ads pour une auto-école",
@@ -111,7 +111,7 @@ export const SECTORS: Sector[] = [
   {
     slug: "avocats",
     plural: "cabinets d'avocats",
-    metaTitle: "Google Ads pour avocat : spécialité, déontologie et coût par clic élevé",
+    metaTitle: "Google Ads avocat : spécialité et clic cher",
     metaDescription:
       "Un des secteurs les plus chers de Google Ads. Pourquoi la spécialité prime sur la ville, quelles exclusions posent le plus, et ce que la déontologie autorise.",
     h1: "Google Ads pour un cabinet d'avocats",
@@ -147,9 +147,9 @@ export const SECTORS: Sector[] = [
   {
     slug: "architectes",
     plural: "cabinets d'architecture",
-    metaTitle: "Google Ads pour architecte : ce que dit un secteur où presque personne n'annonce",
+    metaTitle: "Google Ads architecte : qui annonce vraiment ?",
     metaDescription:
-      "Sur 32 cabinets d'architecture analysés, aucun ne diffusait d'annonces détectables. Pourquoi, et dans quels cas précis ce levier a malgré tout du sens.",
+      "Sur 32 cabinets d'architecture analysés, aucun ne diffusait d'annonces. Pourquoi, et quand ce levier a malgré tout du sens.",
     h1: "Google Ads pour un cabinet d'architecture",
     intro:
       "Sur les 32 cabinets d'architecture que j'ai analysés, je n'ai détecté aucun annonceur Google Ads. C'est le seul secteur de mon relevé dans ce cas, et cela mérite une explication honnête avant toute proposition.",
@@ -182,9 +182,9 @@ export const SECTORS: Sector[] = [
   {
     slug: "debarras-demenagement",
     plural: "entreprises de débarras et déménagement",
-    metaTitle: "Google Ads pour le débarras et le déménagement : filtrer le « gratuit »",
+    metaTitle: "Google Ads débarras : filtrer le « gratuit »",
     metaDescription:
-      "Le secteur où je pilote réellement un compte. Le piège du débarras gratuit, le devis qui ne peut pas se faire en ligne, et la saisonnalité qui ruine les budgets mal repartis.",
+      "Le seul secteur où je pilote un compte réel. Le piège du débarras gratuit, et la saisonnalité qui ruine les budgets mal répartis.",
     h1: "Google Ads pour une entreprise de débarras ou de déménagement",
     intro:
       "C'est le seul métier de cette liste où je pilote un compte réel, au mois, depuis 2026. Ce qui suit ne vient donc pas d'une lecture de documentation : c'est ce que j'ai vu passer dans un rapport de termes de recherche.",
@@ -218,9 +218,9 @@ export const SECTORS: Sector[] = [
   {
     slug: "plomberie-depannage",
     plural: "entreprises de plomberie et de dépannage",
-    metaTitle: "Google Ads pour plombier : l'urgence se gagne sur les horaires, pas sur l'enchère",
+    metaTitle: "Google Ads plombier : l'urgence et les horaires",
     metaDescription:
-      "Diffuser 24h/24 sans décrocher la nuit, c'est payer pour rien. Programmation horaire, exclusion du bricolage, et suivi des appels — les trois leviers du dépannage.",
+      "Diffuser 24h/24 sans décrocher la nuit, c'est payer pour rien. Horaires, exclusion du bricolage, suivi des appels.",
     h1: "Google Ads pour un plombier ou une entreprise de dépannage",
     intro:
       "Dans le dépannage, le visiteur n'a ni le temps ni l'envie de comparer : il appelle le premier qui répond. Cela change complètement la hiérarchie des leviers — l'horaire de diffusion y pèse plus lourd que le montant de l'enchère.",
@@ -254,9 +254,9 @@ export const SECTORS: Sector[] = [
   {
     slug: "garages-automobiles",
     plural: "garages automobiles",
-    metaTitle: "Google Ads pour un garage : le piège des recherches de pièces détachées",
+    metaTitle: "Google Ads garage : le piège des pièces",
     metaDescription:
-      "La longue traîne « marque + modèle + prestation » est le vrai gisement d'un garage. Comment écarter les chercheurs de pièces et mesurer la prise de rendez-vous.",
+      "La longue traîne « marque + modèle + prestation » est le vrai gisement. Comment écarter les chercheurs de pièces détachées.",
     h1: "Google Ads pour un garage automobile",
     intro:
       "C'est le secteur où j'ai relevé la proportion d'annonceurs la plus élevée de mon échantillon — sur un effectif trop réduit pour en publier un pourcentage, mais suffisant pour dire que le levier y est déjà utilisé. La concurrence y est donc réelle, et la précision compte plus que le budget.",
@@ -290,9 +290,9 @@ export const SECTORS: Sector[] = [
   {
     slug: "hebergement-touristique",
     plural: "hébergements touristiques",
-    metaTitle: "Google Ads pour un gîte ou un hôtel : défendre son nom contre les plateformes",
+    metaTitle: "Google Ads gîte et hôtel : défendre son nom",
     metaDescription:
-      "Booking et Airbnb enchérissent sur le nom de votre établissement et vous revendent vos propres clients. La campagne de marque, la saisonnalité et la mesure de la réservation directe.",
+      "Booking enchérit sur le nom de votre établissement et vous revend vos propres clients. La campagne de marque qui le corrige.",
     h1: "Google Ads pour un gîte, une chambre d'hôtes ou un hôtel",
     intro:
       "Dans l'hébergement, la question n'est pas seulement d'attirer de nouveaux voyageurs : c'est d'éviter de payer une commission sur des clients qui vous cherchaient déjà par votre nom.",

@@ -307,7 +307,7 @@ export default function OffresPage() {
             générique.
           </p>
           <Link href="/audit" className="btn-invert">
-            Demander mon audit
+            Recevoir mon audit gratuit
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>

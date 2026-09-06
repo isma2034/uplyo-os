@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     template: "%s — Uplyo",
   },
   description:
-    "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée, un seul interlocuteur — celui qui exécute.",
+    "Je construis et je pilote vos campagnes Google Ads. Audit gratuit sous 48 h ouvrées, aucun engagement, un seul interlocuteur.",
   metadataBase: new URL("https://uplyo.fr"),
   alternates: {
     canonical: "/",

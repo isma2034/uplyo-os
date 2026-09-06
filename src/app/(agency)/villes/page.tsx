@@ -6,7 +6,7 @@ import { CITIES } from "@/lib/cities";
 import { CITY_STATS, share, publishable, SCAN } from "@/lib/market-data";
 
 export const metadata: Metadata = {
-  title: "Google Ads par ville : relevé de marché sur cinq villes françaises",
+  title: "Google Ads par ville : relevé de marché",
   description:
     "Combien d'entreprises diffusent réellement des annonces Google Ads à Lyon, Paris, Rennes, Nantes et Toulouse. Chiffres mesurés, échantillons affichés.",
   alternates: { canonical: "/villes" },
@@ -85,7 +85,7 @@ export default function VillesPage() {
               dépend d&apos;aucun relevé : il part de votre compte et de votre site.
             </p>
             <Link href="/audit" className="btn-primary no-underline inline-flex items-center gap-2">
-              Demander l&apos;audit
+              Recevoir mon audit gratuit
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </Reveal>

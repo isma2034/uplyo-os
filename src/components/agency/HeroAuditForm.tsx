@@ -54,7 +54,7 @@ export default function HeroAuditForm() {
             className="field flex-1 min-w-0"
           />
           <button type="submit" className="btn-primary justify-center whitespace-nowrap">
-            Demander l&apos;audit
+            Recevoir mon audit gratuit
             <ArrowRight size={16} aria-hidden="true" />
           </button>
         </div>

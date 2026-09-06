@@ -7,7 +7,7 @@ import { MEDIA_FLOOR, OFFER_ROUTES, TERMS } from "@/lib/offers";
 // Route conservée (/offres/retainer) : voir la note dans src/lib/offers.ts.
 // Seul le libellé public change (« Le pilotage »).
 export const metadata: Metadata = {
-  title: "Le pilotage · Conduite mensuelle du compte Google Ads",
+  title: "Le pilotage · Conduite du compte au mois",
   description:
     "Enchères, exclusions, tests d'annonces, alertes automatiques, rapport hebdomadaire. Mensuel, aucun engagement de durée, 30 jours de préavis.",
   alternates: { canonical: "/offres/retainer" },
@@ -250,7 +250,7 @@ export default function PilotagePage() {
             s&apos;il faut le refaire. C&apos;est écrit, et c&apos;est sous 48 h ouvrées.
           </p>
           <Link href="/audit" className="btn-invert">
-            Demander mon audit
+            Recevoir mon audit gratuit
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
           <p className="text-body text-white font-light mt-6">
