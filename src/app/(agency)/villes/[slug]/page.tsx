@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Info } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
 import { CITIES, CITY_BY_SLUG } from "@/lib/cities";
-import { CITY_STATS, share, publishable, SCAN } from "@/lib/market-data";
+import MarketReadout from "@/components/agency/MarketReadout";
+import { CITY_STATS, SCAN } from "@/lib/market-data";
 import { SECTORS } from "@/lib/sectors";
 
 export function generateStaticParams() {
@@ -35,7 +36,6 @@ export default function VillePage({ params }: { params: { slug: string } }) {
   if (!c) notFound();
 
   const stat = CITY_STATS[c.slug];
-  const showShare = stat && publishable(stat);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -89,17 +89,8 @@ export default function VillePage({ params }: { params: { slug: string } }) {
 
           {stat && (
             <Reveal delay={80}>
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-[52rem]">
-                {[
-                  { v: String(stat.scanned), l: "entreprises analysées" },
-                  { v: String(stat.advertisers), l: "annonceurs détectés" },
-                  ...(showShare ? [{ v: `${share(stat)} %`, l: "de l'échantillon" }] : []),
-                ].map((k) => (
-                  <div key={k.l} className="bg-surface-2 border border-line rounded-card p-5">
-                    <div className="text-title font-semibold text-ink">{k.v}</div>
-                    <div className="text-caption text-ink-3">{k.l}</div>
-                  </div>
-                ))}
+              <div className="mt-9">
+                <MarketReadout stat={stat} label={`entreprises ${c.prep.replace("à ", "de ")}`} />
               </div>
             </Reveal>
           )}

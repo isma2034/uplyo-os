@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Ban, Target, BarChart3, Layers, AlertTriangle } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
 import { SECTORS, SECTOR_BY_SLUG } from "@/lib/sectors";
-import { SECTOR_STATS, statSentence, publishable, SCAN } from "@/lib/market-data";
+import MarketReadout from "@/components/agency/MarketReadout";
+import { SECTOR_STATS } from "@/lib/market-data";
 
 // Pages statiques : le contenu ne dépend d'aucune donnée de requête, il n'y a
 // aucune raison de les rendre à la demande.
@@ -36,7 +37,6 @@ export default function SecteurPage({ params }: { params: { slug: string } }) {
   if (!s) notFound();
 
   const stat = SECTOR_STATS[s.slug];
-  const showStat = stat && publishable(stat);
 
   // Le fil d'Ariane aide Google à comprendre la hiérarchie du site, et
   // s'affiche parfois directement dans les résultats de recherche.
@@ -88,11 +88,10 @@ export default function SecteurPage({ params }: { params: { slug: string } }) {
           {/* Le chiffre du relevé : c'est la seule donnée du site qu'aucun
               concurrent ne peut recopier, et elle est toujours accompagnée de
               sa taille d'échantillon. */}
-          {showStat && (
+          {stat && (
             <Reveal delay={80}>
-              <div className="mt-8 bg-surface-2 border border-line rounded-card p-6 md:p-7 max-w-[70ch]">
-                <div className="label text-eclat-ink mb-3">Relevé Uplyo · {SCAN.date}</div>
-                <p className="text-body-lg text-ink-2 font-light">{statSentence(stat, s.plural)}</p>
+              <div className="mt-9">
+                <MarketReadout stat={stat} label={s.plural} />
               </div>
             </Reveal>
           )}
