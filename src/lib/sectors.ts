@@ -259,7 +259,7 @@ export const SECTORS: Sector[] = [
       "La longue traîne « marque + modèle + prestation » est le vrai gisement. Comment écarter les chercheurs de pièces détachées.",
     h1: "Google Ads pour un garage automobile",
     intro:
-      "C'est le secteur où j'ai relevé la proportion d'annonceurs la plus élevée de mon échantillon — sur un effectif trop réduit pour en publier un pourcentage, mais suffisant pour dire que le levier y est déjà utilisé. La concurrence y est donc réelle, et la précision compte plus que le budget.",
+      "Sur les quinze garages de mon relevé, trois diffusaient des annonces détectables. L'effectif est trop faible pour en tirer un pourcentage, mais suffisant pour constater que le levier y est déjà utilisé : la concurrence est réelle, et la précision compte plus que le budget.",
     intent: {
       title: "Le gisement est dans « marque + modèle + prestation »",
       body: "« Garage Toulouse » est cher, vague, et disputé par toutes les enseignes nationales. « Changement courroie distribution Clio 4 prix », « révision 208 sans perdre la garantie », « diagnostic voyant moteur Golf 7 » sont peu volumiques, peu disputées, et tapées par quelqu'un qui a déjà identifié son problème. Ces requêtes existent par centaines de combinaisons : c'est un travail d'inventaire, pas d'enchère. C'est aussi ce qui permet à un garage indépendant de coexister avec des réseaux au budget bien supérieur.",
@@ -292,7 +292,7 @@ export const SECTORS: Sector[] = [
     plural: "hébergements touristiques",
     metaTitle: "Google Ads gîte et hôtel : défendre son nom",
     metaDescription:
-      "Booking enchérit sur le nom de votre établissement et vous revend vos propres clients. La campagne de marque qui le corrige.",
+      "Les plateformes de réservation enchérissent sur le nom de votre établissement. La campagne de marque qui récupère ces réservations en direct.",
     h1: "Google Ads pour un gîte, une chambre d'hôtes ou un hôtel",
     intro:
       "Dans l'hébergement, la question n'est pas seulement d'attirer de nouveaux voyageurs : c'est d'éviter de payer une commission sur des clients qui vous cherchaient déjà par votre nom.",

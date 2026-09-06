@@ -74,7 +74,12 @@ export default function QuestionPage({ params }: { params: { slug: string } }) {
         <div className="container-wide">
           <Reveal>
             <nav aria-label="Fil d'Ariane" className="label text-ink-3 mb-5">
-              <Link href="/questions" className="text-ink-3 no-underline hover:text-eclat-ink">
+              {/* Cible tactile >= 24 px : voir la note du fil d'Ariane des
+                  pages sectorielles (WCAG 2.2 AA, 2.5.8). */}
+              <Link
+                href="/questions"
+                className="inline-flex items-center py-1.5 text-ink-3 no-underline hover:text-eclat-ink"
+              >
                 Questions
               </Link>
             </nav>
