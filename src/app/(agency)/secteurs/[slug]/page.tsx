@@ -75,7 +75,15 @@ export default function SecteurPage({ params }: { params: { slug: string } }) {
         <div className="container-wide">
           <Reveal>
             <nav aria-label="Fil d'Ariane" className="label text-ink-3 mb-5">
-              <Link href="/secteurs" className="text-ink-3 no-underline hover:text-eclat-ink">
+              {/* `inline-flex` + `py-1.5` : le lien ne mesurait que 14 px de
+                  haut, sous la cible minimale de 24 x 24 px (WCAG 2.2 AA,
+                  2.5.8). Comme les liens du pied de page, c'est un lien de
+                  navigation isole : il ne beneficie pas de l'exception
+                  « lien dans une phrase ». */}
+              <Link
+                href="/secteurs"
+                className="inline-flex items-center py-1.5 text-ink-3 no-underline hover:text-eclat-ink"
+              >
                 Secteurs
               </Link>
               <span aria-hidden="true"> · </span>

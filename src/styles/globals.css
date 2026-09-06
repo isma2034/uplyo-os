@@ -126,8 +126,14 @@
   }
 
   /* ── Champ de formulaire ── */
+  /* Le `/70` qui s'appliquait ici annulait le contraste pour lequel
+     --line-input avait ete choisi : #8e86c6 donne bien 3.29:1 sur blanc, mais
+     a 70 % d'opacite la couleur reellement peinte est #b0aad7, soit 2.19:1
+     (mesure dans le navigateur sur la bordure calculee). Sous le seuil de 3:1
+     de WCAG 1.4.11, les bordures de champ ne sont plus discernables. Le token
+     est donc applique a pleine opacite, comme son commentaire l'annoncait. */
   .field {
-    @apply bg-white border-[1.5px] border-line-input/70 rounded-uplyo px-3.5 py-2.5 text-body text-ink transition-colors;
+    @apply bg-white border-[1.5px] border-line-input rounded-uplyo px-3.5 py-2.5 text-body text-ink transition-colors;
   }
   .field:focus {
     border-color: var(--eclat);

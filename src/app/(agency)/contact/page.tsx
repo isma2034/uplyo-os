@@ -77,9 +77,14 @@ export default function ContactPage() {
                         <dt className="label text-ink-3 mb-1">{k}</dt>
                         <dd className="text-body text-ink">
                           {href ? (
+                            /* `inline-flex` + `py-1` : seul lien de contact de
+                               la page, isole dans sa definition et non inclus
+                               dans une phrase — il ne beneficie donc pas de
+                               l'exception « inline » de WCAG 2.2 AA 2.5.8. Il
+                               mesurait 18 px de haut. */
                             <a
                               href={href}
-                              className="text-eclat-ink no-underline hover:underline underline-offset-4 font-medium"
+                              className="inline-flex items-center py-1 text-eclat-ink no-underline hover:underline underline-offset-4 font-medium"
                             >
                               {v}
                             </a>
