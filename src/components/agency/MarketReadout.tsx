@@ -18,7 +18,18 @@ import { SCAN, publishable } from "@/lib/market-data";
  * toujours visible à côté du chiffre.
  */
 
-function Line({ n, total, label }: { n: number; total: number; label: string }) {
+function Line({
+  n,
+  total,
+  label,
+  showPct,
+}: {
+  n: number;
+  total: number;
+  label: string;
+  /** Faux sous MIN_SAMPLE : voir la regle rappelee plus haut. */
+  showPct: boolean;
+}) {
   const pct = Math.round((n / total) * 100);
   return (
     <li className="flex items-baseline gap-3 py-2 border-b border-line last:border-0">
@@ -27,7 +38,7 @@ function Line({ n, total, label }: { n: number; total: number; label: string }) 
         <span className="text-caption text-ink-3 font-normal">/{total}</span>
       </span>
       <span className="text-body text-ink-2 font-light flex-1">{label}</span>
-      <span className="label text-eclat-ink shrink-0 tabular-nums">{pct} %</span>
+      {showPct && <span className="label text-eclat-ink shrink-0 tabular-nums">{pct} %</span>}
     </li>
   );
 }
@@ -41,28 +52,37 @@ export default function MarketReadout({
   label: string;
 }) {
   const n = stat.scanned;
+  // La regle etait ecrite plus haut mais n'etait appliquee nulle part : `Line`
+  // affichait le pourcentage quel que soit l'effectif. Aucun releve publie
+  // aujourd'hui n'est sous MIN_SAMPLE (le plus petit echantillon est de 27),
+  // l'affichage actuel est donc inchange — mais le garde-fou existe desormais
+  // pour de vrai, au lieu d'etre seulement documente.
+  const showPct = publishable(stat);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {/* h2 et non h3 : ce releve est place juste sous le h1 de la page, sans
+          titre intermediaire. Un h3 y creait un saut h1 -> h3 sur les neuf
+          pages qui affichent le composant. */}
       <div className="bg-white border border-line rounded-card p-6">
         <div className="flex items-center gap-2.5 mb-4">
           <Megaphone size={18} className="text-eclat-ink shrink-0" aria-hidden="true" />
-          <h3 className="text-title font-semibold text-ink">Côté publicité</h3>
+          <h2 className="text-title font-semibold text-ink">Côté publicité</h2>
         </div>
         <ul className="list-none p-0 m-0">
-          <Line n={stat.advertisers} total={n} label="diffusent des annonces Google Ads détectables" />
-          <Line n={stat.noAnalytics} total={n} label="n'ont aucun outil de mesure d'audience" />
+          <Line n={stat.advertisers} total={n} showPct={showPct} label="diffusent des annonces Google Ads détectables" />
+          <Line n={stat.noAnalytics} total={n} showPct={showPct} label="n'ont aucun outil de mesure d'audience" />
         </ul>
       </div>
 
       <div className="bg-white border border-line rounded-card p-6">
         <div className="flex items-center gap-2.5 mb-4">
           <MonitorSmartphone size={18} className="text-eclat-ink shrink-0" aria-hidden="true" />
-          <h3 className="text-title font-semibold text-ink">Côté site</h3>
+          <h2 className="text-title font-semibold text-ink">Côté site</h2>
         </div>
         <ul className="list-none p-0 m-0">
-          <Line n={stat.noContact} total={n} label="n'ont ni formulaire ni lien d'appel sur l'accueil" />
-          <Line n={stat.noH1} total={n} label="n'ont pas de titre principal exploitable" />
+          <Line n={stat.noContact} total={n} showPct={showPct} label="n'ont ni formulaire ni lien d'appel sur l'accueil" />
+          <Line n={stat.noH1} total={n} showPct={showPct} label="n'ont pas de titre principal exploitable" />
         </ul>
       </div>
 
