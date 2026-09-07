@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
-import { ArrowRight, Check, UserRound } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
 import Navbar from "@/components/agency/Navbar";
 import Footer from "@/components/agency/Footer";
@@ -507,19 +507,21 @@ export default function HomePage() {
       <section className="section bg-nuit">
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-14 items-start">
           <Reveal>
-            {/* Emplacement photo — volontairement vide.
-                Aucune photo d'Ismael n'est disponible à ce jour ; poser une
-                image d'illustration générique irait contre la règle « aucune
-                preuve fabriquée » du projet. Remplacer ce bloc par un
-                <Image /> dès qu'un portrait réel existe. */}
-            <div
-              className="aspect-[4/5] w-full max-w-[280px] rounded-card border border-dashed border-white/25 bg-white/[0.04] grid place-items-center"
-              aria-hidden="true"
-            >
-              <div className="text-center px-6">
-                <UserRound size={30} className="text-white/35 mx-auto mb-3" />
-                <div className="label text-white/70">Photo à venir</div>
-              </div>
+            {/* Second emplacement photo de l'accueil — celui-ci etait reste
+                vide alors que le portrait avait ete pose ailleurs. C'est la
+                section « Qui gere votre compte » : un cadre en pointilles
+                marque « Photo a venir » juste au-dessus de « c'est moi qui
+                fais le travail » disait exactement l'inverse du propos.
+                Fond sombre ici (bg-nuit), d'ou le panneau translucide plutot
+                que surface-2 comme sur /a-propos. */}
+            <div className="aspect-[4/5] w-full max-w-[280px] rounded-card bg-white/[0.06] overflow-hidden relative">
+              <Image
+                src="/images/ismael-portrait.webp"
+                alt="Ismael, consultant Google Ads indépendant et fondateur d'Uplyo"
+                fill
+                sizes="280px"
+                className="object-cover object-top"
+              />
             </div>
           </Reveal>
 

@@ -189,3 +189,11 @@
     overflow-wrap: break-word;
   }
 }
+
+/* Panneau de relance de conversion : entree discrete depuis le bas.
+   Encadree par motion-safe: cote composant, donc inoperante pour qui a
+   demande la reduction des animations. */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

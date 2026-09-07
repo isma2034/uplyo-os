@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
 import Script from "next/script";
 import ConsentBanner from "@/components/agency/ConsentBanner";
+import ConversionPrompt from "@/components/agency/ConversionPrompt";
 import "@/styles/globals.css";
 
 const dmSans = DM_Sans({
@@ -169,6 +170,7 @@ export default function RootLayout({
         )}
         {children}
         {(GTM_ID || GA4_ID) && <ConsentBanner />}
+        <ConversionPrompt />
       </body>
     </html>
   );
