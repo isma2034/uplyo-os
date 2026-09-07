@@ -61,7 +61,11 @@ const COLUMNS: {
         href: `mailto:${SITE_CONFIG.contactEmail}`,
         external: true,
       },
-      { label: "LinkedIn", href: SITE_CONFIG.linkedinUrl, external: true },
+      // Le lien n'apparait que si l'URL est renseignee : mieux vaut une
+      // rubrique en moins qu'un lien mort sur toutes les pages.
+      ...(SITE_CONFIG.linkedinUrl
+        ? [{ label: "LinkedIn", href: SITE_CONFIG.linkedinUrl, external: true }]
+        : []),
     ],
   },
 ];
