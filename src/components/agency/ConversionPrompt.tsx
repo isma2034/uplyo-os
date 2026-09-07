@@ -80,14 +80,13 @@ export default function ConversionPrompt() {
   useEffect(() => {
     if (EXCLUDED.some((p) => pathname.startsWith(p))) return;
 
-    try {
-      if (localStorage.getItem(DISMISS_KEY)) return;
-      // Le bandeau de consentement occupe le bas de l'écran tant qu'aucun
-      // choix n'est mémorisé. Tant qu'il est là, on ne montre rien.
-      if (!localStorage.getItem(CONSENT_KEY)) return;
-    } catch {
-      return;
-    }
+    // On n'interroge PAS le consentement ici : il est relu a chaque
+    // defilement par `shouldOffer`. La version precedente sortait des le
+    // montage quand aucun choix n'etait memorise, et n'attachait donc jamais
+    // l'ecouteur — si le visiteur acceptait ensuite, plus rien ne le
+    // rebranchait. La relance ne pouvait donc jamais apparaitre lors de la
+    // PREMIERE visite, exactement celle qui compte. Constate en navigateur
+    // sur la production le 07/09/2026.
 
     const onScroll = () => {
       const h = document.documentElement;
