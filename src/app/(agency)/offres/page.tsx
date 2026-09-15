@@ -38,10 +38,26 @@ const SEQUENCE = [
 type Row = { label: string; setup: string; pilotage: string; strong?: boolean };
 
 const ROWS: Row[] = [
-  { label: "Ce que c'est", setup: "Construire le compte de zéro", pilotage: "Conduire le compte au mois" },
-  { label: "Durée", setup: `${TERMS.goLive}, de J0 à J5`, pilotage: "Mensuel, sans échéance" },
-  { label: "Engagement", setup: "Aucun", pilotage: `Aucun · ${TERMS.notice.toLowerCase()}` },
-  { label: "Honoraires", setup: "Sur devis, facturés une fois", pilotage: "Sur devis, facturés au mois" },
+  {
+    label: "Ce que c'est",
+    setup: "Construire le compte de zéro",
+    pilotage: "Conduire le compte au mois",
+  },
+  {
+    label: "Durée",
+    setup: `${TERMS.goLive}, de J0 à J5`,
+    pilotage: "Mensuel, sans échéance",
+  },
+  {
+    label: "Engagement",
+    setup: "Aucun",
+    pilotage: `Aucun · ${TERMS.notice.toLowerCase()}`,
+  },
+  {
+    label: "Honoraires",
+    setup: "Sur devis, facturés une fois",
+    pilotage: "Sur devis, facturés au mois",
+  },
   {
     label: "Budget publicitaire minimum",
     setup: `${MEDIA_FLOOR.local} · ${MEDIA_FLOOR.ecommerce} en e-commerce`,
@@ -50,8 +66,10 @@ const ROWS: Row[] = [
   },
   {
     label: "Ce qui est livré",
-    setup: "Le compte construit, le tracking vérifié, le tableau de bord Looker Studio, la passation",
-    pilotage: "Rapport hebdomadaire, bilan mensuel, point stratégique de 30 min chaque mois",
+    setup:
+      "Le compte construit, le tracking vérifié, le tableau de bord Looker Studio, la passation",
+    pilotage:
+      "Rapport hebdomadaire, bilan mensuel, point stratégique de 30 min chaque mois",
   },
   {
     label: "C'est pour vous si",
@@ -97,11 +115,13 @@ export default function OffresPage() {
             <div className="max-w-text">
               <p className="label text-eclat-ink mb-4">Les prestations</p>
               <h1 className="text-display font-semibold text-ink mb-5">
-                Deux prestations, dans l&apos;ordre. Pas trois formules qui se ressemblent.
+                Deux prestations, dans l&apos;ordre. Pas trois formules qui se
+                ressemblent.
               </h1>
               <p className="text-lead text-ink-2 font-light">
-                On construit le compte, puis on le conduit. L&apos;audit gratuit sert à décider
-                laquelle des deux vous concerne — et s&apos;il faut commencer, tout simplement.
+                On construit le compte, puis on le conduit. L&apos;audit gratuit
+                sert à décider laquelle des deux vous concerne — et s&apos;il
+                faut commencer, tout simplement.
               </p>
             </div>
           </Reveal>
@@ -113,19 +133,26 @@ export default function OffresPage() {
         <div className="container-wide">
           <ol className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {SEQUENCE.map((s, i) => (
-              <Reveal key={s.n} delay={i * 90}>
-                <li className="bg-white border border-line rounded-card p-6 h-full flex flex-col shadow-card">
-                  <div className="label text-ink-3 mb-3">Étape {s.n}</div>
-                  <h2 className="text-title font-semibold text-ink mb-2">{s.t}</h2>
-                  <p className="text-body text-ink-2 font-light flex-1 mb-5">{s.d}</p>
-                  <Link
-                    href={s.href}
-                    className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
-                  >
-                    {s.cta}
-                    <ArrowRight size={15} aria-hidden="true" />
-                  </Link>
-                </li>
+              <Reveal
+                as="li"
+                key={s.n}
+                delay={i * 90}
+                className="bg-white border border-line rounded-card p-6 h-full flex flex-col shadow-card"
+              >
+                <div className="label text-ink-3 mb-3">Étape {s.n}</div>
+                <h2 className="text-title font-semibold text-ink mb-2">
+                  {s.t}
+                </h2>
+                <p className="text-body text-ink-2 font-light flex-1 mb-5">
+                  {s.d}
+                </p>
+                <Link
+                  href={s.href}
+                  className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
+                >
+                  {s.cta}
+                  <ArrowRight size={15} aria-hidden="true" />
+                </Link>
               </Reveal>
             ))}
           </ol>
@@ -138,10 +165,13 @@ export default function OffresPage() {
           <Reveal>
             <div className="max-w-text mb-8 md:mb-10">
               <p className="label text-eclat-ink mb-4">Comparatif</p>
-              <h2 className="text-section font-semibold text-ink mb-3">Setup ou pilotage</h2>
+              <h2 className="text-section font-semibold text-ink mb-3">
+                Setup ou pilotage
+              </h2>
               <p className="text-body-lg text-ink-2 font-light">
-                Deux lignes de coût à ne pas confondre : le budget publicitaire, que vous réglez à
-                Google, et mes honoraires. Seul le premier a un plancher.
+                Deux lignes de coût à ne pas confondre : le budget publicitaire,
+                que vous réglez à Google, et mes honoraires. Seul le premier a
+                un plancher.
               </p>
             </div>
           </Reveal>
@@ -150,21 +180,27 @@ export default function OffresPage() {
             <div className="overflow-x-auto bg-white border border-line rounded-card">
               <table className="w-full min-w-[680px] border-collapse text-left">
                 <caption className="sr-only">
-                  Comparaison du setup et du pilotage : durée, engagement, honoraires, budget
-                  publicitaire minimum et livrables.
+                  Comparaison du setup et du pilotage : durée, engagement,
+                  honoraires, budget publicitaire minimum et livrables.
                 </caption>
                 <thead>
                   <tr className="border-b border-line-strong">
                     <th scope="col" className="label text-ink-3 p-4 w-[26%]">
                       <span className="sr-only">Critère</span>
                     </th>
-                    <th scope="col" className="p-4 text-title font-semibold text-ink align-bottom">
+                    <th
+                      scope="col"
+                      className="p-4 text-title font-semibold text-ink align-bottom"
+                    >
                       {OFFER_ROUTES.setup.label}
                       <span className="block label text-ink-3 mt-1">
                         {OFFER_ROUTES.setup.short}
                       </span>
                     </th>
-                    <th scope="col" className="p-4 text-title font-semibold text-ink align-bottom">
+                    <th
+                      scope="col"
+                      className="p-4 text-title font-semibold text-ink align-bottom"
+                    >
                       {OFFER_ROUTES.pilotage.label}
                       <span className="block label text-ink-3 mt-1">
                         {OFFER_ROUTES.pilotage.short}
@@ -174,8 +210,14 @@ export default function OffresPage() {
                 </thead>
                 <tbody>
                   {ROWS.map((r) => (
-                    <tr key={r.label} className={`border-b border-line ${r.strong ? "bg-lune" : ""}`}>
-                      <th scope="row" className="p-4 align-top text-body font-medium text-ink">
+                    <tr
+                      key={r.label}
+                      className={`border-b border-line ${r.strong ? "bg-lune" : ""}`}
+                    >
+                      <th
+                        scope="row"
+                        className="p-4 align-top text-body font-medium text-ink"
+                      >
                         {r.label}
                       </th>
                       <td
@@ -229,9 +271,10 @@ export default function OffresPage() {
                   {OFFER_ROUTES.ecommerce.label}
                 </div>
                 <p className="text-body text-ink-2 font-light max-w-[64ch]">
-                  Google Shopping, Performance Max et flux produit viennent s&apos;ajouter au
-                  pilotage quand vous vendez en ligne. Ce n&apos;est pas une troisième formule
-                  concurrente, et le budget publicitaire minimum y passe à {MEDIA_FLOOR.ecommerce}.
+                  Google Shopping, Performance Max et flux produit viennent
+                  s&apos;ajouter au pilotage quand vous vendez en ligne. Ce
+                  n&apos;est pas une troisième formule concurrente, et le budget
+                  publicitaire minimum y passe à {MEDIA_FLOOR.ecommerce}.
                 </p>
               </div>
               <Link
@@ -257,8 +300,15 @@ export default function OffresPage() {
               "Aucun engagement de durée, ni sur le setup ni sur le pilotage.",
               "Un seul interlocuteur : celui qui vous répond est celui qui travaille dans le compte.",
             ].map((t) => (
-              <li key={t} className="flex gap-3 text-body-lg text-white/80 font-light">
-                <Check size={16} className="text-spark shrink-0 mt-1" aria-hidden="true" />
+              <li
+                key={t}
+                className="flex gap-3 text-body-lg text-white/80 font-light"
+              >
+                <Check
+                  size={16}
+                  className="text-spark shrink-0 mt-1"
+                  aria-hidden="true"
+                />
                 {t}
               </li>
             ))}
@@ -288,7 +338,9 @@ export default function OffresPage() {
                       +
                     </span>
                   </summary>
-                  <p className="pb-5 pr-8 text-body text-ink-2 leading-relaxed font-light">{f.a}</p>
+                  <p className="pb-5 pr-8 text-body text-ink-2 leading-relaxed font-light">
+                    {f.a}
+                  </p>
                 </details>
               ))}
             </div>
@@ -303,8 +355,8 @@ export default function OffresPage() {
             L&apos;audit dit laquelle des deux vous concerne
           </h2>
           <p className="text-lead text-white font-light mb-8">
-            Gratuit, écrit, sous 48 h ouvrées. Il porte sur votre compte et votre marché, pas sur un exemple
-            générique.
+            Gratuit, écrit, sous 48 h ouvrées. Il porte sur votre compte et
+            votre marché, pas sur un exemple générique.
           </p>
           <Link href="/audit" className="btn-invert">
             Recevoir mon audit gratuit

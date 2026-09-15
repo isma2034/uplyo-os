@@ -52,10 +52,26 @@ const WEEKS = [
 // Engagements de service, vérifiables contractuellement. Aucun résultat chiffré
 // n'est promis ici : aucun chiffre client n'est publiable à ce jour.
 const COMMITMENTS = [
-  { k: "Engagement", v: "Aucune durée", d: "Ni période initiale, ni reconduction tacite piégeuse" },
-  { k: "Préavis", v: "30 jours", d: "Le temps de vous rendre le compte en état de marche" },
-  { k: "Rapport", v: "Hebdomadaire", d: "Plus un bilan mensuel et un point de 30 min" },
-  { k: "Le compte", v: "Le vôtre", d: "À votre nom, vous partez avec l'historique" },
+  {
+    k: "Engagement",
+    v: "Aucune durée",
+    d: "Ni période initiale, ni reconduction tacite piégeuse",
+  },
+  {
+    k: "Préavis",
+    v: "30 jours",
+    d: "Le temps de vous rendre le compte en état de marche",
+  },
+  {
+    k: "Rapport",
+    v: "Hebdomadaire",
+    d: "Plus un bilan mensuel et un point de 30 min",
+  },
+  {
+    k: "Le compte",
+    v: "Le vôtre",
+    d: "À votre nom, vous partez avec l'historique",
+  },
 ];
 
 const ALERTS = [
@@ -77,13 +93,14 @@ export default function PilotagePage() {
                 Prestations · {OFFER_ROUTES.pilotage.label}
               </p>
               <h1 className="text-display font-semibold text-ink mb-5">
-                Quelqu&apos;un entre dans votre compte chaque semaine. Et vous savez ce qu&apos;il y
-                a fait.
+                Quelqu&apos;un entre dans votre compte chaque semaine. Et vous
+                savez ce qu&apos;il y a fait.
               </h1>
               <p className="text-lead text-ink-2 font-light mb-8">
-                Un compte Google Ads laissé seul se dégrade : les requêtes dérivent, les concurrents
-                changent d&apos;enchères, le suivi de conversions casse sans prévenir. Le pilotage,
-                c&apos;est le travail qui empêche ça — au mois, sans engagement de durée.
+                Un compte Google Ads laissé seul se dégrade : les requêtes
+                dérivent, les concurrents changent d&apos;enchères, le suivi de
+                conversions casse sans prévenir. Le pilotage, c&apos;est le
+                travail qui empêche ça — au mois, sans engagement de durée.
               </p>
             </div>
           </Reveal>
@@ -91,9 +108,17 @@ export default function PilotagePage() {
           <Reveal delay={80}>
             <dl className="grid grid-cols-2 lg:grid-cols-4 border-t border-line">
               {[
-                { k: "Honoraires", v: TERMS.fee, d: "Facturés au mois, devis sous 24 h" },
+                {
+                  k: "Honoraires",
+                  v: TERMS.fee,
+                  d: "Facturés au mois, devis sous 24 h",
+                },
                 { k: "Engagement", v: "Aucune durée", d: TERMS.notice },
-                { k: "Rythme", v: "Hebdomadaire", d: "Plus un point de 30 min chaque mois" },
+                {
+                  k: "Rythme",
+                  v: "Hebdomadaire",
+                  d: "Plus un point de 30 min chaque mois",
+                },
                 {
                   k: "Budget publicitaire",
                   v: `${MEDIA_FLOOR.local} min.`,
@@ -103,8 +128,12 @@ export default function PilotagePage() {
                 <div key={s.k} className="py-5 pr-6 border-b border-line">
                   <dt className="label text-ink-3 mb-1.5">{s.k}</dt>
                   <dd>
-                    <span className="block text-title font-semibold text-ink">{s.v}</span>
-                    <span className="block text-caption text-ink-3 mt-1 font-light">{s.d}</span>
+                    <span className="block text-title font-semibold text-ink">
+                      {s.v}
+                    </span>
+                    <span className="block text-caption text-ink-3 mt-1 font-light">
+                      {s.d}
+                    </span>
                   </dd>
                 </div>
               ))}
@@ -123,29 +152,44 @@ export default function PilotagePage() {
                 Ce que je fais réellement, et quand
               </h2>
               <p className="text-body-lg text-ink-2 font-light">
-                Pas une liste de fonctionnalités : le calendrier de travail auquel vous pouvez me
-                tenir.
+                Pas une liste de fonctionnalités : le calendrier de travail
+                auquel vous pouvez me tenir.
               </p>
             </div>
           </Reveal>
 
           <ol className="border-t border-line-strong">
             {WEEKS.map((s, i) => (
-              <Reveal key={s.w} delay={i * 70}>
-                <li className="grid grid-cols-1 md:grid-cols-[150px_1fr_260px] gap-3 md:gap-8 py-7 border-b border-line-strong">
-                  <div className="font-mono text-body font-medium text-eclat-ink">{s.w}</div>
-                  <div>
-                    <h3 className="text-title font-semibold text-ink mb-2">{s.t}</h3>
-                    <p className="text-body text-ink-2 font-light max-w-[62ch]">{s.d}</p>
+              <Reveal
+                as="li"
+                key={s.w}
+                delay={i * 70}
+                className="grid grid-cols-1 md:grid-cols-[150px_1fr_260px] gap-3 md:gap-8 py-7 border-b border-line-strong"
+              >
+                <div className="font-mono text-body font-medium text-eclat-ink">
+                  {s.w}
+                </div>
+                <div>
+                  <h3 className="text-title font-semibold text-ink mb-2">
+                    {s.t}
+                  </h3>
+                  <p className="text-body text-ink-2 font-light max-w-[62ch]">
+                    {s.d}
+                  </p>
+                </div>
+                <div>
+                  <div className="label text-ink-3 mb-1.5">
+                    Ce qui vous arrive
                   </div>
-                  <div>
-                    <div className="label text-ink-3 mb-1.5">Ce qui vous arrive</div>
-                    <div className="flex gap-2 text-body text-ink font-medium">
-                      <Check size={14} className="text-eclat-ink shrink-0 mt-1" aria-hidden="true" />
-                      {s.out}
-                    </div>
+                  <div className="flex gap-2 text-body text-ink font-medium">
+                    <Check
+                      size={14}
+                      className="text-eclat-ink shrink-0 mt-1"
+                      aria-hidden="true"
+                    />
+                    {s.out}
                   </div>
-                </li>
+                </div>
               </Reveal>
             ))}
           </ol>
@@ -157,7 +201,9 @@ export default function PilotagePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-8">
-              <p className="label text-spark mb-4">Ce sur quoi je m&apos;engage</p>
+              <p className="label text-spark mb-4">
+                Ce sur quoi je m&apos;engage
+              </p>
               <h2 className="text-section font-semibold text-white">
                 Des engagements de méthode, pas de résultat
               </h2>
@@ -172,7 +218,9 @@ export default function PilotagePage() {
                   <span className="block text-body-lg font-semibold text-white leading-snug">
                     {c.v}
                   </span>
-                  <span className="block text-caption text-white/80 mt-1 font-light">{c.d}</span>
+                  <span className="block text-caption text-white/80 mt-1 font-light">
+                    {c.d}
+                  </span>
                 </dd>
               </div>
             ))}
@@ -184,16 +232,26 @@ export default function PilotagePage() {
                 {/* « Monitoring 24/7 » retiré : la formule laissait entendre une
                     présence humaine permanente, ce qui est faux pour une
                     activité individuelle. Ce sont des alertes automatiques. */}
-                <h3 className="text-title font-semibold text-white mb-3">Alertes automatiques</h3>
+                <h3 className="text-title font-semibold text-white mb-3">
+                  Alertes automatiques
+                </h3>
                 <p className="text-body text-white/80 font-light mb-4">
-                  Des scripts tournent sur le compte et me préviennent en dehors de mes passages
-                  hebdomadaires. Ce ne sont pas des yeux humains en permanence sur votre compte : je
-                  suis seul, et je ne prétendrai pas le contraire.
+                  Des scripts tournent sur le compte et me préviennent en dehors
+                  de mes passages hebdomadaires. Ce ne sont pas des yeux humains
+                  en permanence sur votre compte : je suis seul, et je ne
+                  prétendrai pas le contraire.
                 </p>
                 <ul className="flex flex-col gap-2">
                   {ALERTS.map((a) => (
-                    <li key={a} className="flex gap-2.5 text-body text-white/80 font-light">
-                      <Check size={14} className="text-spark shrink-0 mt-1.5" aria-hidden="true" />
+                    <li
+                      key={a}
+                      className="flex gap-2.5 text-body text-white/80 font-light"
+                    >
+                      <Check
+                        size={14}
+                        className="text-spark shrink-0 mt-1.5"
+                        aria-hidden="true"
+                      />
                       {a}
                     </li>
                   ))}
@@ -204,14 +262,16 @@ export default function PilotagePage() {
                   Ce que je ne peux pas vous garantir
                 </h3>
                 <p className="text-body text-white/80 font-light mb-4">
-                  Ni un coût par demande, ni un nombre de ventes, ni un retour sur investissement
-                  chiffré. Ces promesses circulent beaucoup dans le métier ; elles supposent de
-                  connaître à l&apos;avance la concurrence, la saison et votre taux de
-                  transformation. Personne ne les connaît.
+                  Ni un coût par demande, ni un nombre de ventes, ni un retour
+                  sur investissement chiffré. Ces promesses circulent beaucoup
+                  dans le métier ; elles supposent de connaître à l&apos;avance
+                  la concurrence, la saison et votre taux de transformation.
+                  Personne ne les connaît.
                 </p>
                 <p className="text-body text-white/80 font-light">
-                  Ce que je peux vous garantir, c&apos;est le travail listé ci-dessus, et le fait de
-                  vous dire quand une campagne ne fonctionne pas.
+                  Ce que je peux vous garantir, c&apos;est le travail listé
+                  ci-dessus, et le fait de vous dire quand une campagne ne
+                  fonctionne pas.
                 </p>
               </div>
             </div>
@@ -224,16 +284,20 @@ export default function PilotagePage() {
         <div className="container-text">
           <Reveal>
             <p className="label text-eclat-ink mb-4">Transparence</p>
-            <h2 className="text-section font-semibold text-ink mb-4">Un seul client à ce jour</h2>
+            <h2 className="text-section font-semibold text-ink mb-4">
+              Un seul client à ce jour
+            </h2>
             <p className="text-body-lg text-ink-2 font-light mb-4">
-              Une entreprise de débarras et déménagement de la région nantaise, accompagnée depuis
-              2026 : gestion mensuelle du compte, étude de volume avant toute extension de zone, et
-              reprise du site côté conversion.
+              Une entreprise de débarras et déménagement de la région nantaise,
+              accompagnée depuis 2026 : gestion mensuelle du compte, étude de
+              volume avant toute extension de zone, et reprise du site côté
+              conversion.
             </p>
             <p className="text-body-lg text-ink-2 font-light">
-              Ses résultats chiffrés lui appartiennent. Ils seront publiés ici quand il m&apos;aura
-              donné son accord — vous ne trouverez d&apos;ici là ni moyenne, ni témoignage, ni note
-              inventée pour combler le vide.
+              Ses résultats chiffrés lui appartiennent. Ils seront publiés ici
+              quand il m&apos;aura donné son accord — vous ne trouverez
+              d&apos;ici là ni moyenne, ni témoignage, ni note inventée pour
+              combler le vide.
             </p>
           </Reveal>
         </div>
@@ -246,8 +310,9 @@ export default function PilotagePage() {
             Je regarde d&apos;abord votre compte
           </h2>
           <p className="text-lead text-white font-light mb-8">
-            L&apos;audit gratuit sert à savoir si votre compte est pilotable en l&apos;état ou
-            s&apos;il faut le refaire. C&apos;est écrit, et c&apos;est sous 48 h ouvrées.
+            L&apos;audit gratuit sert à savoir si votre compte est pilotable en
+            l&apos;état ou s&apos;il faut le refaire. C&apos;est écrit, et
+            c&apos;est sous 48 h ouvrées.
           </p>
           <Link href="/audit" className="btn-invert">
             Recevoir mon audit gratuit
@@ -255,7 +320,10 @@ export default function PilotagePage() {
           </Link>
           <p className="text-body text-white font-light mt-6">
             Ou{" "}
-            <Link href="/offres" className="text-white font-semibold underline underline-offset-4">
+            <Link
+              href="/offres"
+              className="text-white font-semibold underline underline-offset-4"
+            >
               comparer le setup et le pilotage
             </Link>
             .

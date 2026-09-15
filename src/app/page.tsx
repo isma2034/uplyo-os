@@ -51,16 +51,33 @@ const JSON_LD = {
       // aujourd'hui. Le site affichait ailleurs « France · Espagne · Belgique ·
       // Suisse », qui ne correspondait à aucune activité constatée.
       areaServed: { "@type": "Country", name: "France" },
-      knowsAbout: ["Google Ads", "Google Analytics 4", "Looker Studio", "Performance Marketing"],
+      knowsAbout: [
+        "Google Ads",
+        "Google Analytics 4",
+        "Looker Studio",
+        "Performance Marketing",
+      ],
       founder: { "@id": "https://uplyo.fr/a-propos#ismael" },
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Prestations Google Ads",
         url: "https://uplyo.fr/offres",
         itemListElement: [
-          { "@type": "Offer", name: "Le setup", url: "https://uplyo.fr/offres/pack-lancement" },
-          { "@type": "Offer", name: "Le pilotage", url: "https://uplyo.fr/offres/retainer" },
-          { "@type": "Offer", name: "Module e-commerce", url: "https://uplyo.fr/offres/ecommerce" },
+          {
+            "@type": "Offer",
+            name: "Le setup",
+            url: "https://uplyo.fr/offres/pack-lancement",
+          },
+          {
+            "@type": "Offer",
+            name: "Le pilotage",
+            url: "https://uplyo.fr/offres/retainer",
+          },
+          {
+            "@type": "Offer",
+            name: "Module e-commerce",
+            url: "https://uplyo.fr/offres/ecommerce",
+          },
         ],
       },
     },
@@ -84,10 +101,26 @@ const JSON_LD = {
 
 // ── 2. Bandeau engagements (statique — remplace l'ancien ticker animé) ──
 const ENGAGEMENTS = [
-  { k: "Engagement", v: "Aucune durée", d: "Résiliable à tout moment, 30 jours de préavis" },
-  { k: "Votre compte", v: "Le vôtre", d: "Ouvert à votre nom, vous en gardez la propriété" },
-  { k: "Audit", v: `Gratuit · ${TERMS.auditDelayShort}`, d: `Rapport écrit sous ${TERMS.auditDelay}, sans contrepartie` },
-  { k: "Interlocuteur", v: "Un seul", d: "Celui qui vous répond est celui qui exécute" },
+  {
+    k: "Engagement",
+    v: "Aucune durée",
+    d: "Résiliable à tout moment, 30 jours de préavis",
+  },
+  {
+    k: "Votre compte",
+    v: "Le vôtre",
+    d: "Ouvert à votre nom, vous en gardez la propriété",
+  },
+  {
+    k: "Audit",
+    v: `Gratuit · ${TERMS.auditDelayShort}`,
+    d: `Rapport écrit sous ${TERMS.auditDelay}, sans contrepartie`,
+  },
+  {
+    k: "Interlocuteur",
+    v: "Un seul",
+    d: "Celui qui vous répond est celui qui exécute",
+  },
 ];
 
 // ── 3. La méthode, J0 → J5 ──
@@ -223,7 +256,10 @@ const FAQS = [
 export default function HomePage() {
   return (
     <div className="bg-surface-1 text-ink overflow-x-clip">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+      />
       <Analytics />
       <Navbar />
 
@@ -231,14 +267,18 @@ export default function HomePage() {
       <section className="pt-[104px] md:pt-[128px] pb-14 md:pb-20">
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
           <Reveal>
-            <p className="label text-eclat-ink mb-5">Google Ads · Consultant indépendant</p>
+            <p className="label text-eclat-ink mb-5">
+              Google Ads · Consultant indépendant
+            </p>
             <h1 className="text-hero font-semibold text-ink mb-6">
-              Des demandes de devis qui rentrent — et un coût par demande que vous voyez.
+              Des demandes de devis qui rentrent — et un coût par demande que
+              vous voyez.
             </h1>
             <p className="text-lead text-ink-2 max-w-[54ch] mb-7 font-light">
-              Je m&apos;appelle Ismael. Je construis et je pilote des campagnes Google Ads : artisans,
-              prestataires, commerces, e-commerce. Je fais le travail, et je vous montre le compte
-              pendant que je le fais.
+              Je m&apos;appelle Ismael. Je construis et je pilote des campagnes
+              Google Ads : artisans, prestataires, commerces, e-commerce. Je
+              fais le travail, et je vous montre le compte pendant que je le
+              fais.
             </p>
             {/* Le hero dit « Je m'appelle Ismael » et « pas d'intermediaire » :
                 sans visage, c'est une affirmation comme une autre. Le portrait
@@ -255,8 +295,8 @@ export default function HomePage() {
                 className="rounded-full bg-surface-2 object-cover object-top shrink-0"
               />
               <p className="text-body text-ink-3 font-light">
-                Pas de chargé de compte, pas d&apos;intermédiaire : la personne qui vous répond est
-                celle qui ouvre votre compte.{" "}
+                Pas de chargé de compte, pas d&apos;intermédiaire : la personne
+                qui vous répond est celle qui ouvre votre compte.{" "}
                 <Link
                   href="/a-propos"
                   className="text-eclat-ink font-medium underline underline-offset-4"
@@ -267,14 +307,23 @@ export default function HomePage() {
               </p>
             </div>
             <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
-              {["Aucun engagement de durée", "Vous restez propriétaire du compte", `Audit gratuit sous ${TERMS.auditDelay}`].map(
-                (t) => (
-                  <li key={t} className="flex items-center gap-1.5 text-caption text-ink-2">
-                    <Check size={13} className="text-eclat-ink shrink-0" aria-hidden="true" />
-                    {t}
-                  </li>
-                )
-              )}
+              {[
+                "Aucun engagement de durée",
+                "Vous restez propriétaire du compte",
+                `Audit gratuit sous ${TERMS.auditDelay}`,
+              ].map((t) => (
+                <li
+                  key={t}
+                  className="flex items-center gap-1.5 text-caption text-ink-2"
+                >
+                  <Check
+                    size={13}
+                    className="text-eclat-ink shrink-0"
+                    aria-hidden="true"
+                  />
+                  {t}
+                </li>
+              ))}
             </ul>
           </Reveal>
 
@@ -291,8 +340,12 @@ export default function HomePage() {
             {ENGAGEMENTS.map((e) => (
               <div key={e.k} className="border-l-2 border-spark pl-4">
                 <div className="label text-spark mb-1.5">{e.k}</div>
-                <div className="text-body-lg font-semibold text-white leading-snug">{e.v}</div>
-                <div className="text-caption text-white/80 mt-1 font-light">{e.d}</div>
+                <div className="text-body-lg font-semibold text-white leading-snug">
+                  {e.v}
+                </div>
+                <div className="text-caption text-white/80 mt-1 font-light">
+                  {e.d}
+                </div>
               </div>
             ))}
           </div>
@@ -306,29 +359,39 @@ export default function HomePage() {
             <div className="max-w-text mb-10 md:mb-14">
               <p className="label text-eclat-ink mb-4">Le plan de travail</p>
               <h2 className="text-display font-semibold text-ink mb-4">
-                Cinq jours, cinq livrables. Vous savez à l&apos;avance ce qui sort chaque jour.
+                Cinq jours, cinq livrables. Vous savez à l&apos;avance ce qui
+                sort chaque jour.
               </h2>
               <p className="text-body-lg text-ink-2 font-light">
-                C&apos;est la partie du travail que les agences décrivent le moins et que vous payez
-                pourtant en premier. La voici en entier.
+                C&apos;est la partie du travail que les agences décrivent le
+                moins et que vous payez pourtant en premier. La voici en entier.
               </p>
             </div>
           </Reveal>
 
           <ol className="border-t border-line">
             {PLAN.map((s, i) => (
-              <Reveal key={s.day} delay={i * 70}>
-                <li className="grid grid-cols-1 md:grid-cols-[92px_1fr_260px] gap-3 md:gap-8 py-6 md:py-7 border-b border-line">
-                  <div className="font-mono text-body font-medium text-eclat-ink">{s.day}</div>
-                  <div>
-                    <h3 className="text-title font-semibold text-ink mb-1.5">{s.t}</h3>
-                    <p className="text-body text-ink-2 font-light max-w-[62ch]">{s.d}</p>
-                  </div>
-                  <div className="md:text-right">
-                    <div className="label text-ink-3 mb-1">Livrable</div>
-                    <div className="text-body text-ink font-medium">{s.out}</div>
-                  </div>
-                </li>
+              <Reveal
+                as="li"
+                key={s.day}
+                delay={i * 70}
+                className="grid grid-cols-1 md:grid-cols-[92px_1fr_260px] gap-3 md:gap-8 py-6 md:py-7 border-b border-line"
+              >
+                <div className="font-mono text-body font-medium text-eclat-ink">
+                  {s.day}
+                </div>
+                <div>
+                  <h3 className="text-title font-semibold text-ink mb-1.5">
+                    {s.t}
+                  </h3>
+                  <p className="text-body text-ink-2 font-light max-w-[62ch]">
+                    {s.d}
+                  </p>
+                </div>
+                <div className="md:text-right">
+                  <div className="label text-ink-3 mb-1">Livrable</div>
+                  <div className="text-body text-ink font-medium">{s.out}</div>
+                </div>
               </Reveal>
             ))}
           </ol>
@@ -345,7 +408,8 @@ export default function HomePage() {
                 Un seul client à ce jour. Voici ce que j&apos;ai fait pour lui.
               </h2>
               <p className="text-body text-ink-2 font-light">
-                Entreprise de débarras et déménagement, région nantaise. Accompagnée depuis 2026.
+                Entreprise de débarras et déménagement, région nantaise.
+                Accompagnée depuis 2026.
               </p>
             </div>
           </Reveal>
@@ -355,22 +419,30 @@ export default function HomePage() {
               <ul className="bg-white border border-line rounded-card divide-y divide-line">
                 {WORK.map((w) => (
                   <li key={w} className="flex gap-3 p-5">
-                    <Check size={16} className="text-eclat-ink shrink-0 mt-0.5" aria-hidden="true" />
+                    <Check
+                      size={16}
+                      className="text-eclat-ink shrink-0 mt-0.5"
+                      aria-hidden="true"
+                    />
                     <span className="text-body text-ink-2 font-light">{w}</span>
                   </li>
                 ))}
               </ul>
 
               <div className="mt-5 bg-nuit rounded-card p-6">
-                <div className="label text-spark mb-2.5">Ce que vous ne trouverez pas ici</div>
+                <div className="label text-spark mb-2.5">
+                  Ce que vous ne trouverez pas ici
+                </div>
                 <p className="text-body text-white/80 font-light mb-3">
-                  Aucun témoignage, aucune note, aucune moyenne de résultats. Un seul client
-                  accompagné à ce jour, et ses chiffres lui appartiennent : ils seront publiés ici
-                  quand il m&apos;aura donné son accord, pas avant.
+                  Aucun témoignage, aucune note, aucune moyenne de résultats. Un
+                  seul client accompagné à ce jour, et ses chiffres lui
+                  appartiennent : ils seront publiés ici quand il m&apos;aura
+                  donné son accord, pas avant.
                 </p>
                 <p className="text-body text-white/80 font-light">
-                  En attendant, l&apos;audit est là pour ça : il porte sur votre compte à vous, et il
-                  vous montre la façon dont je travaille avant que vous ne payiez quoi que ce soit.
+                  En attendant, l&apos;audit est là pour ça : il porte sur votre
+                  compte à vous, et il vous montre la façon dont je travaille
+                  avant que vous ne payiez quoi que ce soit.
                 </p>
               </div>
             </div>
@@ -385,11 +457,12 @@ export default function HomePage() {
             <div className="max-w-text mb-10 md:mb-14">
               <p className="label text-eclat-ink mb-4">Les prestations</p>
               <h2 className="text-display font-semibold text-ink mb-4">
-                On construit, puis on pilote. Deux étapes, pas trois formules concurrentes.
+                On construit, puis on pilote. Deux étapes, pas trois formules
+                concurrentes.
               </h2>
               <p className="text-body-lg text-ink-2 font-light">
-                Le setup peut se prendre seul. Le pilotage suppose que le compte ait été construit —
-                par moi ou par quelqu&apos;un d&apos;autre.
+                Le setup peut se prendre seul. Le pilotage suppose que le compte
+                ait été construit — par moi ou par quelqu&apos;un d&apos;autre.
               </p>
             </div>
           </Reveal>
@@ -398,18 +471,26 @@ export default function HomePage() {
           <Reveal>
             <div className="bg-surface-2 border border-line-strong rounded-card p-5 md:p-6 mb-8 grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-5 sm:gap-8 items-center">
               <div>
-                <div className="label text-ink-3 mb-1.5">Budget publicitaire minimum</div>
+                <div className="label text-ink-3 mb-1.5">
+                  Budget publicitaire minimum
+                </div>
                 <p className="text-body text-ink-2 font-light max-w-[52ch]">
-                  Réglé directement par vous à Google. Ce n&apos;est pas mon honoraire, et je ne
-                  prends aucune commission dessus.
+                  Réglé directement par vous à Google. Ce n&apos;est pas mon
+                  honoraire, et je ne prends aucune commission dessus.
                 </p>
               </div>
               <div className="sm:border-l sm:border-line-strong sm:pl-8">
-                <div className="text-title font-semibold text-ink">{MEDIA_FLOOR.local}</div>
-                <div className="text-caption text-ink-3">Activité locale / services</div>
+                <div className="text-title font-semibold text-ink">
+                  {MEDIA_FLOOR.local}
+                </div>
+                <div className="text-caption text-ink-3">
+                  Activité locale / services
+                </div>
               </div>
               <div className="sm:border-l sm:border-line-strong sm:pl-8">
-                <div className="text-title font-semibold text-ink">{MEDIA_FLOOR.ecommerce}</div>
+                <div className="text-title font-semibold text-ink">
+                  {MEDIA_FLOOR.ecommerce}
+                </div>
                 <div className="text-caption text-ink-3">E-commerce</div>
               </div>
             </div>
@@ -420,19 +501,34 @@ export default function HomePage() {
               <Reveal key={o.title} delay={i * 100}>
                 <div className="bg-white border border-line rounded-card p-6 md:p-8 h-full flex flex-col shadow-card">
                   <div className="label text-ink-3 mb-3">{o.tag}</div>
-                  <h3 className="text-title font-semibold text-ink mb-2">{o.title}</h3>
-                  <p className="text-body text-ink-2 font-light mb-5">{o.desc}</p>
+                  <h3 className="text-title font-semibold text-ink mb-2">
+                    {o.title}
+                  </h3>
+                  <p className="text-body text-ink-2 font-light mb-5">
+                    {o.desc}
+                  </p>
                   <ul className="flex flex-col gap-2 mb-6 flex-1">
                     {o.items.map((it) => (
-                      <li key={it} className="flex gap-2.5 text-body text-ink-2 font-light">
-                        <Check size={15} className="text-eclat-ink shrink-0 mt-1" aria-hidden="true" />
+                      <li
+                        key={it}
+                        className="flex gap-2.5 text-body text-ink-2 font-light"
+                      >
+                        <Check
+                          size={15}
+                          className="text-eclat-ink shrink-0 mt-1"
+                          aria-hidden="true"
+                        />
                         {it}
                       </li>
                     ))}
                   </ul>
                   <div className="border-t border-line pt-5">
-                    <div className="text-body-lg font-semibold text-ink">{o.fee}</div>
-                    <div className="text-caption text-ink-3 mb-4">{o.feeNote}</div>
+                    <div className="text-body-lg font-semibold text-ink">
+                      {o.fee}
+                    </div>
+                    <div className="text-caption text-ink-3 mb-4">
+                      {o.feeNote}
+                    </div>
                     {/* svc.href était défini mais jamais utilisé : toutes les
                         cartes pointaient en dur vers /audit, et les pages
                         offres ne recevaient aucun trafic interne. */}
@@ -456,8 +552,9 @@ export default function HomePage() {
                   Vous vendez en ligne ? Module e-commerce en complément
                 </div>
                 <p className="text-body text-ink-2 font-light max-w-[62ch]">
-                  Google Shopping, Performance Max et flux produit s&apos;ajoutent au pilotage. Ce
-                  n&apos;est pas une offre séparée, et le budget publicitaire minimum y passe à{" "}
+                  Google Shopping, Performance Max et flux produit
+                  s&apos;ajoutent au pilotage. Ce n&apos;est pas une offre
+                  séparée, et le budget publicitaire minimum y passe à{" "}
                   {MEDIA_FLOOR.ecommerce}.
                 </p>
               </div>
@@ -475,22 +572,39 @@ export default function HomePage() {
           <Reveal>
             <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="bg-white border border-line rounded-card p-6">
-                <div className="label text-eclat-ink mb-4">C&apos;est fait pour vous si</div>
+                <div className="label text-eclat-ink mb-4">
+                  C&apos;est fait pour vous si
+                </div>
                 <ul className="flex flex-col gap-2.5">
                   {FIT.yes.map((t) => (
-                    <li key={t} className="flex gap-2.5 text-body text-ink-2 font-light">
-                      <Check size={15} className="text-eclat-ink shrink-0 mt-1" aria-hidden="true" />
+                    <li
+                      key={t}
+                      className="flex gap-2.5 text-body text-ink-2 font-light"
+                    >
+                      <Check
+                        size={15}
+                        className="text-eclat-ink shrink-0 mt-1"
+                        aria-hidden="true"
+                      />
                       {t}
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="bg-surface-2 border border-line rounded-card p-6">
-                <div className="label text-ink-3 mb-4">Ne me contactez pas si</div>
+                <div className="label text-ink-3 mb-4">
+                  Ne me contactez pas si
+                </div>
                 <ul className="flex flex-col gap-2.5">
                   {FIT.no.map((t) => (
-                    <li key={t} className="flex gap-2.5 text-body text-ink-2 font-light">
-                      <span aria-hidden="true" className="text-ink-3 font-semibold shrink-0 leading-6">
+                    <li
+                      key={t}
+                      className="flex gap-2.5 text-body text-ink-2 font-light"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="text-ink-3 font-semibold shrink-0 leading-6"
+                      >
                         —
                       </span>
                       {t}
@@ -529,19 +643,23 @@ export default function HomePage() {
             <div>
               <p className="label text-spark mb-4">Qui gère votre compte</p>
               <h2 className="text-section font-semibold text-white mb-5">
-                Ismael. C&apos;est moi qui vous réponds, et c&apos;est moi qui fais le travail.
+                Ismael. C&apos;est moi qui vous réponds, et c&apos;est moi qui
+                fais le travail.
               </h2>
               <div className="flex flex-col gap-4 max-w-[62ch]">
                 <p className="text-body-lg text-white/80 font-light">
-                  Uplyo n&apos;est pas une agence avec des équipes : c&apos;est une activité
-                  indépendante, la mienne. Cela a une conséquence que vous devez connaître avant de
-                  travailler avec moi — il n&apos;y a personne pour reprendre le compte si je suis
-                  absent, et je limite donc volontairement le nombre de comptes que je pilote.
+                  Uplyo n&apos;est pas une agence avec des équipes : c&apos;est
+                  une activité indépendante, la mienne. Cela a une conséquence
+                  que vous devez connaître avant de travailler avec moi — il
+                  n&apos;y a personne pour reprendre le compte si je suis
+                  absent, et je limite donc volontairement le nombre de comptes
+                  que je pilote.
                 </p>
                 <p className="text-body-lg text-white/80 font-light">
-                  En contrepartie, il n&apos;y a aucun écart entre ce qui vous est vendu et ce qui
-                  est exécuté, et vous n&apos;attendez jamais qu&apos;une information redescende
-                  d&apos;un service à un autre.
+                  En contrepartie, il n&apos;y a aucun écart entre ce qui vous
+                  est vendu et ce qui est exécuté, et vous n&apos;attendez
+                  jamais qu&apos;une information redescende d&apos;un service à
+                  un autre.
                 </p>
               </div>
               <Link
@@ -566,8 +684,8 @@ export default function HomePage() {
                 Les questions qu&apos;on me pose avant de signer
               </h2>
               <p className="text-body text-ink-2 font-light">
-                Y compris celles qui n&apos;arrangent pas. S&apos;il en manque une, posez-la dans le
-                formulaire en bas de page.
+                Y compris celles qui n&apos;arrangent pas. S&apos;il en manque
+                une, posez-la dans le formulaire en bas de page.
               </p>
             </div>
           </Reveal>
@@ -604,11 +722,13 @@ export default function HomePage() {
             <div>
               <p className="label text-white mb-4">Pour démarrer</p>
               <h2 className="text-display font-semibold text-white mb-5">
-                Dites-moi ce que vous vendez. Je vous dis si Google Ads en vaut la peine.
+                Dites-moi ce que vous vendez. Je vous dis si Google Ads en vaut
+                la peine.
               </h2>
               <p className="text-lead text-white mb-8 font-light max-w-[52ch]">
-                Vous recevez un audit écrit sous {TERMS.auditDelay}. S&apos;il en ressort que votre marché ne
-                justifie pas de budget publicitaire, je vous le dirai — c&apos;est déjà arrivé.
+                Vous recevez un audit écrit sous {TERMS.auditDelay}. S&apos;il
+                en ressort que votre marché ne justifie pas de budget
+                publicitaire, je vous le dirai — c&apos;est déjà arrivé.
               </p>
               <ul className="flex flex-col gap-2.5">
                 {[
@@ -616,7 +736,10 @@ export default function HomePage() {
                   "Réponse sous 24 h ouvrées",
                   "Aucun rappel commercial si vous ne le demandez pas",
                 ].map((t) => (
-                  <li key={t} className="flex items-center gap-2 text-body text-white">
+                  <li
+                    key={t}
+                    className="flex items-center gap-2 text-body text-white"
+                  >
                     <Check size={15} className="shrink-0" aria-hidden="true" />
                     {t}
                   </li>

@@ -37,7 +37,10 @@ const PLAN = [
     day: "J4",
     t: "Mesure",
     d: "GA4 et Consent Mode v2, définition des conversions, puis test réel de chacune : j'appelle le numéro, j'envoie le formulaire, et je vérifie que cela remonte bien une fois et une seule. C'est l'étape la plus souvent bâclée, et celle qui fausse tout le reste.",
-    out: ["Tracking testé, pas seulement posé", "Capture de chaque conversion vérifiée"],
+    out: [
+      "Tracking testé, pas seulement posé",
+      "Capture de chaque conversion vérifiée",
+    ],
   },
   {
     day: "J5",
@@ -66,11 +69,13 @@ export default function SetupPage() {
                 Prestations · {OFFER_ROUTES.setup.label}
               </p>
               <h1 className="text-display font-semibold text-ink mb-5">
-                Le compte construit en cinq jours, et vous voyez ce qui sort chaque jour.
+                Le compte construit en cinq jours, et vous voyez ce qui sort
+                chaque jour.
               </h1>
               <p className="text-lead text-ink-2 font-light mb-8">
-                De l&apos;audit à la mise en ligne. Prestation unique : à la fin, le compte est à
-                votre nom, il tourne, et vous êtes libre de le piloter vous-même.
+                De l&apos;audit à la mise en ligne. Prestation unique : à la
+                fin, le compte est à votre nom, il tourne, et vous êtes libre de
+                le piloter vous-même.
               </p>
             </div>
           </Reveal>
@@ -78,9 +83,21 @@ export default function SetupPage() {
           <Reveal delay={80}>
             <dl className="grid grid-cols-2 lg:grid-cols-4 border-t border-line">
               {[
-                { k: "Honoraires", v: TERMS.fee, d: "Facturés une fois, devis sous 24 h" },
-                { k: "Durée", v: TERMS.goLive, d: "De l'appel de cadrage à la mise en ligne" },
-                { k: "Engagement", v: "Aucun", d: "Le pilotage se décide après, ou pas" },
+                {
+                  k: "Honoraires",
+                  v: TERMS.fee,
+                  d: "Facturés une fois, devis sous 24 h",
+                },
+                {
+                  k: "Durée",
+                  v: TERMS.goLive,
+                  d: "De l'appel de cadrage à la mise en ligne",
+                },
+                {
+                  k: "Engagement",
+                  v: "Aucun",
+                  d: "Le pilotage se décide après, ou pas",
+                },
                 {
                   k: "Budget publicitaire",
                   v: `${MEDIA_FLOOR.local} min.`,
@@ -90,8 +107,12 @@ export default function SetupPage() {
                 <div key={s.k} className="py-5 pr-6 border-b border-line">
                   <dt className="label text-ink-3 mb-1.5">{s.k}</dt>
                   <dd>
-                    <span className="block text-title font-semibold text-ink">{s.v}</span>
-                    <span className="block text-caption text-ink-3 mt-1 font-light">{s.d}</span>
+                    <span className="block text-title font-semibold text-ink">
+                      {s.v}
+                    </span>
+                    <span className="block text-caption text-ink-3 mt-1 font-light">
+                      {s.d}
+                    </span>
                   </dd>
                 </div>
               ))}
@@ -106,31 +127,49 @@ export default function SetupPage() {
           <Reveal>
             <div className="max-w-text mb-10">
               <p className="label text-eclat-ink mb-4">Le plan de travail</p>
-              <h2 className="text-section font-semibold text-ink">Jour par jour, livrable par livrable</h2>
+              <h2 className="text-section font-semibold text-ink">
+                Jour par jour, livrable par livrable
+              </h2>
             </div>
           </Reveal>
 
           <ol className="border-t border-line-strong">
             {PLAN.map((s, i) => (
-              <Reveal key={s.day} delay={i * 70}>
-                <li className="grid grid-cols-1 md:grid-cols-[92px_1fr_300px] gap-3 md:gap-8 py-7 border-b border-line-strong">
-                  <div className="font-mono text-body font-medium text-eclat-ink">{s.day}</div>
-                  <div>
-                    <h3 className="text-title font-semibold text-ink mb-2">{s.t}</h3>
-                    <p className="text-body text-ink-2 font-light max-w-[62ch]">{s.d}</p>
-                  </div>
-                  <div>
-                    <div className="label text-ink-3 mb-2">Livrables</div>
-                    <ul className="flex flex-col gap-1.5">
-                      {s.out.map((o) => (
-                        <li key={o} className="flex gap-2 text-body text-ink font-medium">
-                          <Check size={14} className="text-eclat-ink shrink-0 mt-1" aria-hidden="true" />
-                          {o}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </li>
+              <Reveal
+                as="li"
+                key={s.day}
+                delay={i * 70}
+                className="grid grid-cols-1 md:grid-cols-[92px_1fr_300px] gap-3 md:gap-8 py-7 border-b border-line-strong"
+              >
+                <div className="font-mono text-body font-medium text-eclat-ink">
+                  {s.day}
+                </div>
+                <div>
+                  <h3 className="text-title font-semibold text-ink mb-2">
+                    {s.t}
+                  </h3>
+                  <p className="text-body text-ink-2 font-light max-w-[62ch]">
+                    {s.d}
+                  </p>
+                </div>
+                <div>
+                  <div className="label text-ink-3 mb-2">Livrables</div>
+                  <ul className="flex flex-col gap-1.5">
+                    {s.out.map((o) => (
+                      <li
+                        key={o}
+                        className="flex gap-2 text-body text-ink font-medium"
+                      >
+                        <Check
+                          size={14}
+                          className="text-eclat-ink shrink-0 mt-1"
+                          aria-hidden="true"
+                        />
+                        {o}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </Reveal>
             ))}
           </ol>
@@ -140,11 +179,19 @@ export default function SetupPage() {
       {/* Ce qui n'est pas compris */}
       <section className="section-tight bg-nuit">
         <div className="container-wide">
-          <h2 className="label text-spark mb-6">Ce qui n&apos;est pas compris</h2>
+          <h2 className="label text-spark mb-6">
+            Ce qui n&apos;est pas compris
+          </h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
             {NOT_INCLUDED.map((t) => (
-              <li key={t} className="flex gap-3 text-body-lg text-white/80 font-light">
-                <span aria-hidden="true" className="text-spark shrink-0 leading-7">
+              <li
+                key={t}
+                className="flex gap-3 text-body-lg text-white/80 font-light"
+              >
+                <span
+                  aria-hidden="true"
+                  className="text-spark shrink-0 leading-7"
+                >
                   —
                 </span>
                 {t}
@@ -160,11 +207,14 @@ export default function SetupPage() {
           <Reveal>
             <div className="border border-line rounded-card p-6 bg-white h-full">
               <div className="label text-ink-3 mb-3">Et après ?</div>
-              <h2 className="text-title font-semibold text-ink mb-2">{OFFER_ROUTES.pilotage.label}</h2>
+              <h2 className="text-title font-semibold text-ink mb-2">
+                {OFFER_ROUTES.pilotage.label}
+              </h2>
               <p className="text-body text-ink-2 font-light mb-5">
-                Un compte lancé se dégrade s&apos;il n&apos;est pas suivi : les requêtes évoluent, les
-                concurrents changent d&apos;enchères. Le pilotage prend le relais au mois, sans
-                engagement de durée. Vous pouvez aussi vous en charger vous-même.
+                Un compte lancé se dégrade s&apos;il n&apos;est pas suivi : les
+                requêtes évoluent, les concurrents changent d&apos;enchères. Le
+                pilotage prend le relais au mois, sans engagement de durée. Vous
+                pouvez aussi vous en charger vous-même.
               </p>
               <Link
                 href={OFFER_ROUTES.pilotage.href}
@@ -178,10 +228,12 @@ export default function SetupPage() {
           <Reveal delay={90}>
             <div className="border border-line rounded-card p-6 bg-white h-full">
               <div className="label text-ink-3 mb-3">Comparer</div>
-              <h2 className="text-title font-semibold text-ink mb-2">Setup ou pilotage</h2>
+              <h2 className="text-title font-semibold text-ink mb-2">
+                Setup ou pilotage
+              </h2>
               <p className="text-body text-ink-2 font-light mb-5">
-                Le tableau comparatif, avec les durées, les engagements et le budget publicitaire
-                minimum de chaque côté.
+                Le tableau comparatif, avec les durées, les engagements et le
+                budget publicitaire minimum de chaque côté.
               </p>
               <Link
                 href="/offres"
@@ -202,8 +254,8 @@ export default function SetupPage() {
             Le setup commence par l&apos;audit
           </h2>
           <p className="text-lead text-white font-light mb-8">
-            Gratuit, écrit, sous 48 h ouvrées. Il sert d&apos;abord à savoir si votre marché justifie un
-            budget publicitaire.
+            Gratuit, écrit, sous 48 h ouvrées. Il sert d&apos;abord à savoir si
+            votre marché justifie un budget publicitaire.
           </p>
           <Link href="/audit" className="btn-invert">
             Recevoir mon audit gratuit
