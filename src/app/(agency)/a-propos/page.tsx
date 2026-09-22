@@ -9,7 +9,7 @@ import { MEDIA_FLOOR, OFFER_ROUTES } from "@/lib/offers";
 export const metadata: Metadata = {
   title: "À propos · Ismael, qui gère votre compte",
   description:
-    "De Séoul à Barcelone, en passant par un premier compte Google Ads côté annonceur : le parcours d'Ismael, ce qu'il en a tiré, et ce qu'il ne sait pas faire.",
+    "De Séoul à un premier compte Google Ads côté annonceur : le parcours d'Ismael, ce qu'il en a tiré, et ce qu'il ne sait pas faire.",
   alternates: { canonical: "/a-propos" },
 };
 
@@ -74,8 +74,8 @@ const HOW = [
 // profile.yaml) : employeurs, lieux, dates, périmètres. Aucun chiffre de
 // résultat obtenu pour un employeur n'est repris ici — ce ne sont pas des
 // résultats d'Uplyo (c'est ainsi que « ROAS moyen 4,2x » s'était retrouvé
-// dans l'ancienne version du site). Le poste actuel s'écrit toujours
-// « chez Teleperformance, prestataire de Google », jamais « chez Google ».
+// dans l'ancienne version du site). Le poste actuel d'Ismael n'est
+// volontairement pas mentionné sur le site (décision du 23/09/2026).
 const STORY = [
   {
     when: "2020",
@@ -102,12 +102,6 @@ const STORY = [
     d: "Développement commercial et marketing dans le sport automobile : catalogues, salons internationaux, et un CRM pour suivre chaque contact jusqu'à la vente. Une demande ne vaut rien si personne ne la rappelle vite. Depuis, je regarde toujours ce que devient un contact, pas seulement combien il a coûté.",
   },
   {
-    when: "Depuis 2025",
-    where: "Barcelone",
-    t: "L'autre côté de la table",
-    d: "J'accompagne des agences sur leurs comptes Google Ads (Search, Shopping, Performance Max, YouTube), chez Teleperformance, prestataire de Google. Plus d'une centaine d'agences, des comptes construits par d'autres : on y voit ce qui marche, et surtout les erreurs qui reviennent d'un compte à l'autre.",
-  },
-  {
     when: "2026",
     where: "Uplyo",
     t: "Faire le travail en entier",
@@ -126,13 +120,12 @@ export default function AProposPage() {
           <div>
             <p className="text-caption font-semibold text-eclat-ink mb-6">À propos</p>
             <h1 className="text-hero text-ink mb-8">
-              J&apos;ai appris Google Ads des deux côtés de la table.
+              Un budget publicitaire, c&apos;est l&apos;argent de quelqu&apos;un.
             </h1>
             <FadeIn className="flex flex-col gap-5 max-w-[56ch]">
               <p className="text-lead text-ink-2">
-                D&apos;abord côté annonceur, avec un budget à justifier chaque mois. Puis
-                de l&apos;autre côté, en accompagnant des agences sur des comptes construits par
-                d&apos;autres. Uplyo, c&apos;est ce que j&apos;en ai tiré, mis au service
+                Je l&apos;ai appris en gérant mon premier compte Google Ads côté annonceur, avec
+                un budget à justifier chaque mois. Uplyo, c&apos;est ce réflexe mis au service
                 d&apos;entreprises qui n&apos;ont ni agence ni équipe marketing.
               </p>
               <p className="text-lead text-ink-2">
@@ -160,7 +153,7 @@ export default function AProposPage() {
       <section className="section bg-surface-2">
         <div className="container-wide">
           <h2 className="text-display text-ink max-w-[18ch] mb-14 md:mb-20">
-            Six étapes, et ce que chacune m&apos;a laissé.
+            Cinq étapes, et ce que chacune m&apos;a laissé.
           </h2>
           <FadeIn as="ol" className="border-t border-ink">
             {STORY.map((s) => (
