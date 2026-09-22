@@ -3,6 +3,7 @@
 import { useEffect, useCallback, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LogoMark from "@/components/agency/LogoMark";
 
 const NAV_LINKS = [
   { label: "Offres", href: "/offres" },
@@ -64,11 +65,7 @@ export default function Navbar() {
 
   const logo = (
     <Link href="/" className="flex items-center gap-2.5 no-underline" aria-label="Uplyo — accueil">
-      <svg width="30" height="30" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-        <polygon points="18,4 28,20 18,36 8,20" fill="#C0361C" />
-        <polygon points="29,2 34,10 29,18 24,10" fill="#D9A441" opacity="0.88" />
-        <polygon points="7,18 12,26 7,34 2,26" fill="#D9A441" opacity="0.6" />
-      </svg>
+      <LogoMark size={30} />
       <span className="text-title font-semibold text-ink">uplyo</span>
     </Link>
   );

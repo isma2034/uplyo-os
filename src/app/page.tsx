@@ -15,13 +15,15 @@ export const metadata: Metadata = {
   // Le titre positionnait sans donner de raison de cliquer dans une SERP —
   // l'audit gratuit est l'accroche la plus forte du site (c'est le CTA
   // principal du hero), il a sa place dans le titre, pas seulement dans la
-  // description.
-  title: "Uplyo — Consultant Google Ads indépendant + audit gratuit",
+  // description. La description dit pour qui et ce qui distingue (le compte
+  // reste au client), sans aucun chiffre de résultat : l'ancienne version du
+  // site affichait « ROAS moyen 4.2x, CPA réduit de 65 % », jamais mesurés.
+  title: "Uplyo — Consultant Google Ads indépendant, audit gratuit",
   description:
-    "Je construis et je pilote vos campagnes Google Ads. Audit gratuit sous 48 h ouvrées, aucun engagement, un seul interlocuteur — celui qui gère votre compte.",
+    "Consultant Google Ads indépendant pour artisans, commerces et e-commerce. Je construis et je pilote vos campagnes dans votre propre compte. Audit gratuit sous 48 h.",
   alternates: { canonical: "https://uplyo.fr" },
   openGraph: {
-    title: "Uplyo — Consultant Google Ads indépendant + audit gratuit",
+    title: "Uplyo — Consultant Google Ads indépendant, audit gratuit",
     description:
       "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
     url: "https://uplyo.fr",

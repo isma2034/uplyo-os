@@ -91,6 +91,7 @@ export const metadata: Metadata = {
       { url: "/icon.svg", type: "image/svg+xml", sizes: "any" },
       { url: "/images/favicon-48.png", type: "image/png", sizes: "48x48" },
     ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   ...(SEARCH_CONSOLE ? { verification: { google: SEARCH_CONSOLE } } : {}),
   robots: {

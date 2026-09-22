@@ -4,6 +4,7 @@ import { SITE_CONFIG } from "@/lib/config";
 import { SECTORS } from "@/lib/sectors";
 import { CITIES } from "@/lib/cities";
 import { OFFER_ROUTES } from "@/lib/offers";
+import LogoMark from "@/components/agency/LogoMark";
 
 // Footer unique du site (il était dupliqué à l'identique dans le layout
 // (agency) et dans page.tsx, la home étant hors du groupe de routes).
@@ -88,25 +89,7 @@ export default function Footer() {
         <div className="pb-10 md:pb-12 border-b border-white/[0.12] mb-8">
           <div className="mb-10 max-w-[320px]">
             <div className="flex items-center gap-2 mb-3">
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 36 36"
-                fill="none"
-                aria-hidden="true"
-              >
-                <polygon points="18,4 28,20 18,36 8,20" fill="#C0361C" />
-                <polygon
-                  points="29,2 34,10 29,18 24,10"
-                  fill="#D9A441"
-                  opacity="0.88"
-                />
-                <polygon
-                  points="7,18 12,26 7,34 2,26"
-                  fill="#D9A441"
-                  opacity="0.6"
-                />
-              </svg>
+              <LogoMark size={26} />
               <span className="text-title font-semibold text-white">uplyo</span>
             </div>
             <p className="text-body text-white/70 max-w-[260px] mb-5 font-light">

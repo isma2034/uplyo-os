@@ -10,6 +10,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpengraphImage() {
+  // Palette « papier / encre / rouge éclat » de la refonte du 22/09/2026 :
+  // l'image restait sur l'ancien fond violet et les trois losanges.
   return new ImageResponse(
     (
       <div
@@ -19,44 +21,38 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#1A1040",
+          background: "#F6F5F1",
           padding: "72px 80px",
           fontFamily: "sans-serif",
+          color: "#14171C",
         }}
       >
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <svg width="52" height="52" viewBox="0 0 36 36">
-            <polygon points="18,4 28,20 18,36 8,20" fill="#C0361C" />
-            <polygon points="29,2 34,10 29,18 24,10" fill="#D9A441" opacity="0.88" />
-            <polygon points="7,18 12,26 7,34 2,26" fill="#D9A441" opacity="0.6" />
+          <svg width="56" height="56" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="18" fill="#C0361C" />
+            <path
+              d="M12.5 10.5V19.5a5.5 5.5 0 0 0 11 0V10.5M23.5 19.5V25.5"
+              stroke="#F6F5F1"
+              strokeWidth="4"
+              fill="none"
+            />
           </svg>
-          <div style={{ fontSize: 40, fontWeight: 600, color: "#FFFFFF", letterSpacing: "-0.02em" }}>
-            uplyo
-          </div>
+          <div style={{ fontSize: 40, fontWeight: 600, letterSpacing: "-0.02em" }}>uplyo</div>
         </div>
 
         {/* Promesse */}
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              fontSize: 22,
-              color: "#FDCB6E",
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              marginBottom: 26,
-            }}
-          >
-            Google Ads · Consultant indépendant
+          <div style={{ fontSize: 26, color: "#A32C16", marginBottom: 24 }}>
+            Consultant Google Ads indépendant
           </div>
           <div
             style={{
-              fontSize: 72,
-              lineHeight: 1.05,
+              fontSize: 76,
+              lineHeight: 1.04,
               fontWeight: 600,
-              color: "#FFFFFF",
-              letterSpacing: "-0.03em",
-              maxWidth: 900,
+              letterSpacing: "-0.035em",
+              maxWidth: 980,
             }}
           >
             Je gère vos campagnes Google Ads. Vous voyez exactement ce que je fais.
@@ -68,18 +64,16 @@ export default function OpengraphImage() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 28,
+            gap: 40,
             fontSize: 24,
-            color: "#FFFFFF",
-            borderTop: "2px solid #C0361C",
+            color: "#3F4147",
+            borderTop: "2px solid #14171C",
             paddingTop: 26,
           }}
         >
           <span>Audit gratuit sous 48 h ouvrées</span>
-          <span style={{ color: "#D9A441" }}>·</span>
           <span>Aucun engagement de durée</span>
-          <span style={{ color: "#D9A441" }}>·</span>
-          <span>uplyo.fr</span>
+          <span style={{ marginLeft: "auto", color: "#14171C" }}>uplyo.fr</span>
         </div>
       </div>
     ),

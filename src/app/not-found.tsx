@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/config";
+import LogoMark from "@/components/agency/LogoMark";
 
 export const metadata: Metadata = {
   title: "Page introuvable",
@@ -21,11 +22,7 @@ export default function NotFound() {
       <div className="container-text text-center">
         <div className="flex justify-center mb-8">
           <Link href="/" aria-label="Uplyo — accueil">
-            <svg width="40" height="40" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-              <polygon points="18,4 28,20 18,36 8,20" fill="#C0361C" />
-              <polygon points="29,2 34,10 29,18 24,10" fill="#D9A441" opacity="0.88" />
-              <polygon points="7,18 12,26 7,34 2,26" fill="#D9A441" opacity="0.6" />
-            </svg>
+            <LogoMark size={40} />
           </Link>
         </div>
 
