@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 import { ArrowRight, Check } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
+import Counter from "@/components/agency/Counter";
 import Navbar from "@/components/agency/Navbar";
 import Footer from "@/components/agency/Footer";
 import Analytics from "@/components/agency/Analytics";
@@ -11,12 +12,16 @@ import HeroAuditForm from "@/components/agency/HeroAuditForm";
 import { MEDIA_FLOOR, TERMS } from "@/lib/offers";
 
 export const metadata: Metadata = {
-  title: "Uplyo — Consultant Google Ads indépendant",
+  // Le titre positionnait sans donner de raison de cliquer dans une SERP —
+  // l'audit gratuit est l'accroche la plus forte du site (c'est le CTA
+  // principal du hero), il a sa place dans le titre, pas seulement dans la
+  // description.
+  title: "Uplyo — Consultant Google Ads indépendant + audit gratuit",
   description:
-    "Je construis et je pilote vos campagnes Google Ads. Audit gratuit sous 48 h ouvrées, aucun engagement, un seul interlocuteur.",
+    "Je construis et je pilote vos campagnes Google Ads. Audit gratuit sous 48 h ouvrées, aucun engagement, un seul interlocuteur — celui qui gère votre compte.",
   alternates: { canonical: "https://uplyo.fr" },
   openGraph: {
-    title: "Uplyo — Consultant Google Ads indépendant",
+    title: "Uplyo — Consultant Google Ads indépendant + audit gratuit",
     description:
       "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
     url: "https://uplyo.fr",
@@ -157,12 +162,24 @@ const PLAN = [
   },
 ];
 
-// ── 4. Preuve de travail (cas client anonymisé, sans chiffres) ──
+// ── 4. Preuve de travail (cas client anonymisé) ──
+// Client 1 : accord oral (téléphone, sept. 2026) pour publier ses résultats,
+// à la condition explicite de rester non identifiable — donc ni nom, ni
+// secteur d'activité, ni ville, ni éléments techniques (CMS, etc.) qui
+// permettraient de le reconnaître. Les chiffres de RESULTS viennent des
+// rapports de suivi réels (période 15/07-31/08 pour le coût par conversion,
+// premier mois complet pour la variation de volume de demandes).
 const WORK = [
-  "Gestion mensuelle du compte Google Ads : campagnes de recherche sur la zone Loire-Atlantique.",
+  "Gestion mensuelle du compte Google Ads : campagnes de recherche sur sa zone de chalandise.",
   "Étude de volume et de coût du clic avant toute extension géographique, plutôt qu'un élargissement de zone au hasard.",
-  "Reprise du site WordPress côté conversion : bouton d'appel fixe sur mobile, capture de contact, accès direct au formulaire de devis, correction des images.",
+  "Reprise du site côté conversion : bouton d'appel fixe sur mobile, capture de contact, accès direct au formulaire de devis, correction des images.",
   "Maintenance mensuelle du site : mises à jour, sauvegardes, sécurité.",
+];
+
+const RESULTS = [
+  { value: 114, suffix: " %", prefix: "+", label: "de demandes de devis en un mois" },
+  { value: 30.47, decimals: 2, suffix: " €", label: "coût moyen par conversion (période de 48 jours)" },
+  { value: 30, suffix: " %", prefix: "−", label: "de coût par demande sur la même période" },
 ];
 
 // ── 5. Offres ──
@@ -408,7 +425,7 @@ export default function HomePage() {
                 Un seul client à ce jour. Voici ce que j&apos;ai fait pour lui.
               </h2>
               <p className="text-body text-ink-2 font-light">
-                Entreprise de débarras et déménagement, région nantaise.
+                PME de services à la personne, activité locale en France.
                 Accompagnée depuis 2026.
               </p>
             </div>
@@ -429,20 +446,36 @@ export default function HomePage() {
                 ))}
               </ul>
 
+              {/* Chiffres réels de ce client, publiés avec son accord oral —
+                  voir la note sur RESULTS plus haut. Comptés au scroll
+                  (Counter) pour rester cohérent avec le MarketReadout. */}
+              <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {RESULTS.map((r) => (
+                  <div key={r.label} className="bg-white border border-line rounded-card p-5">
+                    <div className="font-mono text-title font-semibold text-eclat-ink tabular-nums">
+                      <Counter value={r.value} decimals={r.decimals ?? 0} prefix={r.prefix} suffix={r.suffix} />
+                    </div>
+                    <p className="text-caption text-ink-2 font-light mt-1">{r.label}</p>
+                  </div>
+                ))}
+              </div>
+
               <div className="mt-5 bg-nuit rounded-card p-6">
                 <div className="label text-spark mb-2.5">
                   Ce que vous ne trouverez pas ici
                 </div>
                 <p className="text-body text-white/80 font-light mb-3">
-                  Aucun témoignage, aucune note, aucune moyenne de résultats. Un
-                  seul client accompagné à ce jour, et ses chiffres lui
-                  appartiennent : ils seront publiés ici quand il m&apos;aura
-                  donné son accord, pas avant.
+                  Pas de témoignage écrit à sa place, pas de note sur 5, pas
+                  de moyenne gonflée sur « nos clients ». Un seul client à ce
+                  jour — ses résultats sont ci-dessus, publiés avec son
+                  accord, sans rien qui permette de le reconnaître.
                 </p>
                 <p className="text-body text-white/80 font-light">
-                  En attendant, l&apos;audit est là pour ça : il porte sur votre
-                  compte à vous, et il vous montre la façon dont je travaille
-                  avant que vous ne payiez quoi que ce soit.
+                  Vous ne trouverez pas non plus de promesse chiffrée :
+                  personne ne peut garantir un nombre de ventes sur Google
+                  Ads, et quiconque vous le promet ment. Ce que vous pouvez
+                  vérifier, c&apos;est comment je travaille — avec
+                  l&apos;audit, avant de payer quoi que ce soit.
                 </p>
               </div>
             </div>
