@@ -51,6 +51,16 @@
     scroll-behavior: smooth;
   }
 
+  /* Le slab de titre s'applique au niveau semantique (h1/h2), pas via une
+     classe repetee sur chaque balise : c'est un choix d'identite globale,
+     pas un reglage au cas par cas. h3 reste en texte courant — il sert
+     surtout de sous-titre dans des blocs de donnees (MarketReadout, etc.),
+     ou le ton "fiche" convient mieux que le ton "titre". */
+  h1, h2 {
+    font-family: var(--font-display), "IBM Plex Slab", serif;
+    font-weight: 600;
+  }
+
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -140,27 +150,10 @@
   }
 }
 
-/* ── Reveal ──
-   Les blocs étaient rendus en `opacity-0` côté serveur : sans JS, la page
-   entière restait invisible. Le contenu part désormais visible et n'est
-   masqué que si JS a pris la main (classe `reveal-armed` posée par le
-   composant au montage), et jamais en reduced-motion. */
-.reveal {
-  opacity: 1;
-  transform: none;
-}
-.reveal-armed {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.reveal-visible {
-  opacity: 1;
-  transform: none;
-}
-
 /* ── Accessibilité : mouvement réduit ──
-   Aucun garde n'existait. Toute animation est neutralisée ici. */
+   `.reveal*` a disparu avec la refonte du 22/09/2026 (voir Reveal.tsx) —
+   plus rien a neutraliser de ce cote. La garde generale reste utile pour
+   tout le reste (hero, Counter, AnimatedBar, GoogleTrendsWidget). */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -172,10 +165,6 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
-  }
-  .reveal-armed {
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
 

@@ -284,8 +284,8 @@ export default function HomePage() {
       <section className="pt-[104px] md:pt-[128px] pb-14 md:pb-20">
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
           <Reveal>
-            <p className="label text-eclat-ink mb-5">
-              Google Ads · Consultant indépendant
+            <p className="text-caption font-semibold text-eclat-ink mb-5">
+              Consultant Google Ads indépendant
             </p>
             <h1 className="text-hero font-semibold text-ink mb-6">
               Des demandes de devis qui rentrent — et un coût par demande que
@@ -374,7 +374,7 @@ export default function HomePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10 md:mb-14">
-              <p className="label text-eclat-ink mb-4">Le plan de travail</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">Le plan de travail</p>
               <h2 className="text-display font-semibold text-ink mb-4">
                 Cinq jours, cinq livrables. Vous savez à l&apos;avance ce qui
                 sort chaque jour.
@@ -420,7 +420,7 @@ export default function HomePage() {
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16">
           <Reveal>
             <div className="lg:sticky lg:top-24 self-start">
-              <p className="label text-eclat-ink mb-4">Preuve de travail</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">Preuve de travail</p>
               <h2 className="text-section font-semibold text-ink mb-4">
                 Un seul client à ce jour. Voici ce que j&apos;ai fait pour lui.
               </h2>
@@ -469,7 +469,7 @@ export default function HomePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10 md:mb-14">
-              <p className="label text-eclat-ink mb-4">Les prestations</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">Les prestations</p>
               <h2 className="text-display font-semibold text-ink mb-4">
                 On construit, puis on pilote. Deux étapes, pas trois formules
                 concurrentes.
@@ -586,7 +586,7 @@ export default function HomePage() {
           <Reveal>
             <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="bg-white border border-line rounded-card p-6">
-                <div className="label text-eclat-ink mb-4">
+                <div className="text-caption font-semibold text-eclat-ink mb-4">
                   C&apos;est fait pour vous si
                 </div>
                 <ul className="flex flex-col gap-2.5">
@@ -693,7 +693,7 @@ export default function HomePage() {
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-16">
           <Reveal>
             <div className="lg:sticky lg:top-24 self-start">
-              <p className="label text-eclat-ink mb-4">Objections</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">Objections</p>
               <h2 className="text-section font-semibold text-ink mb-4">
                 Les questions qu&apos;on me pose avant de signer
               </h2>

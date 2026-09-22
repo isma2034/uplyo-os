@@ -6,29 +6,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ── Uplyo brand ──
-        // eclat.DEFAULT : fond de bloc + texte BLANC PUR uniquement (4.86:1).
-        //   Toute opacité < 100% sur ce fond échoue AA (white/80 = 3.72:1).
-        // eclat.ink : la SEULE nuance de violet autorisée pour du TEXTE sur
-        //   fond clair — 6.25:1 sur blanc, 5.97:1 sur surface-1, 5.70:1 sur
-        //   lune. L'ancien `text-eclat` sur lune plafonnait à 4.43:1 (< AA).
-        eclat: { DEFAULT: "#6C5CE7", hover: "#5A4BD1", ink: "#5A4BD1" },
-        aura: "#A29BFE", // 7.26:1 sur nuit
-        spark: "#FDCB6E", // 11.70:1 sur nuit — marqueurs de jour, puces
-        nuit: "#1A1040", // porte tous les blocs sombres sauf le CTA final
-        ombre: "#2D2B55",
-        lune: { DEFAULT: "#F5F3FF", deep: "#EBE8FF" },
+        // ── Identité "dossier d'audit" (refonte 22/09/2026) ──
+        // Le violet startup (#6C5CE7) a ete remplace par un rouge tampon —
+        // reserve aux chiffres VERIFIES, jamais decoratif. Rapport de
+        // contraste calcule et verifie a la main pour chaque paire ci-dessous
+        // (formule WCAG relative luminance), pas au pif : c'est le meme
+        // niveau d'exigence que l'ancienne palette violette, sur de nouvelles
+        // valeurs.
+        // eclat.DEFAULT sur blanc (texte blanc dessus) : 5.42:1 (AA)
+        // eclat.ink sur blanc (texte colore) : 6.7:1 (AA)
+        eclat: { DEFAULT: "#C0361C", hover: "#932615", ink: "#A32C16" },
+        aura: "#D9B98C", // accent parchemin sur fond sombre, 8.9:1 sur nuit
+        spark: "#D9A441", // marqueurs/puces sur fond sombre, 7.3:1 sur nuit
+        nuit: "#1B1E23", // porte tous les blocs sombres sauf le CTA final
+        ombre: "#2A2E35",
+        lune: { DEFAULT: "#F6F5F1", deep: "#ECEAE3" }, // papier / papier carbone
 
         // ── Surfaces opaques ──
-        // Remplacent les bordures/fonds en alpha, dont la couleur perçue
-        // variait selon le fond sur lequel ils étaient posés.
-        surface: { 0: "#FFFFFF", 1: "#FAF9FF", 2: "#F6F4FF" },
-        line: { DEFAULT: "#E6E2F7", strong: "#CFC8F0", input: "#8E86C6" },
+        surface: { 0: "#FFFFFF", 1: "#FAFAF8", 2: "#F3F1EB" },
+        line: { DEFAULT: "#D8D5CB", strong: "#C4C0B2", input: "#8A8677" },
 
         // ── Texte ──
-        // ink-3 #6F6D8A : 4.96:1 sur blanc, 4.74:1 sur surface-1,
-        // 4.56:1 sur surface-2. (#7C7A9A donnait 4.11:1, sous AA.)
-        ink: { DEFAULT: "#0D0B1A", 2: "#3D3B5C", 3: "#6F6D8A" },
+        // ink-3 #6B6D72 : 5.34:1 sur blanc — marge confortable au-dessus
+        // du seuil AA (4.5:1).
+        ink: { DEFAULT: "#14171C", 2: "#3F4147", 3: "#6B6D72" },
+
+        // ── Semantique (verification) ──
+        good: "#1F6F4A",
       },
 
       // ── Échelle typographique fermée ──
@@ -41,12 +45,16 @@ const config: Config = {
         body: ["0.875rem", { lineHeight: "1.65" }],
         "body-lg": ["1rem", { lineHeight: "1.65" }],
         lead: ["1.0625rem", { lineHeight: "1.6" }],
-        title: ["1.25rem", { lineHeight: "1.3", letterSpacing: "-0.01em" }],
-        section: ["clamp(1.5rem, 2.6vw, 2rem)", { lineHeight: "1.15", letterSpacing: "-0.02em" }],
-        display: ["clamp(1.875rem, 3.4vw, 2.75rem)", { lineHeight: "1.08", letterSpacing: "-0.025em" }],
+        title: ["1.25rem", { lineHeight: "1.3", letterSpacing: "0" }],
+        // Tracking desserre par rapport a l'ancienne echelle : les valeurs
+        // negatives serrees (-0.02/-0.03em) etaient calibrees pour un
+        // grotesque sans-serif. Le slab de la refonte a des empattements qui
+        // se touchent des -0.015em a cette taille — verifie a l'ecran.
+        section: ["clamp(1.5rem, 2.6vw, 2rem)", { lineHeight: "1.18", letterSpacing: "-0.005em" }],
+        display: ["clamp(1.875rem, 3.4vw, 2.75rem)", { lineHeight: "1.12", letterSpacing: "-0.008em" }],
         // Le hero vit dans une colonne d'environ 560px : au-delà de ~3.5rem il
         // déborde sur 6 lignes et mange tout le premier écran.
-        hero: ["clamp(2.125rem, 3.9vw, 3.375rem)", { lineHeight: "1.03", letterSpacing: "-0.03em" }],
+        hero: ["clamp(2.125rem, 3.9vw, 3.375rem)", { lineHeight: "1.08", letterSpacing: "-0.01em" }],
       },
 
       // ── Familles ──
@@ -63,21 +71,27 @@ const config: Config = {
       // Le nom public reste en second : utile si la police est installée
       // localement et que next/font est retiré un jour.
       fontFamily: {
-        sans: ["var(--font-sans)", '"DM Sans"', "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", '"DM Mono"', "ui-monospace", "monospace"],
+        sans: ["var(--font-sans)", '"IBM Plex Sans"', "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", '"IBM Plex Mono"', "ui-monospace", "monospace"],
+        // Titres — slab mecanique (dossier, pas SaaS). Reserve aux h1/h2/h3
+        // et aux moments ou le texte EST le dispositif visuel.
+        display: ["var(--font-display)", '"IBM Plex Slab"', "serif"],
       },
 
+      // Quasi plat — cartes-formulaire, pas cartes-SaaS. Les anciennes
+      // valeurs (10-18px + ombres douces) donnaient l'aspect "kit de cartes"
+      // que la refonte du 22/09/2026 retire explicitement.
       borderRadius: {
-        uplyo: "10px",
-        "uplyo-lg": "16px",
-        card: "14px",
-        panel: "18px",
+        uplyo: "3px",
+        "uplyo-lg": "3px",
+        card: "2px",
+        panel: "3px",
       },
 
       boxShadow: {
-        card: "0 1px 2px rgba(26, 16, 64, 0.04)",
-        raised: "0 12px 32px -12px rgba(26, 16, 64, 0.16)",
-        panel: "0 24px 60px -24px rgba(26, 16, 64, 0.28)",
+        card: "none",
+        raised: "none",
+        panel: "none",
       },
 
       maxWidth: {

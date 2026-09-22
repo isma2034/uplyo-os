@@ -1,26 +1,37 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Mono } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono, Roboto_Slab } from "next/font/google";
 import Script from "next/script";
 import ConsentBanner from "@/components/agency/ConsentBanner";
 import ConversionPrompt from "@/components/agency/ConversionPrompt";
 import "@/styles/globals.css";
 
-const dmSans = DM_Sans({
+// Refonte "dossier d'audit" du 22/09/2026 : IBM Plex, une famille pensee
+// pour la documentation technique (conçue par IBM pour ses propres rapports),
+// ce qui colle au concept plutot que d'etre reprise par habitude. Plex Sans
+// = texte courant, Plex Mono = tous les chiffres/donnees (coherent avec le
+// principe "mesure, pas decoration"). Roboto Slab pour les titres : un vrai
+// slab (empattement mecanique carre) — "IBM Plex Slab" n'existe pas chez
+// Google Fonts, contrairement a Plex Serif qui est plus editorial que
+// "ledger tamponne", d'ou le choix hors-famille assume ici.
+const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600"],
 });
 
-// DM Mono n'habille plus que les jetons numériques (marqueurs de jour J0-J5
-// des plannings, numéros d'étape de l'audit). Tous les libellés / eyebrows
-// sont repassés en DM Sans via `.label` — voir globals.css. Un seul poids
-// suffit désormais : cela retire une requête de police au chargement.
-const dmMono = DM_Mono({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
   weight: ["500"],
+});
+
+const robotoSlab = Roboto_Slab({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  weight: ["500", "600", "700"],
 });
 
 // Ces valeurs par défaut servent à toute page qui ne déclare pas les siennes
@@ -98,7 +109,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${dmSans.variable} ${dmMono.variable}`}>
+    <html lang="fr" className={`${plexSans.variable} ${plexMono.variable} ${robotoSlab.variable}`}>
       <head>
         {/* Consent Mode v2 — DOIT s'exécuter avant GTM et GA4, sinon des
             balises partent avant que le refus par défaut soit connu.
