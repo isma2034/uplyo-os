@@ -106,7 +106,7 @@ export const SECTORS: Sector[] = [
       "Traiter « boîte automatique » comme une campagne à part entière — demande en forte hausse, concurrence encore faible.",
     ],
     caveat:
-      "Si votre zone compte déjà plusieurs auto-écoles enchérissant sur les mêmes requêtes locales, le coût par inscription peut dépasser la marge. Sur les 45 auto-écoles que j'ai analysées, très peu diffusent des annonces — cela peut être une opportunité comme le signe que le levier ne rentre pas dans ce marché. Ça se mesure avant.",
+      "Si votre zone compte déjà plusieurs auto-écoles enchérissant sur les mêmes requêtes locales, le coût par inscription peut dépasser la marge. Sur les 58 auto-écoles que j'ai analysées, très peu diffusent des annonces — cela peut être une opportunité comme le signe que le levier ne rentre pas dans ce marché. Ça se mesure avant.",
   },
   {
     slug: "avocats",
@@ -149,13 +149,13 @@ export const SECTORS: Sector[] = [
     plural: "cabinets d'architecture",
     metaTitle: "Google Ads architecte : qui annonce vraiment ?",
     metaDescription:
-      "Sur 32 cabinets d'architecture analysés, aucun ne diffusait d'annonces. Pourquoi, et quand ce levier a malgré tout du sens.",
+      "Sur 55 cabinets d'architecture analysés, seuls 2 diffusaient des annonces. Pourquoi si peu, et quand ce levier a malgré tout du sens.",
     h1: "Google Ads pour un cabinet d'architecture",
     intro:
-      "Sur les 32 cabinets d'architecture que j'ai analysés, je n'ai détecté aucun annonceur Google Ads. C'est le seul secteur de mon relevé dans ce cas, et cela mérite une explication honnête avant toute proposition.",
+      "Sur les 55 cabinets d'architecture que j'ai analysés, je n'ai détecté que 2 annonceurs Google Ads. C'est le secteur le moins engagé sur ce levier dans mon relevé, et cela mérite une explication honnête avant toute proposition.",
     intent: {
       title: "Un cycle long, une décision qui ne se prend pas sur un clic",
-      body: "Entre la première recherche et la signature d'un contrat de maîtrise d'œuvre, il s'écoule souvent des mois, et la décision passe par la recommandation, le bouche-à-oreille et le portfolio. Google Ads est bon pour capter une intention immédiate ; il l'est beaucoup moins pour accompagner une décision longue et relationnelle. L'absence totale d'annonceurs dans ce relevé est cohérente avec ça — ce n'est probablement pas un oubli collectif.",
+      body: "Entre la première recherche et la signature d'un contrat de maîtrise d'œuvre, il s'écoule souvent des mois, et la décision passe par la recommandation, le bouche-à-oreille et le portfolio. Google Ads est bon pour capter une intention immédiate ; il l'est beaucoup moins pour accompagner une décision longue et relationnelle. La quasi-absence d'annonceurs dans ce relevé (2 sur 55) est cohérente avec ça — ce n'est probablement pas un hasard collectif.",
     },
     negatives: [
       { term: "gratuit, plan gratuit, logiciel, 3D, autocad", why: "recherche d'outils, pas de maître d'œuvre. Volume très supérieur aux requêtes commerciales." },

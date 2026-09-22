@@ -99,6 +99,31 @@ export default function VillePage({ params }: { params: { slug: string } }) {
               </div>
             </Reveal>
           )}
+
+          {/* Lecture comparée au national : les deux chiffres (part locale,
+              part nationale) sont mesurés de la même façon (SCAN), donc
+              comparables — ce n'est pas une estimation ajoutée par-dessus. */}
+          {stat && (
+            <Reveal delay={140}>
+              <div className="mt-6 flex gap-3 bg-lune border border-line rounded-card p-5 max-w-[62ch]">
+                <Info size={18} className="text-eclat-ink shrink-0 mt-0.5" aria-hidden="true" />
+                <p className="text-body text-ink-2 font-light">
+                  {(() => {
+                    const cityShare = Math.round((stat.advertisers / stat.scanned) * 100);
+                    const nationalShare = Math.round((SCAN.advertisers / SCAN.total) * 100);
+                    const diff = cityShare - nationalShare;
+                    if (Math.abs(diff) < 2) {
+                      return `${c.name} est proche de la moyenne nationale (${nationalShare} % d'annonceurs détectés sur l'ensemble du relevé) : ni un marché saturé, ni un boulevard.`;
+                    }
+                    if (diff < 0) {
+                      return `${c.name} est en-dessous de la moyenne nationale de détection publicitaire (${cityShare} % contre ${nationalShare} %) : moins d'entreprises y misent sur Google Ads, ce qui joue généralement en faveur du coût par clic pour celles qui s'y lancent.`;
+                    }
+                    return `${c.name} est au-dessus de la moyenne nationale de détection publicitaire (${cityShare} % contre ${nationalShare} %) : plus de concurrents y sont déjà présents, la qualité des annonces et de la page de destination pèse davantage qu'ailleurs.`;
+                  })()}
+                </p>
+              </div>
+            </Reveal>
+          )}
         </div>
       </section>
 

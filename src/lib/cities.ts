@@ -120,7 +120,58 @@ export const CITIES: City[] = [
       { sector: "auto-écoles", count: 4, advertisers: 0 },
     ],
     reading:
-      "Les cabinets d'architecture forment ici la deuxième population de l'échantillon, et aucun ne diffusait d'annonces détectables — cohérent avec ce que j'observe sur ce métier au niveau national, où je n'ai relevé aucun annonceur sur 32 cabinets. Le marché toulousain confirme donc plutôt qu'il n'infirme la réserve que j'exprime sur ce secteur.",
+      "Les cabinets d'architecture forment ici la deuxième population de l'échantillon, et aucun ne diffusait d'annonces détectables — cohérent avec ce que j'observe sur ce métier au niveau national, où je n'ai relevé que 2 annonceurs sur 55 cabinets. Le marché toulousain confirme donc plutôt qu'il n'infirme la réserve que j'exprime sur ce secteur.",
+  },
+  {
+    slug: "bordeaux",
+    name: "Bordeaux",
+    prep: "à Bordeaux",
+    metaTitle: "Google Ads à Bordeaux : 122 entreprises analysées",
+    metaDescription:
+      "Sur 122 entreprises bordelaises analysées, 25 diffusent des annonces Google Ads détectables — le taux le plus élevé du relevé après Paris. Composition du marché et lecture des chiffres.",
+    intro:
+      "Bordeaux est la ville la plus vaste de mon relevé après Lyon, avec 122 entreprises analysées. C'est aussi celle où le taux d'annonceurs est le plus haut après Paris — et la raison n'est pas tout à fait la même.",
+    mix: [
+      { sector: "agences immobilières", count: 28, advertisers: 10 },
+      { sector: "cabinets d'architecture", count: 20, advertisers: 1 },
+      { sector: "garages automobiles", count: 14, advertisers: 2 },
+    ],
+    reading:
+      "Sur les agences immobilières bordelaises, le taux d'annonceurs grimpe à 36 % (10 sur 28) — plus du double de la moyenne de la ville. C'est le même phénomène qu'à Paris : quand un secteur concentre autant d'annonceurs sur un marché aussi peuplé, le coût au clic sur les requêtes génériques du métier grimpe avec lui, et cibler large y devient plus risqué qu'ailleurs. Les cabinets d'architecture, à l'inverse, comptent parmi les moins engagés sur Google Ads (1 seul annonceur sur 20) — cohérent avec ce que j'observe sur ce métier au niveau national.",
+  },
+  {
+    slug: "lille",
+    name: "Lille",
+    prep: "à Lille",
+    metaTitle: "Google Ads à Lille : 59 entreprises analysées",
+    metaDescription:
+      "59 entreprises lilloises analysées, 11 annonceurs Google Ads détectés — un taux supérieur à la moyenne nationale. Répartition par secteur et lecture du marché.",
+    intro:
+      "Lille compte un échantillon plus resserré que Lyon ou Bordeaux — 59 entreprises — mais le taux d'annonceurs y dépasse nettement la moyenne nationale.",
+    mix: [
+      { sector: "agences immobilières", count: 19, advertisers: 5 },
+      { sector: "garages automobiles", count: 5, advertisers: 0 },
+      { sector: "auto-écoles", count: 4, advertisers: 1 },
+    ],
+    reading:
+      "Les agences immobilières portent, comme ailleurs, l'essentiel des annonceurs détectés (5 sur 19, soit 26 %). Ce qui distingue Lille : les garages automobiles n'y comptent aucun annonceur détecté sur les 5 recensés, alors que ce même secteur affiche des annonceurs ailleurs dans le relevé, à Bordeaux comme à Marseille — un signal, pas une preuve, qu'il reste un boulevard local pour qui s'y lancerait le premier.",
+  },
+  {
+    slug: "marseille",
+    name: "Marseille",
+    prep: "à Marseille",
+    metaTitle: "Google Ads à Marseille : 68 entreprises analysées",
+    metaDescription:
+      "68 entreprises marseillaises analysées, 13 annonceurs Google Ads détectés — au-dessus de la moyenne nationale. Composition sectorielle et lecture du marché.",
+    intro:
+      "Marseille se situe, comme Bordeaux et Lille, au-dessus de la moyenne nationale de détection publicitaire, sur un échantillon de 68 entreprises.",
+    mix: [
+      { sector: "agences immobilières", count: 23, advertisers: 5 },
+      { sector: "garages automobiles", count: 12, advertisers: 2 },
+      { sector: "auto-écoles", count: 2, advertisers: 0 },
+    ],
+    reading:
+      "Les garages automobiles marseillais affichent un taux d'annonceurs (2 sur 12, soit 17 %) proche de la moyenne de la ville — contrairement à Lille, où ce même secteur n'en comptait aucun. Les agences immobilières restent partout le secteur le plus engagé sur Google Ads du relevé, mais leur poids dans l'échantillon marseillais (34 % des entreprises couvertes par un secteur suivi) est le plus élevé des trois nouvelles villes, ce qui tire le taux global de la ville vers le haut.",
   },
 ];
 

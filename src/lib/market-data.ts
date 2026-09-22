@@ -78,11 +78,18 @@ export function statSentence(s: MarketStat, label: string): string {
 }
 
 /** Relevés par secteur (code NAF d'origine conservé en commentaire). */
+// Totaux mis à jour le 22/09/2026 avec l'ajout de Bordeaux, Lille et
+// Marseille (voir CITY_STATS ci-dessous) : ces trois villes recoupent les
+// mêmes secteurs, leurs comptages sont donc additionnés ici plutôt que de
+// laisser deux relevés nationaux se contredire (cas trouvé sur les
+// architectes : la page Toulouse citait « aucun annonceur sur 32 cabinets »,
+// devenu 2 sur 55 une fois Bordeaux et Lille intégrés — texte corrigé en
+// conséquence, voir plus bas dans ce fichier ET sectors.ts).
 export const SECTOR_STATS: Record<string, MarketStat> = {
-  "agences-immobilieres": { scanned: 105, advertisers: 11, noAnalytics: 24, noContact: 7, noH1: 10 }, // 68.31Z
-  "auto-ecoles": { scanned: 45, advertisers: 3, noAnalytics: 20, noContact: 16, noH1: 9 }, // 85.53Z
-  "architectes": { scanned: 32, advertisers: 0, noAnalytics: 21, noContact: 18, noH1: 18 }, // 71.11Z
-  "avocats": { scanned: 27, advertisers: 3, noAnalytics: 15, noContact: 5, noH1: 4 }, // 69.10Z
+  "agences-immobilieres": { scanned: 175, advertisers: 31, noAnalytics: 51, noContact: 26, noH1: 25 }, // 68.31Z
+  "auto-ecoles": { scanned: 58, advertisers: 5, noAnalytics: 27, noContact: 20, noH1: 14 }, // 85.53Z
+  "architectes": { scanned: 55, advertisers: 2, noAnalytics: 35, noContact: 34, noH1: 33 }, // 71.11Z
+  "avocats": { scanned: 40, advertisers: 5, noAnalytics: 20, noContact: 8, noH1: 7 }, // 69.10Z
 };
 
 /** Relevés par ville — seules celles dont l'échantillon dépasse MIN_SAMPLE. */
@@ -92,4 +99,7 @@ export const CITY_STATS: Record<string, MarketStat> = {
   rennes: { scanned: 36, advertisers: 4, noAnalytics: 16, noContact: 9, noH1: 6 },
   nantes: { scanned: 35, advertisers: 2, noAnalytics: 15, noContact: 7, noH1: 4 },
   toulouse: { scanned: 34, advertisers: 4, noAnalytics: 15, noContact: 8, noH1: 8 },
+  bordeaux: { scanned: 122, advertisers: 25, noAnalytics: 56, noContact: 40, noH1: 31 },
+  lille: { scanned: 59, advertisers: 11, noAnalytics: 20, noContact: 17, noH1: 19 },
+  marseille: { scanned: 68, advertisers: 13, noAnalytics: 31, noContact: 27, noH1: 14 },
 };
