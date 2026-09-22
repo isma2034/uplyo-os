@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
+import AccountStructureDiagram from "@/components/agency/AccountStructureDiagram";
 import { MEDIA_FLOOR, OFFER_ROUTES, TERMS } from "@/lib/offers";
 
 // Route conservée (/offres/pack-lancement) : la renommer en /offres/setup
@@ -173,6 +174,26 @@ export default function SetupPage() {
               </Reveal>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Structure avant/après — diagramme illustratif générique, pas un cas
+          client réel : voir la note dans AccountStructureDiagram.tsx. */}
+      <section className="section">
+        <div className="container-wide">
+          <Reveal>
+            <div className="max-w-text mb-10">
+              <p className="label text-eclat-ink mb-4">À quoi ressemble une structuration</p>
+              <h2 className="text-section font-semibold text-ink mb-4">
+                Deux façons d&apos;organiser le même budget
+              </h2>
+              <p className="text-body-lg text-ink-2 font-light">
+                Exemple type, pas un compte réel : les problèmes ci-dessous reviennent sur la
+                grande majorité des comptes jamais restructurés, quel que soit le secteur.
+              </p>
+            </div>
+          </Reveal>
+          <AccountStructureDiagram />
         </div>
       </section>
 
