@@ -54,5 +54,7 @@ export default function SplitTitle({
     return () => ctx.revert();
   }, [immediate, delay]);
 
-  return createElement(as, { ref, className, id }, children);
+  // data-split : StudioMotion (découpage automatique des autres titres du
+  // site) ignore ce titre, déjà pris en charge ici.
+  return createElement(as, { ref, className, id, "data-split": "" }, children);
 }

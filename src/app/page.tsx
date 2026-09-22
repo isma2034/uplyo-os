@@ -6,7 +6,6 @@ import Navbar from "@/components/agency/Navbar";
 import Footer from "@/components/agency/Footer";
 import Analytics from "@/components/agency/Analytics";
 import ContactForm from "@/components/agency/ContactForm";
-import SmoothScroll from "@/components/studio/SmoothScroll";
 import SplitTitle from "@/components/studio/SplitTitle";
 import Scramble from "@/components/studio/Scramble";
 import ExpandingMedia from "@/components/studio/ExpandingMedia";
@@ -289,12 +288,11 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
       />
       <Analytics />
-      <SmoothScroll />
       <Navbar />
 
       {/* ═══ 1. HERO ═══ */}
       <section className="pt-[104px] md:pt-[128px] pb-12 md:pb-20">
-        <div className="container-studio">
+        <div className="container-wide">
           <div className="flex items-baseline justify-between gap-6 mb-6 md:mb-8 studio-meta text-ink-3">
             <Scramble text="Consultant Google Ads indépendant" className="font-mono text-eclat-ink" />
             <span className="hidden md:inline">Audit gratuit sous {TERMS.auditDelay}</span>
@@ -338,7 +336,7 @@ export default function HomePage() {
 
       {/* ═══ 3. ENGAGEMENTS ═══ */}
       <section className="py-20 md:py-36">
-        <div className="container-studio">
+        <div className="container-wide">
           <SplitTitle className="studio-big text-ink max-w-[20ch] mb-14 md:mb-24">
             Un seul interlocuteur, votre compte à votre nom, et aucune durée
             d&apos;engagement.
@@ -366,7 +364,7 @@ export default function HomePage() {
           Chiffres réels du client 1, publiés avec son accord oral et à
           condition qu'il reste non identifiable (voir RESULTS). */}
       <section className="bg-nuit text-white py-20 md:py-36">
-        <div className="container-studio">
+        <div className="container-wide">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-20 mb-14 md:mb-20">
             <SplitTitle className="studio-big">
               Un seul client à ce jour. Voici ses chiffres.
@@ -402,7 +400,7 @@ export default function HomePage() {
 
       {/* ═══ 5. LA MÉTHODE J0 → J5 ═══ */}
       <section className="py-20 md:py-36">
-        <div className="container-studio">
+        <div className="container-wide">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-20 items-end mb-12 md:mb-20">
             <SplitTitle className="studio-big">
               Cinq jours, cinq livrables.
@@ -436,7 +434,7 @@ export default function HomePage() {
 
       {/* ═══ 6. LES OFFRES ═══ */}
       <section className="pb-20 md:pb-36" id="offres">
-        <div className="container-studio">
+        <div className="container-wide">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
             <SplitTitle className="studio-big max-w-[16ch]">
               On construit, puis on pilote.
@@ -510,7 +508,7 @@ export default function HomePage() {
           Composition éditoriale à la Locomotive : un portrait central, de
           courtes étiquettes posées autour, le texte à côté. */}
       <section className="bg-surface-2 py-20 md:py-36">
-        <div className="container-studio grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-center">
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-center">
           <div className="relative mx-auto w-full max-w-[460px] lg:max-w-none px-20 md:px-28">
             <span className="absolute left-0 top-6 z-10 studio-meta text-ink-3">Fondateur</span>
             <span className="absolute right-0 top-1/3 z-10 studio-meta text-ink-3 text-right">Un seul<br />interlocuteur</span>
@@ -552,7 +550,7 @@ export default function HomePage() {
 
       {/* ═══ 8. OBJECTIONS / FAQ ═══ */}
       <section className="py-20 md:py-36">
-        <div className="container-studio grid grid-cols-1 lg:grid-cols-[0.8fr_1.4fr] gap-10 lg:gap-20">
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-[0.8fr_1.4fr] gap-10 lg:gap-20">
           <div className="lg:sticky lg:top-28 self-start">
             <SplitTitle className="studio-big mb-6">Les questions qu&apos;on me pose avant de signer.</SplitTitle>
             <p className="studio-body text-ink-2 max-w-[36ch]">
@@ -579,7 +577,7 @@ export default function HomePage() {
       {/* ═══ 9. CTA FINAL + FORMULAIRE ═══
           Sur bg-eclat, seul le blanc pur atteint AA (4.86:1). */}
       <section className="bg-eclat text-white" id="contact">
-        <div className="container-studio py-20 md:py-32">
+        <div className="container-wide py-20 md:py-32">
           <SplitTitle className="studio-mega max-w-[12ch] mb-12 md:mb-20">
             Dites-moi ce que vous vendez.
           </SplitTitle>
@@ -611,7 +609,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Footer studio />
+      <Footer />
     </div>
   );
 }

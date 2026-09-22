@@ -40,21 +40,21 @@ const config: Config = {
       // `px` : sur un titre en clamp(), un tracking en px se déforme selon la
       // taille rendue (l'ancien `tracking-[-2px]` sur le H1).
       fontSize: {
-        label: ["0.6875rem", { lineHeight: "1.45", letterSpacing: "0.1em" }],
-        caption: ["0.75rem", { lineHeight: "1.5" }],
-        body: ["0.875rem", { lineHeight: "1.65" }],
-        "body-lg": ["1rem", { lineHeight: "1.65" }],
-        lead: ["1.0625rem", { lineHeight: "1.6" }],
-        title: ["1.25rem", { lineHeight: "1.3", letterSpacing: "0" }],
-        // Tracking desserre par rapport a l'ancienne echelle : les valeurs
-        // negatives serrees (-0.02/-0.03em) etaient calibrees pour un
-        // grotesque sans-serif. Le slab de la refonte a des empattements qui
-        // se touchent des -0.015em a cette taille — verifie a l'ecran.
-        section: ["clamp(1.5rem, 2.6vw, 2rem)", { lineHeight: "1.18", letterSpacing: "-0.005em" }],
-        display: ["clamp(1.875rem, 3.4vw, 2.75rem)", { lineHeight: "1.12", letterSpacing: "-0.008em" }],
-        // Le hero vit dans une colonne d'environ 560px : au-delà de ~3.5rem il
-        // déborde sur 6 lignes et mange tout le premier écran.
-        hero: ["clamp(2.125rem, 3.9vw, 3.375rem)", { lineHeight: "1.08", letterSpacing: "-0.01em" }],
+        // Échelle relevée le 23/09/2026 (refonte « studio », sur tout le
+        // site) : le texte courant à 14 px était jugé trop petit, et les
+        // titres trop timides pour une mise en page à la Locomotive.
+        label: ["0.75rem", { lineHeight: "1.45", letterSpacing: "0.1em" }],
+        caption: ["0.8125rem", { lineHeight: "1.5" }],
+        body: ["1rem", { lineHeight: "1.65" }],
+        "body-lg": ["1.125rem", { lineHeight: "1.6" }],
+        lead: ["clamp(1.125rem, 1.4vw, 1.3125rem)", { lineHeight: "1.5" }],
+        title: ["clamp(1.375rem, 1.7vw, 1.625rem)", { lineHeight: "1.25", letterSpacing: "-0.005em" }],
+        // Tracking : le slab en graisse 500 supporte -0.02em aux grandes
+        // tailles (vérifié à l'écran) ; au-dessous, les empattements se
+        // touchent, d'où des valeurs plus douces pour section.
+        section: ["clamp(1.75rem, 3vw, 2.625rem)", { lineHeight: "1.1", letterSpacing: "-0.012em" }],
+        display: ["clamp(2.125rem, 4.4vw, 4rem)", { lineHeight: "1.03", letterSpacing: "-0.02em" }],
+        hero: ["clamp(2.5rem, 5.6vw, 5.25rem)", { lineHeight: "1", letterSpacing: "-0.025em" }],
       },
 
       // ── Familles ──
@@ -95,7 +95,7 @@ const config: Config = {
       },
 
       maxWidth: {
-        wide: "1200px",
+        wide: "1520px",
         text: "760px",
       },
 

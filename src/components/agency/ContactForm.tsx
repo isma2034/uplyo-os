@@ -4,10 +4,20 @@ import { useState, useRef, useId, FormEvent } from "react";
 import { CircleCheck } from "lucide-react";
 import { trackFormStart, trackFormSubmit } from "@/lib/analytics";
 import { MEDIA_FLOOR } from "@/lib/offers";
+import ChoiceChips, { splitName } from "./ChoiceChips";
+
+const BUDGETS = [
+  { value: "moins-500", label: "Moins de 500 €" },
+  { value: "500-1000", label: "500 – 1 000 €" },
+  { value: "1000-3000", label: "1 000 – 3 000 €" },
+  { value: "3000+", label: "Plus de 3 000 €" },
+  { value: "pas-encore", label: "Pas encore de campagnes" },
+];
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [budget, setBudget] = useState("");
   const formStarted = useRef(false);
   // Verrou de soumission : `status` ne repasse à "sending" qu'au rendu
   // suivant, deux clics rapprochés partaient donc deux fois avant que le
@@ -42,12 +52,10 @@ export default function ContactForm() {
     setErrorMsg(null);
 
     const data = {
-      firstname: formData.get("firstname") as string,
-      lastname: formData.get("lastname") as string,
+      ...splitName(String(formData.get("name") ?? "")),
       email: formData.get("email") as string,
       website: formData.get("website") as string,
-      budget: formData.get("budget") as string,
-      sector: formData.get("sector") as string,
+      budget,
       message: formData.get("message") as string,
     };
 
@@ -60,6 +68,7 @@ export default function ContactForm() {
 
       if (res.ok) {
         form.reset();
+        setBudget("");
         trackFormSubmit("contact", data.budget);
         // L'état "sent" n'était jamais atteint (redirection immédiate) : son
         // écran de confirmation était du code mort. Il sert désormais de
@@ -111,115 +120,79 @@ export default function ContactForm() {
     >
       <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
 
+      {/* Allégé le 23/09/2026 : 7 champs → 4 obligatoires en pratique
+          (nom, email, budget en un tap, site facultatif), secteur retiré,
+          site sans « https:// » imposé (type="url" refusait monentreprise.fr). */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         <div className="flex flex-col gap-1.5">
-          <label htmlFor={`${uid}-firstname`} className="label text-ink-2">
-            Prénom
+          <label htmlFor={`${uid}-name`} className="label text-ink-2">
+            Votre nom
           </label>
           <input
-            id={`${uid}-firstname`}
-            name="firstname"
+            id={`${uid}-name`}
+            name="name"
             type="text"
-            placeholder="Sophie"
-            autoComplete="given-name"
+            placeholder="Sophie Martin"
+            autoComplete="name"
             required
             className="field"
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <label htmlFor={`${uid}-lastname`} className="label text-ink-2">
-            Nom
+          <label htmlFor={`${uid}-email`} className="label text-ink-2">
+            Email professionnel
           </label>
           <input
-            id={`${uid}-lastname`}
-            name="lastname"
-            type="text"
-            placeholder="Martin"
-            autoComplete="family-name"
+            id={`${uid}-email`}
+            name="email"
+            type="email"
+            placeholder="sophie@entreprise.fr"
+            autoComplete="email"
             required
             className="field"
           />
         </div>
-      </div>
-
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor={`${uid}-email`} className="label text-ink-2">
-          Email professionnel
-        </label>
-        <input
-          id={`${uid}-email`}
-          name="email"
-          type="email"
-          placeholder="sophie@entreprise.fr"
-          autoComplete="email"
-          required
-          className="field"
-        />
       </div>
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor={`${uid}-website`} className="label text-ink-2">
-          Site web
+          Site web (facultatif)
         </label>
         <input
           id={`${uid}-website`}
           name="website"
-          type="url"
-          placeholder="https://"
+          type="text"
+          inputMode="url"
+          placeholder="monentreprise.fr"
           autoComplete="url"
           className="field"
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor={`${uid}-budget`} className="label text-ink-2">
-            Budget publicitaire mensuel
-          </label>
-          <select id={`${uid}-budget`} name="budget" required defaultValue="" className="field appearance-none">
-            <option value="" disabled>
-              —
-            </option>
-            <option value="moins-500">Moins de 500 € / mois</option>
-            <option value="500-1000">500 € – 1 000 € / mois</option>
-            <option value="1000-3000">1 000 € – 3 000 € / mois</option>
-            <option value="3000-10000">3 000 € – 10 000 € / mois</option>
-            <option value="10000+">10 000 €+ / mois</option>
-            <option value="pas-encore">Pas encore de campagnes</option>
-          </select>
-          <p className="text-caption text-ink-3 font-light">
-            Réglé directement à Google. Minimum conseillé : {MEDIA_FLOOR.local} (
-            {MEDIA_FLOOR.ecommerce} en e-commerce).
-          </p>
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor={`${uid}-sector`} className="label text-ink-2">
-            Secteur
-          </label>
-          <select id={`${uid}-sector`} name="sector" defaultValue="" className="field appearance-none">
-            <option value="" disabled>
-              —
-            </option>
-            <option value="artisan">Artisan / BTP</option>
-            <option value="services-locaux">Services aux particuliers</option>
-            <option value="btob">Services B2B</option>
-            <option value="sante">Santé / Bien-être</option>
-            <option value="immo">Immobilier</option>
-            <option value="ecommerce">E-commerce</option>
-            <option value="autre">Autre</option>
-          </select>
-        </div>
+      <div>
+        <ChoiceChips
+          name="budget"
+          legend="Budget publicitaire mensuel"
+          options={BUDGETS}
+          value={budget}
+          onChange={setBudget}
+          required
+        />
+        <p className="text-caption text-ink-3 font-light mt-2">
+          Réglé directement à Google. Minimum conseillé : {MEDIA_FLOOR.local} ({MEDIA_FLOOR.ecommerce} en
+          e-commerce).
+        </p>
       </div>
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor={`${uid}-message`} className="label text-ink-2">
-          Votre situation
+          Votre situation (facultatif)
         </label>
         <textarea
           id={`${uid}-message`}
           name="message"
           placeholder="Ex : j'ai des campagnes en cours depuis six mois, je reçois des appels mais je ne sais pas lesquels viennent de Google."
-          className="field min-h-[100px] resize-y"
+          className="field min-h-[84px] resize-y"
         />
       </div>
 

@@ -64,7 +64,10 @@
      ou le ton "fiche" convient mieux que le ton "titre". */
   h1, h2 {
     font-family: var(--font-display), "IBM Plex Slab", serif;
-    font-weight: 600;
+    /* 500 et non plus 600 : aux tailles de la refonte studio, le 600
+       empâte le slab. Les classes font-semibold posées sur certains
+       titres sont neutralisées plus bas pour la même raison. */
+    font-weight: 500;
   }
 
   body {
@@ -94,8 +97,11 @@
      Le site utilisait 9 largeurs max différentes (1160/900/800/760/700/640…),
      ce qui décalait visiblement le bord gauche d'une section à l'autre.
      Deux tokens seulement désormais. */
+  /* Grille de la refonte « studio » (23/09/2026) : marges fixes et
+     largeur généreuse pour la typographie géante. */
   .container-wide {
-    @apply w-full max-w-wide mx-auto px-6 md:px-10;
+    @apply w-full max-w-wide mx-auto;
+    padding-inline: clamp(1.25rem, 4vw, 3.5rem);
   }
   .container-text {
     @apply w-full max-w-text mx-auto px-6 md:px-10;
@@ -103,10 +109,10 @@
 
   /* ── Rythme vertical ── */
   .section {
-    @apply py-14 md:py-24;
+    @apply py-16 md:py-32;
   }
   .section-tight {
-    @apply py-10 md:py-16;
+    @apply py-12 md:py-20;
   }
 
   /* ── Boutons ──
@@ -315,11 +321,35 @@ html.lenis { scroll-behavior: auto; }
   .studio-row, .studio-row::before, .studio-arrow, .studio-link { transition: none; }
 }
 
-/* Grille plus large que container-wide (1200) : la typographie géante a
-   besoin de place, comme chez Locomotive (marges fixes, pas de colonne). */
-.container-studio {
-  width: 100%;
-  max-width: 1520px;
-  margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+/* Titres : font-semibold (600) est posé en dur sur beaucoup de h1/h2 des
+   pages secondaires ; on le ramène à 500 plutôt que de retoucher 40 balises. */
+h1.font-semibold, h2.font-semibold { font-weight: 500; }
+
+/* ── Cartes → blocs éditoriaux (refonte studio, 23/09/2026) ──
+   Les ~30 cartes encadrées des pages secondaires (bg-white + border +
+   rounded-card) deviennent des blocs ouverts coiffés d'un filet encre,
+   comme sur l'accueil. Règle commune plutôt que 30 retouches : une carte
+   ajoutée demain suivra d'elle-même. Exclus : les formulaires (ils gardent
+   leur cadre, repère utile pour la saisie) et ce qui contient un tableau
+   (le cadre y sert de bord au tableau). */
+.rounded-card.border:not(form):not(:has(form)):not(:has(table)) {
+  background: transparent;
+  border-width: 1px 0 0 0;
+  border-color: var(--ink);
+  border-radius: 0;
+  box-shadow: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.bg-nuit .rounded-card.border:not(form):not(:has(form)),
+.bg-eclat .rounded-card.border:not(form):not(:has(form)) {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Bandeaux d'appel à l'action de fin de page : même titre géant que sur
+   l'accueil (« Dites-moi ce que vous vendez. »). */
+section.bg-eclat h2:not([data-split]) {
+  font-size: clamp(2.5rem, 6.2vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
 }

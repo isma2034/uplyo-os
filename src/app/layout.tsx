@@ -3,6 +3,9 @@ import { IBM_Plex_Sans, IBM_Plex_Mono, Roboto_Slab } from "next/font/google";
 import Script from "next/script";
 import ConsentBanner from "@/components/agency/ConsentBanner";
 import ConversionPrompt from "@/components/agency/ConversionPrompt";
+import SmoothScroll from "@/components/studio/SmoothScroll";
+import StudioMotion from "@/components/studio/StudioMotion";
+import PageTransition from "@/components/studio/PageTransition";
 import "@/styles/globals.css";
 
 // Refonte "dossier d'audit" du 22/09/2026 : IBM Plex, une famille pensee
@@ -181,6 +184,9 @@ export default function RootLayout({
           </noscript>
         )}
         {children}
+        <SmoothScroll />
+        <StudioMotion />
+        <PageTransition />
         {(GTM_ID || GA4_ID) && <ConsentBanner />}
         <ConversionPrompt />
       </body>

@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Phone, CalendarClock } from "lucide-react";
 import { trackFormStart, trackFormStep, trackFormSubmit, trackCTAClick } from "@/lib/analytics";
 import type { AuditTrack } from "@/lib/audit-content";
 import CalendlyLink from "./CalendlyLink";
+import ChoiceChips, { splitName } from "./ChoiceChips";
 import PhoneField, {
   DEFAULT_COUNTRY,
   isValidPhone,
@@ -18,7 +19,7 @@ import PhoneField, {
  *
  * Découpé en 2 étapes dans un seul composant (pas de navigation de page) :
  *   1. site web + email — le strict nécessaire pour ouvrir un dossier ;
- *   2. identité, budget, secteur, objectif, et un mot libre facultatif.
+ *   2. nom, budget et objectif (en pastilles), et un mot libre facultatif.
  *
  * Pourquoi 2 et pas 3 : une 3e étape ne portant qu'un champ facultatif
  * ajouterait un point d'abandon APRÈS que le visiteur a tout saisi, mais
@@ -102,10 +103,8 @@ const OBJECTIVE_OPTIONS: Record<AuditTrack, { label: string; options: FieldOptio
 type Values = {
   website: string;
   email: string;
-  firstname: string;
-  lastname: string;
+  name: string;
   budget: string;
-  sector: string;
   objective: string;
   message: string;
   phone: string;
@@ -115,10 +114,8 @@ type Values = {
 const EMPTY: Values = {
   website: "",
   email: "",
-  firstname: "",
-  lastname: "",
+  name: "",
   budget: "",
-  sector: "",
   objective: "",
   message: "",
   phone: "",
@@ -159,7 +156,12 @@ export default function AuditForm({
   // (l'erreur de build rencontrée sur /merci).
   useEffect(() => {
     const param = new URLSearchParams(window.location.search).get("site");
-    if (param) setV((prev) => ({ ...prev, website: param }));
+    if (param) {
+      setV((prev) => ({ ...prev, website: param }));
+      // Le site est déjà saisi (depuis l'accueil) : le curseur va droit au
+      // seul champ restant de l'étape 1, sans scroller la page.
+      document.getElementById("a-email")?.focus({ preventScroll: true });
+    }
   }, []);
 
   const set = (k: keyof Values) => (e: { target: { value: string } }) =>
@@ -256,10 +258,8 @@ export default function AuditForm({
       track,
       website: v.website,
       email: v.email,
-      firstname: v.firstname,
-      lastname: v.lastname,
+      ...splitName(v.name),
       budget: v.budget,
-      sector: v.sector,
       objective: v.objective,
       message: v.message,
       _honey: honey,
@@ -378,119 +378,53 @@ export default function AuditForm({
 
       {mode === "audit" && step === 2 && (
         <>
-          {/* grid-cols-2 sans point de rupture écrasait ces deux champs à
-              ~110 px de large sur un écran de 320 px. */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="a-firstname" className="label text-ink-2">
-                Prénom *
-              </label>
-              <input
-                id="a-firstname"
-                name="firstname"
-                type="text"
-                required
-                autoComplete="given-name"
-                value={v.firstname}
-                onChange={set("firstname")}
-                placeholder="Sophie"
-                className="field"
-              />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="a-lastname" className="label text-ink-2">
-                Nom *
-              </label>
-              <input
-                id="a-lastname"
-                name="lastname"
-                type="text"
-                required
-                autoComplete="family-name"
-                value={v.lastname}
-                onChange={set("lastname")}
-                placeholder="Martin"
-                className="field"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="a-budget" className="label text-ink-2">
-                {budgetField.label}
-              </label>
-              <select
-                id="a-budget"
-                name="budget"
-                value={v.budget}
-                onChange={set("budget")}
-                className="field appearance-none"
-              >
-                <option value="" disabled>
-                  —
-                </option>
-                {budgetField.options.map((o) => (
-                  <option key={o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="a-sector" className="label text-ink-2">
-                Secteur
-              </label>
-              <select
-                id="a-sector"
-                name="sector"
-                value={v.sector}
-                onChange={set("sector")}
-                className="field appearance-none"
-              >
-                <option value="" disabled>
-                  —
-                </option>
-                <option value="artisan">Artisan / BTP</option>
-                <option value="services-locaux">Services aux particuliers</option>
-                <option value="btob">Services B2B</option>
-                <option value="sante">Santé / Bien-être</option>
-                <option value="immo">Immobilier</option>
-                <option value="ecommerce">E-commerce</option>
-                <option value="autre">Autre</option>
-              </select>
-            </div>
-          </div>
-
+          {/* Allégé le 23/09/2026 : un seul champ nom (au lieu de prénom +
+              nom), budget et objectif en pastilles (un tap au lieu d'une
+              liste déroulante), secteur retiré (le site saisi à l'étape 1
+              le donne déjà), mot libre replié. */}
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="a-objective" className="label text-ink-2">
-              {objectiveField.label}
+            <label htmlFor="a-name" className="label text-ink-2">
+              Votre nom *
             </label>
-            <select
-              id="a-objective"
-              name="objective"
-              value={v.objective}
-              onChange={set("objective")}
-              className="field appearance-none"
-            >
-              <option value="" disabled>
-                —
-              </option>
-              {objectiveField.options.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label}
-                </option>
-              ))}
-            </select>
+            <input
+              id="a-name"
+              name="name"
+              type="text"
+              required
+              autoComplete="name"
+              autoFocus
+              value={v.name}
+              onChange={set("name")}
+              placeholder="Sophie Martin"
+              className="field"
+            />
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="a-message" className="label text-ink-2">
-              Un mot sur votre situation (facultatif)
-            </label>
+          <ChoiceChips
+            name="budget"
+            legend={budgetField.label}
+            options={budgetField.options}
+            value={v.budget}
+            onChange={(val) => setV((prev) => ({ ...prev, budget: val }))}
+          />
+
+          <ChoiceChips
+            name="objective"
+            legend={objectiveField.label}
+            options={objectiveField.options}
+            value={v.objective}
+            onChange={(val) => setV((prev) => ({ ...prev, objective: val }))}
+          />
+
+          <details className="group" open={v.message !== ""}>
+            <summary className="list-none cursor-pointer text-body font-semibold text-eclat-ink hover:underline underline-offset-4">
+              <span className="group-open:hidden">+ Ajouter un mot sur votre situation (facultatif)</span>
+              <span className="hidden group-open:inline">Un mot sur votre situation (facultatif)</span>
+            </summary>
             <textarea
               id="a-message"
               name="message"
+              aria-label="Un mot sur votre situation (facultatif)"
               value={v.message}
               onChange={set("message")}
               placeholder={
@@ -498,9 +432,9 @@ export default function AuditForm({
                   ? "Ex : plombier à Rezé, je travaille surtout au bouche-à-oreille et je me demande si ça vaut le coup de payer Google."
                   : "Ex : des campagnes tournent depuis six mois, je reçois des appels mais je ne sais pas lesquels viennent de Google."
               }
-              className="field min-h-[84px] resize-y"
+              className="field mt-2 w-full min-h-[84px] resize-y"
             />
-          </div>
+          </details>
         </>
       )}
 

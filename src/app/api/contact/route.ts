@@ -58,7 +58,10 @@ export async function POST(request: Request) {
     const email = str(body.email);
 
     // `!firstname` laissait passer "   " : le lead arrivait sans nom.
-    if (!firstname || !lastname || !email) {
+    // Le nom de famille n'est plus exigé (23/09/2026) : le formulaire n'a
+    // plus qu'un champ « Votre nom », découpé côté client, et « Sophie »
+    // seul reste un contact valable.
+    if (!firstname || !email) {
       return NextResponse.json({ error: "Champs requis manquants" }, { status: 400 });
     }
     if (!EMAIL_REGEX.test(email) || email.length > 254) {
