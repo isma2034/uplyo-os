@@ -459,25 +459,6 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-
-              <div className="mt-5 bg-nuit rounded-card p-6">
-                <div className="label text-spark mb-2.5">
-                  Ce que vous ne trouverez pas ici
-                </div>
-                <p className="text-body text-white/80 font-light mb-3">
-                  Pas de témoignage écrit à sa place, pas de note sur 5, pas
-                  de moyenne gonflée sur « nos clients ». Un seul client à ce
-                  jour — ses résultats sont ci-dessus, publiés avec son
-                  accord, sans rien qui permette de le reconnaître.
-                </p>
-                <p className="text-body text-white/80 font-light">
-                  Vous ne trouverez pas non plus de promesse chiffrée :
-                  personne ne peut garantir un nombre de ventes sur Google
-                  Ads, et quiconque vous le promet ment. Ce que vous pouvez
-                  vérifier, c&apos;est comment je travaille — avec
-                  l&apos;audit, avant de payer quoi que ce soit.
-                </p>
-              </div>
             </div>
           </Reveal>
         </div>

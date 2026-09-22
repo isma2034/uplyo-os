@@ -27,10 +27,17 @@ import { useEffect, useRef, useState } from "react";
 export default function GoogleTrendsWidget({
   keyword,
   label,
+  geo = "FR",
+  geoLabel = "France",
 }: {
   keyword: string;
   /** Nom affiché au-dessus du graphique — peut différer du mot-clé recherché. */
   label: string;
+  /** Code géo Google Trends — "FR" (national) ou une région ISO 3166-2:FR
+   * ("FR-NAQ" pour la Nouvelle-Aquitaine, etc.) pour un relevé local. */
+  geo?: string;
+  /** Nom affiché correspondant à `geo` — "France", "Nouvelle-Aquitaine"... */
+  geoLabel?: string;
 }) {
   const [loaded, setLoaded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -62,8 +69,8 @@ export default function GoogleTrendsWidget({
       <script type="text/javascript">
         trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":${JSON.stringify(
           keyword,
-        )},"geo":"FR","time":"today 5-y"}],"category":0,"property":""}, {"exploreQuery":${JSON.stringify(
-    `geo=FR&q=${encodeURIComponent(keyword)}&hl=fr&date=today 5-y`,
+        )},"geo":${JSON.stringify(geo)},"time":"today 5-y"}],"category":0,"property":""}, {"exploreQuery":${JSON.stringify(
+    `geo=${geo}&q=${encodeURIComponent(keyword)}&hl=fr&date=today 5-y`,
   )},"guestPath":"https://trends.google.com:443/trends/embed/"});
       </script>
     </body></html>`;
@@ -72,7 +79,7 @@ export default function GoogleTrendsWidget({
     <div className="bg-white border border-line rounded-card p-6">
       <div className="flex items-center justify-between gap-4 mb-1 flex-wrap">
         <h3 className="text-title font-semibold text-ink">{label}</h3>
-        <span className="label text-ink-3 shrink-0">Google Trends · France · 5 ans</span>
+        <span className="label text-ink-3 shrink-0">Google Trends · {geoLabel} · 5 ans</span>
       </div>
       <div ref={ref} className="mt-4" style={{ minHeight: loaded ? undefined : 320 }}>
         {loaded && (

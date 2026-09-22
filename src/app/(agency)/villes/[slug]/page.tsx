@@ -5,8 +5,26 @@ import { ArrowRight, Info } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
 import { CITIES, CITY_BY_SLUG } from "@/lib/cities";
 import MarketReadout from "@/components/agency/MarketReadout";
+import GoogleTrendsWidget from "@/components/agency/GoogleTrendsWidget";
 import { CITY_STATS, SCAN } from "@/lib/market-data";
 import { SECTORS } from "@/lib/sectors";
+
+/** Région administrative de chaque ville, au sens Google Trends (codes
+ * ISO 3166-2:FR) — permet un relevé de tendance régional plutôt que
+ * seulement national sur les pages villes. Le mot-clé est volontairement le
+ * même partout ("agence immobilière") : c'est le secteur n°1 du mix réel
+ * dans les 8 villes du relevé, donc factuellement le bon choix pour
+ * chacune — ce qui change d'une ville à l'autre, c'est la région ciblée. */
+const CITY_REGION: Record<string, { geo: string; label: string }> = {
+  lyon: { geo: "FR-ARA", label: "Auvergne-Rhône-Alpes" },
+  paris: { geo: "FR-IDF", label: "Île-de-France" },
+  rennes: { geo: "FR-BRE", label: "Bretagne" },
+  nantes: { geo: "FR-PDL", label: "Pays de la Loire" },
+  toulouse: { geo: "FR-OCC", label: "Occitanie" },
+  bordeaux: { geo: "FR-NAQ", label: "Nouvelle-Aquitaine" },
+  lille: { geo: "FR-HDF", label: "Hauts-de-France" },
+  marseille: { geo: "FR-PAC", label: "Provence-Alpes-Côte d'Azur" },
+};
 
 export function generateStaticParams() {
   return CITIES.map((c) => ({ slug: c.slug }));
@@ -121,6 +139,19 @@ export default function VillePage({ params }: { params: { slug: string } }) {
                     return `${c.name} est au-dessus de la moyenne nationale de détection publicitaire (${cityShare} % contre ${nationalShare} %) : plus de concurrents y sont déjà présents, la qualité des annonces et de la page de destination pèse davantage qu'ailleurs.`;
                   })()}
                 </p>
+              </div>
+            </Reveal>
+          )}
+
+          {CITY_REGION[c.slug] && (
+            <Reveal delay={200}>
+              <div className="mt-6">
+                <GoogleTrendsWidget
+                  keyword="agence immobilière"
+                  label={`Intérêt de recherche en ${CITY_REGION[c.slug].label}`}
+                  geo={CITY_REGION[c.slug].geo}
+                  geoLabel={CITY_REGION[c.slug].label}
+                />
               </div>
             </Reveal>
           )}
