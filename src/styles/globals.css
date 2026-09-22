@@ -8,26 +8,32 @@
 
 @layer base {
   :root {
-    /* ── Brand ── */
-    --eclat: #6c5ce7; /* fond de bloc uniquement, texte blanc pur */
-    --eclat-h: #5a4bd1;
-    --eclat-ink: #5a4bd1; /* texte violet sur fond clair (6.25:1 sur blanc) */
-    --aura: #a29bfe;
-    --spark: #fdcb6e;
-    --nuit: #1a1040;
-    --ombre: #2d2b55;
-    --lune: #f5f3ff;
-    --lune2: #ebe8ff;
+    /* ── Brand ──
+       Ces valeurs dupliquaient les tokens Tailwind (tailwind.config.ts) et
+       sont restées sur l'ancien violet pendant toute la refonte du
+       22/09/2026 : rien ici n'est genere par Tailwind, donc rien n'a suivi
+       automatiquement. Consequence reelle, pas cosmetique — --eclat-ink
+       pilote l'anneau de focus clavier sitewide (`:focus-visible` plus bas)
+       et --w le fond de toutes les pages (agency)/layout.tsx : les deux
+       sont restes violets sous une identite qui se voulait rouge tampon.
+       Alignees ici sur les memes hex que tailwind.config.ts. */
+    --eclat: #c0361c; /* fond de bloc uniquement, texte blanc pur */
+    --eclat-h: #932615;
+    --eclat-ink: #a32c16; /* texte colore sur fond clair (6.7:1 sur blanc) */
+    --aura: #d9b98c;
+    --spark: #d9a441;
+    --nuit: #1b1e23;
+    --ombre: #2a2e35;
+    --lune: #f6f5f1;
+    --lune2: #eceae3;
 
-    /* ── Surfaces opaques ──
-       Les anciennes bordures en alpha (rgba(108,92,231,.12)) changeaient de
-       couleur perçue selon le fond. Valeurs figées ici. */
+    /* ── Surfaces opaques ── */
     --surface-0: #ffffff;
-    --surface-1: #faf9ff;
-    --surface-2: #f6f4ff;
-    --line: #e6e2f7;
-    --line-strong: #cfc8f0;
-    --line-input: #8e86c6; /* 3.29:1 sur blanc — bordure de champ, WCAG 1.4.11 */
+    --surface-1: #fafaf8;
+    --surface-2: #f3f1eb;
+    --line: #d8d5cb;
+    --line-strong: #c4c0b2;
+    --line-input: #8a8677;
 
     /* Alias de compatibilité : --w/--w2/--bd/--bd2 restent utilisés dans le
        code existant, ils pointent désormais vers les tokens opaques. */
@@ -37,14 +43,14 @@
     --bd2: var(--line-strong);
 
     /* ── Texte ── */
-    --ink: #0d0b1a;
-    --ink2: #3d3b5c;
-    --ink3: #6f6d8a;
+    --ink: #14171c;
+    --ink2: #3f4147;
+    --ink3: #6b6d72;
 
     /* ── Sémantique ── */
-    --green: #22c55e;
-    --red: #ef4444;
-    --amber: #f59e0b;
+    --green: #1f6f4a;
+    --red: #b3261e;
+    --amber: #92600a;
   }
 
   html {

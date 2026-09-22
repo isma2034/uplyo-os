@@ -27,9 +27,9 @@ export default function OpengraphImage() {
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <svg width="52" height="52" viewBox="0 0 36 36">
-            <polygon points="18,4 28,20 18,36 8,20" fill="#6C5CE7" />
-            <polygon points="29,2 34,10 29,18 24,10" fill="#A29BFE" opacity="0.88" />
-            <polygon points="7,18 12,26 7,34 2,26" fill="#A29BFE" opacity="0.6" />
+            <polygon points="18,4 28,20 18,36 8,20" fill="#C0361C" />
+            <polygon points="29,2 34,10 29,18 24,10" fill="#D9A441" opacity="0.88" />
+            <polygon points="7,18 12,26 7,34 2,26" fill="#D9A441" opacity="0.6" />
           </svg>
           <div style={{ fontSize: 40, fontWeight: 600, color: "#FFFFFF", letterSpacing: "-0.02em" }}>
             uplyo
@@ -71,14 +71,14 @@ export default function OpengraphImage() {
             gap: 28,
             fontSize: 24,
             color: "#FFFFFF",
-            borderTop: "2px solid #6C5CE7",
+            borderTop: "2px solid #C0361C",
             paddingTop: 26,
           }}
         >
           <span>Audit gratuit sous 48 h ouvrées</span>
-          <span style={{ color: "#A29BFE" }}>·</span>
+          <span style={{ color: "#D9A441" }}>·</span>
           <span>Aucun engagement de durée</span>
-          <span style={{ color: "#A29BFE" }}>·</span>
+          <span style={{ color: "#D9A441" }}>·</span>
           <span>uplyo.fr</span>
         </div>
       </div>

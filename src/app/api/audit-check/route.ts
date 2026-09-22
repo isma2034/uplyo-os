@@ -210,12 +210,12 @@ type Lead = Record<string, string>;
 
 const shell = (title: string, inner: string) => `
   <div style="font-family:sans-serif;max-width:640px;margin:0 auto;">
-    <div style="background:#6C5CE7;padding:20px 24px;border-radius:8px 8px 0 0;">
+    <div style="background:#C0361C;padding:20px 24px;border-radius:8px 8px 0 0;">
       <h1 style="color:#fff;font-size:18px;margin:0;">${title}</h1>
     </div>
-    <div style="background:#f9f8ff;padding:24px;border:1px solid #e8e5f5;border-radius:0 0 8px 8px;">
+    <div style="background:#F3F1EB;padding:24px;border:1px solid #D8D5CB;border-radius:0 0 8px 8px;">
       ${inner}
-      <div style="margin-top:20px;padding-top:16px;border-top:1px solid #e8e5f5;font-size:12px;color:#6F6D8A;">
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid #D8D5CB;font-size:12px;color:#6B6D72;">
         Envoyé depuis le formulaire d'audit de uplyo.fr
       </div>
     </div>
@@ -223,20 +223,20 @@ const shell = (title: string, inner: string) => `
 
 const row = (k: string, v: string) =>
   v
-    ? `<tr><td style="padding:7px 0;color:#6F6D8A;width:150px;vertical-align:top;">${k}</td><td style="padding:7px 0;font-weight:600;color:#0D0B1A;">${v}</td></tr>`
+    ? `<tr><td style="padding:7px 0;color:#6B6D72;width:150px;vertical-align:top;">${k}</td><td style="padding:7px 0;font-weight:600;color:#14171C;">${v}</td></tr>`
     : "";
 
 function callbackEmail(lead: Lead): string {
   return shell(
     "Demande de rappel",
     `<table style="width:100%;font-size:14px;border-collapse:collapse;">
-       ${row("Téléphone", `<a href="tel:${lead.phone}" style="color:#6C5CE7;">${lead.phone}</a>`)}
+       ${row("Téléphone", `<a href="tel:${lead.phone}" style="color:#C0361C;">${lead.phone}</a>`)}
        ${row("Créneau souhaité", SLOTS[lead.slot] || lead.slot || "non précisé")}
        ${row("Parcours", lead.track)}
        ${row("Site web", lead.website)}
        ${row("Email", lead.email)}
      </table>
-     <p style="font-size:13px;color:#3D3B5C;margin-top:16px;">
+     <p style="font-size:13px;color:#3F4147;margin-top:16px;">
        Aucune vérification automatique n'est lancée sur une demande de rappel.
      </p>`
   );
@@ -246,7 +246,7 @@ function auditEmail(lead: Lead, check: SiteCheck | null): string {
   const info = `<table style="width:100%;font-size:14px;border-collapse:collapse;">
       ${row("Parcours", lead.track)}
       ${row("Site web", lead.website)}
-      ${row("Email", `<a href="mailto:${lead.email}" style="color:#6C5CE7;">${lead.email}</a>`)}
+      ${row("Email", `<a href="mailto:${lead.email}" style="color:#C0361C;">${lead.email}</a>`)}
       ${row("Prénom / Nom", [lead.firstname, lead.lastname].filter(Boolean).join(" "))}
       ${row("Budget", lead.budget)}
       ${row("Secteur", lead.sector)}
@@ -254,7 +254,7 @@ function auditEmail(lead: Lead, check: SiteCheck | null): string {
     </table>
     ${
       lead.message
-        ? `<div style="margin-top:16px;padding:14px;background:#fff;border:1px solid #e8e5f5;border-radius:6px;font-size:14px;color:#3D3B5C;line-height:1.6;"><strong style="color:#0D0B1A;">Message :</strong><br/>${lead.message}</div>`
+        ? `<div style="margin-top:16px;padding:14px;background:#fff;border:1px solid #D8D5CB;border-radius:6px;font-size:14px;color:#3F4147;line-height:1.6;"><strong style="color:#14171C;">Message :</strong><br/>${lead.message}</div>`
         : ""
     }`;
 
@@ -262,14 +262,14 @@ function auditEmail(lead: Lead, check: SiteCheck | null): string {
 }
 
 function checkBlock(check: SiteCheck | null): string {
-  const head = `<h2 style="font-size:14px;color:#0D0B1A;margin:24px 0 4px;">Relevé automatique — page d'accueil uniquement</h2>
-    <p style="font-size:12px;color:#6F6D8A;margin:0 0 12px;">
+  const head = `<h2 style="font-size:14px;color:#14171C;margin:24px 0 4px;">Relevé automatique — page d'accueil uniquement</h2>
+    <p style="font-size:12px;color:#6B6D72;margin:0 0 12px;">
       Une seule requête HTTP, contrôles HTML statiques. Aucun crawl, aucun appel PageSpeed.
       Constat brut à confirmer avec l'outil complet avant de rédiger le rapport.
     </p>`;
 
   if (!check) {
-    return head + `<p style="font-size:13px;color:#3D3B5C;">Aucun site fourni — relevé non lancé.</p>`;
+    return head + `<p style="font-size:13px;color:#3F4147;">Aucun site fourni — relevé non lancé.</p>`;
   }
   if (!check.ok) {
     return (
@@ -287,10 +287,10 @@ function checkBlock(check: SiteCheck | null): string {
 
   return (
     head +
-    `<table style="width:100%;font-size:13px;border-collapse:collapse;background:#fff;border:1px solid #e8e5f5;border-radius:6px;">
+    `<table style="width:100%;font-size:13px;border-collapse:collapse;background:#fff;border:1px solid #D8D5CB;border-radius:6px;">
       ${row("URL finale", `${esc(check.finalUrl)} (HTTP ${check.status}, ${check.elapsedMs} ms)`)}
-      ${row("Title", check.title ? `${esc(check.title)} <span style="color:#6F6D8A;font-weight:400;">(${check.titleLength} car.)</span>` : "<em>absent</em>")}
-      ${row("Meta description", check.metaDescription ? `${esc(check.metaDescription)} <span style="color:#6F6D8A;font-weight:400;">(${check.metaDescriptionLength} car.)</span>` : "<em>absente</em>")}
+      ${row("Title", check.title ? `${esc(check.title)} <span style="color:#6B6D72;font-weight:400;">(${check.titleLength} car.)</span>` : "<em>absent</em>")}
+      ${row("Meta description", check.metaDescription ? `${esc(check.metaDescription)} <span style="color:#6B6D72;font-weight:400;">(${check.metaDescriptionLength} car.)</span>` : "<em>absente</em>")}
       ${row("H1", `${check.h1Count} trouvé(s)${check.h1Texts.length ? ` — ${check.h1Texts.map((t) => esc(t)).join(" | ")}` : ""}`)}
       ${row("Canonical", check.canonical ? esc(check.canonical) : "<em>absente</em>")}
       ${row("JSON-LD", check.jsonLdBlocks ? `${check.jsonLdBlocks} bloc(s) — types : ${check.jsonLdTypes.map((t) => esc(t)).join(", ") || "non identifiés"}` : "<em>aucun</em>")}
