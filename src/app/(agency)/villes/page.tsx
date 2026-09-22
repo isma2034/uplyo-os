@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
+import AnimatedBar from "@/components/agency/AnimatedBar";
 import { CITIES } from "@/lib/cities";
 import { CITY_STATS, share, publishable, SCAN } from "@/lib/market-data";
 
@@ -53,9 +54,17 @@ export default function VillesPage() {
                 >
                   <h2 className="text-title font-semibold text-ink mb-2">{c.name}</h2>
                   {stat && (
-                    <div className="label text-eclat-ink mb-3">
-                      {stat.advertisers} annonceurs sur {stat.scanned} analysés
-                      {publishable(stat) ? ` · ${share(stat)} %` : ""}
+                    <div className="mb-3">
+                      <div className="label text-eclat-ink mb-1.5">
+                        {stat.advertisers} annonceurs sur {stat.scanned} analysés
+                        {publishable(stat) ? ` · ${share(stat)} %` : ""}
+                      </div>
+                      {publishable(stat) && (
+                        <AnimatedBar
+                          pct={share(stat)}
+                          className="h-1.5 w-full max-w-[180px] rounded-full bg-lune-deep overflow-hidden"
+                        />
+                      )}
                     </div>
                   )}
                   <p className="text-body text-ink-2 font-light mb-4">{c.metaDescription}</p>

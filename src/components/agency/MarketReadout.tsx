@@ -1,6 +1,8 @@
 import { Megaphone, MonitorSmartphone } from "lucide-react";
 import type { MarketStat } from "@/lib/market-data";
 import { SCAN, publishable } from "@/lib/market-data";
+import Counter from "@/components/agency/Counter";
+import AnimatedBar from "@/components/agency/AnimatedBar";
 
 /**
  * Relevé à deux dimensions, partagé par les pages sectorielles et les pages
@@ -32,13 +34,23 @@ function Line({
 }) {
   const pct = Math.round((n / total) * 100);
   return (
-    <li className="flex items-baseline gap-3 py-2 border-b border-line last:border-0">
-      <span className="font-mono text-body-lg font-semibold text-ink shrink-0 tabular-nums">
-        {n}
-        <span className="text-caption text-ink-3 font-normal">/{total}</span>
-      </span>
-      <span className="text-body text-ink-2 font-light flex-1">{label}</span>
-      {showPct && <span className="label text-eclat-ink shrink-0 tabular-nums">{pct} %</span>}
+    <li className="py-3 border-b border-line last:border-0">
+      <div className="flex items-baseline gap-3">
+        <span className="font-mono text-body-lg font-semibold text-ink shrink-0 tabular-nums">
+          <Counter value={n} />
+          <span className="text-caption text-ink-3 font-normal">/{total}</span>
+        </span>
+        <span className="text-body text-ink-2 font-light flex-1">{label}</span>
+        {showPct && (
+          <span className="label text-eclat-ink shrink-0 tabular-nums">
+            <Counter value={pct} suffix=" %" />
+          </span>
+        )}
+      </div>
+      {/* Barre de proportion : magnitude = une seule teinte, claire -> pleine
+          (voir skill dataviz). Se remplit au scroll (AnimatedBar), masquée
+          sous MIN_SAMPLE — même regle que le %. */}
+      {showPct && <AnimatedBar pct={pct} className="mt-2 h-1.5 w-full rounded-full bg-lune-deep overflow-hidden" />}
     </li>
   );
 }
