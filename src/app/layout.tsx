@@ -84,17 +84,22 @@ export const metadata: Metadata = {
     description:
       "Je construis et je pilote vos campagnes Google Ads, tous secteurs. Audit gratuit sous 48 h ouvrées, aucun engagement de durée.",
   },
-  // Deux icônes déclarées volontairement : le SVG pour les navigateurs (net à
-  // toute taille), et un PNG 48×48 parce que c'est le format que Google
-  // privilégie pour la favicon affichée dans ses résultats. La convention de
-  // fichier de Next (src/app/icon.*) n'en expose qu'UNE seule — un icon.png
-  // ajouté à côté du SVG le remplaçait au lieu de le compléter.
+  // Icônes servies depuis public/ et non plus par la convention
+  // src/app/icon.svg : Next y pose « immutable, max-age=1 an », si bien
+  // qu'après le changement de logo (22/09/2026) les navigateurs qui avaient
+  // déjà visité le site gardaient l'ancienne icône dans l'onglet. Les
+  // fichiers de public/ sont revalidés à chaque visite, et le paramètre ?v=
+  // force un nouvel URL pour les caches qui auraient gardé l'ancien.
+  // Le PNG 48×48 reste déclaré : c'est le format que Google privilégie pour
+  // la favicon de ses résultats. favicon.ico couvre les navigateurs et
+  // outils qui le demandent d'office (il renvoyait 404).
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml", sizes: "any" },
-      { url: "/images/favicon-48.png", type: "image/png", sizes: "48x48" },
+      { url: "/favicon.svg?v=2", type: "image/svg+xml", sizes: "any" },
+      { url: "/images/favicon-48.png?v=2", type: "image/png", sizes: "48x48" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    shortcut: [{ url: "/favicon.ico?v=2", sizes: "16x16 32x32 48x48" }],
+    apple: [{ url: "/apple-touch-icon.png?v=2", sizes: "180x180" }],
   },
   ...(SEARCH_CONSOLE ? { verification: { google: SEARCH_CONSOLE } } : {}),
   robots: {

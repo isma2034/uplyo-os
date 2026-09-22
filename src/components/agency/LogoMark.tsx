@@ -4,8 +4,8 @@
 // et dans les résultats Google. Un seul signe, centré sur la grille 36×36,
 // reste lisible jusqu'à la favicon.
 //
-// Tracé dupliqué à l'identique dans src/app/icon.svg et
-// scripts/logo/mark.svg (sources des PNG) : à modifier ensemble.
+// Tracé dupliqué à l'identique dans public/favicon.svg et
+// scripts/logo/mark.svg (sources des PNG et du .ico) : à modifier ensemble.
 export const LOGO_RED = "#C0361C";
 export const LOGO_PAPER = "#F6F5F1";
 

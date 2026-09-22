@@ -11,3 +11,6 @@ for spec in "48 public/images/favicon-48.png" "180 public/apple-touch-icon.png" 
     --allow-file-access-from-files --window-size=$1,$1 --screenshot="$2" "file://$tmp" >/dev/null 2>&1
   rm -f "$tmp"
 done
+# favicon.ico (16/32/48) depuis le rendu 180 px, puis copie du SVG servi.
+python3 -c "from PIL import Image; Image.open('public/apple-touch-icon.png').convert('RGBA').save('public/favicon.ico', sizes=[(16,16),(32,32),(48,48)])"
+cp scripts/logo/mark.svg public/favicon.svg
