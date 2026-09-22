@@ -113,7 +113,7 @@ export default function OffresPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text">
-              <p className="label text-eclat-ink mb-4">Les prestations</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">Les prestations</p>
               <h1 className="text-display font-semibold text-ink mb-5">
                 Deux prestations, dans l&apos;ordre. Pas trois formules qui se
                 ressemblent.
@@ -139,7 +139,7 @@ export default function OffresPage() {
                 delay={i * 90}
                 className="bg-white border border-line rounded-card p-6 h-full flex flex-col shadow-card"
               >
-                <div className="label text-ink-3 mb-3">Étape {s.n}</div>
+                <div className="text-caption font-semibold text-ink-3 mb-3">Étape {s.n}</div>
                 <h2 className="text-title font-semibold text-ink mb-2">
                   {s.t}
                 </h2>
@@ -164,7 +164,7 @@ export default function OffresPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-8 md:mb-10">
-              <p className="label text-eclat-ink mb-4">Comparatif</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">Comparatif</p>
               <h2 className="text-section font-semibold text-ink mb-3">
                 Setup ou pilotage
               </h2>
@@ -266,7 +266,7 @@ export default function OffresPage() {
           <Reveal>
             <div className="mt-5 bg-white border border-line rounded-card p-5 md:p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
               <div>
-                <div className="label text-ink-3 mb-2">En complément</div>
+                <div className="text-caption font-semibold text-ink-3 mb-2">En complément</div>
                 <div className="text-body-lg font-semibold text-ink mb-1">
                   {OFFER_ROUTES.ecommerce.label}
                 </div>
@@ -292,7 +292,7 @@ export default function OffresPage() {
       {/* Ce qui est vrai des deux */}
       <section className="section-tight bg-nuit">
         <div className="container-wide">
-          <h2 className="label text-spark mb-6">Valable dans les deux cas</h2>
+          <h2 className="text-caption font-semibold text-spark mb-6">Valable dans les deux cas</h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
             {[
               "Le compte Google Ads est ouvert à votre nom et vous en restez propriétaire.",
@@ -320,7 +320,7 @@ export default function OffresPage() {
       <section className="section">
         <div className="container-text">
           <Reveal>
-            <p className="label text-eclat-ink mb-4">Questions</p>
+            <p className="text-caption font-semibold text-eclat-ink mb-4">Questions</p>
             <h2 className="text-section font-semibold text-ink mb-8">
               Avant de demander un devis
             </h2>

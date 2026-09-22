@@ -61,7 +61,7 @@ const COMPTE: AuditTrackContent = {
     description:
       "Je regarde votre compte et je vous écris ce que j'y vois : où part le budget, ce que vaut votre suivi, quoi corriger en premier. Sous 48 h ouvrées.",
   },
-  eyebrow: "Audit gratuit · campagnes en cours",
+  eyebrow: "Audit gratuit, campagnes en cours",
   h1: "Je regarde votre compte, et je vous écris ce que j'y vois.",
   lede: "Requêtes hors sujet payées chaque jour, conversions qui ne remontent pas, structure qui empêche d'arbitrer : la plupart des comptes perdent du budget sans que personne ne le voie. L'audit chiffre ces fuites et vous les montre, captures à l'appui.",
   stats: [
@@ -156,7 +156,7 @@ const SANS_CAMPAGNE: AuditTrackContent = {
     description:
       "Pas encore de publicité ? J'étudie votre marché : ce que vos clients tapent, le coût d'un clic chez vous, et le budget qu'il faudrait.",
   },
-  eyebrow: "Audit gratuit · aucune campagne à ce jour",
+  eyebrow: "Audit gratuit, aucune campagne à ce jour",
   h1: "Pas encore de campagne ? Je regarde votre site et votre marché.",
   lede: "Vous n'avez jamais fait de publicité sur Google et vous ne savez pas si cela vaut le coup. Je pars de votre site et de votre zone d'intervention : ce que vos clients tapent réellement, combien de fois par mois, ce que coûte un clic chez vous, et qui paie déjà pour être devant vous. Vous recevez une étude écrite — y compris si sa conclusion est « n'y allez pas ».",
   stats: [

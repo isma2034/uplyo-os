@@ -178,7 +178,7 @@ export default function VillePage({ params }: { params: { slug: string } }) {
                 <>
                   <div className="text-title font-semibold text-ink mb-1">{m.count}</div>
                   <div className="text-body text-ink-2 font-light mb-3">{m.sector}</div>
-                  <div className="label text-eclat-ink">
+                  <div className="text-caption font-semibold text-eclat-ink">
                     {m.advertisers === 0
                       ? "aucun annonceur détecté"
                       : `${m.advertisers} annonceur${m.advertisers > 1 ? "s" : ""} détecté${m.advertisers > 1 ? "s" : ""}`}

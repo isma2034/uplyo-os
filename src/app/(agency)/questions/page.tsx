@@ -17,7 +17,7 @@ export default function QuestionsPage() {
       <section className="section">
         <div className="container-wide">
           <Reveal>
-            <p className="label text-eclat-ink mb-4">Questions</p>
+            <p className="text-caption font-semibold text-eclat-ink mb-4">Questions</p>
             <h1 className="text-display font-semibold text-ink mb-5 max-w-[24ch]">
               Quand quelque chose ne va pas dans le compte
             </h1>

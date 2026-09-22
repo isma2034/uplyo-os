@@ -150,10 +150,27 @@
   }
 }
 
-/* ── Accessibilité : mouvement réduit ──
-   `.reveal*` a disparu avec la refonte du 22/09/2026 (voir Reveal.tsx) —
-   plus rien a neutraliser de ce cote. La garde generale reste utile pour
-   tout le reste (hero, Counter, AnimatedBar, GoogleTrendsWidget). */
+/* ── Apparition au scroll ──
+   Retabli le 22/09/2026 (voir Reveal.tsx) : le HTML part visible (`.reveal`),
+   seul le montage cote client « arme » le fondu-glisse (`.reveal-armed`),
+   jamais en reduced-motion (regle plus bas). Easing aligne sur celui du hero
+   (hero-rise / hero-stamp) pour que les deux mouvements du site se
+   ressemblent au lieu d'utiliser deux courbes differentes. */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+.reveal-armed {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Accessibilité : mouvement réduit ── */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -165,6 +182,10 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  .reveal-armed {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -185,4 +206,21 @@
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Le "moment travaille" unique du site (refonte 22/09/2026) : l'arrivee sur
+   le hero, geree a la main ici plutot que via Reveal (voir Reveal.tsx — le
+   mouvement disperse au scroll a ete retire partout ailleurs). Chaque enfant
+   du hero recoit hero-rise avec un delai croissant (lecture ligne a ligne) ;
+   le panneau d'audit recoit hero-stamp, un leger effet de tampon (depart
+   legerement agrandi, retombee nette) coherent avec l'identite "dossier".
+   motion-safe: cote composant, meme convention que slideUp ci-dessus. */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-stamp {
+  0%   { opacity: 0; transform: scale(0.97) translateY(8px); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }

@@ -283,15 +283,21 @@ export default function HomePage() {
       {/* ═══ 1. HERO ═══ */}
       <section className="pt-[104px] md:pt-[128px] pb-14 md:pb-20">
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
-          <Reveal>
-            <p className="text-caption font-semibold text-eclat-ink mb-5">
+          <div>
+            <p
+              className="text-caption font-semibold text-eclat-ink mb-5 motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both]"
+            >
               Consultant Google Ads indépendant
             </p>
-            <h1 className="text-hero font-semibold text-ink mb-6">
+            <h1
+              className="text-hero font-semibold text-ink mb-6 motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both] motion-safe:[animation-delay:70ms]"
+            >
               Des demandes de devis qui rentrent — et un coût par demande que
               vous voyez.
             </h1>
-            <p className="text-lead text-ink-2 max-w-[54ch] mb-7 font-light">
+            <p
+              className="text-lead text-ink-2 max-w-[54ch] mb-7 font-light motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both] motion-safe:[animation-delay:140ms]"
+            >
               Je m&apos;appelle Ismael. Je construis et je pilote des campagnes
               Google Ads : artisans, prestataires, commerces, e-commerce. Je
               fais le travail, et je vous montre le compte pendant que je le
@@ -302,7 +308,9 @@ export default function HomePage() {
                 est ici le seul element de preuve disponible tant que la page
                 ne peut citer qu'un client. Format compact — il appuie le texte,
                 il ne lui vole pas la place. */}
-            <div className="flex items-center gap-3.5 mb-8 max-w-[54ch]">
+            <div
+              className="flex items-center gap-3.5 mb-8 max-w-[54ch] motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both] motion-safe:[animation-delay:210ms]"
+            >
               <Image
                 src="/images/ismael-portrait.webp"
                 alt="Ismael, consultant Google Ads indépendant et fondateur d'Uplyo"
@@ -323,7 +331,9 @@ export default function HomePage() {
                 .
               </p>
             </div>
-            <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <ul
+              className="flex flex-wrap items-center gap-x-5 gap-y-2 motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both] motion-safe:[animation-delay:270ms]"
+            >
               {[
                 "Aucun engagement de durée",
                 "Vous restez propriétaire du compte",
@@ -342,11 +352,11 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-          </Reveal>
+          </div>
 
-          <Reveal delay={120}>
+          <div className="motion-safe:animate-[hero-stamp_.6s_cubic-bezier(0.22,1,0.36,1)_both] motion-safe:[animation-delay:200ms]">
             <HeroAuditForm />
-          </Reveal>
+          </div>
         </div>
       </section>
 
@@ -373,16 +383,36 @@ export default function HomePage() {
       <section className="section">
         <div className="container-wide">
           <Reveal>
-            <div className="max-w-text mb-10 md:mb-14">
-              <p className="text-caption font-semibold text-eclat-ink mb-4">Le plan de travail</p>
-              <h2 className="text-display font-semibold text-ink mb-4">
-                Cinq jours, cinq livrables. Vous savez à l&apos;avance ce qui
-                sort chaque jour.
-              </h2>
-              <p className="text-body-lg text-ink-2 font-light">
-                C&apos;est la partie du travail que les agences décrivent le
-                moins et que vous payez pourtant en premier. La voici en entier.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-8 md:gap-10 items-end mb-10 md:mb-14">
+              <div className="max-w-text">
+                <p className="text-caption font-semibold text-eclat-ink mb-4">Le plan de travail</p>
+                <h2 className="text-display font-semibold text-ink mb-4">
+                  Cinq jours, cinq livrables. Vous savez à l&apos;avance ce qui
+                  sort chaque jour.
+                </h2>
+                <p className="text-body-lg text-ink-2 font-light">
+                  C&apos;est la partie du travail que les agences décrivent le
+                  moins et que vous payez pourtant en premier. La voici en entier.
+                </p>
+              </div>
+              {/* Photo d'illustration (banque libre de droits, licence Pexels —
+                  usage commercial libre, aucune attribution requise), traitee
+                  en duoton rouge/encre pour rester dans la palette du site
+                  plutot que d'importer une photo stock en couleurs franches.
+                  Purement atmospherique : ne represente ni Ismael ni un client
+                  reel, d'ou l'alt vide (decoratif, le texte adjacent porte deja
+                  le sens). Masquee sur mobile plutot que reduite en timbre-poste. */}
+              <div className="relative hidden md:block aspect-[4/3] rounded-card overflow-hidden border border-line">
+                <Image
+                  src="/images/audit-desk.jpg"
+                  alt=""
+                  fill
+                  sizes="320px"
+                  className="object-cover grayscale contrast-125"
+                />
+                <div className="absolute inset-0 bg-eclat mix-blend-multiply opacity-[0.2]" aria-hidden="true" />
+                <div className="absolute inset-0 bg-nuit mix-blend-multiply opacity-[0.1]" aria-hidden="true" />
+              </div>
             </div>
           </Reveal>
 
@@ -451,7 +481,10 @@ export default function HomePage() {
                   (Counter) pour rester cohérent avec le MarketReadout. */}
               <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {RESULTS.map((r) => (
-                  <div key={r.label} className="bg-white border border-line rounded-card p-5">
+                  <div
+                    key={r.label}
+                    className="bg-white border border-line rounded-card p-5 transition-colors duration-200 hover:border-eclat-ink"
+                  >
                     <div className="font-mono text-title font-semibold text-eclat-ink tabular-nums">
                       <Counter value={r.value} decimals={r.decimals ?? 0} prefix={r.prefix} suffix={r.suffix} />
                     </div>
@@ -513,7 +546,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {OFFERS.map((o, i) => (
               <Reveal key={o.title} delay={i * 100}>
-                <div className="bg-white border border-line rounded-card p-6 md:p-8 h-full flex flex-col shadow-card">
+                <div className="bg-white border border-line rounded-card p-6 md:p-8 h-full flex flex-col shadow-card transition-all duration-200 hover:-translate-y-1 hover:border-eclat-ink">
                   <div className="label text-ink-3 mb-3">{o.tag}</div>
                   <h3 className="text-title font-semibold text-ink mb-2">
                     {o.title}
@@ -560,7 +593,7 @@ export default function HomePage() {
           </div>
 
           <Reveal>
-            <div className="mt-5 border border-line rounded-card p-5 md:p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+            <div className="mt-5 border border-line rounded-card p-5 md:p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between transition-colors duration-200 hover:border-eclat-ink">
               <div>
                 <div className="text-body font-semibold text-ink mb-1">
                   Vous vendez en ligne ? Module e-commerce en complément
@@ -708,11 +741,11 @@ export default function HomePage() {
             <div className="border-t border-line">
               {FAQS.map((faq) => (
                 <details key={faq.q} className="group border-b border-line">
-                  <summary className="py-4 flex items-start justify-between gap-6 cursor-pointer text-body-lg font-medium text-ink list-none">
+                  <summary className="py-4 flex items-start justify-between gap-6 cursor-pointer text-body-lg font-medium text-ink list-none transition-colors duration-200 hover:text-eclat-ink">
                     {faq.q}
                     <span
                       aria-hidden="true"
-                      className="text-eclat-ink text-xl leading-6 shrink-0 transition-transform group-open:rotate-45"
+                      className="text-eclat-ink text-xl leading-6 shrink-0 transition-transform duration-300 group-open:rotate-45"
                     >
                       +
                     </span>

@@ -1,31 +1,76 @@
-import { ReactNode } from "react";
+"use client";
+
+import { useEffect, useRef, ReactNode } from "react";
+import type React from "react";
 import { cn } from "@/lib/utils";
 
 interface RevealProps {
   children: ReactNode;
   className?: string;
   delay?: number;
+  /**
+   * Élément DOM réellement rendu — `div` par défaut. Nécessaire quand Reveal
+   * enveloppe un `<li>` : rendu en `div`, il s'intercalait entre `<ul>`/`<ol>`
+   * et `<li>`, ce que Lighthouse et les lecteurs d'écran signalent comme une
+   * liste invalide (un `<li>` doit être un enfant DIRECT de son parent de
+   * liste).
+   */
   as?: "div" | "li";
 }
 
 /**
- * Refonte "dossier d'audit" du 22/09/2026 : passthrough sans animation.
+ * Apparition au scroll — dégradation propre. Retire le 22/09/2026 au profit
+ * d'un seul moment travaille (le hero), remis le meme jour a la demande
+ * expresse d'Ismael : « UI/UX propre mais avec des effets visuels animes ».
+ * Le mecanisme n'avait pas change de valeur, seule la decision d'usage —
+ * donc on reprend l'implementation eprouvee plutot que d'en refaire une.
  *
- * Avant, ce composant declenchait un fondu-glisse au scroll sur A PEU PRES
- * CHAQUE section du site (~40 usages). Le skill de design frontend flague
- * explicitement ce pattern ("fade-and-slide-up entrances on each section...
- * read as AI-generated") — choix explicite d'Ismael de retirer le mouvement
- * disperse au profit d'un seul moment travaille (l'arrivee sur le hero,
- * gere a la main dans page.tsx, pas via ce composant).
- *
- * Garde en place plutot que supprime partout : les ~40 appels a <Reveal>
- * dans le code restent valides (memes props `as`/`delay`/`className`), donc
- * aucun autre fichier n'a besoin d'etre touche pour ce changement. `delay`
- * est accepte mais ignore — le signaler au lint serait plus de bruit que
- * d'interet vu que la prop reste utile si une future page veut reintroduire
- * un mouvement ponctuel ici.
+ * Le HTML servi est visible (`.reveal`) : sans JS, rien ne reste cache.
+ * C'est le composant, une fois monte cote client, qui « arme » l'animation
+ * (`.reveal-armed`) avant de la declencher au scroll. `prefers-reduced-motion`
+ * neutralise l'armement en CSS.
  */
-export default function Reveal({ children, className, as = "div" }: RevealProps) {
+export default function Reveal({
+  children,
+  className,
+  delay = 0,
+  as = "div",
+}: RevealProps) {
   const Tag = as;
-  return <Tag className={cn(className)}>{children}</Tag>;
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduced || typeof IntersectionObserver === "undefined") return;
+
+    el.classList.add("reveal-armed");
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          window.setTimeout(() => el.classList.add("reveal-visible"), delay);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.08 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delay]);
+
+  return (
+    <Tag
+      ref={ref as React.RefObject<HTMLLIElement & HTMLDivElement>}
+      className={cn("reveal", className)}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </Tag>
+  );
 }

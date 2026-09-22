@@ -50,7 +50,7 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
         <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-x-16 lg:gap-y-10 items-start">
           <Reveal className="lg:col-start-1 lg:row-start-1">
             <div>
-              <p className="label text-eclat-ink mb-4">{c.eyebrow}</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">{c.eyebrow}</p>
               <h1 className="text-display font-semibold text-ink mb-5">{c.h1}</h1>
               <p className="text-lead text-ink-2 max-w-[58ch] font-light mb-8">{c.lede}</p>
 
@@ -110,7 +110,7 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
                 <UserRound size={26} className="text-ink-3" />
               </div>
               <div>
-                <div className="label text-ink-3 mb-2">Qui fait cet audit</div>
+                <div className="text-caption font-semibold text-ink-3 mb-2">Qui fait cet audit</div>
                 <h2 className="text-title font-semibold text-ink mb-2">Ismael</h2>
                 <p className="text-body text-ink-2 font-light mb-3 max-w-[62ch]">
                   Je gère des campagnes Google Ads, seul. C&apos;est moi qui
@@ -135,7 +135,7 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-7">
-              <p className="label text-spark mb-4">Les limites</p>
+              <p className="text-caption font-semibold text-spark mb-4">Les limites</p>
               <h2 className="text-section font-semibold text-white">{c.wontTitle}</h2>
             </div>
           </Reveal>

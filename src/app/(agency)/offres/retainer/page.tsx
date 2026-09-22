@@ -89,8 +89,8 @@ export default function PilotagePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text">
-              <p className="label text-eclat-ink mb-4">
-                Prestations · {OFFER_ROUTES.pilotage.label}
+              <p className="text-caption font-semibold text-eclat-ink mb-4">
+                {OFFER_ROUTES.pilotage.label}
               </p>
               <h1 className="text-display font-semibold text-ink mb-5">
                 Quelqu&apos;un entre dans votre compte chaque semaine. Et vous
@@ -147,7 +147,7 @@ export default function PilotagePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10">
-              <p className="label text-eclat-ink mb-4">Un mois type</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">Un mois type</p>
               <h2 className="text-section font-semibold text-ink mb-3">
                 Ce que je fais réellement, et quand
               </h2>
@@ -201,7 +201,7 @@ export default function PilotagePage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-8">
-              <p className="label text-spark mb-4">
+              <p className="text-caption font-semibold text-spark mb-4">
                 Ce sur quoi je m&apos;engage
               </p>
               <h2 className="text-section font-semibold text-white">
@@ -283,7 +283,7 @@ export default function PilotagePage() {
       <section className="section">
         <div className="container-text">
           <Reveal>
-            <p className="label text-eclat-ink mb-4">Transparence</p>
+            <p className="text-caption font-semibold text-eclat-ink mb-4">Transparence</p>
             <h2 className="text-section font-semibold text-ink mb-4">
               Un seul client à ce jour
             </h2>

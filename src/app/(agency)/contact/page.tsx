@@ -30,7 +30,7 @@ export default function ContactPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-12">
-              <p className="label text-eclat-ink mb-4">Contact</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">Contact</p>
               <h1 className="text-display font-semibold text-ink mb-5">
                 Dites-moi ce que vous vendez et à qui.
               </h1>
@@ -50,7 +50,7 @@ export default function ContactPage() {
               <div>
                 {/* Créneau direct */}
                 <div className="border border-line rounded-card p-6 mb-6 bg-white">
-                  <div className="label text-ink-3 mb-2">Vous préférez parler</div>
+                  <div className="text-caption font-semibold text-ink-3 mb-2">Vous préférez parler</div>
                   <h2 className="text-title font-semibold text-ink mb-2">
                     Un créneau de 30 minutes
                   </h2>

@@ -19,7 +19,7 @@ export default function VillesPage() {
       <section className="section">
         <div className="container-wide">
           <Reveal>
-            <p className="label text-eclat-ink mb-4">Par ville</p>
+            <p className="text-caption font-semibold text-eclat-ink mb-4">Par ville</p>
             <h1 className="text-display font-semibold text-ink mb-5 max-w-[24ch]">
               Qui fait réellement de la publicité dans votre ville
             </h1>
@@ -50,12 +50,12 @@ export default function VillesPage() {
               <Reveal key={c.slug} delay={i * 70}>
                 <Link
                   href={`/villes/${c.slug}`}
-                  className="group block bg-white border border-line rounded-card p-6 md:p-7 h-full no-underline hover:border-line-strong transition-colors"
+                  className="group block bg-white border border-line rounded-card p-6 md:p-7 h-full no-underline hover:border-eclat-ink hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <h2 className="text-title font-semibold text-ink mb-2">{c.name}</h2>
                   {stat && (
                     <div className="mb-3">
-                      <div className="label text-eclat-ink mb-1.5">
+                      <div className="text-caption font-semibold text-eclat-ink mb-1.5">
                         {stat.advertisers} annonceurs sur {stat.scanned} analysés
                         {publishable(stat) ? ` · ${share(stat)} %` : ""}
                       </div>

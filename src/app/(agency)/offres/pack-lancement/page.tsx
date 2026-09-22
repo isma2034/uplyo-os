@@ -66,8 +66,8 @@ export default function SetupPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text">
-              <p className="label text-eclat-ink mb-4">
-                Prestations · {OFFER_ROUTES.setup.label}
+              <p className="text-caption font-semibold text-eclat-ink mb-4">
+                {OFFER_ROUTES.setup.label}
               </p>
               <h1 className="text-display font-semibold text-ink mb-5">
                 Le compte construit en cinq jours, et vous voyez ce qui sort
@@ -127,7 +127,7 @@ export default function SetupPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10">
-              <p className="label text-eclat-ink mb-4">Le plan de travail</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">Le plan de travail</p>
               <h2 className="text-section font-semibold text-ink">
                 Jour par jour, livrable par livrable
               </h2>
@@ -183,7 +183,7 @@ export default function SetupPage() {
         <div className="container-wide">
           <Reveal>
             <div className="max-w-text mb-10">
-              <p className="label text-eclat-ink mb-4">À quoi ressemble une structuration</p>
+              <p className="text-caption font-semibold text-eclat-ink mb-4">À quoi ressemble une structuration</p>
               <h2 className="text-section font-semibold text-ink mb-4">
                 Deux façons d&apos;organiser le même budget
               </h2>
@@ -200,7 +200,7 @@ export default function SetupPage() {
       {/* Ce qui n'est pas compris */}
       <section className="section-tight bg-nuit">
         <div className="container-wide">
-          <h2 className="label text-spark mb-6">
+          <h2 className="text-caption font-semibold text-spark mb-6">
             Ce qui n&apos;est pas compris
           </h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
@@ -227,7 +227,7 @@ export default function SetupPage() {
         <div className="container-wide grid grid-cols-1 md:grid-cols-2 gap-5">
           <Reveal>
             <div className="border border-line rounded-card p-6 bg-white h-full">
-              <div className="label text-ink-3 mb-3">Et après ?</div>
+              <div className="text-caption font-semibold text-ink-3 mb-3">Et après ?</div>
               <h2 className="text-title font-semibold text-ink mb-2">
                 {OFFER_ROUTES.pilotage.label}
               </h2>
@@ -248,7 +248,7 @@ export default function SetupPage() {
           </Reveal>
           <Reveal delay={90}>
             <div className="border border-line rounded-card p-6 bg-white h-full">
-              <div className="label text-ink-3 mb-3">Comparer</div>
+              <div className="text-caption font-semibold text-ink-3 mb-3">Comparer</div>
               <h2 className="text-title font-semibold text-ink mb-2">
                 Setup ou pilotage
               </h2>

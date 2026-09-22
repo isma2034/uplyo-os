@@ -83,7 +83,7 @@ export default function MerciPage({
             <p className="text-body-lg text-ink-2 mb-8 font-light">{c.lead}</p>
 
             <div className="bg-surface-2 rounded-card p-5 mb-8 text-left">
-              <div className="label text-ink-3 mb-4">Ce qui se passe maintenant</div>
+              <div className="text-caption font-semibold text-ink-3 mb-4">Ce qui se passe maintenant</div>
               <ol className="flex flex-col gap-3">
                 {c.steps.map((step, i) => (
                   <li key={step} className="flex items-start gap-3">

@@ -30,7 +30,7 @@ export default function AccountStructureDiagram() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
       <Reveal>
         <div className="bg-white border border-line rounded-card p-6 h-full">
-          <div className="label text-ink-3 mb-4">Exemple type — avant</div>
+          <div className="text-caption font-semibold text-ink-3 mb-4">Exemple type, avant</div>
           <ul className="flex flex-col gap-3">
             {BEFORE.map((t) => (
               <li key={t} className="flex gap-2.5 text-body text-ink-2 font-light">
@@ -43,7 +43,7 @@ export default function AccountStructureDiagram() {
       </Reveal>
       <Reveal delay={80}>
         <div className="bg-white border border-line-strong rounded-card p-6 h-full">
-          <div className="label text-eclat-ink mb-4">Exemple type — après structuration</div>
+          <div className="text-caption font-semibold text-eclat-ink mb-4">Exemple type, après structuration</div>
           <ul className="flex flex-col gap-3">
             {AFTER.map((t) => (
               <li key={t} className="flex gap-2.5 text-body text-ink-2 font-light">

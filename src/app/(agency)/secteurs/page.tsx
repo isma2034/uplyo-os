@@ -18,7 +18,7 @@ export default function SecteursPage() {
       <section className="section">
         <div className="container-wide">
           <Reveal>
-            <p className="label text-eclat-ink mb-4">Par secteur</p>
+            <p className="text-caption font-semibold text-eclat-ink mb-4">Par secteur</p>
             <h1 className="text-display font-semibold text-ink mb-5 max-w-[22ch]">
               Ce qui marche dans un métier ne marche pas dans l&apos;autre
             </h1>
@@ -49,11 +49,11 @@ export default function SecteursPage() {
               <Reveal key={s.slug} delay={i * 70}>
                 <Link
                   href={`/secteurs/${s.slug}`}
-                  className="group block bg-white border border-line rounded-card p-6 md:p-7 h-full no-underline hover:border-line-strong transition-colors"
+                  className="group block bg-white border border-line rounded-card p-6 md:p-7 h-full no-underline hover:border-eclat-ink hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <h2 className="text-title font-semibold text-ink mb-2 capitalize">{s.plural}</h2>
                   {stat && publishable(stat) && (
-                    <div className="label text-eclat-ink mb-3">
+                    <div className="text-caption font-semibold text-eclat-ink mb-3">
                       {stat.advertisers} annonceurs sur {stat.scanned} analysés · {share(stat)} %
                     </div>
                   )}
