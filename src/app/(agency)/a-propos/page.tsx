@@ -1,9 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import FadeIn from "@/components/studio/FadeIn";
-import ExpandingMedia from "@/components/studio/ExpandingMedia";
+import Portrait from "@/components/studio/Portrait";
 import { MEDIA_FLOOR, OFFER_ROUTES } from "@/lib/offers";
 
 export const metadata: Metadata = {
@@ -135,17 +134,13 @@ export default function AProposPage() {
             </FadeIn>
           </div>
 
-          {/* Portrait réel fourni par Ismael (WebP 132 Ko, fond transparent). */}
-          <ExpandingMedia className="aspect-[4/5] w-full max-w-[520px] justify-self-end bg-surface-2">
-            <Image
-              src="/images/ismael-portrait.webp"
-              alt="Portrait d'Ismael, consultant Google Ads et fondateur d'Uplyo"
-              fill
-              priority
-              sizes="(min-width: 1024px) 40vw, 90vw"
-              className="object-cover object-top grayscale"
-            />
-          </ExpandingMedia>
+          {/* Portrait réel fourni par Ismael (WebP 132 Ko, détouré). */}
+          <Portrait
+            alt="Portrait d'Ismael, consultant Google Ads et fondateur d'Uplyo"
+            sizes="(min-width: 1024px) 40vw, 90vw"
+            priority
+            className="w-full max-w-[520px] justify-self-end"
+          />
         </div>
       </section>
 

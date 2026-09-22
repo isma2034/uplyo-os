@@ -11,6 +11,7 @@ import Scramble from "@/components/studio/Scramble";
 import ExpandingMedia from "@/components/studio/ExpandingMedia";
 import FadeIn from "@/components/studio/FadeIn";
 import StudioAuditForm from "@/components/studio/StudioAuditForm";
+import Portrait from "@/components/studio/Portrait";
 import { MEDIA_FLOOR, TERMS } from "@/lib/offers";
 
 export const metadata: Metadata = {
@@ -513,15 +514,12 @@ export default function HomePage() {
             <span className="absolute left-0 top-6 z-10 studio-meta text-ink-3">Fondateur</span>
             <span className="absolute right-0 top-1/3 z-10 studio-meta text-ink-3 text-right">Un seul<br />interlocuteur</span>
             <span className="absolute left-0 bottom-10 z-10 studio-meta text-ink-3">Depuis 2026</span>
-            <ExpandingMedia className="aspect-[4/5] w-full">
-              <Image
-                src="/images/ismael-portrait.webp"
-                alt="Ismael, consultant Google Ads indépendant et fondateur d'Uplyo"
-                fill
-                sizes="(min-width: 1024px) 40vw, 90vw"
-                className="object-cover object-top grayscale"
-              />
-            </ExpandingMedia>
+            <Portrait
+              alt="Ismael, consultant Google Ads indépendant et fondateur d'Uplyo"
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              panel="bg-surface-1"
+              className="w-full"
+            />
           </div>
 
           <div>
