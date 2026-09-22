@@ -12,7 +12,22 @@ import {
 import Reveal from "@/components/agency/Reveal";
 import { SECTORS, SECTOR_BY_SLUG } from "@/lib/sectors";
 import MarketReadout from "@/components/agency/MarketReadout";
+import GoogleTrendsWidget from "@/components/agency/GoogleTrendsWidget";
 import { SECTOR_STATS } from "@/lib/market-data";
+
+/** Mot-clé représentatif du métier pour Google Trends — la requête la plus
+ * naturelle qu'un client final taperait, pas le pluriel administratif de
+ * `plural`. */
+const TRENDS_KEYWORD: Record<string, string> = {
+  "agences-immobilieres": "agence immobilière",
+  "auto-ecoles": "auto école",
+  avocats: "avocat",
+  architectes: "architecte",
+  "debarras-demenagement": "déménagement",
+  "plomberie-depannage": "plombier",
+  "garages-automobiles": "garage automobile",
+  "hebergement-touristique": "location vacances",
+};
 
 // Pages statiques : le contenu ne dépend d'aucune donnée de requête, il n'y a
 // aucune raison de les rendre à la demande.
@@ -124,6 +139,17 @@ export default function SecteurPage({ params }: { params: { slug: string } }) {
             <Reveal delay={80}>
               <div className="mt-9">
                 <MarketReadout stat={stat} label={s.plural} />
+              </div>
+            </Reveal>
+          )}
+
+          {TRENDS_KEYWORD[s.slug] && (
+            <Reveal delay={140}>
+              <div className="mt-6">
+                <GoogleTrendsWidget
+                  keyword={TRENDS_KEYWORD[s.slug]}
+                  label={`Intérêt de recherche pour « ${TRENDS_KEYWORD[s.slug]} »`}
+                />
               </div>
             </Reveal>
           )}
