@@ -12,8 +12,9 @@
  * 2. LA FAUSSE PRÉSENCE LOCALE. Uplyo n'a pas de bureau à Lyon, Paris ou
  *    Toulouse. Aucune page ne doit laisser croire le contraire : pas
  *    d'adresse, pas de « votre agence à », et une mention explicite du
- *    travail à distance sur chaque page. Le seul ancrage géographique réel
- *    est la Loire-Atlantique, via le client accompagné.
+ *    travail à distance sur chaque page. La localisation du client
+ *    accompagné n'est citée nulle part : il a accepté la publication de
+ *    ses résultats à condition de rester non identifiable.
  *
  * Règle statistique : le pourcentage n'est affiché que sur le total de la
  * ville (échantillon ≥ 25). La composition sectorielle est donnée en
@@ -94,16 +95,16 @@ export const CITIES: City[] = [
     prep: "à Nantes",
     metaTitle: "Google Ads à Nantes : 35 entreprises analysées",
     metaDescription:
-      "35 entreprises nantaises analysées, 2 annonceurs — le taux le plus bas du relevé. Le seul marché où j'accompagne un client.",
+      "35 entreprises nantaises analysées, 2 annonceurs — le taux le plus bas du relevé, et ce que cela change pour qui s'y lance.",
     intro:
-      "Nantes est la seule ville de ce relevé où j'ai une expérience de terrain : le compte que je pilote au mois est celui d'une entreprise de débarras et de déménagement de Loire-Atlantique. C'est aussi la ville où j'ai détecté le moins d'annonceurs.",
+      "Nantes est la ville de ce relevé où j'ai détecté le moins d'annonceurs : deux sur trente-cinq entreprises analysées.",
     mix: [
       { sector: "agences immobilières", count: 12, advertisers: 1 },
       { sector: "cabinets d'avocats", count: 6, advertisers: 0 },
       { sector: "administrateurs de biens", count: 5, advertisers: 0 },
     ],
     reading:
-      "Deux annonceurs détectés sur 35 entreprises, c'est le taux le plus bas de tout le relevé, et l'immobilier y est très présent sans être publicitairement actif. Sur le compte que je pilote dans ce département, ce que j'ai vu concorde : la concurrence sur les requêtes locales de services y est encore modérée, et l'essentiel du travail porte sur l'exclusion des recherches sans intention commerciale plutôt que sur la lutte aux enchères.",
+      "Deux annonceurs détectés sur 35 entreprises, c'est le taux le plus bas de tout le relevé, et l'immobilier y est très présent sans être publicitairement actif. Sur un marché aussi peu disputé, l'essentiel du travail porte d'abord sur l'exclusion des recherches sans intention commerciale, plutôt que sur la lutte aux enchères.",
   },
   {
     slug: "toulouse",

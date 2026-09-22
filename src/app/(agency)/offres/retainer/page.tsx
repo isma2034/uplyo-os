@@ -288,16 +288,16 @@ export default function PilotagePage() {
               Un seul client à ce jour
             </h2>
             <p className="text-body-lg text-ink-2 font-light mb-4">
-              Une entreprise de débarras et déménagement de la région nantaise,
+              Une PME de services à la personne, activité locale en France,
               accompagnée depuis 2026 : gestion mensuelle du compte, étude de
               volume avant toute extension de zone, et reprise du site côté
               conversion.
             </p>
             <p className="text-body-lg text-ink-2 font-light">
-              Ses résultats chiffrés lui appartiennent. Ils seront publiés ici
-              quand il m&apos;aura donné son accord — vous ne trouverez
-              d&apos;ici là ni moyenne, ni témoignage, ni note inventée pour
-              combler le vide.
+              Il a accepté que ses résultats soient publiés, à condition de
+              rester non identifiable : ils sont sur la page d&apos;accueil, sans
+              son nom ni son secteur. Vous ne trouverez ici ni moyenne, ni
+              témoignage, ni note inventée pour combler le vide.
             </p>
           </Reveal>
         </div>
@@ -307,12 +307,12 @@ export default function PilotagePage() {
       <section className="bg-eclat">
         <div className="container-text py-14 md:py-20 text-center">
           <h2 className="text-section font-semibold text-white mb-4">
-            Je regarde d&apos;abord votre compte
+            Je regarde d&apos;abord vos campagnes
           </h2>
           <p className="text-lead text-white font-light mb-8">
-            L&apos;audit gratuit sert à savoir si votre compte est pilotable en
-            l&apos;état ou s&apos;il faut le refaire. C&apos;est écrit, et
-            c&apos;est sous 48 h ouvrées.
+            L&apos;audit gratuit regarde vos annonces, vos concurrents, votre
+            page d&apos;arrivée et votre suivi, sans accès à votre compte.
+            C&apos;est écrit, et c&apos;est sous 48 h ouvrées.
           </p>
           <Link href="/audit" className="btn-invert">
             Recevoir mon audit gratuit

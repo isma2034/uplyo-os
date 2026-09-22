@@ -15,7 +15,7 @@ const SEQUENCE = [
   {
     n: "1",
     t: "L'audit",
-    d: "Gratuit, sous 48 h ouvrées. Je regarde votre marché, les concurrents présents sur vos requêtes et, si le compte existe déjà, ce qu'il contient. Vous repartez avec le rapport, que l'on travaille ensemble ensuite ou non.",
+    d: "Gratuit, sous 48 h ouvrées. Je regarde votre marché, les concurrents présents sur vos requêtes et, si vous faites déjà de la publicité, vos annonces telles que vos clients les voient, sans accès à votre compte. Vous repartez avec le rapport, que l'on travaille ensemble ensuite ou non.",
     href: "/audit",
     cta: "Demander l'audit",
   },

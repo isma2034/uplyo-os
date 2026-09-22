@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, Check, UserRound } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Check } from "lucide-react";
 import Reveal from "@/components/agency/Reveal";
 import AuditForm from "@/components/agency/AuditForm";
 import { AUDIT_TRACKS, type AuditTrack } from "@/lib/audit-content";
@@ -102,13 +103,15 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
         <div className="container-wide">
           <Reveal>
             <div className="bg-white border border-line rounded-card p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-start max-w-[860px]">
-              {/* Emplacement photo — aucun portrait réel disponible à ce jour. */}
-              <div
-                className="w-[84px] h-[84px] shrink-0 rounded-full border border-dashed border-line-strong bg-surface-2 grid place-items-center"
-                aria-hidden="true"
-              >
-                <UserRound size={26} className="text-ink-3" />
-              </div>
+              {/* Portrait réel (le même que sur l'accueil et /a-propos) ; il
+                  remplace l'ancien emplacement vide en pointillés. */}
+              <Image
+                src="/images/ismael-portrait.webp"
+                alt="Ismael, qui réalise l'audit"
+                width={96}
+                height={96}
+                className="w-[96px] h-[96px] shrink-0 rounded-full object-cover object-top bg-surface-2 grayscale"
+              />
               <div>
                 <div className="text-caption font-semibold text-ink-3 mb-2">Qui fait cet audit</div>
                 <h2 className="text-title font-semibold text-ink mb-2">Ismael</h2>
@@ -157,12 +160,12 @@ export default function AuditPageBody({ track }: { track: AuditTrack }) {
         <div className="container-text text-center">
           <Reveal>
             <h2 className="text-title font-semibold text-ink mb-4">
-              Pas de témoignages ici — pas encore
+              Un seul client à ce jour, et pas de témoignage
             </h2>
             <p className="text-body-lg text-ink-2 font-light mb-3">
-              J&apos;accompagne un seul client à ce jour, depuis 2026. Tant que son accord de
-              publication n&apos;est pas obtenu, vous ne trouverez sur ce site ni avis, ni note, ni
-              moyenne de résultats.
+              J&apos;accompagne un seul client à ce jour, depuis 2026. Il a accepté que ses
+              résultats soient publiés sans qu&apos;on puisse le reconnaître : ils sont sur la page
+              d&apos;accueil. Vous ne trouverez sur ce site ni avis inventé, ni note, ni moyenne.
             </p>
             <p className="text-body-lg text-ink-2 font-light">
               L&apos;audit est justement fait pour ça : il porte sur votre activité à vous, et il

@@ -2,13 +2,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import Reveal from "@/components/agency/Reveal";
+import FadeIn from "@/components/studio/FadeIn";
+import ExpandingMedia from "@/components/studio/ExpandingMedia";
 import { MEDIA_FLOOR, OFFER_ROUTES } from "@/lib/offers";
 
 export const metadata: Metadata = {
   title: "À propos · Ismael, qui gère votre compte",
   description:
-    "Uplyo est une activité indépendante. Qui je suis, ce que j'ai fait pour mon client, comment je travaille et ce que je ne sais pas faire.",
+    "De Séoul à Barcelone, en passant par un premier compte Google Ads côté annonceur : le parcours d'Ismael, ce qu'il en a tiré, et ce qu'il ne sait pas faire.",
   alternates: { canonical: "/a-propos" },
 };
 
@@ -23,6 +24,7 @@ const JSON_LD = {
     jobTitle: "Consultant Google Ads",
     url: "https://uplyo.fr/a-propos",
     knowsAbout: ["Google Ads", "Google Analytics 4", "Looker Studio"],
+    knowsLanguage: ["fr", "en", "es"],
     worksFor: { "@type": "ProfessionalService", "@id": "https://uplyo.fr/#organization" },
   },
 };
@@ -41,7 +43,7 @@ const LIMITS = [
   },
   {
     t: "Ma preuve est encore mince",
-    d: "Un client accompagné à ce jour, dans les services aux particuliers. C'est peu, et c'est la principale raison de vous méfier. C'est précisément pour ça que l'audit est gratuit : jugez sur le travail rendu, pas sur une liste de logos.",
+    d: "Un client accompagné en propre à ce jour, depuis 2026. C'est peu, et c'est la principale raison de vous méfier. C'est précisément pour ça que l'audit est gratuit : jugez sur le travail rendu, pas sur une liste de logos.",
   },
   {
     t: "Je ne promets aucun chiffre",
@@ -68,161 +70,167 @@ const HOW = [
   },
 ];
 
+// Le récit ne contient QUE des faits du profil d'Ismael (job-apply/profile/
+// profile.yaml) : employeurs, lieux, dates, périmètres. Aucun chiffre de
+// résultat obtenu pour un employeur n'est repris ici — ce ne sont pas des
+// résultats d'Uplyo (c'est ainsi que « ROAS moyen 4,2x » s'était retrouvé
+// dans l'ancienne version du site). Le poste actuel s'écrit toujours
+// « chez Teleperformance, prestataire de Google », jamais « chez Google ».
+const STORY = [
+  {
+    when: "2020",
+    where: "Montpellier",
+    t: "Le marketing, par l'école",
+    d: "Trois ans de Bachelor Business & Marketing à l'IDRAC Business School. Les bases, et une question que je n'ai plus lâchée depuis : qu'est-ce qui prouve que ça marche ?",
+  },
+  {
+    when: "2022",
+    where: "Séoul",
+    t: "Expliquer un produit à des gens qui ne le connaissent pas",
+    d: "Chef de produit junior dans une biotech de diagnostic. J'ai préparé le lancement de ses produits sur six marchés européens : prix, argumentaires, formation des équipes locales. Faire comprendre en quelques lignes pourquoi un produit vaut qu'on s'y arrête, c'est exactement le travail d'une annonce.",
+  },
+  {
+    when: "2022 – 2023",
+    where: "Montpellier",
+    t: "Mon premier compte, côté annonceur",
+    d: "Chez un fabricant de matériel médical, j'ai géré les campagnes Google Ads et Meta avec 8 000 € par mois, réécrit toutes les annonces et mis en place les relances automatiques. C'est là que j'ai compris qu'un budget publicitaire, c'est l'argent de quelqu'un, et qu'on doit pouvoir dire où il est passé.",
+  },
+  {
+    when: "2023 – 2025",
+    where: "Hérault",
+    t: "Ce qui se passe après le clic",
+    d: "Développement commercial et marketing dans le sport automobile : catalogues, salons internationaux, et un CRM pour suivre chaque contact jusqu'à la vente. Une demande ne vaut rien si personne ne la rappelle vite. Depuis, je regarde toujours ce que devient un contact, pas seulement combien il a coûté.",
+  },
+  {
+    when: "Depuis 2025",
+    where: "Barcelone",
+    t: "L'autre côté de la table",
+    d: "J'accompagne des agences sur leurs comptes Google Ads (Search, Shopping, Performance Max, YouTube), chez Teleperformance, prestataire de Google. Plus d'une centaine d'agences, des comptes construits par d'autres : on y voit ce qui marche, et surtout les erreurs qui reviennent d'un compte à l'autre.",
+  },
+  {
+    when: "2026",
+    where: "Uplyo",
+    t: "Faire le travail en entier",
+    d: "J'ai lancé Uplyo pour les entreprises qui n'ont ni agence ni équipe marketing : construire le compte, le piloter, et montrer ce que je fais pendant que je le fais. Mon premier client est une PME de services à la personne ; ses résultats sont publiés sur la page d'accueil, avec son accord.",
+  },
+];
+
 export default function AProposPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
 
-      {/* Hero */}
-      <section className="section">
-        <div className="container-wide grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-14 items-start">
-          <Reveal>
-            {/* Portrait réel fourni par Ismael. Le PNG source (1,5 Mo) est
-                converti en WebP (132 Ko) : c'est la première image du site,
-                elle est au-dessus de la ligne de flottaison, et un site qui
-                vend de la performance ne peut pas se permettre de la charger
-                lentement. `priority` la sort du chargement différé.
-                Le fond du fichier est transparent, d'où le panneau teinté. */}
-            <div className="aspect-[4/5] w-full max-w-[280px] rounded-card bg-surface-2 overflow-hidden relative">
-              <Image
-                src="/images/ismael-portrait.webp"
-                alt="Portrait d'Ismael, consultant Google Ads et fondateur d'Uplyo"
-                fill
-                priority
-                sizes="280px"
-                className="object-cover object-top"
-              />
-            </div>
-          </Reveal>
+      {/* Hero — refonte studio + récit (23/09/2026) */}
+      <section className="pt-[112px] md:pt-[150px] pb-16 md:pb-24">
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-12 lg:gap-20 items-end">
+          <div>
+            <p className="text-caption font-semibold text-eclat-ink mb-6">À propos</p>
+            <h1 className="text-hero text-ink mb-8">
+              J&apos;ai appris Google Ads des deux côtés de la table.
+            </h1>
+            <FadeIn className="flex flex-col gap-5 max-w-[56ch]">
+              <p className="text-lead text-ink-2">
+                D&apos;abord côté annonceur, avec un budget à justifier chaque mois. Puis
+                de l&apos;autre côté, en accompagnant des agences sur des comptes construits par
+                d&apos;autres. Uplyo, c&apos;est ce que j&apos;en ai tiré, mis au service
+                d&apos;entreprises qui n&apos;ont ni agence ni équipe marketing.
+              </p>
+              <p className="text-lead text-ink-2">
+                Je m&apos;appelle Ismael. Quand vous m&apos;écrivez, vous parlez à la personne qui
+                ouvrira vos campagnes. Il n&apos;y a personne d&apos;autre.
+              </p>
+            </FadeIn>
+          </div>
 
-          <Reveal delay={80}>
-            <div>
-              <p className="text-caption font-semibold text-eclat-ink mb-4">À propos</p>
-              <h1 className="text-display font-semibold text-ink mb-5">
-                Ismael. C&apos;est moi qui vous réponds, et c&apos;est moi qui travaille dans votre
-                compte.
-              </h1>
-              <div className="flex flex-col gap-4 max-w-[64ch]">
-                <p className="text-lead text-ink-2 font-light">
-                  Uplyo n&apos;est pas une agence avec des pôles et des chargés de compte : c&apos;est
-                  une activité indépendante, la mienne. Quand vous m&apos;écrivez, vous parlez
-                  directement à la personne qui ouvrira vos campagnes.
-                </p>
-                <p className="text-lead text-ink-2 font-light">
-                  Le reste du site promet « un accès direct à l&apos;expert ». Cette page existe
-                  pour qu&apos;on sache enfin de qui il s&apos;agit — et pour dire ce que je ne sais
-                  pas faire.
-                </p>
-              </div>
-            </div>
-          </Reveal>
+          {/* Portrait réel fourni par Ismael (WebP 132 Ko, fond transparent). */}
+          <ExpandingMedia className="aspect-[4/5] w-full max-w-[520px] justify-self-end bg-surface-2">
+            <Image
+              src="/images/ismael-portrait.webp"
+              alt="Portrait d'Ismael, consultant Google Ads et fondateur d'Uplyo"
+              fill
+              priority
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              className="object-cover object-top grayscale"
+            />
+          </ExpandingMedia>
         </div>
       </section>
 
-      {/* Ce que j'ai fait */}
+      {/* Le parcours, en chapitres */}
       <section className="section bg-surface-2">
         <div className="container-wide">
-          <Reveal>
-            <div className="max-w-text mb-8">
-              <p className="text-caption font-semibold text-eclat-ink mb-4">Mon expérience, en clair</p>
-              <h2 className="text-section font-semibold text-ink">
-                Un client, une activité de services, depuis 2026
-              </h2>
-            </div>
-          </Reveal>
-
-          <Reveal delay={80}>
-            <div className="bg-white border border-line rounded-card p-6 md:p-8 max-w-[860px]">
-              <div className="text-caption font-semibold text-ink-3 mb-4">
-                Débarras et déménagement · région nantaise
-              </div>
-              <div className="flex flex-col gap-4">
-                <p className="text-body-lg text-ink-2 font-light">
-                  Je gère son compte Google Ads au mois : campagnes de recherche sur la
-                  Loire-Atlantique, exclusions, enchères, annonces. Avant d&apos;ouvrir une nouvelle
-                  zone géographique, j&apos;ai fait une étude de volume et de coût au clic plutôt que
-                  de déplacer le budget au jugé — c&apos;est un réflexe que j&apos;applique partout.
-                </p>
-                <p className="text-body-lg text-ink-2 font-light">
-                  J&apos;ai aussi repris son site côté conversion : bouton d&apos;appel fixe sur
-                  mobile, capture de contact, accès direct au formulaire de devis, correction des
-                  images. Les campagnes amenaient du monde sur une page qui perdait une partie des
-                  visiteurs ; travailler l&apos;un sans l&apos;autre n&apos;avait pas de sens. Je
-                  m&apos;occupe depuis de la maintenance mensuelle du site.
-                </p>
-                <div className="border-t border-line pt-4">
-                  <p className="text-body text-ink-2 font-light">
-                    <strong className="font-semibold text-ink">
-                      Ses résultats chiffrés ne sont pas publiés ici.
-                    </strong>{" "}
-                    Ils lui appartiennent, et je ne lui ai pas demandé l&apos;autorisation de les
-                    diffuser. Ils apparaîtront sur ce site le jour où il me l&apos;accordera, avec
-                    son nom. En attendant, vous ne trouverez ici ni témoignage anonyme, ni moyenne
-                    reconstituée, ni logo emprunté.
-                  </p>
+          <h2 className="text-display text-ink max-w-[18ch] mb-14 md:mb-20">
+            Six étapes, et ce que chacune m&apos;a laissé.
+          </h2>
+          <FadeIn as="ol" className="border-t border-ink">
+            {STORY.map((s) => (
+              <li
+                key={s.when + s.where}
+                className="grid grid-cols-1 md:grid-cols-[14rem_1fr_1.3fr] gap-x-10 gap-y-3 py-9 md:py-12 border-b border-line"
+              >
+                <div>
+                  <div className="font-display text-[clamp(1.75rem,2.6vw,2.5rem)] leading-none text-ink">
+                    {s.when}
+                  </div>
+                  <div className="text-caption font-mono text-eclat-ink mt-2">{s.where}</div>
                 </div>
-              </div>
-            </div>
-          </Reveal>
+                <h3 className="font-display text-title text-ink">{s.t}</h3>
+                <p className="text-body-lg text-ink-2 max-w-[60ch]">{s.d}</p>
+              </li>
+            ))}
+          </FadeIn>
+          <p className="mt-8 text-body text-ink-2 max-w-[64ch]">
+            Je travaille en français, en anglais et en espagnol.
+          </p>
         </div>
       </section>
 
       {/* Comment je travaille */}
       <section className="section">
         <div className="container-wide">
-          <Reveal>
-            <div className="max-w-text mb-10">
-              <p className="text-caption font-semibold text-eclat-ink mb-4">Comment je travaille</p>
-              <h2 className="text-section font-semibold text-ink">Quatre règles que je m&apos;applique</h2>
-            </div>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-            {HOW.map((h, i) => (
-              <Reveal key={h.t} delay={i * 70}>
-                <div className="border-t border-line pt-5">
-                  <h3 className="text-title font-semibold text-ink mb-2">{h.t}</h3>
-                  <p className="text-body text-ink-2 font-light">{h.d}</p>
-                </div>
-              </Reveal>
+          <h2 className="text-display text-ink max-w-[18ch] mb-12 md:mb-16">
+            Quatre règles que je m&apos;applique.
+          </h2>
+          <FadeIn className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
+            {HOW.map((h) => (
+              <div key={h.t} className="border-t border-ink pt-6">
+                <h3 className="text-title text-ink mb-3">{h.t}</h3>
+                <p className="text-body-lg text-ink-2">{h.d}</p>
+              </div>
             ))}
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* Ce que je ne sais pas faire */}
       <section className="section bg-nuit">
         <div className="container-wide">
-          <Reveal>
-            <div className="max-w-text mb-10">
-              <p className="text-caption font-semibold text-spark mb-4">Les limites</p>
-              <h2 className="text-section font-semibold text-white mb-4">
-                Ce que je ne sais pas faire, et pourquoi vous devriez le savoir avant
-              </h2>
-              <p className="text-body-lg text-white/80 font-light">
-                Cette liste vous fera peut-être partir. C&apos;est préférable maintenant plutôt
-                qu&apos;au troisième mois.
-              </p>
-            </div>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-            {LIMITS.map((l, i) => (
-              <Reveal key={l.t} delay={i * 70}>
-                <div className="border-l-2 border-spark pl-5">
-                  <h3 className="text-title font-semibold text-white mb-2">{l.t}</h3>
-                  <p className="text-body text-white/80 font-light">{l.d}</p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="max-w-[40ch] mb-12 md:mb-16">
+            <h2 className="text-display text-white mb-6">
+              Ce que je ne sais pas faire.
+            </h2>
+            <p className="text-lead text-white/80">
+              Cette liste vous fera peut-être partir. C&apos;est préférable maintenant plutôt
+              qu&apos;au troisième mois.
+            </p>
           </div>
+          <FadeIn className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
+            {LIMITS.map((l) => (
+              <div key={l.t} className="border-t border-white/30 pt-6">
+                <h3 className="text-title text-white mb-3">{l.t}</h3>
+                <p className="text-body-lg text-white/80">{l.d}</p>
+              </div>
+            ))}
+          </FadeIn>
         </div>
       </section>
 
       {/* Outils */}
       <section className="section-tight">
         <div className="container-wide">
-          <div className="border-t border-line pt-6 flex flex-col md:flex-row md:items-baseline gap-3 md:gap-10">
-            <div className="label text-ink-3 md:w-[160px] shrink-0">Les outils</div>
-            <p className="text-body text-ink-2 font-light max-w-[64ch]">
+          <div className="border-t border-ink pt-6 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-3 md:gap-10">
+            <div className="text-caption font-mono text-ink-3">Les outils</div>
+            <p className="text-body-lg text-ink-2 max-w-[64ch]">
               Google Ads, Google Analytics 4 avec Consent Mode v2, Google Tag Manager, Looker
               Studio, scripts Google Ads, Google Merchant Center pour le module e-commerce. Côté
               site, WordPress. Aucune certification n&apos;est revendiquée sur ce site tant
@@ -233,20 +241,20 @@ export default function AProposPage() {
       </section>
 
       {/* CTA final — seul bloc bg-eclat de la page */}
-      <section className="bg-eclat">
-        <div className="container-text py-14 md:py-20 text-center">
-          <h2 className="text-section font-semibold text-white mb-4">
-            Le plus simple reste de me faire travailler
-          </h2>
-          <p className="text-lead text-white font-light mb-8">
-            L&apos;audit est gratuit et sans contrepartie. Vous jugerez sur ce que je rends, pas sur
-            ce que j&apos;écris ici.
-          </p>
-          <Link href="/audit" className="btn-invert">
-            Recevoir mon audit gratuit
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-          <p className="text-body text-white font-light mt-6">
+      <section className="bg-eclat text-white">
+        <div className="container-wide py-20 md:py-32">
+          <h2 className="mb-10 max-w-[14ch]">Le plus simple reste de me faire travailler.</h2>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <p className="text-lead max-w-[44ch]">
+              L&apos;audit est gratuit et sans contrepartie. Vous jugerez sur ce que je rends, pas
+              sur ce que j&apos;écris ici.
+            </p>
+            <Link href="/audit" className="btn-invert self-start">
+              Recevoir mon audit gratuit
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+          <p className="text-body mt-10">
             Ou voir{" "}
             <Link href="/offres" className="text-white font-semibold underline underline-offset-4">
               les deux prestations

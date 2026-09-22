@@ -3,8 +3,8 @@
 // ═══════════════════════════════════════════
 //
 // POURQUOI DEUX PARCOURS
-// La page /audit ne s'adressait qu'aux annonceurs déjà actifs : « Je regarde
-// VOTRE COMPTE, et je vous écris ce que j'y vois ». Or la prospection en cours
+// La page /audit ne s'adressait qu'aux annonceurs déjà actifs (à l'époque :
+// « Je regarde VOTRE COMPTE », promesse retirée depuis, voir Parcours 1). Or la prospection en cours
 // vise majoritairement des artisans (plombiers, serruriers, couvreurs) qui
 // n'ont AUCUN compte Google Ads. Ces visiteurs ne se reconnaissaient pas dans
 // la promesse et repartaient — sur la page de conversion principale du site.
@@ -47,7 +47,15 @@ export type AuditTrackContent = {
 
 const AUDIT_DELAY = TERMS.auditDelay;
 
-// ── Parcours 1 : compte Google Ads existant ────────────────────────────────
+// ── Parcours 1 : campagnes déjà en cours ───────────────────────────────────
+// Réécrit le 23/09/2026 : l'audit promettait de « regarder votre compte »
+// (rapport de termes de recherche, captures, structure) alors qu'aucun accès
+// au compte n'est demandé ni obtenu avant de travailler ensemble. L'audit
+// porte désormais sur ce qui se constate SANS accès : les annonces telles
+// que Google les diffuse (Centre de transparence des annonces), les requêtes
+// sur lesquelles elles sortent ou non, la concurrence, la page d'arrivée et
+// les balises de mesure posées sur le site. Ce qui ne se voit que dans le
+// compte est listé comme « à vérifier », jamais présenté comme constaté.
 const COMPTE: AuditTrackContent = {
   track: "compte",
   href: "/audit",
@@ -59,34 +67,38 @@ const COMPTE: AuditTrackContent = {
   meta: {
     title: "Audit Google Ads gratuit",
     description:
-      "Je regarde votre compte et je vous écris ce que j'y vois : où part le budget, ce que vaut votre suivi, quoi corriger en premier. Sous 48 h ouvrées.",
+      "Vos campagnes vues de l'extérieur, comme vos clients les voient : annonces, requêtes, concurrents, page d'arrivée et suivi. Sans accès à votre compte, sous 48 h.",
   },
   eyebrow: "Audit gratuit, campagnes en cours",
-  h1: "Je regarde votre compte, et je vous écris ce que j'y vois.",
-  lede: "Requêtes hors sujet payées chaque jour, conversions qui ne remontent pas, structure qui empêche d'arbitrer : la plupart des comptes perdent du budget sans que personne ne le voie. L'audit chiffre ces fuites et vous les montre, captures à l'appui.",
+  h1: "Vos campagnes vues de l'extérieur, comme vos clients les voient.",
+  lede: "Tout ce qu'un client voit de votre publicité se vérifie sans entrer dans votre compte : les annonces que Google diffuse en votre nom, les recherches sur lesquelles vous apparaissez (ou pas), ce que promettent vos concurrents à côté, la page où vous envoyez les visiteurs et la façon dont le suivi y est posé. L'audit rassemble ces constats, captures à l'appui, et liste à part ce qui ne se vérifie que dans le compte.",
   stats: [
     { k: "Prix", v: "Gratuit" },
     { k: "Délai", v: AUDIT_DELAY },
     { k: "Format", v: "Rapport écrit" },
-    { k: "Suite", v: "Aucune obligation" },
+    { k: "Accès au compte", v: "Aucun" },
   ],
   includesTitle: "Ce que contient le rapport",
   includes: [
     {
-      t: "L'état de la mesure",
-      d: "Je teste vos conversions pour de vrai : j'appelle le numéro, j'envoie le formulaire, et je vous montre ce qui remonte, ce qui est compté deux fois et ce qui manque.",
+      t: "Vos annonces, telles que Google les diffuse",
+      d: "Relevées dans le Centre de transparence des annonces de Google, qui rend publiques les annonces de chaque annonceur : ce qu'elles disent, ce qu'elles promettent, et ce qu'elles oublient de dire.",
     },
     {
-      t: "Où part le budget",
-      d: "Lecture du rapport de termes de recherche : les requêtes réellement payées, celles qui n'ont rien à voir avec votre activité, et ce qu'elles vous coûtent.",
+      t: "Les recherches où vous êtes absent",
+      d: "Les requêtes que tapent vos clients dans votre zone, leur volume et leur coût au clic, et celles sur lesquelles vos concurrents apparaissent alors que vous non.",
     },
     {
-      t: "La structure du compte",
-      d: "Campagnes, groupes, enchères, exclusions, annonces. Ce qui est en place, ce qui manque, et ce qui est à refaire plutôt qu'à corriger.",
+      t: "Qui est en face de vous",
+      d: "Les annonceurs présents sur vos requêtes et leurs arguments. Votre annonce est lue à côté des leurs : c'est à eux qu'on vous compare.",
     },
     {
-      t: "Le marché et les concurrents",
-      d: "Les requêtes tapées par vos clients, leur volume, leur coût au clic, et les annonceurs déjà présents dessus.",
+      t: "La page où vous envoyez les visiteurs",
+      d: "Regardée comme par quelqu'un qui vient de cliquer : téléphone visible, zone couverte, demande de devis en moins de dix secondes, vitesse de chargement mesurée sur mobile.",
+    },
+    {
+      t: "Le suivi, vu depuis votre site",
+      d: "Les balises Google posées sur la page (Google Ads, GA4, Tag Manager, consentement) et ce qu'elles permettent de mesurer. Ce qui remonte réellement dans votre compte ne se voit pas d'ici : c'est listé comme point à vérifier.",
     },
     {
       t: "Trois actions à faire en premier",
@@ -94,16 +106,16 @@ const COMPTE: AuditTrackContent = {
     },
     {
       t: `Un rapport écrit, sous ${AUDIT_DELAY}`,
-      d: "Avec les captures du compte à l'appui. Il est à vous, que l'on travaille ensemble ensuite ou non.",
+      d: "Chaque constat est accompagné de sa capture ; ce qui demande l'accès au compte est séparé et posé comme une question, jamais comme un fait. Le rapport est à vous, que l'on travaille ensemble ensuite ou non.",
     },
   ],
   wontTitle: "Ce que cet audit ne fera pas",
   wont: [
+    "Entrer dans votre compte. Aucun accès, aucun identifiant ne vous est demandé : vos coûts réels, vos termes de recherche et vos conversions enregistrées restent chez vous. Ils se regardent au démarrage, si l'on travaille ensemble.",
     "Prédire votre coût par demande ou votre chiffre d'affaires : cela dépend de la concurrence, de la saison et de votre taux de transformation, que personne ne connaît à l'avance.",
-    "Corriger votre compte. L'audit constate et priorise ; les modifications sont du travail facturé, ou à faire vous-même avec le rapport.",
+    "Corriger vos campagnes. L'audit constate et priorise ; les modifications sont du travail facturé, ou à faire vous-même avec le rapport.",
     "Refaire votre site. Je signale ce qui freine la conversion, sans intervenir dessus.",
     "Analyser Meta, TikTok, Amazon ou votre référencement naturel : je ne fais que Google Ads.",
-    `Vous être utile si votre budget publicitaire est très inférieur à ${MEDIA_FLOOR.local} : il n'y aurait pas assez de données pour conclure quoi que ce soit.`,
   ],
   faq: [
     {
@@ -112,7 +124,11 @@ const COMPTE: AuditTrackContent = {
     },
     {
       q: "Faut-il me donner accès au compte ?",
-      a: "C'est mieux, en lecture seule, parce que l'essentiel se voit dans le rapport de termes de recherche et dans la configuration des conversions. Sans accès, je peux tout de même faire une analyse de marché et de concurrence à partir de votre site.",
+      a: "Non. L'audit ne porte que sur ce qui est visible de l'extérieur, comme le voient vos clients et vos concurrents. L'accès au compte n'intervient que si l'on travaille ensemble : c'est alors la première chose que je vérifie, notamment les points que le rapport aura laissés en question.",
+    },
+    {
+      q: "Qu'est-ce que l'audit ne peut pas voir, du coup ?",
+      a: "Ce qui n'existe que dans le compte : ce que vous payez réellement par clic, les recherches exactes qui ont déclenché vos annonces, et les conversions enregistrées. Le rapport le dit clairement et transforme ces angles morts en questions précises, plutôt que de les deviner.",
     },
     {
       q: "Et si je n'ai pas encore de campagnes ?",
@@ -129,11 +145,11 @@ const COMPTE: AuditTrackContent = {
   ],
   form: {
     title: "Demander mon audit",
-    subtitle: `Rapport écrit sous ${AUDIT_DELAY} · gratuit · sans contrepartie`,
+    subtitle: `Rapport écrit sous ${AUDIT_DELAY} · gratuit · sans accès à votre compte`,
   },
   closing: {
     title: "Il n'y a rien à perdre à essayer",
-    bullets: ["Gratuit", `Rapport écrit sous ${AUDIT_DELAY}`, "Aucune relance"],
+    bullets: ["Gratuit", `Rapport écrit sous ${AUDIT_DELAY}`, "Aucun accès demandé"],
   },
 };
 

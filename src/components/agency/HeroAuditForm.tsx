@@ -38,7 +38,7 @@ export default function HeroAuditForm() {
         </label>
         <p className="text-caption text-ink-3 mb-3.5">
           Je regarde votre marché, vos concurrents sur Google et — si vous avez déjà des campagnes —
-          votre compte. Vous recevez le rapport sous {TERMS.auditDelay}.
+          vos annonces, sans accès à votre compte. Vous recevez le rapport sous {TERMS.auditDelay}.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-2.5">

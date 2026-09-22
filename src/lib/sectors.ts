@@ -184,10 +184,10 @@ export const SECTORS: Sector[] = [
     plural: "entreprises de débarras et déménagement",
     metaTitle: "Google Ads débarras : filtrer le « gratuit »",
     metaDescription:
-      "Le seul secteur où je pilote un compte réel. Le piège du débarras gratuit, et la saisonnalité qui ruine les budgets mal répartis.",
+      "Le piège du débarras gratuit, et la saisonnalité qui ruine les budgets mal répartis : ce qui sépare un compte rentable d'un compte qui paie pour rien.",
     h1: "Google Ads pour une entreprise de débarras ou de déménagement",
     intro:
-      "C'est le seul métier de cette liste où je pilote un compte réel, au mois, depuis 2026. Ce qui suit ne vient donc pas d'une lecture de documentation : c'est ce que j'ai vu passer dans un rapport de termes de recherche.",
+      "Dans ce métier, le volume de recherche est trompeur : une bonne part des requêtes les plus tapées n'aboutira jamais à un devis payant. Ce qui suit porte sur le tri à faire avant de payer le moindre clic.",
     intent: {
       title: "« Débarras gratuit » est la requête la plus tapée, et la moins rentable",
       body: "Une large part du volume vient de personnes qui cherchent à faire enlever leurs affaires sans payer, en échange de la valeur des biens. Elles cliquent, elles appellent, elles occupent le temps du standard, et elles ne signent jamais un devis payant. Ce sont pourtant les requêtes les plus tapées du secteur. À l'inverse, « débarras succession », « vide maison après décès », « débarras avant travaux » ou « encombrants appartement étage » signalent une contrainte réelle, un délai, et quelqu'un prêt à payer. La séparation entre ces deux mondes est le premier travail à faire, avant toute optimisation d'enchères.",

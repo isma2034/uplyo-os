@@ -242,7 +242,7 @@ const FIT = {
 const FAQS = [
   {
     q: "Je paie déjà des clics et je ne vois rien venir.",
-    a: "C'est le point de départ de l'audit. Dans la majorité des comptes que je regarde, le budget part sur des requêtes hors sujet faute d'exclusions, ou les conversions ne remontent pas correctement — donc les décisions sont prises sur des données fausses. L'audit vous dit lequel des deux vous concerne, avec les captures du compte à l'appui.",
+    a: "Les deux causes les plus fréquentes sont des clics payés sur des recherches hors sujet, faute d'exclusions, et des conversions qui ne remontent pas, donc des décisions prises sur des données fausses. L'audit gratuit regarde ce qui se voit sans entrer dans votre compte : vos annonces, les recherches où elles sortent, la page d'arrivée et le suivi posé sur votre site. Ce qui ne se vérifie que dans le compte est écrit comme une question précise, et c'est la première chose que je regarde si l'on travaille ensemble.",
   },
   {
     q: "Mon agence actuelle ne me montre rien.",
@@ -250,7 +250,7 @@ const FAQS = [
   },
   {
     q: "Je ne sais pas si mon suivi de conversions est juste.",
-    a: "C'est vérifiable en une heure. Je teste chaque conversion réellement (appel, formulaire, demande de devis) et je vous montre ce qui remonte, ce qui est compté deux fois et ce qui manque. Cette vérification fait partie de l'audit gratuit.",
+    a: "Une partie se vérifie depuis votre site, dans l'audit gratuit : quelles balises sont posées, comment, et si le consentement est bien géré. Le reste, ce qui remonte réellement, ce qui est compté deux fois, ce qui manque, se vérifie dans le compte en testant chaque conversion (appel, formulaire, demande de devis). C'est la première étape du setup comme du pilotage.",
   },
   {
     q: "Je n'ai pas le temps de m'en occuper.",

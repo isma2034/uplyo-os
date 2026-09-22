@@ -246,7 +246,7 @@ export default function VillePage({ params }: { params: { slug: string } }) {
               Savoir où vous vous situez dans ce marché
             </h2>
             <p className="text-body-lg text-ink-2 font-light mb-7 max-w-[54ch] mx-auto">
-              L&apos;audit part de votre compte et de votre site, pas d&apos;une moyenne. Il est
+              L&apos;audit part de vos annonces, de votre site et de votre marché, pas d&apos;une moyenne. Il est
               gratuit et vous repartez avec.
             </p>
             <Link href="/audit" className="btn-primary no-underline inline-flex items-center gap-2">

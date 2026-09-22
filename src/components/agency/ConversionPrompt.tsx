@@ -147,7 +147,7 @@ export default function ConversionPrompt() {
         Vous voulez savoir ce que ça donne chez vous ?
       </p>
       <p className="text-body text-ink-2 font-light mb-4">
-        Je regarde votre compte et votre site, et je vous écris ce que j&apos;y vois. Gratuit, sous
+        Je regarde vos annonces, votre marché et votre site, et je vous écris ce que j&apos;y vois. Gratuit, sous
         48 h ouvrées, et vous repartez avec le rapport même si l&apos;on ne travaille pas ensemble.
       </p>
 
