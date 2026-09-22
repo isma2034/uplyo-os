@@ -230,3 +230,96 @@
   60%  { opacity: 1; }
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
+
+/* ══ Refonte « studio » (direction C, 22/09/2026) ══
+   Inspirée de locomotive.ca : typographie immense, filets fins, blanc, et
+   deux courbes d'accélération seulement (relevées dans leur CSS) :
+   --ease-small = easeOutCubic, --ease-big = easeOutQuint. */
+:root {
+  --ease-small: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-big: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto; }
+
+/* Titres géants : le slab en graisse 500 (le 600 empâte à cette taille). */
+.studio-hero,
+.studio-mega,
+.studio-big {
+  font-family: var(--font-display), serif;
+  font-weight: 500;
+}
+.studio-mega {
+  font-size: clamp(2.75rem, 8.2vw, 8.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+/* Le hero doit laisser le formulaire visible sans scroller sur un écran
+   1440×900 : trois lignes maximum, d'où une taille plus contenue que
+   studio-mega (réservé au CTA final). */
+.studio-hero {
+  font-size: clamp(2.5rem, 6.2vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+}
+.studio-big {
+  font-size: clamp(2.125rem, 5vw, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+/* Texte courant plus grand que le reste du site (14 px jugé trop petit). */
+.studio-lead { font-size: clamp(1.125rem, 1.5vw, 1.375rem); line-height: 1.5; }
+.studio-body { font-size: 1.0625rem; line-height: 1.65; }
+.studio-meta { font-size: 0.875rem; line-height: 1.4; }
+
+/* SplitText : chaque ligne est masquée par son parent ; léger débord bas
+   pour ne pas couper les jambages (g, p, q, y). */
+.split-line { padding-bottom: 0.06em; margin-bottom: -0.06em; }
+
+/* Rangée de liste géante : un aplat rouge monte au survol (rideau), le
+   texte passe en blanc. Même geste pour offres, méthode et FAQ. */
+.studio-row {
+  position: relative;
+  isolation: isolate;
+  transition: color 0.5s var(--ease-big);
+}
+.studio-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--eclat);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s var(--ease-big);
+}
+@media (hover: hover) {
+  .studio-row:hover { color: #fff; }
+  .studio-row:hover::before { transform: scaleY(1); transform-origin: top; }
+  .studio-row:hover .studio-row-muted { color: rgba(255, 255, 255, 0.85); }
+  .studio-row:hover .studio-arrow { transform: translateX(0.35em) rotate(-45deg); }
+}
+.studio-row:focus-visible { color: #fff; }
+.studio-row:focus-visible::before { transform: scaleY(1); }
+.studio-arrow { transition: transform 0.6s var(--ease-big); display: inline-block; }
+
+/* Lien souligné qui se trace au survol, de gauche à droite. */
+.studio-link {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.6s var(--ease-big);
+}
+.studio-link:hover, .studio-link:focus-visible { background-size: 100% 1px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-row, .studio-row::before, .studio-arrow, .studio-link { transition: none; }
+}
+
+/* Grille plus large que container-wide (1200) : la typographie géante a
+   besoin de place, comme chez Locomotive (marges fixes, pas de colonne). */
+.container-studio {
+  width: 100%;
+  max-width: 1520px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+}

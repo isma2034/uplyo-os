@@ -78,10 +78,10 @@ const COLUMNS: {
 const LINK_CLASS =
   "inline-flex items-center py-1 text-body text-white/70 font-light no-underline hover:text-white transition-colors";
 
-export default function Footer() {
+export default function Footer({ studio = false }: { studio?: boolean } = {}) {
   return (
     <footer className="bg-nuit border-t-2 border-eclat">
-      <div className="container-wide pt-12 md:pt-16 pb-8">
+      <div className={`${studio ? "container-studio" : "container-wide"} pt-12 md:pt-16 pb-8`}>
         {/* La marque est sortie de la grille de liens : le gabarit precedent
             codait en dur le nombre de colonnes et cassait a chaque rubrique
             ajoutee (trois fois de suite). Les colonnes se repartissent

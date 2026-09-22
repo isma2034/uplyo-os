@@ -38,6 +38,9 @@ export default function Navbar() {
   // /audit/sans-campagne récupérait la navigation complète et se comportait
   // autrement que /audit.
   const minimal = pathname === "/audit" || pathname.startsWith("/audit/");
+  // Refonte « studio » : seule l'accueil l'utilise pour l'instant, la barre
+  // s'aligne alors sur sa grille plus large (container-studio).
+  const container = pathname === "/" ? "container-studio" : "container-wide";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
@@ -77,7 +80,7 @@ export default function Navbar() {
   if (minimal) {
     return (
       <nav className={shell} role="navigation" aria-label="Navigation réduite">
-        <div className="container-wide flex items-center justify-between">
+        <div className={`${container} flex items-center justify-between`}>
           {logo}
           <Link
             href="/"
@@ -93,7 +96,7 @@ export default function Navbar() {
   return (
     <>
       <nav className={shell} role="navigation" aria-label="Navigation principale">
-        <div className="container-wide flex items-center justify-between">
+        <div className={`${container} flex items-center justify-between`}>
           {logo}
 
           <div className="hidden md:flex items-center gap-7">

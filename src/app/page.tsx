@@ -1,14 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
-import { ArrowRight, Check } from "lucide-react";
-import Reveal from "@/components/agency/Reveal";
 import Counter from "@/components/agency/Counter";
 import Navbar from "@/components/agency/Navbar";
 import Footer from "@/components/agency/Footer";
 import Analytics from "@/components/agency/Analytics";
 import ContactForm from "@/components/agency/ContactForm";
-import HeroAuditForm from "@/components/agency/HeroAuditForm";
+import SmoothScroll from "@/components/studio/SmoothScroll";
+import SplitTitle from "@/components/studio/SplitTitle";
+import Scramble from "@/components/studio/Scramble";
+import ExpandingMedia from "@/components/studio/ExpandingMedia";
+import FadeIn from "@/components/studio/FadeIn";
+import StudioAuditForm from "@/components/studio/StudioAuditForm";
 import { MEDIA_FLOOR, TERMS } from "@/lib/offers";
 
 export const metadata: Metadata = {
@@ -272,6 +275,12 @@ const FAQS = [
   },
 ];
 
+// ── Refonte « studio » (direction C, 22/09/2026) ──
+// Mise en page inspirée de locomotive.ca : typographie géante, filets fins,
+// très peu de cadres. Le contenu (textes, chiffres, conditions) est
+// strictement celui de la version précédente — seule la forme change.
+// Chaque animation a son composant dans src/components/studio/ et respecte
+// prefers-reduced-motion.
 export default function HomePage() {
   return (
     <div className="bg-surface-1 text-ink overflow-x-clip">
@@ -280,536 +289,329 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
       />
       <Analytics />
+      <SmoothScroll />
       <Navbar />
 
       {/* ═══ 1. HERO ═══ */}
-      <section className="pt-[104px] md:pt-[128px] pb-14 md:pb-20">
-        <div className="container-wide grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
-          <div>
-            <p
-              className="text-caption font-semibold text-eclat-ink mb-5 motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both]"
-            >
-              Consultant Google Ads indépendant
-            </p>
-            <h1
-              className="text-hero font-semibold text-ink mb-6 motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both] motion-safe:[animation-delay:70ms]"
-            >
-              Des demandes de devis qui rentrent — et un coût par demande que
-              vous voyez.
-            </h1>
-            <p
-              className="text-lead text-ink-2 max-w-[54ch] mb-7 font-light motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both] motion-safe:[animation-delay:140ms]"
-            >
-              Je m&apos;appelle Ismael. Je construis et je pilote des campagnes
-              Google Ads : artisans, prestataires, commerces, e-commerce. Je
-              fais le travail, et je vous montre le compte pendant que je le
-              fais.
-            </p>
-            {/* Le hero dit « Je m'appelle Ismael » et « pas d'intermediaire » :
-                sans visage, c'est une affirmation comme une autre. Le portrait
-                est ici le seul element de preuve disponible tant que la page
-                ne peut citer qu'un client. Format compact — il appuie le texte,
-                il ne lui vole pas la place. */}
-            <div
-              className="flex items-center gap-3.5 mb-8 max-w-[54ch] motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both] motion-safe:[animation-delay:210ms]"
-            >
-              <Image
-                src="/images/ismael-portrait.webp"
-                alt="Ismael, consultant Google Ads indépendant et fondateur d'Uplyo"
-                width={56}
-                height={56}
-                priority
-                className="rounded-full bg-surface-2 object-cover object-top shrink-0"
-              />
-              <p className="text-body text-ink-3 font-light">
-                Pas de chargé de compte, pas d&apos;intermédiaire : la personne
-                qui vous répond est celle qui ouvre votre compte.{" "}
-                <Link
-                  href="/a-propos"
-                  className="text-eclat-ink font-medium underline underline-offset-4"
-                >
-                  Qui je suis
-                </Link>
-                .
+      <section className="pt-[104px] md:pt-[128px] pb-12 md:pb-20">
+        <div className="container-studio">
+          <div className="flex items-baseline justify-between gap-6 mb-6 md:mb-8 studio-meta text-ink-3">
+            <Scramble text="Consultant Google Ads indépendant" className="font-mono text-eclat-ink" />
+            <span className="hidden md:inline">Audit gratuit sous {TERMS.auditDelay}</span>
+          </div>
+
+          <SplitTitle as="h1" immediate className="studio-hero text-ink max-w-[22ch]">
+            Des demandes de devis qui rentrent. Un coût par demande que vous voyez.
+          </SplitTitle>
+
+          <div className="mt-8 md:mt-12 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-20 items-end">
+            <FadeIn>
+              <p className="studio-lead text-ink-2 max-w-[40ch]">
+                Je m&apos;appelle Ismael. Je construis et je pilote des campagnes
+                Google Ads pour artisans, prestataires, commerces et e-commerce,
+                et je vous montre le compte pendant que je le fais.
               </p>
-            </div>
-            <ul
-              className="flex flex-wrap items-center gap-x-5 gap-y-2 motion-safe:animate-[hero-rise_.6s_cubic-bezier(0.16,1,0.3,1)_both] motion-safe:[animation-delay:270ms]"
-            >
-              {[
-                "Aucun engagement de durée",
-                "Vous restez propriétaire du compte",
-                `Audit gratuit sous ${TERMS.auditDelay}`,
-              ].map((t) => (
-                <li
-                  key={t}
-                  className="flex items-center gap-1.5 text-caption text-ink-2"
-                >
-                  <Check
-                    size={13}
-                    className="text-eclat-ink shrink-0"
-                    aria-hidden="true"
-                  />
-                  {t}
+            </FadeIn>
+            <FadeIn>
+              <StudioAuditForm />
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 2. IMAGE QUI S'ÉLARGIT ═══
+          Photo libre de droits (Pexels), traitée en duoton rouge/encre.
+          Décorative, d'où l'alt vide. */}
+      <ExpandingMedia className="h-[62vh] md:h-[88vh] max-h-[960px]">
+        {/* Duoton pré-calculé dans le fichier : les
+            deux calques mix-blend-multiply faisaient recalculer le mélange à
+            chaque image pendant le scrub, visible sur une machine modeste. */}
+        <Image
+          src="/images/audit-desk-duotone.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover"
+        />
+      </ExpandingMedia>
+
+      {/* ═══ 3. ENGAGEMENTS ═══ */}
+      <section className="py-20 md:py-36">
+        <div className="container-studio">
+          <SplitTitle className="studio-big text-ink max-w-[20ch] mb-14 md:mb-24">
+            Un seul interlocuteur, votre compte à votre nom, et aucune durée
+            d&apos;engagement.
+          </SplitTitle>
+          <FadeIn as="dl" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-ink">
+            {ENGAGEMENTS.map((e, i) => (
+              <div
+                key={e.k}
+                className={`py-6 sm:pr-8 border-b border-line lg:border-b-0 ${i > 0 ? "lg:border-l lg:pl-8" : ""}`}
+              >
+                <dt className="studio-meta text-ink-3 mb-6 font-mono">
+                  0{i + 1} — {e.k}
+                </dt>
+                <dd>
+                  <div className="font-display text-[1.75rem] leading-tight text-ink mb-2">{e.v}</div>
+                  <div className="studio-body text-ink-2">{e.d}</div>
+                </dd>
+              </div>
+            ))}
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ═══ 4. CHIFFRES ═══
+          Chiffres réels du client 1, publiés avec son accord oral et à
+          condition qu'il reste non identifiable (voir RESULTS). */}
+      <section className="bg-nuit text-white py-20 md:py-36">
+        <div className="container-studio">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-20 mb-14 md:mb-20">
+            <SplitTitle className="studio-big">
+              Un seul client à ce jour. Voici ses chiffres.
+            </SplitTitle>
+            <FadeIn as="ul" className="self-end flex flex-col gap-3 studio-body text-white/75">
+              {WORK.map((w) => (
+                <li key={w} className="flex gap-3">
+                  <span aria-hidden="true" className="text-spark">—</span>
+                  {w}
                 </li>
               ))}
-            </ul>
+            </FadeIn>
           </div>
 
-          <div className="motion-safe:animate-[hero-stamp_.6s_cubic-bezier(0.22,1,0.36,1)_both] motion-safe:[animation-delay:200ms]">
-            <HeroAuditForm />
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 2. BANDEAU ENGAGEMENTS (statique) ═══ */}
-      <section className="bg-nuit">
-        <div className="container-wide py-9 md:py-11">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-7">
-            {ENGAGEMENTS.map((e) => (
-              <div key={e.k} className="border-l-2 border-spark pl-4">
-                <div className="label text-spark mb-1.5">{e.k}</div>
-                <div className="text-body-lg font-semibold text-white leading-snug">
-                  {e.v}
+          <FadeIn className="border-t border-white/25">
+            {RESULTS.map((r) => (
+              <div
+                key={r.label}
+                className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] items-end gap-2 md:gap-10 py-6 md:py-8 border-b border-white/25"
+              >
+                <div className="font-display font-medium tabular-nums leading-none tracking-[-0.03em] text-[clamp(3.5rem,11vw,10rem)] text-white">
+                  <Counter value={r.value} decimals={r.decimals ?? 0} prefix={r.prefix} suffix={r.suffix} />
                 </div>
-                <div className="text-caption text-white/80 mt-1 font-light">
-                  {e.d}
-                </div>
+                <p className="studio-lead text-white/75 md:pb-4 max-w-[28ch]">{r.label}</p>
               </div>
             ))}
-          </div>
+          </FadeIn>
+          <p className="mt-6 studio-meta text-white/60">
+            PME de services à la personne, activité locale en France, accompagnée depuis 2026.
+          </p>
         </div>
       </section>
 
-      {/* ═══ 3. LA MÉTHODE J0 → J5 ═══ */}
-      <section className="section">
-        <div className="container-wide">
-          <Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-8 md:gap-10 items-end mb-10 md:mb-14">
-              <div className="max-w-text">
-                <p className="text-caption font-semibold text-eclat-ink mb-4">Le plan de travail</p>
-                <h2 className="text-display font-semibold text-ink mb-4">
-                  Cinq jours, cinq livrables. Vous savez à l&apos;avance ce qui
-                  sort chaque jour.
-                </h2>
-                <p className="text-body-lg text-ink-2 font-light">
-                  C&apos;est la partie du travail que les agences décrivent le
-                  moins et que vous payez pourtant en premier. La voici en entier.
-                </p>
-              </div>
-              {/* Photo d'illustration (banque libre de droits, licence Pexels —
-                  usage commercial libre, aucune attribution requise), traitee
-                  en duoton rouge/encre pour rester dans la palette du site
-                  plutot que d'importer une photo stock en couleurs franches.
-                  Purement atmospherique : ne represente ni Ismael ni un client
-                  reel, d'ou l'alt vide (decoratif, le texte adjacent porte deja
-                  le sens). Masquee sur mobile plutot que reduite en timbre-poste. */}
-              <div className="relative hidden md:block aspect-[4/3] rounded-card overflow-hidden border border-line">
-                <Image
-                  src="/images/audit-desk.jpg"
-                  alt=""
-                  fill
-                  sizes="320px"
-                  className="object-cover grayscale contrast-125"
-                />
-                <div className="absolute inset-0 bg-eclat mix-blend-multiply opacity-[0.2]" aria-hidden="true" />
-                <div className="absolute inset-0 bg-nuit mix-blend-multiply opacity-[0.1]" aria-hidden="true" />
-              </div>
-            </div>
-          </Reveal>
+      {/* ═══ 5. LA MÉTHODE J0 → J5 ═══ */}
+      <section className="py-20 md:py-36">
+        <div className="container-studio">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-20 items-end mb-12 md:mb-20">
+            <SplitTitle className="studio-big">
+              Cinq jours, cinq livrables.
+            </SplitTitle>
+            <FadeIn>
+              <p className="studio-lead text-ink-2 max-w-[42ch]">
+                C&apos;est la partie du travail que les agences décrivent le moins
+                et que vous payez pourtant en premier. La voici en entier.
+              </p>
+            </FadeIn>
+          </div>
 
-          <ol className="border-t border-line">
-            {PLAN.map((s, i) => (
-              <Reveal
-                as="li"
+          <FadeIn as="ol" className="border-t border-ink">
+            {PLAN.map((s) => (
+              <li
                 key={s.day}
-                delay={i * 70}
-                className="grid grid-cols-1 md:grid-cols-[92px_1fr_260px] gap-3 md:gap-8 py-6 md:py-7 border-b border-line"
+                className="studio-row grid grid-cols-[3.5rem_1fr] md:grid-cols-[6rem_1.1fr_1.4fr_14rem] gap-x-4 md:gap-x-10 gap-y-2 py-7 md:py-9 px-2 md:px-4 border-b border-line"
               >
-                <div className="font-mono text-body font-medium text-eclat-ink">
-                  {s.day}
+                <div className="font-mono studio-body text-eclat-ink studio-row-muted pt-1">{s.day}</div>
+                <h3 className="font-display text-[clamp(1.5rem,2.4vw,2.25rem)] leading-tight">{s.t}</h3>
+                <p className="col-start-2 md:col-start-auto studio-body text-ink-2 studio-row-muted max-w-[56ch]">{s.d}</p>
+                <div className="col-start-2 md:col-start-auto studio-meta md:text-right">
+                  <div className="text-ink-3 studio-row-muted">Livrable</div>
+                  <div className="font-semibold">{s.out}</div>
                 </div>
-                <div>
-                  <h3 className="text-title font-semibold text-ink mb-1.5">
-                    {s.t}
-                  </h3>
-                  <p className="text-body text-ink-2 font-light max-w-[62ch]">
-                    {s.d}
-                  </p>
-                </div>
-                <div className="md:text-right">
-                  <div className="label text-ink-3 mb-1">Livrable</div>
-                  <div className="text-body text-ink font-medium">{s.out}</div>
-                </div>
-              </Reveal>
+              </li>
             ))}
-          </ol>
+          </FadeIn>
         </div>
       </section>
 
-      {/* ═══ 4. PREUVE DE TRAVAIL ═══ */}
-      <section className="section bg-surface-2">
-        <div className="container-wide grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16">
-          <Reveal>
-            <div className="lg:sticky lg:top-24 self-start">
-              <p className="text-caption font-semibold text-eclat-ink mb-4">Preuve de travail</p>
-              <h2 className="text-section font-semibold text-ink mb-4">
-                Un seul client à ce jour. Voici ce que j&apos;ai fait pour lui.
-              </h2>
-              <p className="text-body text-ink-2 font-light">
-                PME de services à la personne, activité locale en France.
-                Accompagnée depuis 2026.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <div>
-              <ul className="bg-white border border-line rounded-card divide-y divide-line">
-                {WORK.map((w) => (
-                  <li key={w} className="flex gap-3 p-5">
-                    <Check
-                      size={16}
-                      className="text-eclat-ink shrink-0 mt-0.5"
-                      aria-hidden="true"
-                    />
-                    <span className="text-body text-ink-2 font-light">{w}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Chiffres réels de ce client, publiés avec son accord oral —
-                  voir la note sur RESULTS plus haut. Comptés au scroll
-                  (Counter) pour rester cohérent avec le MarketReadout. */}
-              <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {RESULTS.map((r) => (
-                  <div
-                    key={r.label}
-                    className="bg-white border border-line rounded-card p-5 transition-colors duration-200 hover:border-eclat-ink"
-                  >
-                    <div className="font-mono text-title font-semibold text-eclat-ink tabular-nums">
-                      <Counter value={r.value} decimals={r.decimals ?? 0} prefix={r.prefix} suffix={r.suffix} />
-                    </div>
-                    <p className="text-caption text-ink-2 font-light mt-1">{r.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ═══ 5. LES OFFRES ═══ */}
-      <section className="section" id="offres">
-        <div className="container-wide">
-          <Reveal>
-            <div className="max-w-text mb-10 md:mb-14">
-              <p className="text-caption font-semibold text-eclat-ink mb-4">Les prestations</p>
-              <h2 className="text-display font-semibold text-ink mb-4">
-                On construit, puis on pilote. Deux étapes, pas trois formules
-                concurrentes.
-              </h2>
-              <p className="text-body-lg text-ink-2 font-light">
-                Le setup peut se prendre seul. Le pilotage suppose que le compte
-                ait été construit — par moi ou par quelqu&apos;un d&apos;autre.
-              </p>
-            </div>
-          </Reveal>
-
-          {/* Budget plancher — visible sans clic (il était enterré dans la FAQ) */}
-          <Reveal>
-            <div className="bg-surface-2 border border-line-strong rounded-card p-5 md:p-6 mb-8 grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-5 sm:gap-8 items-center">
-              <div>
-                <div className="label text-ink-3 mb-1.5">
-                  Budget publicitaire minimum
-                </div>
-                <p className="text-body text-ink-2 font-light max-w-[52ch]">
-                  Réglé directement par vous à Google. Ce n&apos;est pas mon
-                  honoraire, et je ne prends aucune commission dessus.
-                </p>
-              </div>
-              <div className="sm:border-l sm:border-line-strong sm:pl-8">
-                <div className="text-title font-semibold text-ink">
-                  {MEDIA_FLOOR.local}
-                </div>
-                <div className="text-caption text-ink-3">
-                  Activité locale / services
-                </div>
-              </div>
-              <div className="sm:border-l sm:border-line-strong sm:pl-8">
-                <div className="text-title font-semibold text-ink">
-                  {MEDIA_FLOOR.ecommerce}
-                </div>
-                <div className="text-caption text-ink-3">E-commerce</div>
-              </div>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {OFFERS.map((o, i) => (
-              <Reveal key={o.title} delay={i * 100}>
-                <div className="bg-white border border-line rounded-card p-6 md:p-8 h-full flex flex-col shadow-card transition-all duration-200 hover:-translate-y-1 hover:border-eclat-ink">
-                  <div className="label text-ink-3 mb-3">{o.tag}</div>
-                  <h3 className="text-title font-semibold text-ink mb-2">
-                    {o.title}
-                  </h3>
-                  <p className="text-body text-ink-2 font-light mb-5">
-                    {o.desc}
-                  </p>
-                  <ul className="flex flex-col gap-2 mb-6 flex-1">
-                    {o.items.map((it) => (
-                      <li
-                        key={it}
-                        className="flex gap-2.5 text-body text-ink-2 font-light"
-                      >
-                        <Check
-                          size={15}
-                          className="text-eclat-ink shrink-0 mt-1"
-                          aria-hidden="true"
-                        />
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="border-t border-line pt-5">
-                    <div className="text-body-lg font-semibold text-ink">
-                      {o.fee}
-                    </div>
-                    <div className="text-caption text-ink-3 mb-4">
-                      {o.feeNote}
-                    </div>
-                    {/* svc.href était défini mais jamais utilisé : toutes les
-                        cartes pointaient en dur vers /audit, et les pages
-                        offres ne recevaient aucun trafic interne. */}
-                    <Link
-                      href={o.href}
-                      className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4"
-                    >
-                      {o.linkLabel}
-                      <ArrowRight size={15} aria-hidden="true" />
-                    </Link>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+      {/* ═══ 6. LES OFFRES ═══ */}
+      <section className="pb-20 md:pb-36" id="offres">
+        <div className="container-studio">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
+            <SplitTitle className="studio-big max-w-[16ch]">
+              On construit, puis on pilote.
+            </SplitTitle>
+            <p className="studio-body text-ink-2 max-w-[38ch]">
+              Le setup peut se prendre seul. Le pilotage suppose que le compte ait
+              été construit, par moi ou par quelqu&apos;un d&apos;autre.
+            </p>
           </div>
 
-          <Reveal>
-            <div className="mt-5 border border-line rounded-card p-5 md:p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between transition-colors duration-200 hover:border-eclat-ink">
-              <div>
-                <div className="text-body font-semibold text-ink mb-1">
-                  Vous vendez en ligne ? Module e-commerce en complément
-                </div>
-                <p className="text-body text-ink-2 font-light max-w-[62ch]">
-                  Google Shopping, Performance Max et flux produit
-                  s&apos;ajoutent au pilotage. Ce n&apos;est pas une offre
-                  séparée, et le budget publicitaire minimum y passe à{" "}
-                  {MEDIA_FLOOR.ecommerce}.
-                </p>
-              </div>
+          <FadeIn className="border-t border-ink">
+            {[
+              ...OFFERS.map((o) => ({ tag: o.tag, title: o.title, desc: o.desc, note: o.feeNote, href: o.href })),
+              {
+                tag: "Complément",
+                title: "Le module e\u2011commerce",
+                desc: `Google Shopping, Performance Max et flux produit, ajoutés au pilotage. Budget publicitaire minimum : ${MEDIA_FLOOR.ecommerce}.`,
+                note: "S'ajoute au pilotage",
+                href: "/offres/ecommerce",
+              },
+            ].map((o) => (
               <Link
-                href="/offres/ecommerce"
-                className="inline-flex items-center gap-1.5 py-1 text-body font-semibold text-eclat-ink no-underline hover:underline underline-offset-4 whitespace-nowrap"
+                key={o.title}
+                href={o.href}
+                className="studio-row group grid grid-cols-1 md:grid-cols-[8rem_1fr_24rem_3rem] items-center gap-x-10 gap-y-3 py-8 md:py-11 px-2 md:px-4 border-b border-line text-ink no-underline"
               >
-                Voir le module
-                <ArrowRight size={15} aria-hidden="true" />
+                <span className="studio-meta font-mono text-ink-3 studio-row-muted">{o.tag}</span>
+                <span className="font-display font-medium text-[clamp(2.25rem,5.4vw,5rem)] leading-none tracking-[-0.025em]">
+                  {o.title}
+                </span>
+                <span className="studio-body text-ink-2 studio-row-muted">
+                  {o.desc}
+                  <span className="block mt-1 studio-meta">{o.note} · honoraires sur devis</span>
+                </span>
+                <span aria-hidden="true" className="studio-arrow hidden md:inline-block text-[2rem] justify-self-end">→</span>
               </Link>
-            </div>
-          </Reveal>
+            ))}
+          </FadeIn>
 
-          {/* Pour qui / pour qui ce n'est pas */}
-          <Reveal>
-            <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="bg-white border border-line rounded-card p-6">
-                <div className="text-caption font-semibold text-eclat-ink mb-4">
-                  C&apos;est fait pour vous si
-                </div>
-                <ul className="flex flex-col gap-2.5">
-                  {FIT.yes.map((t) => (
-                    <li
-                      key={t}
-                      className="flex gap-2.5 text-body text-ink-2 font-light"
-                    >
-                      <Check
-                        size={15}
-                        className="text-eclat-ink shrink-0 mt-1"
-                        aria-hidden="true"
-                      />
+          <FadeIn className="mt-8 flex flex-col md:flex-row md:items-baseline gap-2 md:gap-10 studio-body text-ink-2">
+            <span className="font-semibold text-ink">Budget publicitaire minimum</span>
+            <span>
+              {MEDIA_FLOOR.local} en activité locale, {MEDIA_FLOOR.ecommerce} en
+              e-commerce, réglé directement par vous à Google. Je ne prends aucune
+              commission dessus.
+            </span>
+          </FadeIn>
+
+          <div className="mt-20 md:mt-28 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+            {[
+              { title: "C'est fait pour vous si", items: FIT.yes, mark: "+" },
+              { title: "Ne me contactez pas si", items: FIT.no, mark: "—" },
+            ].map((col) => (
+              <div key={col.title}>
+                <h3 className="font-display text-[clamp(1.5rem,2.4vw,2.25rem)] mb-6">{col.title}</h3>
+                <FadeIn as="ul" className="border-t border-ink">
+                  {col.items.map((t) => (
+                    <li key={t} className="flex gap-4 py-4 border-b border-line studio-body text-ink-2">
+                      <span aria-hidden="true" className="font-mono text-eclat-ink">{col.mark}</span>
                       {t}
                     </li>
                   ))}
-                </ul>
+                </FadeIn>
               </div>
-              <div className="bg-surface-2 border border-line rounded-card p-6">
-                <div className="label text-ink-3 mb-4">
-                  Ne me contactez pas si
-                </div>
-                <ul className="flex flex-col gap-2.5">
-                  {FIT.no.map((t) => (
-                    <li
-                      key={t}
-                      className="flex gap-2.5 text-body text-ink-2 font-light"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="text-ink-3 font-semibold shrink-0 leading-6"
-                      >
-                        —
-                      </span>
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ═══ 6. QUI GÈRE VOTRE COMPTE ═══ */}
-      <section className="section bg-nuit">
-        <div className="container-wide grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-14 items-start">
-          <Reveal>
-            {/* Second emplacement photo de l'accueil — celui-ci etait reste
-                vide alors que le portrait avait ete pose ailleurs. C'est la
-                section « Qui gere votre compte » : un cadre en pointilles
-                marque « Photo a venir » juste au-dessus de « c'est moi qui
-                fais le travail » disait exactement l'inverse du propos.
-                Fond sombre ici (bg-nuit), d'ou le panneau translucide plutot
-                que surface-2 comme sur /a-propos. */}
-            <div className="aspect-[4/5] w-full max-w-[280px] rounded-card bg-white/[0.06] overflow-hidden relative">
+      {/* ═══ 7. QUI GÈRE VOTRE COMPTE ═══
+          Composition éditoriale à la Locomotive : un portrait central, de
+          courtes étiquettes posées autour, le texte à côté. */}
+      <section className="bg-surface-2 py-20 md:py-36">
+        <div className="container-studio grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-center">
+          <div className="relative mx-auto w-full max-w-[460px] lg:max-w-none px-20 md:px-28">
+            <span className="absolute left-0 top-6 z-10 studio-meta text-ink-3">Fondateur</span>
+            <span className="absolute right-0 top-1/3 z-10 studio-meta text-ink-3 text-right">Un seul<br />interlocuteur</span>
+            <span className="absolute left-0 bottom-10 z-10 studio-meta text-ink-3">Depuis 2026</span>
+            <ExpandingMedia className="aspect-[4/5] w-full">
               <Image
                 src="/images/ismael-portrait.webp"
                 alt="Ismael, consultant Google Ads indépendant et fondateur d'Uplyo"
                 fill
-                sizes="280px"
-                className="object-cover object-top"
+                sizes="(min-width: 1024px) 40vw, 90vw"
+                className="object-cover object-top grayscale"
               />
-            </div>
-          </Reveal>
+            </ExpandingMedia>
+          </div>
 
-          <Reveal delay={100}>
-            <div>
-              <p className="label text-spark mb-4">Qui gère votre compte</p>
-              <h2 className="text-section font-semibold text-white mb-5">
-                Ismael. C&apos;est moi qui vous réponds, et c&apos;est moi qui
-                fais le travail.
-              </h2>
-              <div className="flex flex-col gap-4 max-w-[62ch]">
-                <p className="text-body-lg text-white/80 font-light">
-                  Uplyo n&apos;est pas une agence avec des équipes : c&apos;est
-                  une activité indépendante, la mienne. Cela a une conséquence
-                  que vous devez connaître avant de travailler avec moi — il
-                  n&apos;y a personne pour reprendre le compte si je suis
-                  absent, et je limite donc volontairement le nombre de comptes
-                  que je pilote.
-                </p>
-                <p className="text-body-lg text-white/80 font-light">
-                  En contrepartie, il n&apos;y a aucun écart entre ce qui vous
-                  est vendu et ce qui est exécuté, et vous n&apos;attendez
-                  jamais qu&apos;une information redescende d&apos;un service à
-                  un autre.
-                </p>
-              </div>
-              <Link
-                href="/a-propos"
-                className="inline-flex items-center gap-1.5 mt-6 py-1 text-body font-semibold text-spark no-underline hover:underline underline-offset-4"
-              >
-                Mon parcours, et ce que je ne sais pas faire
-                <ArrowRight size={15} aria-hidden="true" />
+          <div>
+            <SplitTitle className="studio-big mb-8">
+              C&apos;est moi qui vous réponds, et moi qui fais le travail.
+            </SplitTitle>
+            <FadeIn className="flex flex-col gap-5 max-w-[56ch] studio-body text-ink-2">
+              <p>
+                Uplyo n&apos;est pas une agence avec des équipes : c&apos;est une
+                activité indépendante, la mienne. Il n&apos;y a donc personne pour
+                reprendre le compte si je suis absent, et je limite volontairement
+                le nombre de comptes que je pilote.
+              </p>
+              <p>
+                En contrepartie, il n&apos;y a aucun écart entre ce qui vous est
+                vendu et ce qui est exécuté, et vous n&apos;attendez jamais
+                qu&apos;une information redescende d&apos;un service à un autre.
+              </p>
+              <Link href="/a-propos" className="studio-link self-start font-semibold text-eclat-ink no-underline">
+                Mon parcours, et ce que je ne sais pas faire →
               </Link>
-            </div>
-          </Reveal>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
-      {/* ═══ 7. OBJECTIONS / FAQ ═══ */}
-      <section className="section">
-        <div className="container-wide grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-16">
-          <Reveal>
-            <div className="lg:sticky lg:top-24 self-start">
-              <p className="text-caption font-semibold text-eclat-ink mb-4">Objections</p>
-              <h2 className="text-section font-semibold text-ink mb-4">
-                Les questions qu&apos;on me pose avant de signer
-              </h2>
-              <p className="text-body text-ink-2 font-light">
-                Y compris celles qui n&apos;arrangent pas. S&apos;il en manque
-                une, posez-la dans le formulaire en bas de page.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <div className="border-t border-line">
-              {FAQS.map((faq) => (
-                <details key={faq.q} className="group border-b border-line">
-                  <summary className="py-4 flex items-start justify-between gap-6 cursor-pointer text-body-lg font-medium text-ink list-none transition-colors duration-200 hover:text-eclat-ink">
-                    {faq.q}
-                    <span
-                      aria-hidden="true"
-                      className="text-eclat-ink text-xl leading-6 shrink-0 transition-transform duration-300 group-open:rotate-45"
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <p className="pb-5 pr-8 text-body text-ink-2 leading-relaxed font-light max-w-[68ch]">
-                    {faq.a}
-                  </p>
-                </details>
-              ))}
-            </div>
-          </Reveal>
+      {/* ═══ 8. OBJECTIONS / FAQ ═══ */}
+      <section className="py-20 md:py-36">
+        <div className="container-studio grid grid-cols-1 lg:grid-cols-[0.8fr_1.4fr] gap-10 lg:gap-20">
+          <div className="lg:sticky lg:top-28 self-start">
+            <SplitTitle className="studio-big mb-6">Les questions qu&apos;on me pose avant de signer.</SplitTitle>
+            <p className="studio-body text-ink-2 max-w-[36ch]">
+              Y compris celles qui n&apos;arrangent pas. S&apos;il en manque une,
+              posez-la dans le formulaire en bas de page.
+            </p>
+          </div>
+          <FadeIn className="border-t border-ink">
+            {FAQS.map((faq) => (
+              <details key={faq.q} className="group border-b border-line">
+                <summary className="studio-row flex items-start justify-between gap-6 cursor-pointer list-none py-6 px-2 md:px-4 font-display text-[clamp(1.25rem,1.9vw,1.75rem)] leading-snug">
+                  {faq.q}
+                  <span aria-hidden="true" className="font-sans text-2xl leading-none text-eclat-ink studio-row-muted transition-transform duration-500 group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="px-2 md:px-4 pb-7 pt-1 studio-body text-ink-2 max-w-[64ch]">{faq.a}</p>
+              </details>
+            ))}
+          </FadeIn>
         </div>
       </section>
 
-      {/* ═══ 8. CTA FINAL + FORMULAIRE ═══
-          Seul bloc bg-eclat de la page. Sur ce fond, seul le blanc pur atteint
-          AA (4.86:1) : aucune opacité de texte ici. */}
-      <section className="bg-eclat" id="contact">
-        <div className="container-wide py-16 md:py-24 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-start">
-          <Reveal>
-            <div>
-              <p className="label text-white mb-4">Pour démarrer</p>
-              <h2 className="text-display font-semibold text-white mb-5">
-                Dites-moi ce que vous vendez. Je vous dis si Google Ads en vaut
-                la peine.
-              </h2>
-              <p className="text-lead text-white mb-8 font-light max-w-[52ch]">
-                Vous recevez un audit écrit sous {TERMS.auditDelay}. S&apos;il
-                en ressort que votre marché ne justifie pas de budget
-                publicitaire, je vous le dirai — c&apos;est déjà arrivé.
+      {/* ═══ 9. CTA FINAL + FORMULAIRE ═══
+          Sur bg-eclat, seul le blanc pur atteint AA (4.86:1). */}
+      <section className="bg-eclat text-white" id="contact">
+        <div className="container-studio py-20 md:py-32">
+          <SplitTitle className="studio-mega max-w-[12ch] mb-12 md:mb-20">
+            Dites-moi ce que vous vendez.
+          </SplitTitle>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-start">
+            <FadeIn className="flex flex-col gap-6">
+              <p className="studio-lead max-w-[40ch]">
+                Je vous dis si Google Ads en vaut la peine. Vous recevez un audit
+                écrit sous {TERMS.auditDelay}. S&apos;il en ressort que votre marché
+                ne justifie pas de budget publicitaire, je vous le dirai : c&apos;est
+                déjà arrivé.
               </p>
-              <ul className="flex flex-col gap-2.5">
+              <ul className="border-t border-white/40">
                 {[
                   "Gratuit, et sans contrepartie",
                   "Réponse sous 24 h ouvrées",
                   "Aucun rappel commercial si vous ne le demandez pas",
                 ].map((t) => (
-                  <li
-                    key={t}
-                    className="flex items-center gap-2 text-body text-white"
-                  >
-                    <Check size={15} className="shrink-0" aria-hidden="true" />
-                    {t}
-                  </li>
+                  <li key={t} className="py-3 border-b border-white/40 studio-body">{t}</li>
                 ))}
               </ul>
-              <a
-                href="mailto:contact@uplyo.fr"
-                className="inline-flex items-center mt-8 py-1 text-body font-semibold text-white underline underline-offset-4"
-              >
+              <a href="mailto:contact@uplyo.fr" className="studio-link self-start studio-lead font-semibold text-white no-underline">
                 contact@uplyo.fr
               </a>
-            </div>
-          </Reveal>
-
-          <Reveal delay={120}>
-            <ContactForm />
-          </Reveal>
+            </FadeIn>
+            <FadeIn>
+              <ContactForm />
+            </FadeIn>
+          </div>
         </div>
       </section>
 
-      <Footer />
+      <Footer studio />
     </div>
   );
 }
